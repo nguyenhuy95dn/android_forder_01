@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Foder</string>
+    <string name="app_name">Forder</string>
+    <string name="title_email">Email Address</string>
+    <string name="title_password">Password</string>
+    <string name="action_forgot_password">Forgot password?</string>
+    <string name="action_login">Login</string>
 </resources>
