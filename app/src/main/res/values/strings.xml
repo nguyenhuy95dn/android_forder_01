@@ -4,4 +4,14 @@
     <string name="title_password">Password</string>
     <string name="action_forgot_password">Forgot password?</string>
     <string name="action_login">Login</string>
+    <string name="title_spinner">Spinner</string>
+    <string name="title_search_view">Search</string>
+    <string name="title_shopping_card">Shopping card</string>
+    <string name="title_more">More</string>
+    <string name="title_username">Username</string>
+    <string name="title_notification">Notification</string>
+    <string name="title_your_order">Your order</string>
+    <string name="title_shop_management">Shop management</string>
+    <string name="title_domain">Domain</string>
+    <string name="title_logout">Logout</string>
 </resources>

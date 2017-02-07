@@ -32,7 +32,8 @@
                 android:id="@+id/edit_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/title_email"/>
+                android:hint="@string/title_email"
+                android:textColor="@android:color/black"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -46,6 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/title_password"
+                android:textColor="@android:color/black"
                 app:useStrike="true"/>
 
         </android.support.design.widget.TextInputLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/item_spinner"
+        android:title="@string/title_spinner"
+        app:actionViewClass="android.widget.Spinner"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/item_search"
+        android:icon="@drawable/ic_search_white"
+        android:title="@string/title_search_view"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/item_shopping_card"
+        android:icon="@drawable/ic_shopping_cart_white"
+        android:title="@string/title_shopping_card"
+        app:actionLayout="@layout/item_shopping_card"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:icon="@drawable/ic_more_vert_white"
+        android:title="@string/title_more"
+        app:showAsAction="always"
+        >
+        <menu>
+            <item
+                android:id="@+id/item_username"
+                android:icon="@drawable/ic_sentiment_satisfied_black"
+                android:title="@string/title_username"
+                />
+
+            <item
+                android:id="@+id/item_notification"
+                android:icon="@drawable/ic_notifications_none_black"
+                android:title="@string/title_notification"
+                />
+
+            <item
+                android:id="@+id/item_your_order"
+                android:icon="@drawable/ic_your_order"
+                android:title="@string/title_your_order"
+                />
+            <item
+                android:id="@+id/item_shop_management"
+                android:icon="@drawable/ic_shop_management"
+                android:title="@string/title_shop_management"
+                />
+            <item
+                android:id="@+id/item_domain"
+                android:icon="@drawable/ic_domain"
+                android:title="@string/title_domain"
+                />
+            <item
+                android:id="@+id/item_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="@string/title_logout"
+                />
+
+        </menu>
+    </item>
+</menu>
