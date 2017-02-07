@@ -14,4 +14,8 @@
     <string name="title_shop_management">Shop management</string>
     <string name="title_domain">Domain</string>
     <string name="title_logout">Logout</string>
+    <string name="title_products">Products</string>
+    <string name="title_shops">Shops</string>
+    <string name="title_open">Open</string>
+    <string name="title_close">Close</string>
 </resources>
