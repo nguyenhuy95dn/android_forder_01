@@ -1,30 +1,29 @@
 package com.example.duong.android_forder_01.ui.login;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.example.duong.android_forder_01.R;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.example.duong.android_forder_01.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
-    @BindView(R.id.toolbar_login)
-    Toolbar mToolbarLogin;
+    private Toolbar mToolbarLogin;
     private LoginContract.Presenter mLoginPresenter;
+    private ActivityLoginBinding mActivityLoginBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        mActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         setPresenter(new LoginPresenter(this));
         mLoginPresenter.start();
     }
 
     @Override
     public void start() {
-        ButterKnife.bind(this);
+        mToolbarLogin = mActivityLoginBinding.toolbarLogin;
         mToolbarLogin.setTitle("");
         setSupportActionBar(mToolbarLogin);
     }
