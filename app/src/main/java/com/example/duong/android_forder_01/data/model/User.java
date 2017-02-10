@@ -16,36 +16,36 @@ public class User {
     @SerializedName("domains")
     private List<Domain> mListDomain;
 
-    public String getmId() {
+    public String getId() {
         return mId;
     }
 
-    public void setmId(String mId) {
-        this.mId = mId;
+    public void setId(String id) {
+        mId = id;
     }
 
-    public String getmUserName() {
+    public String getUserName() {
         return mUserName;
     }
 
-    public void setmUserName(String mUserName) {
-        this.mUserName = mUserName;
+    public void setUserName(String userName) {
+        mUserName = userName;
     }
 
-    public String getmAvatar() {
+    public String getAvatar() {
         return mAvatar;
     }
 
-    public void setmAvatar(String mAvatar) {
-        this.mAvatar = mAvatar;
+    public void setAvatar(String avatar) {
+        mAvatar = avatar;
     }
 
-    public String getmFullName() {
+    public String getFullName() {
         return mFullName;
     }
 
-    public void setmFullName(String mFullName) {
-        this.mFullName = mFullName;
+    public void setFullName(String fullName) {
+        mFullName = fullName;
     }
 
     public List<Domain> getListDomain() {

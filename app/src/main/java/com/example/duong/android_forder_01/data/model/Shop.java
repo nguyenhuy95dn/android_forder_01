@@ -16,7 +16,7 @@ public class Shop {
     @SerializedName("avatar")
     private String mAvatar;
     @SerializedName("average_rating")
-    private double mAverageRating;
+    private float mAverageRating;
     @SerializedName("time_auto_reject")
     private String mTimeAutoReject;
     @SerializedName("user")
@@ -66,11 +66,11 @@ public class Shop {
         mAvatar = avatar;
     }
 
-    public double getAverageRating() {
+    public float getAverageRating() {
         return mAverageRating;
     }
 
-    public void setAverageRating(double averageRating) {
+    public void setAverageRating(float averageRating) {
         mAverageRating = averageRating;
     }
 
