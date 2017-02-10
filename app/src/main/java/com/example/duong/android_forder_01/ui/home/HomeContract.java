@@ -7,8 +7,10 @@ public interface HomeContract {
     interface View extends BaseView<Presenter> {
         void initViewPager();
         void initToolbar();
+        void initCategoryRecyclerView();
     }
 
     interface Presenter extends BasePresenter {
+        void openProductResultActivity(String categoryID);
     }
 }

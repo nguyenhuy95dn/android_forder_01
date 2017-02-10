@@ -2,7 +2,7 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    
+
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
@@ -47,12 +47,27 @@
                 android:layout_below="@+id/app_bar"/>
         </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view_category"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="@android:color/white"/>
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_light_orange"
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/logo_big_size"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_category"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:background="@color/color_gray_transparent"/>
+        </LinearLayout>
+
     </android.support.v4.widget.DrawerLayout>
 
 </layout>
