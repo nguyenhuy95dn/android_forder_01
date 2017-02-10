@@ -9,14 +9,22 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Spinner;
 
 import com.example.duong.android_forder_01.R;
+import com.example.duong.android_forder_01.data.model.Category;
 import com.example.duong.android_forder_01.databinding.ActivityHomeBinding;
+import com.example.duong.android_forder_01.ui.adapter.CategoryAdapter;
 import com.example.duong.android_forder_01.ui.adapter.ViewPagerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements HomeContract.View {
     private Toolbar mToolbar;
@@ -24,9 +32,12 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private Spinner mSpinner;
+    private RecyclerView mRecyclerViewCategory;
     private ActionBarDrawerToggle mDrawerToggle;
     private HomeContract.Presenter mHomPresenter;
     private ActivityHomeBinding mActivityHomeBinding;
+    private CategoryAdapter mCategoryAdapter;
+    private List<Category> mCategories = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +51,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     public void start() {
         initToolbar();
         initViewPager();
+        initCategoryRecyclerView();
     }
 
     @Override
@@ -83,5 +95,15 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void initCategoryRecyclerView() {
+        mRecyclerViewCategory = mActivityHomeBinding.recyclerViewCategory;
+        mCategoryAdapter = new CategoryAdapter(mCategories, this, mHomPresenter);
+        mRecyclerViewCategory.setHasFixedSize(true);
+        mRecyclerViewCategory.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerViewCategory.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerViewCategory.setAdapter(mCategoryAdapter);
     }
 }

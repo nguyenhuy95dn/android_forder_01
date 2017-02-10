@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="category"
+            type="com.example.duong.android_forder_01.data.model.Category"/>
+
+        <variable
+            name="actionHandler"
+            type="com.example.duong.android_forder_01.ui.home.CategoryItemActionHandler"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="@{()-> actionHandler.itemClick(category.id)}"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_margin="@dimen/dp_10"
+            android:src="@drawable/ic_food"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@{category.name}"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/sp_20"/>
+    </LinearLayout>
+</layout>
+

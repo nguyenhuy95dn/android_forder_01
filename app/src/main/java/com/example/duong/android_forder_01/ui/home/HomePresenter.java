@@ -14,4 +14,9 @@ public class HomePresenter implements HomeContract.Presenter {
     public void start() {
         mHomeView.start();
     }
+
+    @Override
+    public void openProductResultActivity(String categoryID) {
+        //open product result activity and pass category id
+    }
 }
