@@ -11,6 +11,7 @@
     <dimen name="sp_18">18sp</dimen>
     <dimen name="sp_20">20sp</dimen>
     <dimen name="dp_0">0dp</dimen>
+    <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_130">130dp</dimen>
     <integer name="item_col">2</integer>
 </resources>
