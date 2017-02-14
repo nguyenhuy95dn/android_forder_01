@@ -16,7 +16,7 @@
         android:id="@+id/item_shopping_card"
         android:icon="@drawable/ic_shopping_cart_white"
         android:title="@string/title_shopping_card"
-        app:actionLayout="@layout/item_shopping_card"
+        app:actionLayout="@layout/layout_shopping_card"
         app:showAsAction="always"
         />
 

@@ -11,21 +11,21 @@ import android.view.ViewGroup;
 import com.example.duong.android_forder_01.BR;
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.ShoppingCardDetail;
-import com.example.duong.android_forder_01.ui.shopping_card.ShoppingCardActionHandler;
-import com.example.duong.android_forder_01.ui.shopping_card.ShoppingCardContract;
+import com.example.duong.android_forder_01.ui.shoppingcard.ShoppingCardActionHandler;
+import com.example.duong.android_forder_01.ui.shoppingcard.ShoppingCardContract;
 
 import java.util.List;
 
 public class ShoppingCardAdapter
     extends RecyclerView.Adapter<ShoppingCardAdapter.ShoppingCardViewHolder> {
-    private List<ShoppingCardDetail> mListShop;
+    private List<ShoppingCardDetail> mShoppingCardDetails;
     private LayoutInflater mLayoutInflater;
     private ShoppingCardContract.Presenter mListener;
 
     public ShoppingCardAdapter(List<ShoppingCardDetail> list, Context context,
                                ShoppingCardContract.Presenter
                                    presenter) {
-        mListShop = list;
+        mShoppingCardDetails = list;
         mLayoutInflater = LayoutInflater.from(context);
         mListener = presenter;
     }
@@ -33,18 +33,18 @@ public class ShoppingCardAdapter
     @Override
     public ShoppingCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView =
-            mLayoutInflater.inflate(R.layout.item_shop, parent, false);
+            mLayoutInflater.inflate(R.layout.item_shopping_card, parent, false);
         return new ShoppingCardViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(ShoppingCardViewHolder holder, int position) {
-        holder.bindData(mListShop.get(position));
+        holder.bindData(mShoppingCardDetails.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mListShop != null ? mListShop.size() : 0;
+        return mShoppingCardDetails != null ? mShoppingCardDetails.size() : 0;
     }
 
     public class ShoppingCardViewHolder extends RecyclerView.ViewHolder {

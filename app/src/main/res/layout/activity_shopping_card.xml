@@ -11,7 +11,7 @@
 
         <variable
             name="actionHandler"
-            type="com.example.duong.android_forder_01.ui.shopping_card.ShoppingCardActionHandler"/>
+            type="com.example.duong.android_forder_01.ui.shoppingcard.ShoppingCardActionHandler"/>
     </data>
 
     <RelativeLayout
@@ -24,7 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorAccent"
-            app:theme="@style/MenuItemColor"/>
+            app:contentInsetStartWithNavigation="@dimen/dp_0"
+            app:logo="@drawable/ic_shopping_cart_white"
+            app:theme="@style/ToolbarStyle"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_shopping_card"
@@ -53,7 +55,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@{shoppingCard.totalPrice +@string/title_unit}"
+                android:text="@{shoppingCard.formatPrice}"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="@dimen/sp_18"/>
         </LinearLayout>
@@ -63,10 +65,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:background="@color/color_dark_slate_gray"
-            android:onClick="@{actionHandler.order(shoppingCard)}"
+            android:background="@color/colorAccent"
+            android:onClick="@{()-> actionHandler.order(shoppingCard)}"
+            android:padding="@dimen/dp_16"
             android:text="@string/action_order"
             android:textAllCaps="false"
             android:textSize="@dimen/sp_20"/>

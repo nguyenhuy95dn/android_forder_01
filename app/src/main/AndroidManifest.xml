@@ -2,6 +2,7 @@
 <manifest package="com.example.duong.android_forder_01"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,6 +20,10 @@
         </activity>
         <activity
             android:name=".ui.home.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.shoppingcard.ShoppingCardActivity"
+            android:parentActivityName=".ui.home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

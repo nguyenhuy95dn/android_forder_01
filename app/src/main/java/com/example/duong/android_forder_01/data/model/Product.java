@@ -2,13 +2,16 @@ package com.example.duong.android_forder_01.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import static com.example.duong.android_forder_01.utils.Const.FORMAT_PRICE;
+import static com.example.duong.android_forder_01.utils.Const.UNIT_MONEY;
+
 public class Product {
     @SerializedName("id")
     private String mId;
     @SerializedName("name")
     private String mName;
     @SerializedName("price")
-    private String mPrice;
+    private double mPrice;
     @SerializedName("description")
     private String mDescription;
     @SerializedName("image")
@@ -42,11 +45,11 @@ public class Product {
         mName = name;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return mPrice;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         mPrice = price;
     }
 
@@ -112,5 +115,9 @@ public class Product {
 
     public void setCategory(Category category) {
         mCategory = category;
+    }
+
+    public String getFormatPrice() {
+        return String.format(FORMAT_PRICE, mPrice) + UNIT_MONEY;
     }
 }
