@@ -1,4 +1,4 @@
-package com.example.duong.android_forder_01.ui.shopping_card;
+package com.example.duong.android_forder_01.ui.shoppingcard;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import com.example.duong.android_forder_01.BR;
 import com.example.duong.android_forder_01.R;
@@ -24,6 +25,7 @@ public class ShoppingCardActivity extends AppCompatActivity implements ShoppingC
     private RecyclerView mRecyclerView;
     private ShoppingCard mShoppingCard;
     private ShoppingCardAdapter mShoppingCardAdapter;
+    private Toolbar mToolbar;
     private List<ShoppingCardDetail> mShoppingCardDetailList = new ArrayList<>();
 
     @Override
@@ -37,10 +39,12 @@ public class ShoppingCardActivity extends AppCompatActivity implements ShoppingC
 
     @Override
     public void start() {
+        mShoppingCard = new ShoppingCard();
+        mBinding.setVariable(BR.shoppingCard, mShoppingCard);
         mBinding.setVariable(BR.actionHandler, new ShoppingCardActionHandler
             (mPresenter));
-        mBinding.setVariable(BR.shoppingCard, mShoppingCard);
         initRecyclerView();
+        initToolbar();
     }
 
     @Override
@@ -56,5 +60,13 @@ public class ShoppingCardActivity extends AppCompatActivity implements ShoppingC
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mShoppingCardAdapter);
+    }
+
+    @Override
+    public void initToolbar() {
+        mToolbar = mBinding.toolbarShoppingCard;
+        mToolbar.setTitle(R.string.title_shopping_card);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

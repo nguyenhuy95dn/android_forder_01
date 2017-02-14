@@ -134,7 +134,7 @@
                         android:id="@+id/text_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{product.price +@string/title_unit}"
+                        android:text="@{product.formatPrice}"
                         android:textColor="@android:color/holo_red_dark"
                         android:textSize="@dimen/sp_18"/>
                 </LinearLayout>

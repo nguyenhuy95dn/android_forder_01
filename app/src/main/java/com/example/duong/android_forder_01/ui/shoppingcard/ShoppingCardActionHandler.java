@@ -1,4 +1,4 @@
-package com.example.duong.android_forder_01.ui.shopping_card;
+package com.example.duong.android_forder_01.ui.shoppingcard;
 
 import com.example.duong.android_forder_01.data.model.ShoppingCard;
 
