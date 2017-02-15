@@ -7,4 +7,5 @@
     <color name="color_gray">#CCC</color>
     <color name="color_gray_transparent">#96000000</color>
     <color name="color_light_orange">#fd5a2d</color>
+    <color name="color_light_gray">#f4f2f2</color>
 </resources>

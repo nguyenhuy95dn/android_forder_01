@@ -120,4 +120,8 @@ public class Product {
     public String getFormatPrice() {
         return String.format(FORMAT_PRICE, mPrice) + UNIT_MONEY;
     }
+
+    public String getTime() {
+        return mStartHour + " - " + mEndHour;
+    }
 }
