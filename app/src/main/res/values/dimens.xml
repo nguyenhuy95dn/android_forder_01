@@ -14,6 +14,7 @@
     <dimen name="dp_20">20dp</dimen>
     <dimen name="dp_100">100dp</dimen>
     <dimen name="dp_130">130dp</dimen>
+    <dimen name="dp_160">160dp</dimen>
     <dimen name="dp_200">200dp</dimen>
     <integer name="item_col">2</integer>
 </resources>
