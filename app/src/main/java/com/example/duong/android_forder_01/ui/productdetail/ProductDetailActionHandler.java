@@ -18,4 +18,19 @@ public class ProductDetailActionHandler {
         if (mListener == null) return;
         mListener.order(product);
     }
+
+    public void itemRelateProductClick(Product product) {
+        if (mListener == null) return;
+        mListener.itemRelateProductClick(product);
+    }
+
+    public void viewAllProduct(String shopId) {
+        if (mListener == null) return;
+        mListener.viewAllProduct(shopId);
+    }
+
+    public void viewAllComment(String productId) {
+        if (mListener == null) return;
+        mListener.viewAllComment(productId);
+    }
 }

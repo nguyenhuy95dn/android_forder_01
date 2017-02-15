@@ -1,6 +1,7 @@
 package com.example.duong.android_forder_01.ui.productdetail;
 
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableField;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,12 +11,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.duong.android_forder_01.R;
+import com.example.duong.android_forder_01.data.model.Product;
 import com.example.duong.android_forder_01.databinding.ActivityProductDetailBinding;
+import com.example.duong.android_forder_01.ui.adapter.ProductRelateAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDetailActivity extends AppCompatActivity implements ProductDetailContract.View {
     private ActivityProductDetailBinding mBinding;
     private ProductDetailContract.Presenter mPresenter;
     private Toolbar mToolbar;
+    private Product mProduct;
+    private ObservableField<ProductRelateAdapter> mProductAdapter = new ObservableField<>();
+    private List<Product> mProducts = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,12 +51,30 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
     }
 
     @Override
+    public void initRecyclerRelateProduct() {
+        mProductAdapter.set(new ProductRelateAdapter(mProducts, this, mPresenter));
+    }
+
+    @Override
     public void start() {
+        mProduct = new Product();
+        mBinding.setProductDetail(this);
+        mBinding.setActionHandler(new ProductDetailActionHandler
+            (mPresenter));
         initToolbar();
+        initRecyclerRelateProduct();
     }
 
     @Override
     public void setPresenter(ProductDetailContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    public ObservableField<ProductRelateAdapter> getProductAdapter() {
+        return mProductAdapter;
+    }
+
+    public Product getProduct() {
+        return mProduct;
     }
 }

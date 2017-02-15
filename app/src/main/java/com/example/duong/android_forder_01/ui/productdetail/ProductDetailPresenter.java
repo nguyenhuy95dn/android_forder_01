@@ -26,4 +26,19 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
     public void order(Product product) {
         // TODO: add product and open shopping card
     }
+
+    @Override
+    public void itemRelateProductClick(Product product) {
+        // TODO: open relate product detail
+    }
+
+    @Override
+    public void viewAllComment(String productId) {
+        // TODO: open product comment activity
+    }
+
+    @Override
+    public void viewAllProduct(String shopId) {
+        // TODO: open search product activity
+    }
 }
