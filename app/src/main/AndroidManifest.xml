@@ -25,6 +25,9 @@
             android:name=".ui.shoppingcard.ShoppingCardActivity"
             android:parentActivityName=".ui.home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.productdetail.ProductDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

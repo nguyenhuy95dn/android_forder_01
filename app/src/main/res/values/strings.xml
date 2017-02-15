@@ -22,4 +22,9 @@
     <string name="title_number_of_product">Number of product:</string>
     <string name="action_order">Order</string>
     <string name="title_total_price">Total price:</string>
+    <string name="title_time">Time:</string>
+    <string name="action_view_all_comment">View all comment</string>
+    <string name="title_product_description">Product description</string>
+    <string name="title_other_product">Other product</string>
+    <string name="title_comment">Comment</string>
 </resources>
