@@ -6,12 +6,18 @@
     <data>
 
         <variable
-            name="shoppingCard"
-            type="com.example.duong.android_forder_01.data.model.ShoppingCard"/>
+            name="shoppingCardActivity"
+            type="com.example.duong.android_forder_01.ui.shoppingcard.ShoppingCardActivity"/>
 
         <variable
             name="actionHandler"
             type="com.example.duong.android_forder_01.ui.shoppingcard.ShoppingCardActionHandler"/>
+
+        <import type="com.example.duong.android_forder_01.utils.LayoutManagers"/>
+
+        <import type="android.support.v7.widget.LinearLayoutManager"/>
+
+        <import type="android.view.View"/>
     </data>
 
     <RelativeLayout
@@ -33,7 +39,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/linear_layout"
-            android:layout_below="@+id/toolbar_shopping_card"/>
+            android:layout_below="@+id/toolbar_shopping_card"
+            app:adapter="@{shoppingCardActivity.shoppingCardAdapter}"
+            app:layoutManager="@{LayoutManagers.linear(LinearLayoutManager.HORIZONTAL)}"/>
 
         <LinearLayout
             android:id="@+id/linear_layout"
@@ -55,7 +63,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@{shoppingCard.formatPrice}"
+                android:text="@{shoppingCardActivity.shoppingCard.formatPrice}"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="@dimen/sp_18"/>
         </LinearLayout>
@@ -66,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/colorAccent"
-            android:onClick="@{()-> actionHandler.order(shoppingCard)}"
+            android:onClick="@{()-> actionHandler.order(shoppingCardActivity.shoppingCard)}"
             android:padding="@dimen/dp_16"
             android:text="@string/action_order"
             android:textAllCaps="false"
