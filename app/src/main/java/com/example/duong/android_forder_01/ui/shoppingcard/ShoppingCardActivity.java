@@ -36,7 +36,7 @@ public class ShoppingCardActivity extends AppCompatActivity implements ShoppingC
     @Override
     public void start() {
         mShoppingCard = new ShoppingCard();
-        mBinding.setShoppingCardActivity(this);
+        mBinding.setShoppingCard(this);
         mBinding.setActionHandler(new ShoppingCardActionHandler
             (mPresenter));
         initRecyclerView();

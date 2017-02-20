@@ -13,8 +13,8 @@ public class Shop {
     private String mDescription;
     @SerializedName("cover_image")
     private String mCoverImage;
-    @SerializedName("avatar")
-    private String mAvatar;
+    @SerializedName("collection")
+    private CollectionAvatar mCollectionAvatar;
     @SerializedName("average_rating")
     private float mAverageRating;
     @SerializedName("time_auto_reject")
@@ -58,12 +58,12 @@ public class Shop {
         mCoverImage = coverImage;
     }
 
-    public String getAvatar() {
-        return mAvatar;
+    public CollectionAvatar getCollectionAvatar() {
+        return mCollectionAvatar;
     }
 
-    public void setAvatar(String avatar) {
-        mAvatar = avatar;
+    public void setCollectionAvatar(CollectionAvatar collectionAvatar) {
+        mCollectionAvatar = collectionAvatar;
     }
 
     public float getAverageRating() {

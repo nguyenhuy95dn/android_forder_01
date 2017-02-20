@@ -37,7 +37,7 @@
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
-                    app:imageUrl="@{product.image}"
+                    app:imageUrl="@{product.collectionImage.image.thumbnail.url}"
                     />
 
                 <LinearLayout
