@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="shopInformation"
+            type="com.example.duong.android_forder_01.ui.shopdetail.shopinformation.ShopInformationFragment"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_gray"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_200"
+                        android:scaleType="centerCrop"
+                        app:imageUrl="@{shopInformation.shop.coverImage}"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_130"
+                        android:layout_height="@dimen/dp_130"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/dp_130"
+                        app:imageUrl="@{shopInformation.shop.collectionAvatar.avatar.standard.url}"/>
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:gravity="center"
+                    android:text="@{shopInformation.shop.name}"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="@dimen/sp_20"/>
+
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/dp_10"
+                    android:progressTint="@color/colorAccent"
+                    android:rating="@{shopInformation.shop.averageRating}"/>
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/colorAccent"
+                android:padding="@dimen/dp_20"
+                android:stretchColumns="*">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dp_5"
+                        android:text="@string/title_shop_owner"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/sp_15"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dp_5"
+                        android:text="@{shopInformation.shop.user.fullName}"
+                        android:textColor="@android:color/white"/>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dp_5"
+                        android:text="@string/title_email"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/sp_15"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dp_5"
+                        android:text="@{shopInformation.shop.user.userName}"
+                        android:textColor="@android:color/white"/>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dp_5"
+                        android:text="@string/title_number_of_product"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/sp_15"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dp_5"
+                        android:text="@{shopInformation.shop.listProduct.size()}"
+                        android:textColor="@android:color/white"/>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dp_5"
+                        android:text="@string/title_chatwork_id"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/sp_15"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dp_5"
+                        android:text="@{shopInformation.shop.user.id}"
+                        android:textColor="@android:color/white"/>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dp_5"
+                        android:text="@string/title_time_auto_reject"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/sp_15"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dp_5"
+                        android:text="@{shopInformation.shop.timeAutoReject}"
+                        android:textColor="@android:color/white"/>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+</layout>

@@ -28,4 +28,8 @@
     <string name="title_other_product">Other product</string>
     <string name="title_comment">Comment</string>
     <string name="action_view_all_product">View all product</string>
+    <string name="title_shop_information">Shop information</string>
+    <string name="title_shop_owner">Shop owner</string>
+    <string name="title_chatwork_id">Chatwork ID</string>
+    <string name="title_time_auto_reject">Time auto reject</string>
 </resources>

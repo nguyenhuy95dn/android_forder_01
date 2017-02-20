@@ -21,5 +21,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:adapter="@{productFragment.productAdapter}"
-        app:layoutManager="@{LayoutManagers.grid(R.integer.item_col)}"/>
+        app:layoutManager="@{LayoutManagers.grid(productFragment.getResources.getInteger(R.integer.item_col))}"/>
 </layout>

@@ -7,15 +7,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.ui.home.product.ProductFragment;
-import com.example.duong.android_forder_01.ui.home.shop.ShopFragment;
+import com.example.duong.android_forder_01.ui.shopdetail.shopinformation.ShopInformationFragment;
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ShopDetailAdapter extends FragmentPagerAdapter {
     private final int TAB_NUMBER = 2;
-    private final int PRODUCT_POSITION = 0;
-    private final int SHOP_POSITION = 1;
+    private final int SHOP_INFOR_POSITION = 0;
+    private final int SHOP_PRODUCT_POSITION = 1;
     private Context mContext;
 
-    public ViewPagerAdapter(FragmentManager fm, Context context) {
+    public ShopDetailAdapter(FragmentManager fm, Context context) {
         super(fm);
         mContext = context;
     }
@@ -23,10 +23,10 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case PRODUCT_POSITION:
+            case SHOP_INFOR_POSITION:
+                return ShopInformationFragment.newInstance();
+            case SHOP_PRODUCT_POSITION:
                 return ProductFragment.newInstance();
-            case SHOP_POSITION:
-                return ShopFragment.newInstance();
             default:
                 return null;
         }
@@ -40,12 +40,13 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
-            case PRODUCT_POSITION:
+            case SHOP_INFOR_POSITION:
+                return mContext.getString(R.string.title_shop_information);
+            case SHOP_PRODUCT_POSITION:
                 return mContext.getString(R.string.title_products);
-            case SHOP_POSITION:
-                return mContext.getString(R.string.title_shops);
             default:
                 return null;
         }
     }
 }
+

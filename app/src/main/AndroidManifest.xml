@@ -28,6 +28,9 @@
         <activity
             android:name=".ui.productdetail.ProductDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.shopdetail.ShopDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
