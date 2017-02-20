@@ -38,7 +38,7 @@
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
-                    app:imageUrl="@{product.image}"
+                    app:imageUrl="@{product.collectionImage.image.thumbnail.url}"
                     />
 
                 <ImageButton
@@ -105,7 +105,7 @@
                     android:background="@android:color/transparent"
                     android:onClick="@{() -> actionHandler.openShopDetailClick(product.shop)}"
                     android:scaleType="centerCrop"
-                    app:imageUrl="@{product.shop.avatar}"/>
+                    app:imageUrl="@{product.shop.collectionAvatar.avatar.thumbnail.url}"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

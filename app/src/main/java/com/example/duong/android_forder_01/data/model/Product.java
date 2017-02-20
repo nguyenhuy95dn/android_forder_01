@@ -14,8 +14,8 @@ public class Product {
     private double mPrice;
     @SerializedName("description")
     private String mDescription;
-    @SerializedName("image")
-    private String mImage;
+    @SerializedName("collection")
+    private CollectionImage mCollectionImage;
     @SerializedName("start_hour")
     private String mStartHour;
     @SerializedName("end_hour")
@@ -61,12 +61,12 @@ public class Product {
         mDescription = description;
     }
 
-    public String getImage() {
-        return mImage;
+    public CollectionImage getCollectionImage() {
+        return mCollectionImage;
     }
 
-    public void setImage(String image) {
-        mImage = image;
+    public void setCollectionImage(CollectionImage collectionImage) {
+        mCollectionImage = collectionImage;
     }
 
     public String getEndHour() {
