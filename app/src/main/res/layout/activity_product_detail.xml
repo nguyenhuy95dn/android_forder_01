@@ -91,7 +91,7 @@
                         android:layout_height="@dimen/dp_200"
                         android:layout_marginTop="@dimen/dp_10"
                         android:scaleType="centerCrop"
-                        app:imageUrl="@{product.image}"
+                        app:imageUrl="@{productDetail.product.image}"
                         />
                 </LinearLayout>
 
