@@ -1,20 +1,25 @@
 package com.example.duong.android_forder_01.data.model;
 
+import android.database.Cursor;
+
 import com.google.gson.annotations.SerializedName;
 
+import static com.example.duong.android_forder_01.data.model.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_PRODUCT;
+import static com.example.duong.android_forder_01.data.model.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_NAME;
+import static com.example.duong.android_forder_01.data.model.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_PRICE;
 import static com.example.duong.android_forder_01.utils.Const.FORMAT_PRICE;
 import static com.example.duong.android_forder_01.utils.Const.UNIT_MONEY;
 
 public class Product {
     @SerializedName("id")
-    private String mId;
+    private int mId;
     @SerializedName("name")
     private String mName;
     @SerializedName("price")
     private double mPrice;
     @SerializedName("description")
     private String mDescription;
-    @SerializedName("collection")
+    @SerializedName("image")
     private CollectionImage mCollectionImage;
     @SerializedName("start_hour")
     private String mStartHour;
@@ -29,11 +34,21 @@ public class Product {
     @SerializedName("category")
     private Category mCategory;
 
-    public String getId() {
+    public Product() {
+    }
+
+    public Product(Cursor cursor) {
+        mId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_PRODUCT));
+        mName = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
+        mPrice = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRICE));
+        mCollectionImage = new CollectionImage(cursor);
+    }
+
+    public int getId() {
         return mId;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         mId = id;
     }
 
