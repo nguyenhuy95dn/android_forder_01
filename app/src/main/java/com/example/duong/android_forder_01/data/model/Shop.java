@@ -1,12 +1,16 @@
 package com.example.duong.android_forder_01.data.model;
 
+import android.database.Cursor;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import static com.example.duong.android_forder_01.data.model.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_SHOP;
+
 public class Shop {
     @SerializedName("id")
-    private String mId;
+    private int mId;
     @SerializedName("name")
     private String mName;
     @SerializedName("description")
@@ -26,11 +30,15 @@ public class Shop {
     @SerializedName("products")
     private List<Product> mListProduct;
 
-    public String getId() {
+    public Shop(Cursor cursor) {
+        mId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_SHOP));
+    }
+
+    public int getId() {
         return mId;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         mId = id;
     }
 

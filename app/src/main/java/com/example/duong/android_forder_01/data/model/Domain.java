@@ -1,10 +1,14 @@
 package com.example.duong.android_forder_01.data.model;
 
+import android.database.Cursor;
+
 import com.google.gson.annotations.SerializedName;
+
+import static com.example.duong.android_forder_01.data.model.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_DOMAIN;
 
 public class Domain {
     @SerializedName("id")
-    private String mId;
+    private int mId;
     @SerializedName("name")
     private String mName;
     @SerializedName("status")
@@ -12,11 +16,15 @@ public class Domain {
     @SerializedName("user")
     private User mUser;
 
-    public String getId() {
+    public Domain(Cursor cursor) {
+        mId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_DOMAIN));
+    }
+
+    public int getId() {
         return mId;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         mId = id;
     }
 
