@@ -24,6 +24,10 @@ public class ProductFragment extends Fragment
     private ObservableField<ProductAdapter> mProductAdapter = new ObservableField<>();
     private FragmentProductBinding mBinding;
 
+    public static ProductFragment newInstance() {
+        return new ProductFragment();
+    }
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(

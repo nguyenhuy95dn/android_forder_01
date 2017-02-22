@@ -23,10 +23,14 @@ public class ShopFragment extends Fragment implements ShopContract.View {
     private List<Shop> mShops = new ArrayList<>();
     private FragmentShopBinding mBinding;
 
+    public static ShopFragment newInstance() {
+        return new ShopFragment();
+    }
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_product, container, false);
+            inflater, R.layout.fragment_shop, container, false);
         setPresenter(new ShopPresenter(this));
         mPresenter.start();
         return mBinding.getRoot();
