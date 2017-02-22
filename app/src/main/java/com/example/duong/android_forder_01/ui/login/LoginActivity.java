@@ -12,6 +12,7 @@ import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.data.source.UserRepository;
 import com.example.duong.android_forder_01.databinding.ActivityLoginBinding;
+import com.example.duong.android_forder_01.service.FirebaseInstanceIDService;
 import com.example.duong.android_forder_01.ui.home.HomeActivity;
 
 import static com.example.duong.android_forder_01.utils.SharedPreferencesUtils.loadUser;
@@ -40,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         mToolbarLogin = mBinding.toolbarLogin;
         mToolbarLogin.setTitle("");
         initProgressDialog();
+        startFirebaseService();
     }
 
     @Override
@@ -82,6 +84,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     public void showProgress(boolean show) {
         if (show) mProgressDialog.show();
         else mProgressDialog.hide();
+    }
+
+    public void startFirebaseService() {
+        Intent intent = new Intent(this, FirebaseInstanceIDService.class);
+        startService(intent);
     }
 
     public String getUsername() {
