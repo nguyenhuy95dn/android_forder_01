@@ -14,7 +14,7 @@ public interface ProductDetailContract {
         void addShoppingCard(Product product);
         void order(Product product);
         void itemRelateProductClick(Product product);
-        void viewAllComment(String productId);
-        void viewAllProduct(String shopId);
+        void viewAllComment(int productId);
+        void viewAllProduct(int shopId);
     }
 }

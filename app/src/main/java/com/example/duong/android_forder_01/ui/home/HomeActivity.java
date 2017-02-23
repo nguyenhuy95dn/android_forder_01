@@ -1,5 +1,6 @@
 package com.example.duong.android_forder_01.ui.home;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -22,6 +23,7 @@ import com.example.duong.android_forder_01.data.model.Category;
 import com.example.duong.android_forder_01.databinding.ActivityHomeBinding;
 import com.example.duong.android_forder_01.ui.adapter.CategoryAdapter;
 import com.example.duong.android_forder_01.ui.adapter.ViewPagerAdapter;
+import com.example.duong.android_forder_01.ui.notification.NotificationActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +72,14 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) return true;
+        switch (item.getItemId()) {
+            case R.id.item_notification:
+                Intent intent = new Intent(this, NotificationActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
