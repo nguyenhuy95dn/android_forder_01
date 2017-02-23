@@ -24,12 +24,12 @@ public class ProductDetailActionHandler {
         mListener.itemRelateProductClick(product);
     }
 
-    public void viewAllProduct(String shopId) {
+    public void viewAllProduct(int shopId) {
         if (mListener == null) return;
         mListener.viewAllProduct(shopId);
     }
 
-    public void viewAllComment(String productId) {
+    public void viewAllComment(int productId) {
         if (mListener == null) return;
         mListener.viewAllComment(productId);
     }

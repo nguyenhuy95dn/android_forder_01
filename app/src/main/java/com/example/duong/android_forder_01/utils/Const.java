@@ -11,4 +11,8 @@ public class Const {
         public static final String PATH_PRODUCT = "PATH_PRODUCT";
         public static final String URL_FORDER = "URL_FORDER";
     }
+
+    public static class KeyIntent{
+        public static final String EXTRA_PRODUCT = "product";
+    }
 }

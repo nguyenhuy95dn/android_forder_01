@@ -1,5 +1,7 @@
 package com.example.duong.android_forder_01.ui.productdetail;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.graphics.Color;
@@ -18,6 +20,8 @@ import com.example.duong.android_forder_01.ui.adapter.ProductRelateAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.duong.android_forder_01.utils.Const.KeyIntent.EXTRA_PRODUCT;
+
 public class ProductDetailActivity extends AppCompatActivity implements ProductDetailContract.View {
     private ActivityProductDetailBinding mBinding;
     private ProductDetailContract.Presenter mPresenter;
@@ -25,6 +29,12 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
     private Product mProduct;
     private ObservableField<ProductRelateAdapter> mProductAdapter = new ObservableField<>();
     private List<Product> mProducts = new ArrayList<>();
+
+    public static Intent getProductDetailIntent(Context context, Product product) {
+        Intent intent = new Intent(context, ProductDetailActivity.class);
+        intent.putExtra(EXTRA_PRODUCT, product);
+        return intent;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +67,7 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
 
     @Override
     public void start() {
-        mProduct = new Product();
+        mProduct = getIntent().getParcelableExtra(EXTRA_PRODUCT);
         mBinding.setProductDetail(this);
         mBinding.setActionHandler(new ProductDetailActionHandler
             (mPresenter));

@@ -8,6 +8,9 @@ public class CollectionImage {
     @SerializedName("image")
     private Image mImage;
 
+    public CollectionImage() {
+    }
+
     public CollectionImage(Cursor cursor) {
         mImage = new Image(cursor);
     }

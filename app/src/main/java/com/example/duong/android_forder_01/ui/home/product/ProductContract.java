@@ -8,6 +8,7 @@ import com.example.duong.android_forder_01.ui.BaseView;
 public interface ProductContract {
     interface View extends BaseView<Presenter> {
         void initRecyclerView();
+        void showProductDetail(Product product);
     }
 
     interface Presenter extends BasePresenter {

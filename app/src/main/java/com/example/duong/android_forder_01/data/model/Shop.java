@@ -30,6 +30,9 @@ public class Shop {
     @SerializedName("products")
     private List<Product> mListProduct;
 
+    public Shop() {
+    }
+
     public Shop(Cursor cursor) {
         mId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_SHOP));
     }
