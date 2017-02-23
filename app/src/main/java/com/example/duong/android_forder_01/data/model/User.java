@@ -2,19 +2,15 @@ package com.example.duong.android_forder_01.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class User {
     @SerializedName("id")
     private String mId;
-    @SerializedName("user_name")
+    @SerializedName("email")
     private String mUserName;
-    @SerializedName("avatar")
-    private String mAvatar;
-    @SerializedName("full_name")
+    @SerializedName("name")
     private String mFullName;
-    @SerializedName("domains")
-    private List<Domain> mListDomain;
+    @SerializedName("authentication_token")
+    private String mAuthenticationToken;
 
     public String getId() {
         return mId;
@@ -32,14 +28,6 @@ public class User {
         mUserName = userName;
     }
 
-    public String getAvatar() {
-        return mAvatar;
-    }
-
-    public void setAvatar(String avatar) {
-        mAvatar = avatar;
-    }
-
     public String getFullName() {
         return mFullName;
     }
@@ -48,12 +36,11 @@ public class User {
         mFullName = fullName;
     }
 
-    public List<Domain> getListDomain() {
-        return mListDomain;
+    public String getAuthenticationToken() {
+        return mAuthenticationToken;
     }
 
-    public void setListDomain(
-        List<Domain> listDomain) {
-        mListDomain = listDomain;
+    public void setAuthenticationToken(String authenticationToken) {
+        mAuthenticationToken = authenticationToken;
     }
 }

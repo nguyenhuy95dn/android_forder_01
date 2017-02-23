@@ -3,6 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="activity"
+            type="com.example.duong.android_forder_01.ui.login.LoginActivity"/>
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,6 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/title_email"
+                    android:text="@={activity.username}"
                     android:textColor="@android:color/black"/>
 
             </android.support.design.widget.TextInputLayout>
@@ -50,6 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/title_password"
+                    android:text="@={activity.passWord}"
                     android:textColor="@android:color/black"
                     app:useStrike="true"/>
 
@@ -70,6 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_10"
                 android:background="@color/colorAccent"
+                android:onClick="@{()-> activity.loginClick()}"
                 android:text="@string/action_login"
                 android:textColor="@android:color/white"/>
         </LinearLayout>
