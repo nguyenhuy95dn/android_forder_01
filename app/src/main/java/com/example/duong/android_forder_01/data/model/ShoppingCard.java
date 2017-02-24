@@ -15,6 +15,9 @@ public class ShoppingCard {
     private Shop mShop;
     private List<ShoppingCardDetail> mShoppingCardDetails;
 
+    public ShoppingCard() {
+    }
+
     public ShoppingCard(Cursor cursor) {
         mId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_SHOPPING_CARD));
         mDomain = new Domain(cursor);

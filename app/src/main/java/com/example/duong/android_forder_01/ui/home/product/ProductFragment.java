@@ -13,6 +13,7 @@ import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Product;
 import com.example.duong.android_forder_01.databinding.FragmentProductBinding;
 import com.example.duong.android_forder_01.ui.adapter.ProductAdapter;
+import com.example.duong.android_forder_01.ui.productdetail.ProductDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,11 @@ public class ProductFragment extends Fragment
     @Override
     public void initRecyclerView() {
         mProductAdapter.set(new ProductAdapter(mProducts, getActivity(), mPresenter));
+    }
+
+    @Override
+    public void showProductDetail(Product product) {
+        startActivity(ProductDetailActivity.getProductDetailIntent(getActivity(), product));
     }
 
     @Override

@@ -14,6 +14,9 @@ public class Image {
     @SerializedName("thumbnail")
     private Thumbnail mThumbnail;
 
+    public Image() {
+    }
+
     public Image(Cursor cursor) {
         mUrl = cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE));
     }

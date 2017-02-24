@@ -24,6 +24,7 @@ public class ProductPresenter implements ProductContract.Presenter {
 
     @Override
     public void openProductDetail(Product product) {
+        mProductView.showProductDetail(product);
     }
 
     @Override

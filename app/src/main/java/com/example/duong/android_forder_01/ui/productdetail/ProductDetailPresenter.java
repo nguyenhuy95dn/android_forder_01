@@ -33,12 +33,12 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
     }
 
     @Override
-    public void viewAllComment(String productId) {
+    public void viewAllComment(int productId) {
         // TODO: open product comment activity
     }
 
     @Override
-    public void viewAllProduct(String shopId) {
+    public void viewAllProduct(int shopId) {
         // TODO: open search product activity
     }
 }

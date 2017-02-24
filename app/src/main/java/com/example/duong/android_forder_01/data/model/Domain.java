@@ -16,6 +16,9 @@ public class Domain {
     @SerializedName("user")
     private User mUser;
 
+    public Domain() {
+    }
+
     public Domain(Cursor cursor) {
         mId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_DOMAIN));
     }

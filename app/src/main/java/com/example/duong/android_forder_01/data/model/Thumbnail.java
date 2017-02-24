@@ -6,6 +6,9 @@ public class Thumbnail {
     @SerializedName("url")
     private String mUrl;
 
+    public Thumbnail() {
+    }
+
     public String getUrl() {
         return mUrl;
     }
