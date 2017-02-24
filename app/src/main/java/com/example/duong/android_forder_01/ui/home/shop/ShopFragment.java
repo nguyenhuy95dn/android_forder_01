@@ -11,11 +11,14 @@ import android.view.ViewGroup;
 
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Shop;
+import com.example.duong.android_forder_01.data.model.source.ShopReposity;
 import com.example.duong.android_forder_01.databinding.FragmentShopBinding;
 import com.example.duong.android_forder_01.ui.adapter.ShopAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.duong.android_forder_01.utils.Const.ID_DOMAIN;
 
 public class ShopFragment extends Fragment implements ShopContract.View {
     private ObservableField<ShopAdapter> mShopAdapter = new ObservableField<>();
@@ -31,13 +34,14 @@ public class ShopFragment extends Fragment implements ShopContract.View {
                              @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_shop, container, false);
-        setPresenter(new ShopPresenter(this));
+        setPresenter(new ShopPresenter(this, ShopReposity.getInstance()));
         mPresenter.start();
         return mBinding.getRoot();
     }
 
     @Override
     public void start() {
+        mPresenter.getAllShop(ID_DOMAIN);
         mBinding.setShopFragment(this);
         initRecyclerView();
     }
@@ -55,6 +59,17 @@ public class ShopFragment extends Fragment implements ShopContract.View {
     @Override
     public void openShopDetail(Shop shop) {
         // TODO: open shop detail activity and pass shop object
+    }
+
+    @Override
+    public void showAllShop(List<Shop> list) {
+        if (list == null) return;
+        mShops.addAll(list);
+    }
+
+    @Override
+    public void showGetDataError() {
+        // TODO show get data error
     }
 
     public ObservableField<ShopAdapter> getShopAdapter() {

@@ -11,12 +11,15 @@ import android.view.ViewGroup;
 
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Product;
+import com.example.duong.android_forder_01.data.model.source.ProductRepository;
 import com.example.duong.android_forder_01.databinding.FragmentProductBinding;
 import com.example.duong.android_forder_01.ui.adapter.ProductAdapter;
 import com.example.duong.android_forder_01.ui.productdetail.ProductDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.duong.android_forder_01.utils.Const.ID_DOMAIN;
 
 public class ProductFragment extends Fragment
     implements ProductContract.View {
@@ -33,13 +36,13 @@ public class ProductFragment extends Fragment
                              @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_product, container, false);
-        setPresenter(new ProductPresenter(this));
+        setPresenter(new ProductPresenter(this, ProductRepository.getInstance()));
         mPresenter.start();
         return mBinding.getRoot();
     }
-
     @Override
     public void start() {
+        mPresenter.getAllProduct(ID_DOMAIN);
         mBinding.setProductFragment(this);
         initRecyclerView();
     }
@@ -52,6 +55,16 @@ public class ProductFragment extends Fragment
     @Override
     public void showProductDetail(Product product) {
         startActivity(ProductDetailActivity.getProductDetailIntent(getActivity(), product));
+    }
+
+    public void showAllProduct(List<Product> list) {
+        if(list == null) return;
+        mProducts.addAll(list);
+    }
+
+    @Override
+    public void showGetDataError() {
+        // TODO show get data error
     }
 
     @Override

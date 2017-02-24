@@ -4,11 +4,14 @@ import android.database.Cursor;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CollectionImage {
+import java.io.Serializable;
+
+public class CollectionImage implements Serializable {
     @SerializedName("image")
     private Image mImage;
 
-    public CollectionImage() {
+    public CollectionImage(Image image) {
+        mImage = image;
     }
 
     public CollectionImage(Cursor cursor) {
