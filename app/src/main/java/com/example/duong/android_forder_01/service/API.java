@@ -1,5 +1,6 @@
 package com.example.duong.android_forder_01.service;
 
+import com.example.duong.android_forder_01.data.model.LoginResult;
 import com.example.duong.android_forder_01.data.model.ProductResponse;
 
 import java.util.Map;
@@ -21,5 +22,9 @@ public abstract class API {
                                   Callback<ProductResponse> callback) {
         sAPIServices.getProduct(params)
             .enqueue(callback);
+    }
+
+    public static void getLoginResult(Map<String, String> params, Callback<LoginResult> callback) {
+        sAPIServices.getLoginResult(params).enqueue(callback);
     }
 }

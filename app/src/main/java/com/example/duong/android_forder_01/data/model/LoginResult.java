@@ -3,20 +3,12 @@ package com.example.duong.android_forder_01.data.model;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginResult {
-    @SerializedName("result")
-    private boolean mResult;
-    @SerializedName("error_message")
-    private String mErrorMessage;
-    @SerializedName("user")
+    @SerializedName("content")
     private User mUser;
-
-    public boolean isResult() {
-        return mResult;
-    }
-
-    public void setResult(boolean result) {
-        mResult = result;
-    }
+    @SerializedName("status")
+    private int mStatus;
+    @SerializedName("message")
+    private String mMessage;
 
     public User getUser() {
         return mUser;
@@ -26,11 +18,19 @@ public class LoginResult {
         mUser = user;
     }
 
-    public String getErrorMessage() {
-        return mErrorMessage;
+    public int getStatus() {
+        return mStatus;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        mErrorMessage = errorMessage;
+    public void setStatus(int status) {
+        mStatus = status;
+    }
+
+    public String getMessage() {
+        return mMessage;
+    }
+
+    public void setMessage(String reason) {
+        mMessage = reason;
     }
 }
