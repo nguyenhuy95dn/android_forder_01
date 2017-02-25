@@ -1,10 +1,10 @@
 package com.example.duong.android_forder_01.data.model;
 
 import android.database.Cursor;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 import static com.example.duong.android_forder_01.data.model.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_PRODUCT;
 import static com.example.duong.android_forder_01.data.model.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_NAME;
@@ -12,18 +12,7 @@ import static com.example.duong.android_forder_01.data.model.source.local.Shoppi
 import static com.example.duong.android_forder_01.utils.Const.FORMAT_PRICE;
 import static com.example.duong.android_forder_01.utils.Const.UNIT_MONEY;
 
-public class Product implements Parcelable {
-    public static final Creator<Product> CREATOR = new Creator<Product>() {
-        @Override
-        public Product createFromParcel(Parcel in) {
-            return new Product(in);
-        }
-
-        @Override
-        public Product[] newArray(int size) {
-            return new Product[size];
-        }
-    };
+public class Product implements Serializable {
     @SerializedName("id")
     private int mId;
     @SerializedName("name")
@@ -47,17 +36,15 @@ public class Product implements Parcelable {
     @SerializedName("category")
     private Category mCategory;
 
-    public Product() {
-    }
-
-    public Product(int id, String name, double price,
-                   Shop shop,
-                   CollectionImage collectionImage) {
+    public Product(int id, String name, double price, String description,
+                   CollectionImage collectionImage,
+                   Shop shop) {
         mId = id;
         mName = name;
         mPrice = price;
-        mShop = shop;
+        mDescription = description;
         mCollectionImage = collectionImage;
+        mShop = shop;
     }
 
     public Product(Cursor cursor) {
@@ -65,16 +52,6 @@ public class Product implements Parcelable {
         mName = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
         mPrice = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRICE));
         mCollectionImage = new CollectionImage(cursor);
-    }
-
-    protected Product(Parcel in) {
-        mId = in.readInt();
-        mName = in.readString();
-        mPrice = in.readDouble();
-        mDescription = in.readString();
-        mStartHour = in.readString();
-        mEndHour = in.readString();
-        mStatus = in.readInt();
     }
 
     public int getId() {
@@ -171,21 +148,5 @@ public class Product implements Parcelable {
 
     public String getTime() {
         return mStartHour + " - " + mEndHour;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(mId);
-        parcel.writeString(mName);
-        parcel.writeDouble(mPrice);
-        parcel.writeString(mDescription);
-        parcel.writeString(mStartHour);
-        parcel.writeString(mEndHour);
-        parcel.writeInt(mStatus);
     }
 }

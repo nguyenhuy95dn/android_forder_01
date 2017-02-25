@@ -4,9 +4,11 @@ import android.database.Cursor;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 import static com.example.duong.android_forder_01.data.model.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_IMAGE;
 
-public class Image {
+public class Image implements Serializable {
     @SerializedName("url")
     private String mUrl;
     @SerializedName("standard")
@@ -14,7 +16,11 @@ public class Image {
     @SerializedName("thumbnail")
     private Thumbnail mThumbnail;
 
-    public Image() {
+    public Image(String url, Standard standard,
+                 Thumbnail thumbnail) {
+        mUrl = url;
+        mStandard = standard;
+        mThumbnail = thumbnail;
     }
 
     public Image(Cursor cursor) {

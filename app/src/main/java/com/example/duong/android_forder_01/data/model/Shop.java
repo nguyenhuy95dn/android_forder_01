@@ -4,11 +4,12 @@ import android.database.Cursor;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 import static com.example.duong.android_forder_01.data.model.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_SHOP;
 
-public class Shop {
+public class Shop implements Serializable {
     @SerializedName("id")
     private int mId;
     @SerializedName("name")
@@ -30,7 +31,12 @@ public class Shop {
     @SerializedName("products")
     private List<Product> mListProduct;
 
-    public Shop() {
+    public Shop(int id, String name, String description,
+                CollectionAvatar collectionAvatar) {
+        mId = id;
+        mName = name;
+        mDescription = description;
+        mCollectionAvatar = collectionAvatar;
     }
 
     public Shop(Cursor cursor) {
