@@ -14,9 +14,10 @@ public class Const {
         public static final String URL_FORDER = "URL_FORDER";
         public static final String PARAM_USER_NAME = "email";
         public static final String PARAM_PASSWORD = "password";
+        public static final String MESSAGE_CONTENT = "message";
     }
 
-    public static class KeyIntent{
+    public static class KeyIntent {
         public static final String EXTRA_PRODUCT = "product";
         public static final String EXTRA_SHOP = "shop";
     }

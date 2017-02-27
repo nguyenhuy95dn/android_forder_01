@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "320551300536",
+    "firebase_url": "https://foder01-ac069.firebaseio.com",
+    "project_id": "foder01-ac069",
+    "storage_bucket": "foder01-ac069.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320551300536:android:903a36d8739ae9a2",
+        "android_client_info": {
+          "package_name": "com.example.duong.android_forder_01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "320551300536-fic0h4bbhkegt0ceott7vma47a1lqkc1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFe9ulJcVMrIS7KMHgI9Zm3eLOHSo93mE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
