@@ -12,6 +12,8 @@ import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Shop;
 import com.example.duong.android_forder_01.databinding.FragmentShopInformationBinding;
 
+import static com.example.duong.android_forder_01.utils.Const.KeyIntent.EXTRA_SHOP;
+
 public class ShopInformationFragment extends Fragment implements ShopInformationContract.View {
     private FragmentShopInformationBinding mBinding;
     private ShopInformationContract.Presenter mPresenter;
@@ -32,6 +34,7 @@ public class ShopInformationFragment extends Fragment implements ShopInformation
 
     @Override
     public void start() {
+        mShop = (Shop) getActivity().getIntent().getSerializableExtra(EXTRA_SHOP);
         mBinding.setShopInformation(this);
     }
 

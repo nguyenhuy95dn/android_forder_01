@@ -2,6 +2,7 @@ package com.example.duong.android_forder_01.ui.home;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -10,9 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +18,7 @@ import android.widget.Spinner;
 
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Category;
+import com.example.duong.android_forder_01.data.model.source.CategoryRepository;
 import com.example.duong.android_forder_01.databinding.ActivityHomeBinding;
 import com.example.duong.android_forder_01.ui.adapter.CategoryAdapter;
 import com.example.duong.android_forder_01.ui.adapter.ViewPagerAdapter;
@@ -28,29 +27,32 @@ import com.example.duong.android_forder_01.ui.notification.NotificationActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.duong.android_forder_01.utils.Const.ID_DOMAIN;
+
 public class HomeActivity extends AppCompatActivity implements HomeContract.View {
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private Spinner mSpinner;
-    private RecyclerView mRecyclerViewCategory;
     private ActionBarDrawerToggle mDrawerToggle;
     private HomeContract.Presenter mHomPresenter;
     private ActivityHomeBinding mActivityHomeBinding;
-    private CategoryAdapter mCategoryAdapter;
     private List<Category> mCategories = new ArrayList<>();
+    private ObservableField<CategoryAdapter> mCategoryAdapter = new ObservableField<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityHomeBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
-        setPresenter(new HomePresenter(this));
+        setPresenter(new HomePresenter(this, CategoryRepository.getInstance()));
         mHomPresenter.start();
     }
 
     @Override
     public void start() {
+        mHomPresenter.getAllCategory(ID_DOMAIN);
+        mActivityHomeBinding.setActivityHome(this);
         initToolbar();
         initViewPager();
         initCategoryRecyclerView();
@@ -109,11 +111,21 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
     @Override
     public void initCategoryRecyclerView() {
-        mRecyclerViewCategory = mActivityHomeBinding.recyclerViewCategory;
-        mCategoryAdapter = new CategoryAdapter(mCategories, this, mHomPresenter);
-        mRecyclerViewCategory.setHasFixedSize(true);
-        mRecyclerViewCategory.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerViewCategory.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerViewCategory.setAdapter(mCategoryAdapter);
+        mCategoryAdapter.set(new CategoryAdapter(mCategories, this, mHomPresenter));
+    }
+
+    @Override
+    public void showAllCategory(List<Category> list) {
+        if (list == null) return;
+        mCategories.addAll(list);
+    }
+
+    @Override
+    public void showGetDataError() {
+        // TODO show get data error
+    }
+
+    public ObservableField<CategoryAdapter> getCategoryAdapter() {
+        return mCategoryAdapter;
     }
 }

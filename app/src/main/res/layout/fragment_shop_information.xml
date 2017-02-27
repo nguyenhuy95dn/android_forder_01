@@ -34,7 +34,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_200"
                         android:scaleType="centerCrop"
-                        app:imageUrl="@{shopInformation.shop.coverImage}"/>
+                        app:imageUrl="@{shopInformation.shop.collectionAvatar.avatar.url}"/>
 
                     <ImageView
                         android:layout_width="@dimen/dp_130"

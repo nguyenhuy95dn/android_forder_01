@@ -18,5 +18,6 @@ public class Const {
 
     public static class KeyIntent{
         public static final String EXTRA_PRODUCT = "product";
+        public static final String EXTRA_SHOP = "shop";
     }
 }

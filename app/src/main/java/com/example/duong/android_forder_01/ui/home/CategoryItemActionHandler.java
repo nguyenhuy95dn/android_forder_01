@@ -7,7 +7,7 @@ public class CategoryItemActionHandler {
         mListener = listener;
     }
 
-    public void itemClick(String categoryId) {
+    public void itemClick(int categoryId) {
         mListener.openProductResultActivity(categoryId);
     }
 }
