@@ -20,5 +20,6 @@ public interface ProductContract {
         void openProductDetail(Product product);
         void addShoppingCard(Product product);
         void getAllProduct(int idDomain);
+        void getCategoryById(int idCategory);
     }
 }

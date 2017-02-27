@@ -5,6 +5,7 @@ package com.example.duong.android_forder_01.utils;
  */
 public class Const {
     public static final int ID_DOMAIN = 1;
+    public static final int ID_CATEGORY = 1;
     public static final String FORMAT_PRICE = "%1$,.0f";
     public static final String UNIT_MONEY = " VNĐ";
 
@@ -20,5 +21,7 @@ public class Const {
     public static class KeyIntent {
         public static final String EXTRA_PRODUCT = "product";
         public static final String EXTRA_SHOP = "shop";
+        public static final String EXTRA_ID_CATEGORY = "id_category";
+
     }
 }

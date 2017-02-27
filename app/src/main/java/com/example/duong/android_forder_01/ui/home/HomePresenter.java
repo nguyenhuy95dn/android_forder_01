@@ -1,7 +1,6 @@
 package com.example.duong.android_forder_01.ui.home;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.example.duong.android_forder_01.data.model.Category;
 import com.example.duong.android_forder_01.data.model.source.DataSource;
@@ -25,13 +24,13 @@ public class HomePresenter implements HomeContract.Presenter {
     }
 
     @Override
-    public void openProductResultActivity(int categoryID) {
-        //open product result activity and pass category id
+    public void openProductResultActivity(int categoryId) {
+        mHomeView.showListProduct(categoryId);
     }
 
     @Override
-    public void getAllCategory(int idDomain) {
-        mDataRepository.getDatas(idDomain, new GetDataCallback<Category>() {
+    public void getAllCategory(int domainId) {
+        mDataRepository.getDatas(domainId, new GetDataCallback<Category>() {
             @Override
             public void onLoaded(List<Category> datas) {
                 mHomeView.showAllCategory(datas);

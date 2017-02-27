@@ -42,4 +42,10 @@ public class ShopRemoteDataSource implements DataSource<Shop> {
         }
         getDataCallback.onLoaded(list);
     }
+
+    @Override
+    public void getCategoryById(int idCategory,
+                                GetDataCallback<Shop> getDataCallback) {
+        // not required
+    }
 }

@@ -52,4 +52,19 @@ public class ProductPresenter implements ProductContract.Presenter {
             }
         });
     }
+
+    @Override
+    public void getCategoryById(int idCategory) {
+        mDataRepository.getCategoryById(idCategory, new GetDataCallback<Product>() {
+            @Override
+            public void onLoaded(List<Product> datas) {
+                mProductView.showAllProduct(datas);
+            }
+
+            @Override
+            public void onNotAvailable() {
+                mProductView.showGetDataError();
+            }
+        });
+    }
 }
