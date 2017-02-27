@@ -40,6 +40,7 @@ public class ProductFragment extends Fragment
         mPresenter.start();
         return mBinding.getRoot();
     }
+
     @Override
     public void start() {
         mPresenter.getAllProduct(ID_DOMAIN);
@@ -58,7 +59,7 @@ public class ProductFragment extends Fragment
     }
 
     public void showAllProduct(List<Product> list) {
-        if(list == null) return;
+        if (list == null) return;
         mProducts.addAll(list);
     }
 

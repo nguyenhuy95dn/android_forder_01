@@ -2,17 +2,24 @@ package com.example.duong.android_forder_01.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Category {
+import java.io.Serializable;
+
+public class Category implements Serializable {
     @SerializedName("id")
-    private String mId;
+    private int mId;
     @SerializedName("name")
     private String mName;
 
-    public String getId() {
+    public Category(int id, String name) {
+        mId = id;
+        mName = name;
+    }
+
+    public int getId() {
         return mId;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         mId = id;
     }
 

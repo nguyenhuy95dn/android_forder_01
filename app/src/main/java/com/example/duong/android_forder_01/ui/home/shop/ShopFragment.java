@@ -11,9 +11,10 @@ import android.view.ViewGroup;
 
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Shop;
-import com.example.duong.android_forder_01.data.model.source.ShopReposity;
+import com.example.duong.android_forder_01.data.model.source.ShopRepository;
 import com.example.duong.android_forder_01.databinding.FragmentShopBinding;
 import com.example.duong.android_forder_01.ui.adapter.ShopAdapter;
+import com.example.duong.android_forder_01.ui.shopdetail.ShopDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class ShopFragment extends Fragment implements ShopContract.View {
                              @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_shop, container, false);
-        setPresenter(new ShopPresenter(this, ShopReposity.getInstance()));
+        setPresenter(new ShopPresenter(this, ShopRepository.getInstance()));
         mPresenter.start();
         return mBinding.getRoot();
     }
@@ -58,7 +59,7 @@ public class ShopFragment extends Fragment implements ShopContract.View {
 
     @Override
     public void openShopDetail(Shop shop) {
-        // TODO: open shop detail activity and pass shop object
+        startActivity(ShopDetailActivity.getShopDetailIntent(getActivity(), shop));
     }
 
     @Override

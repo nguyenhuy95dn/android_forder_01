@@ -8,17 +8,17 @@ import java.util.List;
 /**
  * Created by tri on 24/02/2017.
  */
-public class ShopReposity implements DataSource<Shop> {
-    private static ShopReposity sShopReposity;
+public class ShopRepository implements DataSource<Shop> {
+    private static ShopRepository sShopReposity;
     private DataSource mRemoteDataSource;
 
-    private ShopReposity(ShopRemoteDataSource shopRemoteDataSource) {
+    private ShopRepository(ShopRemoteDataSource shopRemoteDataSource) {
         mRemoteDataSource = shopRemoteDataSource;
     }
 
-    public static ShopReposity getInstance() {
+    public static ShopRepository getInstance() {
         if (sShopReposity == null) {
-            sShopReposity = new ShopReposity(ShopRemoteDataSource.getInstance());
+            sShopReposity = new ShopRepository(ShopRemoteDataSource.getInstance());
         }
         return sShopReposity;
     }
