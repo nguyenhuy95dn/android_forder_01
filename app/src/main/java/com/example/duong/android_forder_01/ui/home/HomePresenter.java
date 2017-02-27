@@ -3,18 +3,23 @@ package com.example.duong.android_forder_01.ui.home;
 import android.support.annotation.NonNull;
 
 import com.example.duong.android_forder_01.data.model.Category;
+import com.example.duong.android_forder_01.data.model.Domain;
 import com.example.duong.android_forder_01.data.source.DataSource;
+import com.example.duong.android_forder_01.data.source.DomainDataSource;
 import com.example.duong.android_forder_01.data.source.GetDataCallback;
 
 import java.util.List;
 
 public class HomePresenter implements HomeContract.Presenter {
     private HomeContract.View mHomeView;
+    private DomainDataSource mDomainDataRepository;
     private DataSource mDataRepository;
 
-    public HomePresenter(@NonNull HomeContract.View homeView, DataSource dataRepository) {
+    public HomePresenter(@NonNull HomeContract.View homeView, DomainDataSource domainDataSource,
+                         DataSource dataRepository) {
         mHomeView = homeView;
         homeView.setPresenter(this);
+        mDomainDataRepository = domainDataSource;
         mDataRepository = dataRepository;
     }
 
@@ -34,6 +39,21 @@ public class HomePresenter implements HomeContract.Presenter {
             @Override
             public void onLoaded(List<Category> datas) {
                 mHomeView.showAllCategory(datas);
+            }
+
+            @Override
+            public void onNotAvailable() {
+                mHomeView.showGetDataError();
+            }
+        });
+    }
+
+    @Override
+    public void getDomain(int userId) {
+        mDomainDataRepository.getDatasDomain(userId, new GetDataCallback<Domain>() {
+            @Override
+            public void onLoaded(List<Domain> datas) {
+                mHomeView.showDomain(datas);
             }
 
             @Override

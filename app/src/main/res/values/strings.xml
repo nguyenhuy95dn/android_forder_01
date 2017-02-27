@@ -49,4 +49,6 @@
     <string name="action_open_shop">Open shop</string>
     <string name="title_orde">Order</string>
     <string name="title_history">History</string>
+    <string name="title_private_domain">Private domain</string>
+    <string name="title_public_domain">Public domain</string>
 </resources>
