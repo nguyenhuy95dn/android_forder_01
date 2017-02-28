@@ -24,8 +24,26 @@ public class ProductRepository implements DataSource<Product> {
     }
 
     @Override
-    public void getDatas(final int idDomain, final GetDataCallback<Product> getDataCallback) {
-        mRemoteDataSource.getDatas(idDomain, new GetDataCallback<Product>() {
+    public void getDatas(final int domainId, final GetDataCallback<Product> getDataCallback) {
+        if (getDataCallback == null) return;
+        mRemoteDataSource.getDatas(domainId, new GetDataCallback<Product>() {
+            @Override
+            public void onLoaded(List<Product> datas) {
+                getDataCallback.onLoaded(datas);
+            }
+
+            @Override
+            public void onNotAvailable() {
+                getDataCallback.onNotAvailable();
+            }
+        });
+    }
+
+    @Override
+    public void getCategoryById(final int categoryId,
+                                final GetDataCallback<Product> getDataCallback) {
+        if (getDataCallback == null) return;
+        mRemoteDataSource.getCategoryById(categoryId, new GetDataCallback<Product>() {
             @Override
             public void onLoaded(List<Product> datas) {
                 getDataCallback.onLoaded(datas);

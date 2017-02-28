@@ -38,4 +38,10 @@ public class CategoryRemoteDataSource implements DataSource<Category> {
         list.add(new Category(6, "Sinh Tố"));
         getDataCallback.onLoaded(list);
     }
+
+    @Override
+    public void getCategoryById(int idCategory,
+                                GetDataCallback<Category> getDataCallback) {
+        // not required
+    }
 }

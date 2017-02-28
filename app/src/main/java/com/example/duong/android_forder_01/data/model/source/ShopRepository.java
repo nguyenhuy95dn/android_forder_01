@@ -24,8 +24,8 @@ public class ShopRepository implements DataSource<Shop> {
     }
 
     @Override
-    public void getDatas(int idDomain, final GetDataCallback<Shop> getDataCallback) {
-        mRemoteDataSource.getDatas(idDomain, new GetDataCallback<Shop>() {
+    public void getDatas(int domainId, final GetDataCallback<Shop> getDataCallback) {
+        mRemoteDataSource.getDatas(domainId, new GetDataCallback<Shop>() {
             @Override
             public void onLoaded(List<Shop> datas) {
                 getDataCallback.onLoaded(datas);
@@ -36,5 +36,11 @@ public class ShopRepository implements DataSource<Shop> {
                 getDataCallback.onNotAvailable();
             }
         });
+    }
+
+    @Override
+    public void getCategoryById(int categoryId,
+                                GetDataCallback<Shop> getDataCallback) {
+        // not required
     }
 }

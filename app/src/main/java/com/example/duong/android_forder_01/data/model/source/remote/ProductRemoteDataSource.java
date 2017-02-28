@@ -50,4 +50,26 @@ public class ProductRemoteDataSource implements DataSource<Product> {
         }
         getDataCallback.onLoaded(list);
     }
+
+    @Override
+    public void getCategoryById(int idCategory,
+                                GetDataCallback<Product> getDataCallback) {
+        if (getDataCallback == null) return;
+        // TODO get id Domain from sharedpreference
+        //fake data
+        String image =
+            "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS5vAH1Qjf01K8LSq0Hz_KHHsuZ2uRi3pm3kvrHblYcjMJkJDP8";
+        String image2 =
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx8JBEx8Ci_Q4LEU-crZKZz1tFQoumDiSC2y4l42UiWbCs1AVeIg";
+        List<Product> list = new ArrayList<Product>();
+        for (int i = 0; i < 10; i++) {
+            list.add(new Product(1, "Nem Chua", 10000, "Nem chua rán nhỏ", new CollectionImage
+                (new
+                    Image(image, new Standard(image), new Thumbnail(image))),
+                new Shop(1,
+                    "Nem", "Nem Chua", new CollectionAvatar(new Avatar(image2,
+                    new Standard(image2), new Thumbnail(image2))))));
+        }
+        getDataCallback.onLoaded(list);
+    }
 }

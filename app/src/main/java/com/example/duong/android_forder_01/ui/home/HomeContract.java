@@ -13,10 +13,11 @@ public interface HomeContract {
         void initCategoryRecyclerView();
         void showAllCategory(List<Category> list);
         void showGetDataError();
+        void showListProduct(int categoryId);
     }
 
     interface Presenter extends BasePresenter {
-        void openProductResultActivity(int categoryID);
-        void getAllCategory(int idDomain);
+        void openProductResultActivity(int categoryId);
+        void getAllCategory(int domainId);
     }
 }

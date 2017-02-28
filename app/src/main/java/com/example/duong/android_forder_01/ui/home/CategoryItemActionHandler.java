@@ -8,6 +8,7 @@ public class CategoryItemActionHandler {
     }
 
     public void itemClick(int categoryId) {
+        if (mListener == null) return;
         mListener.openProductResultActivity(categoryId);
     }
 }

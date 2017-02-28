@@ -22,6 +22,7 @@ import com.example.duong.android_forder_01.data.model.source.CategoryRepository;
 import com.example.duong.android_forder_01.databinding.ActivityHomeBinding;
 import com.example.duong.android_forder_01.ui.adapter.CategoryAdapter;
 import com.example.duong.android_forder_01.ui.adapter.ViewPagerAdapter;
+import com.example.duong.android_forder_01.ui.listproduct.ListProductActivity;
 import com.example.duong.android_forder_01.ui.notification.NotificationActivity;
 
 import java.util.ArrayList;
@@ -123,6 +124,11 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     @Override
     public void showGetDataError() {
         // TODO show get data error
+    }
+
+    @Override
+    public void showListProduct(int categoryId) {
+        startActivity(ListProductActivity.getListProductIntent(this, categoryId));
     }
 
     public ObservableField<CategoryAdapter> getCategoryAdapter() {

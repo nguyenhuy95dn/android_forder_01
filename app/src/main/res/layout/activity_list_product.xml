@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="listProductActivity"
+            type="com.example.duong.android_forder_01.ui.listproduct.ListProductActivity"/>
+
+        <import type="com.example.duong.android_forder_01.utils.LayoutManagers"/>
+
+        <import type="com.example.duong.android_forder_01.R"/>
+
+    </data>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:adapter="@{listProductActivity.productAdapter}"
+        app:layoutManager="@{LayoutManagers.grid(listProductActivity.getResources.getInteger(R.integer.item_col))}"/>
+
+</layout>

@@ -24,8 +24,8 @@ public class CategoryRepository implements DataSource<Category> {
     }
 
     @Override
-    public void getDatas(int idDomain, final GetDataCallback<Category> getDataCallback) {
-        mRemoteDataSource.getDatas(idDomain, new GetDataCallback<Category>() {
+    public void getDatas(int domainId, final GetDataCallback<Category> getDataCallback) {
+        mRemoteDataSource.getDatas(domainId, new GetDataCallback<Category>() {
             @Override
             public void onLoaded(List<Category> datas) {
                 getDataCallback.onLoaded(datas);
@@ -36,5 +36,11 @@ public class CategoryRepository implements DataSource<Category> {
                 getDataCallback.onNotAvailable();
             }
         });
+    }
+
+    @Override
+    public void getCategoryById(int idCategory,
+                                GetDataCallback<Category> getDataCallback) {
+        // not required
     }
 }
