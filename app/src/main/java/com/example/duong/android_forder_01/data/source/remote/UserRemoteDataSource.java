@@ -14,9 +14,6 @@ import retrofit2.Response;
 import static com.example.duong.android_forder_01.utils.Const.ConstantApi.PARAM_PASSWORD;
 import static com.example.duong.android_forder_01.utils.Const.ConstantApi.PARAM_USER_NAME;
 
-/**
- * Created by Duong on 2/22/2017.
- */
 public class UserRemoteDataSource implements UserDataSource {
     private static UserRemoteDataSource sUserRemoteDataSource;
 
