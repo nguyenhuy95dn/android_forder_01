@@ -39,7 +39,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailContra
     public void start() {
         mShop = (Shop) getIntent().getSerializableExtra(EXTRA_SHOP);
         mBinding.setShopDetail(this);
-        mAdapter.set(new ShopDetailAdapter(getSupportFragmentManager(), this));
+        mAdapter.set(new ShopDetailAdapter(getSupportFragmentManager(), this, mShop));
     }
 
     @Override

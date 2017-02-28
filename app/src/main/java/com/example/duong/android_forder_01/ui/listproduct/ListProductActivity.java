@@ -27,7 +27,7 @@ public class ListProductActivity extends BaseActivity implements ProductContract
     private List<Product> mProducts = new ArrayList<>();
     private ActivityListProductBinding mBinding;
     private ObservableField<ProductAdapter> mProductAdapter = new ObservableField<>();
-    private String mCategory;
+    private int mCategoryId;
 
     public static Intent getListProductIntent(Context context, int categoryId) {
         Intent intent = new Intent(context, ListProductActivity.class);
@@ -66,8 +66,8 @@ public class ListProductActivity extends BaseActivity implements ProductContract
 
     @Override
     public void start() {
-        mCategory = getIntent().getStringExtra(EXTRA_ID_CATEGORY);
-        mPresenter.getCategoryById(ID_CATEGORY);
+        mCategoryId = getIntent().getExtras().getInt(EXTRA_ID_CATEGORY);
+        mPresenter.getCategoryById(mCategoryId);
         mBinding.setListProductActivity(this);
         initRecyclerView();
     }

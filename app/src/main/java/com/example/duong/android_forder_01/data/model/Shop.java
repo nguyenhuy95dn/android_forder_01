@@ -39,6 +39,30 @@ public class Shop implements Serializable {
         mCollectionAvatar = collectionAvatar;
     }
 
+    public Shop(int id, String name, String description,
+                CollectionAvatar collectionAvatar,
+                User user,
+                List<Domain> listDomain,
+                List<Product> listProduct) {
+        mId = id;
+        mName = name;
+        mDescription = description;
+        mCollectionAvatar = collectionAvatar;
+        mUser = user;
+        mListDomain = listDomain;
+        mListProduct = listProduct;
+    }
+
+    public Shop(int id, String name, String description,
+                CollectionAvatar collectionAvatar,
+                List<Product> listProduct) {
+        mId = id;
+        mName = name;
+        mDescription = description;
+        mCollectionAvatar = collectionAvatar;
+        mListProduct = listProduct;
+    }
+
     public Shop(Cursor cursor) {
         mId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_SHOP));
     }

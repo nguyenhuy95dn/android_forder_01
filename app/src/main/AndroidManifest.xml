@@ -54,5 +54,4 @@
         <activity android:name=".ui.listproduct.ListProductActivity"/>
 
     </application>
-
 </manifest>
