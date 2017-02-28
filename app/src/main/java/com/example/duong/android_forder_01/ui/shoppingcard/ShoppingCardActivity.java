@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.ShoppingCard;
-import com.example.duong.android_forder_01.data.model.ShoppingCardDetail;
 import com.example.duong.android_forder_01.databinding.ActivityShoppingCardBinding;
 import com.example.duong.android_forder_01.ui.adapter.ShoppingCardAdapter;
 
@@ -19,10 +18,9 @@ import java.util.List;
 public class ShoppingCardActivity extends AppCompatActivity implements ShoppingCardContract.View {
     private ActivityShoppingCardBinding mBinding;
     private ShoppingCardContract.Presenter mPresenter;
-    private ShoppingCard mShoppingCard;
+    private List<ShoppingCard> mShoppingCards = new ArrayList<>();
     private ObservableField<ShoppingCardAdapter> mShoppingCardAdapter = new ObservableField<>();
     private Toolbar mToolbar;
-    private List<ShoppingCardDetail> mShoppingCardDetailList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,7 +33,6 @@ public class ShoppingCardActivity extends AppCompatActivity implements ShoppingC
 
     @Override
     public void start() {
-        mShoppingCard = new ShoppingCard();
         mBinding.setShoppingCard(this);
         mBinding.setActionHandler(new ShoppingCardActionHandler
             (mPresenter));
@@ -51,7 +48,7 @@ public class ShoppingCardActivity extends AppCompatActivity implements ShoppingC
     @Override
     public void initRecyclerView() {
         mShoppingCardAdapter
-            .set(new ShoppingCardAdapter(mShoppingCardDetailList, this, mPresenter));
+            .set(new ShoppingCardAdapter(this, mShoppingCards, mPresenter));
     }
 
     @Override
@@ -60,10 +57,6 @@ public class ShoppingCardActivity extends AppCompatActivity implements ShoppingC
         mToolbar.setTitle(R.string.title_shopping_card);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    public ShoppingCard getShoppingCard() {
-        return mShoppingCard;
     }
 
     public ObservableField<ShoppingCardAdapter> getShoppingCardAdapter() {

@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="shoppingCardDetail"
-            type="com.example.duong.android_forder_01.data.model.ShoppingCardDetail"/>
+            name="shoppingCardItem"
+            type="com.example.duong.android_forder_01.data.model.ShoppingCardItem"/>
 
         <variable
             name="actionHandler"
@@ -33,7 +33,7 @@
                 android:layout_height="@dimen/dp_100"
                 android:layout_margin="@dimen/dp_5"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{shoppingCardDetail.product.collectionImage.image.thumbnail.url}"
+                app:imageUrl="@{shoppingCardItem.productImage}"
                 />
 
             <LinearLayout
@@ -56,7 +56,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/dp_5"
-                        android:text="@{shoppingCardDetail.product.name}"
+                        android:text="@{shoppingCardItem.productName}"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/sp_20"
                         />
@@ -65,7 +65,7 @@
                         android:id="@+id/text_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{shoppingCardDetail.product.formatPrice}"
+                        android:text="@{shoppingCardItem.formatPrice}"
                         android:textAlignment="center"
                         android:textColor="@android:color/holo_red_dark"
                         />
@@ -81,7 +81,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:onClick="@{()->actionHandler.reduceQuantity(shoppingCardDetail.id)}"
+                            android:onClick="@{()->actionHandler.reduceQuantity(shoppingCardItem.productId)}"
                             android:padding="@dimen/dp_5"
                             android:src="@drawable/ic_remove_black"
                             />
@@ -98,7 +98,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/dp_5"
-                            android:text="@{String.valueOf(shoppingCardDetail.quantity)}"
+                            android:text="@{String.valueOf(shoppingCardItem.quantity)}"
                             android:textSize="@dimen/sp_18"
                             />
 
@@ -114,7 +114,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:onClick="@{()-> actionHandler.increaseQuantity(shoppingCardDetail.id)}"
+                            android:onClick="@{()-> actionHandler.increaseQuantity(shoppingCardItem.productId)}"
                             android:padding="@dimen/dp_5"
                             android:src="@drawable/ic_add_black"
                             />
@@ -127,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@android:color/transparent"
-                    android:onClick="@{()-> actionHandler.deleteItem(shoppingCardDetail.id)}"
+                    android:onClick="@{()-> actionHandler.deleteItem(shoppingCardItem.productId)}"
                     android:src="@drawable/ic_delete_black"
                     />
             </LinearLayout>

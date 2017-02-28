@@ -4,7 +4,7 @@ import android.database.Cursor;
 
 import com.google.gson.annotations.SerializedName;
 
-import static com.example.duong.android_forder_01.data.model.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_DOMAIN;
+import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_DOMAIN;
 
 public class Domain {
     @SerializedName("id")

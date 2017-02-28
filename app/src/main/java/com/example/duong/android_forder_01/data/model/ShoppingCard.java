@@ -4,57 +4,61 @@ import android.database.Cursor;
 
 import java.util.List;
 
-import static com.example.duong.android_forder_01.data.model.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_SHOPPING_CARD;
+import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_DOMAIN;
+import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_SHOP;
+import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_SHOP_NAME;
+import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_TOTAL;
 import static com.example.duong.android_forder_01.utils.Const.FORMAT_PRICE;
 import static com.example.duong.android_forder_01.utils.Const.UNIT_MONEY;
 
 public class ShoppingCard {
-    private int mId;
-    private Domain mDomain;
+    private int mDomainId;
     private double mTotalPrice;
-    private Shop mShop;
-    private List<ShoppingCardDetail> mShoppingCardDetails;
+    private int mShopId;
+    private String mShopName;
+    private List<ShoppingCardItem> mShoppingCardItems;
 
     public ShoppingCard() {
     }
 
     public ShoppingCard(Cursor cursor) {
-        mId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_SHOPPING_CARD));
-        mDomain = new Domain(cursor);
-        mShop = new Shop(cursor);
+        mDomainId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_DOMAIN));
+        mShopId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_SHOP));
+        mShopName = cursor.getString(cursor.getColumnIndex(COLUMN_SHOP_NAME));
+        mTotalPrice = cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL));
     }
 
-    public Domain getDomain() {
-        return mDomain;
+    public int getDomainId() {
+        return mDomainId;
     }
 
-    public void setDomain(Domain domain) {
-        mDomain = domain;
+    public void setDomainId(int domainId) {
+        mDomainId = domainId;
     }
 
-    public int getId() {
-        return mId;
+    public int getShopId() {
+        return mShopId;
     }
 
-    public void setId(int id) {
-        mId = id;
+    public void setShopId(int shopId) {
+        mShopId = shopId;
     }
 
-    public Shop getShop() {
-        return mShop;
+    public String getShopName() {
+        return mShopName;
     }
 
-    public void setShop(Shop shop) {
-        mShop = shop;
+    public void setShopName(String shopName) {
+        mShopName = shopName;
     }
 
-    public List<ShoppingCardDetail> getShoppingCardDetails() {
-        return mShoppingCardDetails;
+    public List<ShoppingCardItem> getShoppingCardDetails() {
+        return mShoppingCardItems;
     }
 
     public void setShoppingCardDetails(
-        List<ShoppingCardDetail> shoppingCardDetails) {
-        mShoppingCardDetails = shoppingCardDetails;
+        List<ShoppingCardItem> shoppingCardItems) {
+        mShoppingCardItems = shoppingCardItems;
     }
 
     public double getTotalPrice() {
@@ -66,6 +70,6 @@ public class ShoppingCard {
     }
 
     public String getFormatPrice() {
-        return String.format(FORMAT_PRICE, mTotalPrice) + UNIT_MONEY;
+        return String.format(FORMAT_PRICE, getTotalPrice()) + UNIT_MONEY;
     }
 }

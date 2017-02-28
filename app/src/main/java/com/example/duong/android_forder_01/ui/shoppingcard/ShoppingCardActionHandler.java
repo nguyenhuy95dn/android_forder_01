@@ -24,4 +24,7 @@ public class ShoppingCardActionHandler {
     public void order(ShoppingCard shoppingCard) {
         mListener.order(shoppingCard);
     }
+
+    public void orderAll() {
+    }
 }

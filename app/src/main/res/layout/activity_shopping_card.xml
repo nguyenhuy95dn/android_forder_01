@@ -34,14 +34,15 @@
             app:logo="@drawable/ic_shopping_cart_white"
             app:theme="@style/ToolbarStyle"/>
 
-        <android.support.v7.widget.RecyclerView
+        <ExpandableListView
             android:id="@+id/recycler_view_shopping_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/linear_layout"
             android:layout_below="@+id/toolbar_shopping_card"
-            app:adapter="@{shoppingCard.shoppingCardAdapter}"
-            app:layoutManager="@{LayoutManagers.linear(LinearLayoutManager.HORIZONTAL)}"/>
+            android:dividerHeight="@dimen/dp_2"
+            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+            app:adapter="@{shoppingCard.shoppingCardAdapter}"/>
 
         <LinearLayout
             android:id="@+id/linear_layout"
@@ -63,7 +64,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@{shoppingCard.shoppingCard.formatPrice}"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="@dimen/sp_18"/>
         </LinearLayout>
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/colorAccent"
-            android:onClick="@{()-> actionHandler.order(shoppingCard.shoppingCard)}"
+            android:onClick="@{()-> actionHandler.orderAll()}"
             android:padding="@dimen/dp_16"
             android:text="@string/action_order"
             android:textAllCaps="false"
