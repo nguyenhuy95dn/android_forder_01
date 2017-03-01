@@ -19,8 +19,12 @@ public class ShopInformationFragment extends Fragment implements ShopInformation
     private ShopInformationContract.Presenter mPresenter;
     private Shop mShop;
 
-    public static ShopInformationFragment newInstance() {
-        return new ShopInformationFragment();
+    public static ShopInformationFragment newInstance(Shop shop) {
+        ShopInformationFragment fragment = new ShopInformationFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(EXTRA_SHOP, shop);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -34,7 +38,7 @@ public class ShopInformationFragment extends Fragment implements ShopInformation
 
     @Override
     public void start() {
-        mShop = (Shop) getActivity().getIntent().getSerializableExtra(EXTRA_SHOP);
+        mShop = (Shop) getArguments().getSerializable(EXTRA_SHOP);
         mBinding.setShopInformation(this);
     }
 

@@ -17,13 +17,14 @@ import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Product;
 import com.example.duong.android_forder_01.databinding.ActivityProductDetailBinding;
 import com.example.duong.android_forder_01.ui.adapter.ProductRelateAdapter;
+import com.example.duong.android_forder_01.utils.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.duong.android_forder_01.utils.Const.KeyIntent.EXTRA_PRODUCT;
 
-public class ProductDetailActivity extends AppCompatActivity implements ProductDetailContract.View {
+public class ProductDetailActivity extends BaseActivity implements ProductDetailContract.View {
     private ActivityProductDetailBinding mBinding;
     private ProductDetailContract.Presenter mPresenter;
     private Toolbar mToolbar;
