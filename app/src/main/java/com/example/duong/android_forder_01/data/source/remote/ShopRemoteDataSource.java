@@ -1,12 +1,12 @@
-package com.example.duong.android_forder_01.data.model.source.remote;
+package com.example.duong.android_forder_01.data.source.remote;
 
 import com.example.duong.android_forder_01.data.model.Avatar;
 import com.example.duong.android_forder_01.data.model.CollectionAvatar;
 import com.example.duong.android_forder_01.data.model.Shop;
 import com.example.duong.android_forder_01.data.model.Standard;
 import com.example.duong.android_forder_01.data.model.Thumbnail;
-import com.example.duong.android_forder_01.data.model.source.DataSource;
-import com.example.duong.android_forder_01.data.model.source.GetDataCallback;
+import com.example.duong.android_forder_01.data.source.DataSource;
+import com.example.duong.android_forder_01.data.source.GetDataCallback;
 
 import java.util.ArrayList;
 import java.util.List;

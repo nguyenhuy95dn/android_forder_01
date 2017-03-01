@@ -18,7 +18,7 @@ import android.widget.Spinner;
 
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Category;
-import com.example.duong.android_forder_01.data.model.source.CategoryRepository;
+import com.example.duong.android_forder_01.data.source.CategoryRepository;
 import com.example.duong.android_forder_01.databinding.ActivityHomeBinding;
 import com.example.duong.android_forder_01.ui.adapter.CategoryAdapter;
 import com.example.duong.android_forder_01.ui.adapter.ViewPagerAdapter;

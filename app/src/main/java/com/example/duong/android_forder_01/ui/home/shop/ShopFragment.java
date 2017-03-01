@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Shop;
-import com.example.duong.android_forder_01.data.model.source.ShopRepository;
+import com.example.duong.android_forder_01.data.source.ShopRepository;
 import com.example.duong.android_forder_01.databinding.FragmentShopBinding;
 import com.example.duong.android_forder_01.ui.adapter.ShopAdapter;
 import com.example.duong.android_forder_01.ui.shopdetail.ShopDetailActivity;

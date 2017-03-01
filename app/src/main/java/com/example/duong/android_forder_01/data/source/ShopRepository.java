@@ -1,7 +1,7 @@
-package com.example.duong.android_forder_01.data.model.source;
+package com.example.duong.android_forder_01.data.source;
 
 import com.example.duong.android_forder_01.data.model.Shop;
-import com.example.duong.android_forder_01.data.model.source.remote.ShopRemoteDataSource;
+import com.example.duong.android_forder_01.data.source.remote.ShopRemoteDataSource;
 
 import java.util.List;
 

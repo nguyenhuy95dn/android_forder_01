@@ -1,4 +1,4 @@
-package com.example.duong.android_forder_01.data.model.source;
+package com.example.duong.android_forder_01.data.source;
 
 import java.util.List;
 
