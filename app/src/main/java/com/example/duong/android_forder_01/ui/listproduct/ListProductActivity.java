@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Product;
-import com.example.duong.android_forder_01.data.model.source.ProductRepository;
+import com.example.duong.android_forder_01.data.source.ProductRepository;
 import com.example.duong.android_forder_01.databinding.ActivityListProductBinding;
 import com.example.duong.android_forder_01.ui.adapter.ProductAdapter;
 import com.example.duong.android_forder_01.ui.home.product.ProductContract;
@@ -19,7 +19,6 @@ import com.example.duong.android_forder_01.utils.BaseActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.duong.android_forder_01.utils.Const.ID_CATEGORY;
 import static com.example.duong.android_forder_01.utils.Const.KeyIntent.EXTRA_ID_CATEGORY;
 
 public class ListProductActivity extends BaseActivity implements ProductContract.View {

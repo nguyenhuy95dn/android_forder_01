@@ -4,8 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.example.duong.android_forder_01.data.model.Product;
 import com.example.duong.android_forder_01.data.model.Shop;
-import com.example.duong.android_forder_01.data.model.source.DataSource;
-import com.example.duong.android_forder_01.data.model.source.GetDataCallback;
+import com.example.duong.android_forder_01.data.source.DataSource;
+import com.example.duong.android_forder_01.data.source.GetDataCallback;
 
 import java.util.List;
 

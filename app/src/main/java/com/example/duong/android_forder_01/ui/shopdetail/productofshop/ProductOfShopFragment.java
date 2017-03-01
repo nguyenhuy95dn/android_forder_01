@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Product;
 import com.example.duong.android_forder_01.data.model.Shop;
-import com.example.duong.android_forder_01.data.model.source.ProductRepository;
+import com.example.duong.android_forder_01.data.source.ProductRepository;
 import com.example.duong.android_forder_01.databinding.FragmentProductOfShopBinding;
 import com.example.duong.android_forder_01.ui.adapter.ProductAdapter;
 import com.example.duong.android_forder_01.ui.home.product.ProductContract;
