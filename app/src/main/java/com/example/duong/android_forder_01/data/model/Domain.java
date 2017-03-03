@@ -17,12 +17,53 @@ public class Domain implements Serializable {
     private int mStatus;
     @SerializedName("user")
     private User mUser;
+    @SerializedName("created_at")
+    private String mCreatedAt;
+    @SerializedName("updated_at")
+    private String mUpdatedAt;
+    @SerializedName("slug")
+    private String mSlug;
+
+    public Domain(int id, String name, int status,
+                  User user, String createdAt, String updatedAt, String slug) {
+        mId = id;
+        mName = name;
+        mStatus = status;
+        mUser = user;
+        mCreatedAt = createdAt;
+        mUpdatedAt = updatedAt;
+        mSlug = slug;
+    }
 
     public Domain() {
     }
 
     public Domain(Cursor cursor) {
         mId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_DOMAIN));
+    }
+
+    public String getCreatedAt() {
+        return mCreatedAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.mCreatedAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return mUpdatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.mUpdatedAt = updatedAt;
+    }
+
+    public String getSlug() {
+        return mSlug;
+    }
+
+    public void setSlug(String slug) {
+        this.mSlug = slug;
     }
 
     public int getId() {

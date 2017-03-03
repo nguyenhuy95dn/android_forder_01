@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="shopInfo"
+            type="com.example.duong.android_forder_01.data.model.ShopInfo"/>
+
+        <variable
+            name="shopDomain"
+            type="com.example.duong.android_forder_01.data.model.ShopDomain"/>
+
+        <variable
+            name="actionHandler"
+            type="com.example.duong.android_forder_01.ui.shopmanagement.ShopManagementActivityActionHandler"/>
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_20"
+            android:stretchColumns="*">
+
+            <TableRow>
+
+                <TextView
+                    style="@style/TextShopManagement"
+                    android:text="@string/title_domain"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{shopInfo.domainName}"/>
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    style="@style/TextShopManagement"
+                    android:text="@string/title_number_of_member"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{shopInfo.numberOfUsers}"/>
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    style="@style/TextShopManagement"
+                    android:text="@string/title_number_of_shop"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{shopInfo.numberOfShops}"/>
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    style="@style/TextShopManagement"
+                    android:text="@string/title_number_of_product"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{shopInfo.numberOfProducts}"/>
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    style="@style/TextShopManagement"
+                    android:text="@string/title_status"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{shopDomain.status ? @string/title_status_accepted : @string/title_status_pending}"
+                    android:textColor="@color/color_white"/>
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    style="@style/TextShopManagement"
+                    android:paddingTop="@dimen/dp_20"
+                    android:text="@string/title_request"/>
+
+                <Button
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="wrap_content"
+                    android:text="@{shopDomain.status ? @string/action_cancel : @string/action_request}"
+                    android:textAllCaps="false"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+
+</layout>

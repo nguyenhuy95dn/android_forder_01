@@ -42,7 +42,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-
         <service
             android:name=".service.FirebaseInstanceIDService"
             android:exported="false">
@@ -52,6 +51,7 @@
         </service>
 
         <activity android:name=".ui.listproduct.ListProductActivity"/>
-
+        <activity android:name=".ui.shopmanagement.ShopManagementActivity"/>
     </application>
+
 </manifest>

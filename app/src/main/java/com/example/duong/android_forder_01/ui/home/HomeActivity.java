@@ -24,6 +24,7 @@ import com.example.duong.android_forder_01.ui.adapter.CategoryAdapter;
 import com.example.duong.android_forder_01.ui.adapter.ViewPagerAdapter;
 import com.example.duong.android_forder_01.ui.listproduct.ListProductActivity;
 import com.example.duong.android_forder_01.ui.notification.NotificationActivity;
+import com.example.duong.android_forder_01.ui.shopmanagement.ShopManagementActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,9 +78,10 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         if (mDrawerToggle.onOptionsItemSelected(item)) return true;
         switch (item.getItemId()) {
             case R.id.item_notification:
-                Intent intent = new Intent(this, NotificationActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(this, NotificationActivity.class));
                 break;
+            case R.id.item_shop_management:
+                startActivity(new Intent(this,ShopManagementActivity.class));
             default:
                 break;
         }

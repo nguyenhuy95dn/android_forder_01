@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="shopMamagement"
+            type="com.example.duong.android_forder_01.data.model.ShopManagement"/>
+
+        <variable
+            name="actionHandler"
+            type="com.example.duong.android_forder_01.ui.shopmanagement.ShopManagementActivityActionHandler"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dp_10"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="@dimen/dp_130"
+            android:layout_height="@dimen/dp_100"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/dp_10"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{shopMamagement.shop.collectionAvatar.avatar.url}"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/image_view"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dp_5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{shopMamagement.shop.name}"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{shopMamagement.shop.description}"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@color/colorAccent"
+            android:onClick="@{()-> actionHandler.openDetailShop(shopMamagement)}"
+            android:text="@string/action_open_shop"
+            android:textAllCaps="false"/>
+
+    </RelativeLayout>
+
+</layout>
