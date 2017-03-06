@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/dp_10"
+        android:background="@color/color_dark_slate_gray"
         android:descendantFocusability="blocksDescendants"
         android:orientation="horizontal">
 
@@ -27,7 +28,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_margin="@dimen/dp_10"
+            android:layout_margin="@dimen/dp_5"
             android:scaleType="centerCrop"
             app:imageUrl="@{shopMamagement.shop.collectionAvatar.avatar.url}"/>
 
@@ -43,13 +44,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{shopMamagement.shop.name}"
+                android:textColor="@color/color_white"
                 android:textSize="@dimen/sp_18"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{shopMamagement.shop.description}"/>
+                android:text="@{shopMamagement.shop.description}"
+                android:textColor="@color/color_white"/>
 
         </LinearLayout>
 

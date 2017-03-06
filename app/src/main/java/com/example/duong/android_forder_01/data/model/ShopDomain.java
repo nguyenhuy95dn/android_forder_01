@@ -9,11 +9,11 @@ import java.io.Serializable;
  */
 public class ShopDomain implements Serializable {
     @SerializedName("domain_id")
-    private Integer mDomainId;
+    private int mDomainId;
     @SerializedName("status")
     private boolean mStatus;
 
-    public ShopDomain(Integer domainId, boolean status) {
+    public ShopDomain(int domainId, boolean status) {
         mDomainId = domainId;
         mStatus = status;
     }
@@ -21,11 +21,11 @@ public class ShopDomain implements Serializable {
     public ShopDomain() {
     }
 
-    public Integer getDomainId() {
+    public int getDomainId() {
         return mDomainId;
     }
 
-    public void setDomainId(Integer domainId) {
+    public void setDomainId(int domainId) {
         mDomainId = domainId;
     }
 
