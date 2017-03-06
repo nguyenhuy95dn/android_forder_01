@@ -62,6 +62,7 @@
                 android:textSize="@dimen/sp_18"/>
 
             <TextView
+                android:text="@={shoppingCard.totalPrice}"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textColor="@android:color/holo_red_dark"

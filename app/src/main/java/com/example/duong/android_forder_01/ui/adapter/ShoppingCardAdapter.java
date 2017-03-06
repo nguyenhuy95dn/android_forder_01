@@ -78,7 +78,7 @@ public class ShoppingCardAdapter extends BaseExpandableListAdapter {
         }
         ViewDataBinding mBinding = DataBindingUtil.bind(convertView);
         mBinding.setVariable(BR.shoppingCardShop, mShoppingCards.get(groupPosition));
-        mBinding.setVariable(BR.actionHandler, new ShoppingCardActionHandler(mListener));
+        mBinding.setVariable(BR.actionHandler, new ShoppingCardActionHandler(mListener, mContext));
         mBinding.executePendingBindings();
         return convertView;
     }
@@ -94,7 +94,7 @@ public class ShoppingCardAdapter extends BaseExpandableListAdapter {
         ViewDataBinding mBinding = DataBindingUtil.bind(convertView);
         mBinding.setVariable(BR.shoppingCardItem, mShoppingCards.get(groupPosition)
             .getShoppingCardDetails().get(childPosition));
-        mBinding.setVariable(BR.actionHandler, new ShoppingCardActionHandler(mListener));
+        mBinding.setVariable(BR.actionHandler, new ShoppingCardActionHandler(mListener, mContext));
         mBinding.executePendingBindings();
         return convertView;
     }
