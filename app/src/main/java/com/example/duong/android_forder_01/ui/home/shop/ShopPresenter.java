@@ -3,16 +3,16 @@ package com.example.duong.android_forder_01.ui.home.shop;
 import android.support.annotation.NonNull;
 
 import com.example.duong.android_forder_01.data.model.Shop;
-import com.example.duong.android_forder_01.data.source.DataSource;
 import com.example.duong.android_forder_01.data.source.GetDataCallback;
+import com.example.duong.android_forder_01.data.source.ShopDataSource;
 
 import java.util.List;
 
 public class ShopPresenter implements ShopContract.Presenter {
     private ShopContract.View mShopView;
-    private DataSource mDataRepository;
+    private ShopDataSource mDataRepository;
 
-    public ShopPresenter(@NonNull ShopContract.View shopView, DataSource dataRepository) {
+    public ShopPresenter(@NonNull ShopContract.View shopView, ShopDataSource dataRepository) {
         mShopView = shopView;
         mShopView.setPresenter(this);
         mDataRepository = dataRepository;
@@ -31,7 +31,7 @@ public class ShopPresenter implements ShopContract.Presenter {
 
     @Override
     public void getAllShop(int idDomain) {
-        mDataRepository.getDatas(idDomain, new GetDataCallback<Shop>() {
+        mDataRepository.getDataShop(idDomain, new GetDataCallback<Shop>() {
             @Override
             public void onLoaded(List<Shop> datas) {
                 mShopView.showAllShop(datas);

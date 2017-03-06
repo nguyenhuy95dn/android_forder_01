@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
     @SerializedName("id")
-    private String mId;
+    private int mId;
     @SerializedName("email")
     private String mUserName;
     @SerializedName("name")
@@ -12,11 +12,11 @@ public class User {
     @SerializedName("authentication_token")
     private String mAuthenticationToken;
 
-    public String getId() {
+    public int getId() {
         return mId;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         mId = id;
     }
 
