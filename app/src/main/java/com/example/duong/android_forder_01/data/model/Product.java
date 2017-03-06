@@ -37,6 +37,15 @@ public class Product implements Serializable {
     private Category mCategory;
 
     public Product(int id, String name, double price, String description,
+                   CollectionImage collectionImage) {
+        mId = id;
+        mName = name;
+        mPrice = price;
+        mDescription = description;
+        mCollectionImage = collectionImage;
+    }
+
+    public Product(int id, String name, double price, String description,
                    CollectionImage collectionImage,
                    Shop shop) {
         mId = id;

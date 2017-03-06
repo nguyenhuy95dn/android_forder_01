@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="shopManagementDetail"
+            type="com.example.duong.android_forder_01.ui.shopmanagementdetail.ShopManagementDetailActivity"/>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout_shop_management_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            android:overScrollMode="never"
+            app:tabGravity="center"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabTextAppearance="@style/TabLayoutStyle"
+            app:tabTextColor="@color/cardview_dark_background"
+            bind:pager="@{viewpager}"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            bind:adapter="@{shopManagementDetail.adapter}"/>
+
+    </LinearLayout>
+
+</layout>
