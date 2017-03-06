@@ -35,5 +35,6 @@
     <string name="title_check_login">Check login</string>
     <string name="title_please_wait">Please wait…</string>
     <string name="title_connect_server_error">Can not connect to server, please try again</string>
+    <string name="title_shopping_card_error">Can not load data</string>
     <string name="action_order_this">Order this</string>
 </resources>

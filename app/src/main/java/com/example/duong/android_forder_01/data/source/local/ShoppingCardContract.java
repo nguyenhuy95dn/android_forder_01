@@ -1,6 +1,7 @@
 package com.example.duong.android_forder_01.data.source.local;
 
 import android.provider.BaseColumns;
+
 public class ShoppingCardContract {
     public ShoppingCardContract() {
     }
@@ -19,8 +20,9 @@ public class ShoppingCardContract {
         public static final String COLUMN_PRICE = "price";
         public static final String COLUMN_QUANTITY = "quantity";
         public static final String COLUMN_TOTAL = "total";
-        public static final String COLUMN_SUM = "SUM("+COLUMN_PRICE+"*"+COLUMN_QUANTITY+") AS "
-            +COLUMN_TOTAL;
+        public static final String COLUMN_SUM =
+            "SUM(" + COLUMN_PRICE + "*" + COLUMN_QUANTITY + ") AS "
+                + COLUMN_TOTAL;
         public static final int DEFAULT_QUANTITY = 1;
     }
 }

@@ -180,7 +180,8 @@ public class ShoppingCardLocalDataSource extends DataHelper implements
                     shoppingCard.setShoppingCardDetails(shoppingCardItems);
                 }
             }
-            callback.onLoaded(shoppingCards);
+            if (shoppingCards != null) callback.onLoaded(shoppingCards, getTotalPrice(domainId));
+            else callback.onLoadedError();
         } catch (SQLiteException e) {
             callback.onLoadedError();
         } finally {
@@ -188,8 +189,7 @@ public class ShoppingCardLocalDataSource extends DataHelper implements
         }
     }
 
-    @Override
-    public double getTotalPrice(int domainId) {
+    private double getTotalPrice(int domainId) {
         double totalPrice = 0;
         openDatabase();
         try {

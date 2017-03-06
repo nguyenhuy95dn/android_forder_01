@@ -51,8 +51,8 @@ public class ShoppingCardRepository
                                 final GetShoppingCardCallback callback) {
         mLocalDataSource.getShoppingCard(domainId, new GetShoppingCardCallback() {
             @Override
-            public void onLoaded(List<ShoppingCard> list) {
-                callback.onLoaded(list);
+            public void onLoaded(List<ShoppingCard> list, double totalPrice) {
+                callback.onLoaded(list, totalPrice);
             }
 
             @Override
@@ -60,11 +60,5 @@ public class ShoppingCardRepository
                 callback.onLoadedError();
             }
         });
-    }
-
-    @Override
-    public double getTotalPrice(int domainId) {
-        // TODO get total price in a domain
-        return 0;
     }
 }
