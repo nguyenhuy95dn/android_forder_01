@@ -53,6 +53,10 @@ public class ShopManagementAdapter extends BaseExpandableListAdapter {
         return mList.get(groupPosition).getShopInfoList().get(childPosition);
     }
 
+    public Object getChildShopDomain(int groupPosition, int childPosition) {
+        return mList.get(groupPosition).getShopDomainList().get(childPosition);
+    }
+
     @Override
     public long getGroupId(int groupPosition) {
         return mList.get(groupPosition).getShop().getId();
@@ -77,7 +81,7 @@ public class ShopManagementAdapter extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.item_parent_shop_management, null);
         }
         ViewDataBinding binding = DataBindingUtil.bind(convertView);
-        binding.setVariable(BR.shopMamagement, mList.get(groupPosition));
+        binding.setVariable(BR.shopMamagement, getGroup(groupPosition));
         binding.setVariable(BR.actionHandler, new ShopManagementActivityActionHandler(mListener));
         binding.executePendingBindings();
         return convertView;
@@ -92,8 +96,8 @@ public class ShopManagementAdapter extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.item_shop_management, null);
         }
         ViewDataBinding binding = DataBindingUtil.bind(convertView);
-        binding.setVariable(BR.shopInfo, mList.get(groupPosition).getShopInfoList()
-            .get(childPosition));
+        binding.setVariable(BR.shopInfo, getChild(groupPosition, childPosition));
+        binding.setVariable(BR.shopDomain, getChildShopDomain(groupPosition, childPosition));
         binding.setVariable(BR.actionHandler, new ShopManagementActivityActionHandler(mListener));
         binding.executePendingBindings();
         return convertView;
