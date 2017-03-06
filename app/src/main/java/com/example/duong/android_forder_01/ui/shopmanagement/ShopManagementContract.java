@@ -16,10 +16,11 @@ public interface ShopManagementContract {
         void showDetailShop(ShopManagement shop);
         void showAllShop(List<ShopManagement> list);
         void showGetDataError();
+        void getInfomationUser();
     }
 
     interface Presenter extends BasePresenter {
-        void getShopByIdUser(int userId);
+        void getShopByUser(int userId, String userToken);
         void sendRequest(ShopDomain shopDomain, Shop shop);
         void openDetailShop(ShopManagement shopManagement);
     }

@@ -99,7 +99,7 @@
                     <TextView
                         android:gravity="center"
                         android:text="@{shopDomain.status ? @string/title_status_accepted : @string/title_status_pending}"
-                        android:textColor="@{shopDomain.status ? @color/color_blue : @color/color_red}"
+                        android:textColor="@{shopDomain.status ? @color/color_green : @color/color_red}"
                         android:textSize="@dimen/dp_16"/>
 
                 </TableRow>
