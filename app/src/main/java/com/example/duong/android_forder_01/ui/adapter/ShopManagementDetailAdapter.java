@@ -37,7 +37,7 @@ public class ShopManagementDetailAdapter extends FragmentPagerAdapter {
             case SHOP_INFOR_POSITION:
                 return ShopInformationFragment.newInstance(mShopManagement.getShop());
             case SHOP_PRODUCT_POSITION:
-                return ProductShopFragment.newInstance(mShopManagement);
+                return ProductShopFragment.newInstance(mShopManagement.getShop());
             case SHOP_ORDER_POSITION:
                 return OrderShopFragment.newInstance(mShopManagement);
             case SHOP_HISTORY_POSITION:
@@ -60,7 +60,7 @@ public class ShopManagementDetailAdapter extends FragmentPagerAdapter {
             case SHOP_PRODUCT_POSITION:
                 return mContext.getString(R.string.title_products);
             case SHOP_ORDER_POSITION:
-                return mContext.getString(R.string.title_orde);
+                return mContext.getString(R.string.title_order);
             case SHOP_HISTORY_POSITION:
                 return mContext.getString(R.string.title_history);
             default:

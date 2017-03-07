@@ -49,7 +49,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
                     android:gravity="center"
-                    android:text="@{shopInformation.shop.name}"
                     android:textColor="@android:color/holo_blue_dark"
                     android:textSize="@dimen/sp_20"/>
 
@@ -58,8 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/dp_10"
-                    android:progressTint="@color/colorAccent"
-                    android:rating="@{shopInformation.shop.averageRating}"/>
+                    android:progressTint="@color/colorAccent"/>
             </LinearLayout>
 
             <TableLayout
@@ -84,7 +82,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/dp_5"
-                        android:text="@{shopInformation.shop.user.fullName}"
                         android:textColor="@android:color/white"/>
                 </TableRow>
 
@@ -102,7 +99,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/dp_5"
-                        android:text="@{shopInformation.shop.user.userName}"
                         android:textColor="@android:color/white"/>
                 </TableRow>
 
@@ -120,7 +116,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/dp_5"
-                        android:text="@{shopInformation.shop.listProduct.size()}"
                         android:textColor="@android:color/white"/>
                 </TableRow>
 
@@ -138,7 +133,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/dp_5"
-                        android:text="@{shopInformation.shop.user.id}"
                         android:textColor="@android:color/white"/>
                 </TableRow>
 
@@ -156,7 +150,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/dp_5"
-                        android:text="@{shopInformation.shop.timeAutoReject}"
                         android:textColor="@android:color/white"/>
                 </TableRow>
             </TableLayout>
