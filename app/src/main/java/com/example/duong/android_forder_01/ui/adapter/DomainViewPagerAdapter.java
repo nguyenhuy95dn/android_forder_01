@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.duong.android_forder_01.R;
+import com.example.duong.android_forder_01.ui.domain.privatedomain.PrivateDomainFragment;
+import com.example.duong.android_forder_01.ui.domain.publicdomain.PublicDomainFragment;
 
 /**
  * Created by FuckYou on 03/03/2017.
@@ -25,9 +27,9 @@ public class DomainViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case PRIVATE_DOMAIN_POSITION:
-                //TODO: Return PrivateDomainFragment
+                return PrivateDomainFragment.newInstance();
             case PUBLIC_DOMAIN_POSITION:
-                //TODO: return PublicDomainFragment
+                return PublicDomainFragment.newInstance();
             default:
                 return null;
         }
