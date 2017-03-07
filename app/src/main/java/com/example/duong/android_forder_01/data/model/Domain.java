@@ -97,5 +97,10 @@ public class Domain implements Serializable {
     public void setUser(User user) {
         mUser = user;
     }
+
+    @Override
+    public String toString() {
+        return mName;
+    }
 }
 

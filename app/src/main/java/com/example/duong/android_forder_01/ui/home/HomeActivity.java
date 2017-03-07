@@ -18,10 +18,13 @@ import android.widget.Spinner;
 
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Category;
+import com.example.duong.android_forder_01.data.model.Domain;
 import com.example.duong.android_forder_01.data.source.CategoryRepository;
+import com.example.duong.android_forder_01.data.source.DomainReposity;
 import com.example.duong.android_forder_01.databinding.ActivityHomeBinding;
 import com.example.duong.android_forder_01.ui.adapter.CategoryAdapter;
 import com.example.duong.android_forder_01.ui.adapter.ViewPagerAdapter;
+import com.example.duong.android_forder_01.ui.domain.DomainActivity;
 import com.example.duong.android_forder_01.ui.listproduct.ListProductActivity;
 import com.example.duong.android_forder_01.ui.notification.NotificationActivity;
 import com.example.duong.android_forder_01.ui.shopmanagement.ShopManagementActivity;
@@ -30,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.duong.android_forder_01.utils.Const.ID_DOMAIN;
+import static com.example.duong.android_forder_01.utils.Const.ID_USER;
 
 public class HomeActivity extends AppCompatActivity implements HomeContract.View {
     private Toolbar mToolbar;
@@ -42,12 +46,14 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     private ActivityHomeBinding mActivityHomeBinding;
     private List<Category> mCategories = new ArrayList<>();
     private ObservableField<CategoryAdapter> mCategoryAdapter = new ObservableField<>();
+    private List<Domain> mDomains = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityHomeBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
-        setPresenter(new HomePresenter(this, CategoryRepository.getInstance()));
+        setPresenter(new HomePresenter(this, DomainReposity.getInstance(),
+            CategoryRepository.getInstance()));
         mHomPresenter.start();
     }
 
@@ -57,6 +63,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         mActivityHomeBinding.setActivityHome(this);
         initToolbar();
         initViewPager();
+        mHomPresenter.getDomain(ID_USER);
         initCategoryRecyclerView();
     }
 
@@ -81,7 +88,10 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
                 startActivity(new Intent(this, NotificationActivity.class));
                 break;
             case R.id.item_shop_management:
-                startActivity(new Intent(this,ShopManagementActivity.class));
+                startActivity(new Intent(this, ShopManagementActivity.class));
+            case R.id.item_domain:
+                startActivity(new Intent(this, DomainActivity.class));
+                break;
             default:
                 break;
         }
@@ -121,6 +131,13 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     public void showAllCategory(List<Category> list) {
         if (list == null) return;
         mCategories.addAll(list);
+    }
+
+    @Override
+    public void showDomain(List<Domain> domainList) {
+        if (domainList == null) return;
+        mDomains.clear();
+        mDomains.addAll(domainList);
     }
 
     @Override
