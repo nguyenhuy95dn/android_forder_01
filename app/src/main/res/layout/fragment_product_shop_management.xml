@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="product"
+            type="com.example.duong.android_forder_01.data.model.Product"/>
+
+        <variable
+            name="productShopManagement"
+            type="com.example.duong.android_forder_01.ui.shopmanagementdetail.productshop.ProductShopFragment"/>
+
+        <variable
+            name="actionHandler"
+            type="com.example.duong.android_forder_01.ui.shopmanagementdetail.productshop.ProductShopFragmentActionHandler"/>
+
+        <import type="com.example.duong.android_forder_01.utils.LayoutManagers"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:adapter="@{productShopManagement.productAdapter}"
+            app:layoutManager="@{LayoutManagers.linear()}"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorAccent"
+            android:onClick="@{() -> actionHandler.addProduct(product)}"
+            android:text="@string/action_add_product"
+            android:textAllCaps="false"/>
+
+    </RelativeLayout>
+</layout>
