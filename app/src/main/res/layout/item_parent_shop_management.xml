@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/dp_10"
-        android:background="@color/color_dark_slate_gray"
+        android:background="@color/color_blue_green"
         android:descendantFocusability="blocksDescendants"
         android:orientation="horizontal">
 

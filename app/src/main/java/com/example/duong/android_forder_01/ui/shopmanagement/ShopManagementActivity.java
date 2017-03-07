@@ -11,6 +11,7 @@ import com.example.duong.android_forder_01.data.model.ShopManagement;
 import com.example.duong.android_forder_01.data.source.ShopRepository;
 import com.example.duong.android_forder_01.databinding.ActivityShopManagementBinding;
 import com.example.duong.android_forder_01.ui.adapter.ShopManagementAdapter;
+import com.example.duong.android_forder_01.ui.shopmanagementdetail.ShopManagementDetailActivity;
 import com.example.duong.android_forder_01.utils.BaseActivity;
 
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public class ShopManagementActivity extends BaseActivity implements ShopManageme
 
     @Override
     public void showDetailShop(ShopManagement shopManagement) {
-        // TODO open DetailShop Activity
+        startActivity(
+            ShopManagementDetailActivity.getShopManagementDetailIntent(this, shopManagement));
     }
 
     @Override

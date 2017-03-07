@@ -47,4 +47,6 @@
     <string name="title_shopping_card_error">Can not load data</string>
     <string name="action_order_this">Order this</string>
     <string name="action_open_shop">Open shop</string>
+    <string name="title_orde">Order</string>
+    <string name="title_history">History</string>
 </resources>

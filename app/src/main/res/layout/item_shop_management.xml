@@ -25,6 +25,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/color_blue_white"
             android:orientation="vertical">
 
             <TableLayout
@@ -44,7 +45,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@{shopInfo.domainName}"/>
+                        android:text="@{shopInfo.domainName}"
+                        android:textSize="@dimen/sp_15"/>
 
                 </TableRow>
 
@@ -58,7 +60,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@{String.valueOf(shopInfo.numberOfUsers)}"/>
+                        android:text="@{String.valueOf(shopInfo.numberOfUsers)}"
+                        android:textSize="@dimen/sp_15"/>
 
                 </TableRow>
 
@@ -72,7 +75,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@{String.valueOf(shopInfo.numberOfShops)}"/>
+                        android:text="@{String.valueOf(shopInfo.numberOfShops)}"
+                        android:textSize="@dimen/sp_15"/>
 
                 </TableRow>
 
@@ -86,7 +90,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@{String.valueOf(shopInfo.numberOfProducts)}"/>
+                        android:text="@{String.valueOf(shopInfo.numberOfProducts)}"
+                        android:textSize="@dimen/sp_15"/>
 
                 </TableRow>
 
@@ -100,7 +105,7 @@
                         android:gravity="center"
                         android:text="@{shopDomain.status ? @string/title_status_accepted : @string/title_status_pending}"
                         android:textColor="@{shopDomain.status ? @color/color_green : @color/color_red}"
-                        android:textSize="@dimen/dp_16"/>
+                        android:textSize="@dimen/sp_15"/>
 
                 </TableRow>
 
@@ -111,12 +116,13 @@
                         android:layout_height="@dimen/dp_40"
                         android:layout_weight="0.7"
                         android:text="@string/title_request"
+                        android:textSize="@dimen/sp_15"
                         android:textStyle="bold"/>
 
                     <Button
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/dp_20"
+                        android:layout_marginRight="@dimen/dp_16"
                         android:layout_weight="0.3"
                         android:background="@{shopDomain.status ? @color/color_red : @color/color_blue}"
                         android:text="@{shopDomain.status ? @string/action_cancel : @string/action_request}"
