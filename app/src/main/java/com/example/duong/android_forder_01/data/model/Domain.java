@@ -23,6 +23,20 @@ public class Domain implements Serializable {
     private String mUpdatedAt;
     @SerializedName("slug")
     private String mSlug;
+    @SerializedName("number_of_member")
+    private String mNumberMember;
+    @SerializedName("number_of_shop")
+    private String mNumberShop;
+    @SerializedName("number_of_product")
+    private String mNumberProduct;
+    @SerializedName("is_user_joined")
+    private int mIsJoined;
+    @SerializedName("is_private")
+    private int mIsPrivate;
+    @SerializedName("is_owner")
+    private int mIsOwner;
+    @SerializedName("root_domain")
+    private int mRootDomain;
 
     public Domain(int id, String name, int status,
                   User user, String createdAt, String updatedAt, String slug) {
@@ -96,6 +110,62 @@ public class Domain implements Serializable {
 
     public void setUser(User user) {
         mUser = user;
+    }
+
+    public String getNumberMember() {
+        return mNumberMember;
+    }
+
+    public void setNumberMember(String numberMember) {
+        mNumberMember = numberMember;
+    }
+
+    public String getNumberShop() {
+        return mNumberShop;
+    }
+
+    public void setNumberShop(String numberShop) {
+        mNumberShop = numberShop;
+    }
+
+    public String getNumberProduct() {
+        return mNumberProduct;
+    }
+
+    public void setNumberProduct(String numberProduct) {
+        mNumberProduct = numberProduct;
+    }
+
+    public int getIsJoined() {
+        return mIsJoined;
+    }
+
+    public void setIsJoined(int isJoined) {
+        mIsJoined = isJoined;
+    }
+
+    public int getIsPrivate() {
+        return mIsPrivate;
+    }
+
+    public void setIsPrivate(int isPrivate) {
+        mIsPrivate = isPrivate;
+    }
+
+    public int getIsOwner() {
+        return mIsOwner;
+    }
+
+    public void setIsOwner(int isOwner) {
+        mIsOwner = isOwner;
+    }
+
+    public int getRootDomain() {
+        return mRootDomain;
+    }
+
+    public void setRootDomain(int rootDomain) {
+        mRootDomain = rootDomain;
     }
 
     @Override

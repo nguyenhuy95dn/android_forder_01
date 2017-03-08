@@ -53,4 +53,8 @@
     <string name="title_history">History</string>
     <string name="title_private_domain">Private domain</string>
     <string name="title_public_domain">Public domain</string>
+    <string name="action_public_domain">Public domain</string>
+    <string name="action_private_domain">Private domain</string>
+    <string name="action_join_domain">Join domain</string>
+    <string name="action_exit_domain">Exit domain</string>
 </resources>
