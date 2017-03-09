@@ -57,4 +57,5 @@
     <string name="action_private_domain">Private domain</string>
     <string name="action_join_domain">Join domain</string>
     <string name="action_exit_domain">Exit domain</string>
+    <string name="action_continue">Continue</string>
 </resources>
