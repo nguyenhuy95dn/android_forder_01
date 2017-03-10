@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Forder</string>
     <string name="title_your_shop">Your Shop</string>
-    <string name="title_number_of_member">Number of member:</string>
-    <string name="title_number_of_shop">Number of shop:</string>
+    <string name="title_number_of_member">Member</string>
+    <string name="title_number_of_shop">Number of shops</string>
     <string name="title_status">Status</string>
     <string name="title_status_pending">Pending</string>
     <string name="title_status_accepted">Accepted</string>
@@ -58,4 +58,6 @@
     <string name="action_join_domain">Join domain</string>
     <string name="action_exit_domain">Exit domain</string>
     <string name="action_continue">Continue</string>
+    <string name="title_check_orders">Check orders</string>
+    <string name="title_close_orders">Close orders</string>
 </resources>

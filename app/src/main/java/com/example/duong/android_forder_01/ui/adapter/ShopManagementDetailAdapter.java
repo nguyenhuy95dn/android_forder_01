@@ -9,7 +9,7 @@ import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.ShopManagement;
 import com.example.duong.android_forder_01.ui.shopdetail.shopinformation.ShopInformationFragment;
 import com.example.duong.android_forder_01.ui.shopmanagementdetail.historyshop.HistoryShopFragment;
-import com.example.duong.android_forder_01.ui.shopmanagementdetail.ordershop.OrderShopFragment;
+import com.example.duong.android_forder_01.ui.shopmanagementdetail.ordershop.OrderOfShopFragment;
 import com.example.duong.android_forder_01.ui.shopmanagementdetail.productshop.ProductShopFragment;
 
 /**
@@ -39,7 +39,7 @@ public class ShopManagementDetailAdapter extends FragmentPagerAdapter {
             case SHOP_PRODUCT_POSITION:
                 return ProductShopFragment.newInstance(mShopManagement.getShop());
             case SHOP_ORDER_POSITION:
-                return OrderShopFragment.newInstance(mShopManagement);
+                return OrderOfShopFragment.newInstance(mShopManagement.getShop());
             case SHOP_HISTORY_POSITION:
                 return HistoryShopFragment.newInstance(mShopManagement);
             default:
