@@ -15,7 +15,12 @@
         android:id="@+id/expandable_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:dividerHeight="@dimen/dp_2"
+        android:background="@color/color_gray"
+        android:divider="@color/color_gray"
+        android:dividerHeight="@dimen/dp_5"
+        android:groupIndicator="@null"
         android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        android:padding="@dimen/dp_5"
+        android:scrollbars="none"
         app:adapter="@{shopManagement.shopManagementAdapter}"/>
 </layout>
