@@ -42,4 +42,10 @@ public class PrivateDomainPresenter implements PrivateDomainContract.Presenter {
                 }
             });
     }
+
+    @Override
+    public void getDomainDetail(Domain domain) {
+        if (domain == null) return;
+        mView.showDomainDetail(domain);
+    }
 }

@@ -5,14 +5,16 @@
     <data>
 
         <variable
-            name="domain"
+            name="publicDomain"
             type="com.example.duong.android_forder_01.data.model.Domain"/>
 
         <variable
-            name="privateActionHandler"
-            type="com.example.duong.android_forder_01.ui.domain.privatedomain.PrivateDomainItemActionHandler"/>
+            name="publicActionHandler"
+            type="com.example.duong.android_forder_01.ui.domain.publicdomain.PublicDomainItemActionHandler"/>
 
         <import type="android.view.View"/>
+
+        <import type="com.example.duong.android_forder_01.R"/>
 
     </data>
 
@@ -39,7 +41,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{domain.name}"
+                    android:text="@{publicDomain.name}"
                     android:textColor="@color/color_dark_slate_gray"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="bold"/>
@@ -56,7 +58,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{domain.numberMember}"
+                        android:text="@{publicDomain.numberMember}"
                         android:textColor="@color/color_dark_slate_gray"
                         android:textSize="@dimen/sp_18"
                         android:textStyle="bold"/>
@@ -74,7 +76,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{domain.numberShop}"
+                        android:text="@{publicDomain.numberShop}"
                         android:textColor="@color/color_dark_slate_gray"
                         android:textSize="@dimen/sp_18"
                         android:textStyle="bold"/>
@@ -92,7 +94,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{domain.numberProduct}"
+                        android:text="@{publicDomain.numberProduct}"
                         android:textColor="@color/color_dark_slate_gray"
                         android:textSize="@dimen/sp_18"
                         android:textStyle="bold"/>
@@ -107,43 +109,9 @@
                 android:layout_centerVertical="true"
                 android:layout_margin="@dimen/dp_10"
                 android:background="@color/colorAccent"
-                android:text="@string/action_public_domain"
-                android:textAllCaps="false"
-                android:visibility="@{(domain.isPrivate == 1 &amp;&amp; domain.isOwner == 1 &amp;&amp; domain.rootDomain == 0) ? View.VISIBLE : View.GONE}"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="@dimen/dp_10"
-                android:background="@color/colorAccent"
-                android:text="@string/action_private_domain"
-                android:textAllCaps="false"
-                android:visibility="@{(domain.isPrivate == 0 &amp;&amp; domain.isOwner == 1  &amp;&amp; domain.rootDomain == 0) ? View.VISIBLE : View.GONE}"
-                />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="@dimen/dp_10"
-                android:background="@color/colorAccent"
                 android:text="@string/action_join_domain"
                 android:textAllCaps="false"
-                android:visibility="@{(domain.isJoined == 0 &amp;&amp; domain.isOwner == 0 &amp;&amp; domain.isPrivate == 0) ? View.VISIBLE : View.GONE}"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="@dimen/dp_10"
-                android:background="@color/colorAccent"
-                android:text="@string/action_exit_domain"
-                android:textAllCaps="false"
-                android:visibility="@{(domain.isJoined == 1 &amp;&amp; domain.isOwner == 0) ? View.VISIBLE : View.GONE}"/>
+                android:visibility="@{(publicDomain.isJoined == 0 &amp;&amp; publicDomain.isOwner == 0 &amp;&amp; publicDomain.isPrivate == 0) ? View.VISIBLE : View.GONE}"/>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

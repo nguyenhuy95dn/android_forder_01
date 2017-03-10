@@ -89,6 +89,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
                 break;
             case R.id.item_shop_management:
                 startActivity(new Intent(this, ShopManagementActivity.class));
+                break;
             case R.id.item_domain:
                 startActivity(new Intent(this, DomainActivity.class));
                 break;

@@ -60,4 +60,7 @@
     <string name="action_continue">Continue</string>
     <string name="title_check_orders">Check orders</string>
     <string name="title_close_orders">Close orders</string>
+    <string name="title_member_domain">Member</string>
+    <string name="title_shop_domain">Shop</string>
+    <string name="title_request_domain">Request</string>
 </resources>
