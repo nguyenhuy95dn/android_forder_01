@@ -36,7 +36,7 @@ public class PrivateDomainAdapter
     public PrivateDomainAdapter.PrivateDomainViewHolder onCreateViewHolder(ViewGroup parent,
                                                                            int viewType) {
         View itemView =
-            mLayoutInflater.inflate(R.layout.item_domain, parent, false);
+            mLayoutInflater.inflate(R.layout.item_private_domain, parent, false);
         return new PrivateDomainAdapter.PrivateDomainViewHolder(itemView);
     }
 
@@ -61,8 +61,8 @@ public class PrivateDomainAdapter
 
         public void bindData(Domain domain) {
             if (domain == null) return;
-            mDataBinding.setVariable(BR.domain, domain);
-            mDataBinding.setVariable(BR.actionHandler, new PrivateDomainItemActionHandler
+            mDataBinding.setVariable(BR.privateDomain, domain);
+            mDataBinding.setVariable(BR.privateActionHandler, new PrivateDomainItemActionHandler
                 (mListener));
             mDataBinding.executePendingBindings();
         }

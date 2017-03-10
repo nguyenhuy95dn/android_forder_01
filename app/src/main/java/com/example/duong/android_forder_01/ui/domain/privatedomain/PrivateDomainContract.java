@@ -12,10 +12,12 @@ import java.util.List;
 public interface PrivateDomainContract {
     interface View extends BaseView<Presenter> {
         void showAllPrivateDomain(List<Domain> list);
+        void showDomainDetail(Domain domain);
         void showGetDataError();
     }
 
     interface Presenter extends BasePresenter {
         void getAllPrivateDomain(int idUser);
+        void getDomainDetail(Domain domain);
     }
 }

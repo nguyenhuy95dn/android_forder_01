@@ -36,7 +36,7 @@ public class PublicDomainAdapter
     public PublicDomainAdapter.PublicDomainViewHolder onCreateViewHolder(ViewGroup parent,
                                                                          int viewType) {
         View itemView =
-            mLayoutInflater.inflate(R.layout.item_domain, parent, false);
+            mLayoutInflater.inflate(R.layout.item_public_domain, parent, false);
         return new PublicDomainAdapter.PublicDomainViewHolder(itemView);
     }
 
@@ -61,8 +61,8 @@ public class PublicDomainAdapter
 
         public void bindData(Domain domain) {
             if (domain == null) return;
-            mDataBinding.setVariable(BR.domain, domain);
-            mDataBinding.setVariable(BR.actionHandler, new PublicDomainItemActionHandler
+            mDataBinding.setVariable(BR.publicDomain, domain);
+            mDataBinding.setVariable(BR.publicActionHandler, new PublicDomainItemActionHandler
                 (mListener));
             mDataBinding.executePendingBindings();
         }

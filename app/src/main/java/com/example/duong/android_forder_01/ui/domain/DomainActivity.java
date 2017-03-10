@@ -1,10 +1,8 @@
 package com.example.duong.android_forder_01.ui.domain;
 
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableField;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.duong.android_forder_01.R;
@@ -17,8 +15,7 @@ import com.example.duong.android_forder_01.ui.adapter.DomainViewPagerAdapter;
 public class DomainActivity extends AppCompatActivity implements DomainContract.View {
     private DomainContract.Presenter mPresenter;
     private ActivityDomainBinding mActivityDomainBinding;
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
+    private ObservableField<DomainViewPagerAdapter> mAdapter = new ObservableField<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +25,6 @@ public class DomainActivity extends AppCompatActivity implements DomainContract.
         mPresenter.start();
     }
 
-    public void initViewPager() {
-        mTabLayout = mActivityDomainBinding.tabLayoutDomain;
-        mViewPager = mActivityDomainBinding.viewPagerDomain;
-        FragmentManager manager = getSupportFragmentManager();
-        DomainViewPagerAdapter adapter = new DomainViewPagerAdapter(manager, this);
-        mViewPager.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-        mTabLayout.setupWithViewPager(mViewPager);
-    }
-
     @Override
     public void showGetDataError() {
         //TODO: Show get data error
@@ -45,8 +32,12 @@ public class DomainActivity extends AppCompatActivity implements DomainContract.
 
     @Override
     public void start() {
-        initViewPager();
         mActivityDomainBinding.setActivityDomain(this);
+        mAdapter.set(new DomainViewPagerAdapter(getSupportFragmentManager(), this));
+    }
+
+    public ObservableField<DomainViewPagerAdapter> getAdapter() {
+        return mAdapter;
     }
 
     @Override

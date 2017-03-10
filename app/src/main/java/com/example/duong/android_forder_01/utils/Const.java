@@ -23,6 +23,7 @@ public class Const {
         public static final String EXTRA_PRODUCT = "product";
         public static final String EXTRA_SHOP = "shop";
         public static final String EXTRA_ID_CATEGORY = "id_category";
+        public static final String EXTRA_DOMAIN = "domain";
 
     }
 }

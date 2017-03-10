@@ -14,6 +14,7 @@ import com.example.duong.android_forder_01.data.model.Domain;
 import com.example.duong.android_forder_01.data.source.DomainReposity;
 import com.example.duong.android_forder_01.databinding.FragmentPrivateDomainBinding;
 import com.example.duong.android_forder_01.ui.adapter.PrivateDomainAdapter;
+import com.example.duong.android_forder_01.ui.domain.detaildomain.DetailDomainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,11 @@ public class PrivateDomainFragment extends Fragment
         if (list == null) return;
         mDomains.clear();
         mDomains.addAll(list);
+    }
+
+    @Override
+    public void showDomainDetail(Domain domain) {
+        startActivity(DetailDomainActivity.getDomainDetailIntent(getActivity(), domain));
     }
 
     @Override
