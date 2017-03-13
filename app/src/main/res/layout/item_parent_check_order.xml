@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="order"
+            type="com.example.duong.android_forder_01.data.model.Orders"/>
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_10"
-            android:layout_toLeftOf="@+id/button_status"
+            android:layout_toLeftOf="@+id/frame_status"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -44,15 +53,43 @@
 
         </LinearLayout>
 
-        <TextView
-            android:textColor="@android:color/white"
-            android:gravity="center"
-            android:id="@+id/button_status"
+        <FrameLayout
+            android:id="@+id/frame_status"
             android:layout_width="@dimen/dp_80"
-            android:layout_height="@dimen/dp_40"
+            android:layout_height="@dimen/dp_30"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/button_blue"/>
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_30"
+                android:background="@color/color_blue"
+                android:gravity="center"
+                android:text="@string/title_pending"
+                android:textColor="@android:color/white"
+                android:visibility="@{order.pendingStatus ? View.VISIBLE : View.GONE}"/>
+
+            <TextView
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_30"
+                android:background="@color/color_red"
+                android:gravity="center"
+                android:text="@string/title_reject"
+                android:textColor="@android:color/white"
+                android:visibility="@{order.rejectStatus ? View.VISIBLE : View.GONE}"/>
+
+            <TextView
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_30"
+                android:background="@color/color_green"
+                android:gravity="center"
+                android:text="@string/title_accept"
+                android:textColor="@android:color/white"
+                android:visibility="@{order.acceptStatus ? View.VISIBLE : View.GONE}"/>
+
+
+        </FrameLayout>
+
     </RelativeLayout>
 </layout>
 

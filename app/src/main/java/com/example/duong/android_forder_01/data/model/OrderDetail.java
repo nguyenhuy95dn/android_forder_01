@@ -1,17 +1,23 @@
 package com.example.duong.android_forder_01.data.model;
 
+import static com.example.duong.android_forder_01.utils.Const.StatusCode.ACCEPT_CODE;
+import static com.example.duong.android_forder_01.utils.Const.StatusCode.PENDING_CODE;
+import static com.example.duong.android_forder_01.utils.Const.StatusCode.REJECT_CODE;
+
 public class OrderDetail {
-    private String mID;
+    private int mId;
     private Orders mOrders;
     private Product mProduct;
     private int mQuantity;
+    private int mStatus;
+    private boolean mCheckBoxStatus;
 
-    public String getID() {
-        return mID;
+    public int getId() {
+        return mId;
     }
 
-    public void setID(String ID) {
-        mID = ID;
+    public void setId(int id) {
+        mId = id;
     }
 
     public int getQuantity() {
@@ -36,5 +42,33 @@ public class OrderDetail {
 
     public void setProduct(Product product) {
         mProduct = product;
+    }
+
+    public int getStatus() {
+        return mStatus;
+    }
+
+    public void setStatus(int status) {
+        mStatus = status;
+    }
+
+    public boolean isPendingStatus() {
+        return mStatus == PENDING_CODE;
+    }
+
+    public boolean isAcceptStatus() {
+        return mStatus == ACCEPT_CODE;
+    }
+
+    public boolean isRejectStatus() {
+        return mStatus == REJECT_CODE;
+    }
+
+    public boolean isCheckBoxStatus() {
+        return mCheckBoxStatus;
+    }
+
+    public void setCheckBoxStatus(boolean checkBoxStatus) {
+        mCheckBoxStatus = checkBoxStatus;
     }
 }

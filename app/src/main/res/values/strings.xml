@@ -63,4 +63,8 @@
     <string name="title_member_domain">Member</string>
     <string name="title_shop_domain">Shop</string>
     <string name="title_request_domain">Request</string>
+    <string name="title_pending">Pending</string>
+    <string name="title_accept">Accepted</string>
+    <string name="title_reject">Rejected</string>
+    <string name="title_quantity">Quantity:</string>
 </resources>

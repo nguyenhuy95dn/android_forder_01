@@ -24,6 +24,11 @@ public class Const {
         public static final String EXTRA_SHOP = "shop";
         public static final String EXTRA_ID_CATEGORY = "id_category";
         public static final String EXTRA_DOMAIN = "domain";
+    }
 
+    public static class StatusCode {
+        public static final int PENDING_CODE = 0;
+        public static final int ACCEPT_CODE = 1;
+        public static final int REJECT_CODE = 2;
     }
 }
