@@ -1,26 +1,33 @@
 package com.example.duong.android_forder_01.data.model;
 
+import java.util.List;
+
+import static com.example.duong.android_forder_01.utils.Const.StatusCode.ACCEPT_CODE;
+import static com.example.duong.android_forder_01.utils.Const.StatusCode.PENDING_CODE;
+import static com.example.duong.android_forder_01.utils.Const.StatusCode.REJECT_CODE;
+
 public class Orders {
-    private String mId;
-    private String mStatus;
+    private int mId;
+    private int mStatus;
     private String mEndDate;
     private String mTotalPay;
     private User mUser;
     private Shop mShop;
+    private List<OrderDetail> mOrderDetails;
 
-    public String getId() {
+    public int getId() {
         return mId;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         mId = id;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return mStatus;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         mStatus = status;
     }
 
@@ -54,5 +61,26 @@ public class Orders {
 
     public void setShop(Shop shop) {
         mShop = shop;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return mOrderDetails;
+    }
+
+    public void setOrderDetails(
+        List<OrderDetail> orderDetails) {
+        mOrderDetails = orderDetails;
+    }
+
+    public boolean isPendingStatus() {
+        return mStatus == PENDING_CODE;
+    }
+
+    public boolean isAcceptStatus() {
+        return mStatus == ACCEPT_CODE;
+    }
+
+    public boolean isRejectStatus() {
+        return mStatus == REJECT_CODE;
     }
 }
