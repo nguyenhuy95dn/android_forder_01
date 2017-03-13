@@ -5,6 +5,7 @@ import android.database.Cursor;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_DOMAIN;
 
@@ -16,7 +17,9 @@ public class Domain implements Serializable {
     @SerializedName("status")
     private int mStatus;
     @SerializedName("user")
-    private User mUser;
+    private List<User> mUser;
+    @SerializedName("shop")
+    private List<Shop> mShop;
     @SerializedName("created_at")
     private String mCreatedAt;
     @SerializedName("updated_at")
@@ -38,15 +41,21 @@ public class Domain implements Serializable {
     @SerializedName("root_domain")
     private int mRootDomain;
 
-    public Domain(int id, String name, int status,
-                  User user, String createdAt, String updatedAt, String slug) {
+    public Domain(int id, String name,
+                  List<User> user,
+                  List<Shop> shop, String numberMember, String numberShop,
+                  String numberProduct, int isJoined, int isPrivate, int isOwner, int rootDomain) {
         mId = id;
         mName = name;
-        mStatus = status;
         mUser = user;
-        mCreatedAt = createdAt;
-        mUpdatedAt = updatedAt;
-        mSlug = slug;
+        mShop = shop;
+        mNumberMember = numberMember;
+        mNumberShop = numberShop;
+        mNumberProduct = numberProduct;
+        mIsJoined = isJoined;
+        mIsPrivate = isPrivate;
+        mIsOwner = isOwner;
+        mRootDomain = rootDomain;
     }
 
     public Domain() {
@@ -104,12 +113,20 @@ public class Domain implements Serializable {
         mStatus = status;
     }
 
-    public User getUser() {
+    public List<User> getUser() {
         return mUser;
     }
 
-    public void setUser(User user) {
+    public void setUser(List<User> user) {
         mUser = user;
+    }
+
+    public List<Shop> getShop() {
+        return mShop;
+    }
+
+    public void setShop(List<Shop> shop) {
+        mShop = shop;
     }
 
     public String getNumberMember() {

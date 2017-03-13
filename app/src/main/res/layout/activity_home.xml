@@ -35,8 +35,15 @@
                     android:layout_height="?attr/actionBarSize"
                     app:contentInsetStartWithNavigation="0dp"
                     app:logo="@drawable/logo"
-                    app:theme="@style/MenuItemColor"
-                    />
+                    app:theme="@style/MenuItemColor">
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        app:spinner="@{activityHome.spinnerAdapter}"/>
+                </android.support.v7.widget.Toolbar>
 
                 <android.support.design.widget.TabLayout
                     android:id="@+id/tab_layout_home"

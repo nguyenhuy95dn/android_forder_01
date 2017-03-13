@@ -2,6 +2,19 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="orderDetail"
+            type="com.example.duong.android_forder_01.data.model.OrderDetail"/>
+
+        <variable
+            name="actionHandler"
+            type="com.example.duong.android_forder_01.ui.shopmanagementdetail.ordershop.checkorder.CheckOrderActionHandler"/>
+    </data>
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,15 +34,21 @@
                 android:id="@+id/checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:buttonTint="@color/colorAccent"/>
+                android:buttonTint="@color/colorAccent"
+                android:checked="@{orderDetail.checkBoxStatus}"
+                android:onClick="@{()-> actionHandler.checkOne(orderDetail)}"/>
 
             <ImageView
                 android:id="@+id/image_product"
                 android:layout_width="@dimen/dp_70"
                 android:layout_height="@dimen/dp_70"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/checkbox"/>
+                android:layout_toRightOf="@+id/checkbox"
+                app:imageUrl="@{orderDetail.product.collectionImage.image.thumbnail.url}"
+                />
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -41,24 +60,30 @@
                 android:shrinkColumns="0,1"
                 android:stretchColumns="0,1">
 
-                <TableRow android:gravity="bottom">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@{orderDetail.product.name}"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/sp_15"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@{orderDetail.product.formatPrice}"
                         android:textColor="@android:color/holo_red_dark"
                         android:textSize="@dimen/sp_15"/>
 
                     <ImageButton
                         android:layout_width="@dimen/dp_30"
                         android:layout_height="@dimen/dp_30"
-                        android:background="@drawable/ic_accept"/>
+                        android:background="@drawable/ic_accept"
+                        android:onClick="@{()-> actionHandler.acceptOne(orderDetail)}"/>
                 </TableRow>
 
                 <TableRow
@@ -67,19 +92,52 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@{@string/title_quantity + orderDetail.quantity}"
                         android:textColor="@color/color_blue"
                         android:textSize="@dimen/sp_15"/>
 
-                    <TextView
+                    <FrameLayout
+                        android:id="@+id/frame_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/color_green"
-                        android:textSize="@dimen/sp_15"/>
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true">
+
+                        <TextView
+                            android:layout_width="@dimen/dp_80"
+                            android:layout_height="@dimen/dp_20"
+                            android:background="@color/color_blue"
+                            android:gravity="center"
+                            android:text="@string/title_pending"
+                            android:textColor="@android:color/white"
+                            android:visibility="@{orderDetail.pendingStatus ? View.VISIBLE : View.GONE}"/>
+
+                        <TextView
+                            android:layout_width="@dimen/dp_80"
+                            android:layout_height="@dimen/dp_20"
+                            android:background="@color/color_red"
+                            android:gravity="center"
+                            android:text="@string/title_reject"
+                            android:textColor="@android:color/white"
+                            android:visibility="@{orderDetail.rejectStatus ? View.VISIBLE : View.GONE}"/>
+
+                        <TextView
+                            android:layout_width="@dimen/dp_80"
+                            android:layout_height="@dimen/dp_20"
+                            android:background="@color/color_green"
+                            android:gravity="center"
+                            android:text="@string/title_accept"
+                            android:textColor="@android:color/white"
+                            android:visibility="@{orderDetail.acceptStatus ? View.VISIBLE : View.GONE}"/>
+
+
+                    </FrameLayout>
 
                     <ImageButton
                         android:layout_width="@dimen/dp_30"
                         android:layout_height="@dimen/dp_30"
-                        android:background="@drawable/ic_reject"/>
+                        android:background="@drawable/ic_reject"
+                        android:onClick="@{()-> actionHandler.rejectOne(orderDetail)}"/>
                 </TableRow>
             </TableLayout>
         </RelativeLayout>

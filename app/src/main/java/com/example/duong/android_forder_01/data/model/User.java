@@ -9,6 +9,12 @@ public class User {
     private String mUserName;
     @SerializedName("name")
     private String mFullName;
+    @SerializedName("member")
+    private int mIsMember;
+    @SerializedName("role")
+    private int mRole;
+    @SerializedName("owner")
+    private int mOwner;
     @SerializedName("authentication_token")
     private String mAuthenticationToken;
 
@@ -38,6 +44,30 @@ public class User {
 
     public String getAuthenticationToken() {
         return mAuthenticationToken;
+    }
+
+    public int getIsMember() {
+        return mIsMember;
+    }
+
+    public void setIsMember(int isMember) {
+        mIsMember = isMember;
+    }
+
+    public int getRole() {
+        return mRole;
+    }
+
+    public void setRole(int role) {
+        mRole = role;
+    }
+
+    public int getOwner() {
+        return mOwner;
+    }
+
+    public void setOwner(int owner) {
+        mOwner = owner;
     }
 
     public void setAuthenticationToken(String authenticationToken) {
