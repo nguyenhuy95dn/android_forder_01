@@ -8,8 +8,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
+import com.example.duong.android_forder_01.data.model.Domain;
 import com.squareup.picasso.Picasso;
 
 public class CustomBindingAdapter {
@@ -46,5 +49,10 @@ public class CustomBindingAdapter {
     public static void setSupportActionBar(Toolbar toolbar, AppCompatActivity activity) {
         toolbar.setTitleTextColor(Color.WHITE);
         activity.setSupportActionBar(toolbar);
+    }
+
+    @BindingAdapter({"spinner"})
+    public static void bindSpinner(Spinner spinner, ArrayAdapter<Domain> arrayAdapter) {
+        spinner.setAdapter(arrayAdapter);
     }
 }

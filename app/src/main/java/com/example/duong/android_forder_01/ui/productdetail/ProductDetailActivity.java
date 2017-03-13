@@ -7,11 +7,8 @@ import android.databinding.ObservableField;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Product;
@@ -49,8 +46,6 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_home, menu);
-        MenuItem item = menu.findItem(R.id.item_spinner);
-        item.setVisible(false);
         return true;
     }
 

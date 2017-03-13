@@ -6,7 +6,6 @@ import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,6 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.example.duong.android_forder_01.R;
@@ -47,6 +49,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     private List<Category> mCategories = new ArrayList<>();
     private ObservableField<CategoryAdapter> mCategoryAdapter = new ObservableField<>();
     private List<Domain> mDomains = new ArrayList<>();
+    private ObservableField<ArrayAdapter> mSpinnerAdapter = new ObservableField<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +78,24 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_home, menu);
-        MenuItem item = menu.findItem(R.id.item_spinner);
-        mSpinner = (Spinner) MenuItemCompat.getActionView(item);
+        initSpinner();
         return true;
+    }
+
+    private void initSpinner() {
+        mSpinnerAdapter.set(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, mDomains));
+        mActivityHomeBinding.spinner.setOnItemSelectedListener(
+            new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                    //TODO: Load shop, category, product in domain
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                    // not require
+                }
+            });
     }
 
     @Override
@@ -153,5 +171,9 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
     public ObservableField<CategoryAdapter> getCategoryAdapter() {
         return mCategoryAdapter;
+    }
+
+    public ObservableField<ArrayAdapter> getSpinnerAdapter() {
+        return mSpinnerAdapter;
     }
 }

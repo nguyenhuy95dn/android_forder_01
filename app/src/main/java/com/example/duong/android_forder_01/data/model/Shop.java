@@ -31,6 +31,9 @@ public class Shop implements Serializable {
     @SerializedName("products")
     private List<Product> mListProduct;
 
+    public Shop() {
+    }
+
     public Shop(int id, String name, String description,
                 CollectionAvatar collectionAvatar) {
         mId = id;
