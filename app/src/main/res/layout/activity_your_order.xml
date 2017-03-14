@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="yourOrder"
+            type="com.example.duong.android_forder_01.ui.yourorder.YourOrderActivity"/>
+
+        <variable
+            name="actionHandler"
+            type="com.example.duong.android_forder_01.ui.yourorder.YourOrderActionHandler"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_blue_white"
+            android:padding="@dimen/dp_5">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_from_date"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/sp_15"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/sp_15"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_to_date"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/sp_15"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/sp_15"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="3"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_30"
+                    android:background="@drawable/button_blue"
+                    android:onClick="@{()-> actionHandler.filter()}"
+                    android:text="@string/action_filter"
+                    android:textAllCaps="false"/>
+            </TableRow>
+        </TableLayout>
+
+        <ExpandableListView
+            android:id="@+id/expand_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_gray"
+            android:divider="@color/color_gray"
+            android:dividerHeight="@dimen/dp_5"
+            android:groupIndicator="@null"
+            android:scrollbars="none"
+            app:adapter="@{yourOrder.yourOrderAdapter}"/>
+
+    </LinearLayout>
+</layout>

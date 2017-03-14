@@ -67,4 +67,7 @@
     <string name="title_accept">Accepted</string>
     <string name="title_reject">Rejected</string>
     <string name="title_quantity">Quantity:</string>
+    <string name="title_from_date">From:</string>
+    <string name="title_to_date">To:</string>
+    <string name="action_filter">Filter</string>
 </resources>
