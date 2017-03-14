@@ -55,6 +55,9 @@
         <activity
             android:name=".ui.shopmanagementdetail.ShopManagementDetailActivity"/>
         <activity android:name=".ui.domain.DomainActivity"/>
+        <activity
+            android:name=".ui.yourorder.YourOrderActivity"
+            android:label="@string/title_your_order"/>
     </application>
 
 </manifest>

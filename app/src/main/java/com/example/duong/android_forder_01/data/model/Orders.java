@@ -2,9 +2,11 @@ package com.example.duong.android_forder_01.data.model;
 
 import java.util.List;
 
+import static com.example.duong.android_forder_01.utils.Const.FORMAT_PRICE;
 import static com.example.duong.android_forder_01.utils.Const.StatusCode.ACCEPT_CODE;
 import static com.example.duong.android_forder_01.utils.Const.StatusCode.PENDING_CODE;
 import static com.example.duong.android_forder_01.utils.Const.StatusCode.REJECT_CODE;
+import static com.example.duong.android_forder_01.utils.Const.UNIT_MONEY;
 
 public class Orders {
     private int mId;
@@ -82,5 +84,13 @@ public class Orders {
 
     public boolean isRejectStatus() {
         return mStatus == REJECT_CODE;
+    }
+
+    public boolean isCancel() {
+        return mStatus == PENDING_CODE;
+    }
+
+    public String getFormatTotalPrice() {
+        return String.format(FORMAT_PRICE, mTotalPay) + UNIT_MONEY;
     }
 }

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="order"
+            type="com.example.duong.android_forder_01.data.model.Orders"/>
+
+        <variable
+            name="actionHandler"
+            type="com.example.duong.android_forder_01.ui.yourorder.YourOrderActionHandler"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_dark_slate_gray"
+        android:descendantFocusability="blocksDescendants"
+        android:padding="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_toRightOf="@id/frame_status"
+            android:text="@{order.endDate}"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_15"/>
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_toRightOf="@+id/text_date"
+            android:text="@string/title_total_price"
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/text_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_toLeftOf="@+id/button_cancel"
+            android:layout_toRightOf="@+id/text_title"
+            android:gravity="right"
+            android:text="@{order.formatTotalPrice}"
+            android:textColor="@android:color/holo_red_light"/>
+
+        <ImageButton
+            android:id="@+id/button_cancel"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:background="@drawable/ic_reject"
+            android:onClick="@{()-> actionHandler.cancelOrder(order)}"
+            android:visibility="@{order.cancel ? View.VISIBLE : View.GONE}"/>
+
+        <FrameLayout
+            android:id="@+id/frame_status"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_30"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:background="@color/color_blue"
+                android:gravity="center"
+                android:text="@string/title_pending"
+                android:textColor="@android:color/white"
+                android:visibility="@{order.pendingStatus ? View.VISIBLE : View.GONE}"/>
+
+            <TextView
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_30"
+                android:background="@color/color_red"
+                android:gravity="center"
+                android:text="@string/title_reject"
+                android:textColor="@android:color/white"
+                android:visibility="@{order.rejectStatus ? View.VISIBLE : View.GONE}"/>
+
+            <TextView
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_30"
+                android:background="@color/color_green"
+                android:gravity="center"
+                android:text="@string/title_accept"
+                android:textColor="@android:color/white"
+                android:visibility="@{order.acceptStatus ? View.VISIBLE : View.GONE}"/>
+        </FrameLayout>
+    </RelativeLayout>
+</layout>
+
