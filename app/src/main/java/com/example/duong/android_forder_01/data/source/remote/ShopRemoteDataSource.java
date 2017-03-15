@@ -38,13 +38,19 @@ public class ShopRemoteDataSource implements ShopDataSource {
         if (getDataCallback == null) return;
         //Fake data
         String image =
+            "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS5vAH1Qjf01K8LSq0Hz_KHHsuZ2uRi3pm3kvrHblYcjMJkJDP8";
+        String image2 =
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx8JBEx8Ci_Q4LEU-crZKZz1tFQoumDiSC2y4l42UiWbCs1AVeIg";
         List<Shop> list = new ArrayList<>();
+        List<Product> products = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            list.add(
-                new Shop(1, "Bún thịt nướng", "Bún",
-                    new CollectionAvatar(new Avatar(image,
-                        new Standard(image), new Thumbnail(image)))));
+            products.add(new Product(1, "Nem Chua", 10000, "Nem chua rán nhỏ",
+                new CollectionImage(new Image(image, new Standard(image), new Thumbnail(image))),
+                new Shop(1, "Nem", "Nem Chua", new CollectionAvatar(
+                    new Avatar(image2, new Standard(image2), new Thumbnail(image2))))));
+            list.add(new Shop(1, "Bún thịt nướng", "Bún",
+                new CollectionAvatar(new Avatar(image, new Standard(image), new Thumbnail(image))),
+                products));
         }
         getDataCallback.onLoaded(list);
     }
@@ -53,7 +59,6 @@ public class ShopRemoteDataSource implements ShopDataSource {
     public void getDataShopManagement(int userId, String userToken,
                                       final GetDataCallback<ShopManagement> getDataCallback) {
         if (getDataCallback == null) return;
-
         // Fake Data
         String image1 =
             "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS5vAH1Qjf01K8LSq0Hz_KHHsuZ2uRi3pm3kvrHblYcjMJkJDP8";
@@ -74,7 +79,6 @@ public class ShopRemoteDataSource implements ShopDataSource {
             (new Image(image2, new Standard(image2), new Thumbnail(image2)))));
         list.add(new Product(6, "Chè", 30000, "Chè thập cẩm", new CollectionImage
             (new Image(image3, new Standard(image3), new Thumbnail(image3)))));
-
         String image =
             "http://giaykiyomi.net/wp-content/uploads/2016/03/hinh-anh-cach-lam-che-thai-xanh-sua-dua-7.jpg";
         String image4 =
@@ -90,19 +94,16 @@ public class ShopRemoteDataSource implements ShopDataSource {
         Shop shop2 = new Shop(3, "Nem chua rán", "Nem",
             new CollectionAvatar(new Avatar(image5,
                 new Standard(image5), new Thumbnail(image5))), list);
-
         List<ShopDomain> shopDomains = new ArrayList<>();
         shopDomains.add(new ShopDomain(1, true));
         shopDomains.add(new ShopDomain(2, false));
         shopDomains.add(new ShopDomain(3, true));
         shopDomains.add(new ShopDomain(4, false));
-
         List<ShopInfo> shopInfos = new ArrayList<>();
         shopInfos.add(new ShopInfo(1, "Đà Nẵng", 10, 10, 20));
         shopInfos.add(new ShopInfo(2, "Ha Noi", 20, 40, 20));
         shopInfos.add(new ShopInfo(3, "HCM", 30, 10, 20));
         shopInfos.add(new ShopInfo(4, "Đà Nẵng", 10, 10, 20));
-
         List<ShopManagement> shopManagements = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             shopManagements.add(new ShopManagement(shop, shopDomains, shopInfos));

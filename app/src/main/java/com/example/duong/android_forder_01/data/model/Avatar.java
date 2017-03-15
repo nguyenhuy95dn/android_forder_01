@@ -12,6 +12,9 @@ public class Avatar implements Serializable {
     @SerializedName("thumbnail")
     private Thumbnail mThumbnail;
 
+    public Avatar() {
+    }
+
     public Avatar(String url, Standard standard,
                   Thumbnail thumbnail) {
         mUrl = url;
