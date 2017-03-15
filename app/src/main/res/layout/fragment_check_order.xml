@@ -44,6 +44,7 @@
                     android:layout_width="@dimen/dp_40"
                     android:layout_height="@dimen/dp_40"
                     android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
                     android:layout_toRightOf="@+id/button_select_all"
                     android:background="@drawable/ic_accept"
                     android:onClick="@{()-> actionHandler.acceptAll()}"/>

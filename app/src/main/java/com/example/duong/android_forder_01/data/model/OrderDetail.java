@@ -1,8 +1,10 @@
 package com.example.duong.android_forder_01.data.model;
 
+import static com.example.duong.android_forder_01.utils.Const.FORMAT_PRICE;
 import static com.example.duong.android_forder_01.utils.Const.StatusCode.ACCEPT_CODE;
 import static com.example.duong.android_forder_01.utils.Const.StatusCode.PENDING_CODE;
 import static com.example.duong.android_forder_01.utils.Const.StatusCode.REJECT_CODE;
+import static com.example.duong.android_forder_01.utils.Const.UNIT_MONEY;
 
 public class OrderDetail {
     private int mId;
@@ -70,5 +72,9 @@ public class OrderDetail {
 
     public void setCheckBoxStatus(boolean checkBoxStatus) {
         mCheckBoxStatus = checkBoxStatus;
+    }
+
+    public String getTotalPriceFormat() {
+        return String.format(FORMAT_PRICE, mProduct.getPrice() * mQuantity) + UNIT_MONEY;
     }
 }
