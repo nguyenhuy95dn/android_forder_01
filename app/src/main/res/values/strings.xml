@@ -72,4 +72,8 @@
     <string name="action_filter">Filter</string>
     <string name="action_done">Done</string>
     <string name="action_back">Back</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_manage">Manage</string>
+    <string name="action_cance_manage">Cance Manage</string>
+    <string name="action_add_member">Add</string>
 </resources>

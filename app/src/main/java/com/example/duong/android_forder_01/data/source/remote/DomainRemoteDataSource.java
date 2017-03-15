@@ -123,9 +123,10 @@ public class DomainRemoteDataSource implements DomainDataSource {
         avatar.setUrl("http://media.bizwebmedia.net/sites/76685/data/Upload/2014/8/do_an.jpg");
         CollectionAvatar collectionAvatar = new CollectionAvatar();
         collectionAvatar.setAvatar(avatar);
-        int[] idShop1 = {1};
-        String[] nameShop1 = {"Shop tap nham"};
-        String[] descriptionShop1 = {"Cai gi cung co"};
+        int[] idShop1 = {1, 2, 3, 4};
+        String[] nameShop1 = {"Shop tạp nham", "Shop Cơm", "Shop Nếp cẩm", "Shop thập cẩm"};
+        String[] descriptionShop1 = {"Cai gi cung co", "Cơm làm từ nhựa", "Chỉ bán nếp cẩm", "Cần gì" +
+            " có nấy"};
         List<Shop> shopList1 = new ArrayList<>();
         for (int i = 0; i < idShop1.length; i++) {
             Shop shop1 = new Shop();
