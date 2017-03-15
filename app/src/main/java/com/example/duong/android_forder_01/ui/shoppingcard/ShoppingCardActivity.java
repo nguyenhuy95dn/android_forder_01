@@ -62,7 +62,6 @@ public class ShoppingCardActivity extends AppCompatActivity implements ShoppingC
     public void initToolbar() {
         mToolbar = mBinding.toolbarShoppingCard;
         mToolbar.setTitle(R.string.title_shopping_card);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

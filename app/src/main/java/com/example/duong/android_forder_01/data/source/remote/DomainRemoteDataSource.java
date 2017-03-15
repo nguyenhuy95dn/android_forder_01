@@ -1,7 +1,10 @@
 package com.example.duong.android_forder_01.data.source.remote;
 
+import com.example.duong.android_forder_01.data.model.Avatar;
+import com.example.duong.android_forder_01.data.model.CollectionAvatar;
 import com.example.duong.android_forder_01.data.model.Domain;
 import com.example.duong.android_forder_01.data.model.Shop;
+import com.example.duong.android_forder_01.data.model.Thumbnail;
 import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.data.source.DomainDataSource;
 import com.example.duong.android_forder_01.data.source.GetDataCallback;
@@ -96,8 +99,8 @@ public class DomainRemoteDataSource implements DomainDataSource {
         }
         List<User> userList3 = new ArrayList<>();
         int[] userid3 = {1, 3};
-        String[] username3 = {"vinh@framgia.com", "tri@framgia.com"};
-        String[] fullname3 = {"Nguen Tien Vinh", "Tran Minh Tri"};
+        String[] username3 = {"tri@framgia.com", "vinh@framgia.com"};
+        String[] fullname3 = {"Tran Minh Tri", "Nguen Tien Vinh"};
         int[] ismember3 = {1, 1};
         int[] role3 = {0, 0};
         int[] owner3 = {1, 1};
@@ -113,6 +116,13 @@ public class DomainRemoteDataSource implements DomainDataSource {
         }
         List[] listUser = {userList1, userList2, userList3};
         //Shop
+        Thumbnail thumbnail = new Thumbnail();
+        thumbnail.setUrl("http://media.bizwebmedia.net/sites/76685/data/Upload/2014/8/do_an.jpg");
+        Avatar avatar = new Avatar();
+        avatar.setThumbnail(thumbnail);
+        avatar.setUrl("http://media.bizwebmedia.net/sites/76685/data/Upload/2014/8/do_an.jpg");
+        CollectionAvatar collectionAvatar = new CollectionAvatar();
+        collectionAvatar.setAvatar(avatar);
         int[] idShop1 = {1};
         String[] nameShop1 = {"Shop tap nham"};
         String[] descriptionShop1 = {"Cai gi cung co"};
@@ -122,6 +132,7 @@ public class DomainRemoteDataSource implements DomainDataSource {
             shop1.setId(idShop1[i]);
             shop1.setName(nameShop1[i]);
             shop1.setDescription(descriptionShop1[i]);
+            shop1.setCollectionAvatar(collectionAvatar);
             shopList1.add(shop1);
         }
         for (int i = 0; i < iddomain.length; i++) {

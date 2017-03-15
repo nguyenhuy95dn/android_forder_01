@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Product;
 import com.example.duong.android_forder_01.data.source.ProductRepository;
+import com.example.duong.android_forder_01.data.source.ShoppingCardRepository;
 import com.example.duong.android_forder_01.databinding.ActivityListProductBinding;
 import com.example.duong.android_forder_01.ui.adapter.ProductAdapter;
 import com.example.duong.android_forder_01.ui.home.product.ProductContract;
@@ -38,7 +39,8 @@ public class ListProductActivity extends BaseActivity implements ProductContract
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_list_product);
-        setPresenter(new ProductPresenter(this, ProductRepository.getInstance()));
+        setPresenter(new ProductPresenter(this, ProductRepository.getInstance(),
+            ShoppingCardRepository.getInstance(this), this));
         mPresenter.start();
     }
 

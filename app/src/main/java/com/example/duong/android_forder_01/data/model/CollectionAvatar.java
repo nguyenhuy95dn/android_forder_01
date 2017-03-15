@@ -8,6 +8,9 @@ public class CollectionAvatar implements Serializable {
     @SerializedName("avatar")
     private Avatar mAvatar;
 
+    public CollectionAvatar() {
+    }
+
     public CollectionAvatar(Avatar avatar) {
         mAvatar = avatar;
     }

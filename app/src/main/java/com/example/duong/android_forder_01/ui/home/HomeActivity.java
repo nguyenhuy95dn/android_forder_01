@@ -30,12 +30,14 @@ import com.example.duong.android_forder_01.ui.domain.DomainActivity;
 import com.example.duong.android_forder_01.ui.listproduct.ListProductActivity;
 import com.example.duong.android_forder_01.ui.notification.NotificationActivity;
 import com.example.duong.android_forder_01.ui.shopmanagement.ShopManagementActivity;
+import com.example.duong.android_forder_01.ui.shoppingcard.ShoppingCardActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.duong.android_forder_01.utils.Const.ID_DOMAIN;
 import static com.example.duong.android_forder_01.utils.Const.ID_USER;
+import static com.example.duong.android_forder_01.utils.SharedPreferencesUtils.saveCurrentDomain;
 
 public class HomeActivity extends AppCompatActivity implements HomeContract.View {
     private Toolbar mToolbar;
@@ -50,6 +52,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     private ObservableField<CategoryAdapter> mCategoryAdapter = new ObservableField<>();
     private List<Domain> mDomains = new ArrayList<>();
     private ObservableField<ArrayAdapter> mSpinnerAdapter = new ObservableField<>();
+    private Domain mDomain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,12 +86,16 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     }
 
     private void initSpinner() {
-        mSpinnerAdapter.set(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, mDomains));
+        mSpinnerAdapter
+            .set(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, mDomains));
         mActivityHomeBinding.spinner.setOnItemSelectedListener(
             new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position,
+                                           long l) {
                     //TODO: Load shop, category, product in domain
+                    mDomain = mDomains.get(position);
+                    saveCurrentDomain(getApplicationContext(), mDomain);
                 }
 
                 @Override
@@ -110,6 +117,9 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
                 break;
             case R.id.item_domain:
                 startActivity(new Intent(this, DomainActivity.class));
+                break;
+            case R.id.item_shopping_card:
+                startActivity(new Intent(this, ShoppingCardActivity.class));
                 break;
             default:
                 break;

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Product;
 import com.example.duong.android_forder_01.data.source.ProductRepository;
+import com.example.duong.android_forder_01.data.source.ShoppingCardRepository;
 import com.example.duong.android_forder_01.databinding.FragmentProductBinding;
 import com.example.duong.android_forder_01.ui.adapter.ProductAdapter;
 import com.example.duong.android_forder_01.ui.productdetail.ProductDetailActivity;
@@ -36,7 +37,8 @@ public class ProductFragment extends Fragment
                              @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_product, container, false);
-        setPresenter(new ProductPresenter(this, ProductRepository.getInstance()));
+        setPresenter(new ProductPresenter(this, ProductRepository.getInstance(),
+            ShoppingCardRepository.getInstance(getActivity()), getActivity()));
         mPresenter.start();
         return mBinding.getRoot();
     }
