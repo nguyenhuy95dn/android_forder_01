@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Shop;
 import com.example.duong.android_forder_01.ui.shopmanagementdetail.ordershop.checkorder.CheckOrderFragment;
+import com.example.duong.android_forder_01.ui.shopmanagementdetail.ordershop.closeorder.CloseOrderFragment;
 
 /**
  * Created by Duong on 3/10/2017.
@@ -32,7 +33,7 @@ public class OrderOfShopViewPagerAdapter extends FragmentPagerAdapter {
             case CHECK_ORDER_POSITION:
                 return CheckOrderFragment.newInstance(mShop);
             case CLOSE_ORDER_POSITION:
-                return CheckOrderFragment.newInstance(mShop);
+                return CloseOrderFragment.newInstance(mShop);
             default:
                 return null;
         }
