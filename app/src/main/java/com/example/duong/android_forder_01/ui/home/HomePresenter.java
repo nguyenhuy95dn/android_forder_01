@@ -29,7 +29,7 @@ public class HomePresenter implements HomeContract.Presenter {
     }
 
     @Override
-    public void openProductResultActivity(int categoryId) {
+    public void openProductResultActivity(Category categoryId) {
         mHomeView.showListProduct(categoryId);
     }
 

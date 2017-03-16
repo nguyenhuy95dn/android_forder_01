@@ -27,13 +27,12 @@ public class CategoryRemoteDataSource implements DataSource<Category> {
     public void getDatas(int idDomain, GetDataCallback<Category> getDataCallback) {
         if (getDataCallback == null) return;
         List<Category> list = new ArrayList<>();
-        list.add(new Category(1, "Cơm"));
-        list.add(new Category(1, "Cơm"));
-        list.add(new Category(2, "Chè"));
-        list.add(new Category(3, "Bún"));
-        list.add(new Category(4, "Phở"));
-        list.add(new Category(5, "Bánh mì"));
-        list.add(new Category(6, "Sinh Tố"));
+        list.add(new Category(1, "Nem"));
+        list.add(new Category(2, "Bún"));
+        list.add(new Category(3, "Chè"));
+        list.add(new Category(4, "Cơm"));
+        list.add(new Category(5, "Nếp cẩm"));
+        list.add(new Category(6, "Xôi"));
         getDataCallback.onLoaded(list);
     }
 
