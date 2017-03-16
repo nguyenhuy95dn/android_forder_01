@@ -7,6 +7,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Domain;
+import com.example.duong.android_forder_01.ui.domain.detaildomain.memberdomain.MemberDomainFragment;
+import com.example.duong.android_forder_01.ui.domain.detaildomain.requesttodomain.RequestDomainFragment;
+import com.example.duong.android_forder_01.ui.domain.detaildomain.shopdomain.ShopDomainFragment;
 
 /**
  * Created by Vinh on 07/03/2017.
@@ -29,11 +32,11 @@ public class DetailDomainViewPageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case MEMBER_DOMAIN_POSITION:
-                //TODO: return MemberDomainFragment.newInstance(mDomain);
+                return MemberDomainFragment.newInstance(mDomain);
             case SHOP_DOMAIN_POSITION:
-                //TODO: return ShopDomainFragment.newInstance(mDomain);
+                return ShopDomainFragment.newInstance(mDomain);
             case REQUEST_DOMAIN_POSITION:
-                //TODO: RequestDomainFragment.newInstance(mDomain);
+                return RequestDomainFragment.newInstance(mDomain);
             default:
                 return null;
         }

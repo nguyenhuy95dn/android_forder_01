@@ -14,9 +14,7 @@ import com.example.duong.android_forder_01.data.model.Domain;
 import com.example.duong.android_forder_01.data.model.Shop;
 import com.example.duong.android_forder_01.data.source.ShopRepository;
 import com.example.duong.android_forder_01.databinding.FragmentShopDomainBinding;
-import com.example.duong.android_forder_01.ui.adapter.ShopAdapter;
-import com.example.duong.android_forder_01.ui.home.shop.ShopContract;
-import com.example.duong.android_forder_01.ui.home.shop.ShopPresenter;
+import com.example.duong.android_forder_01.ui.adapter.ShopDomainAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +24,10 @@ import static com.example.duong.android_forder_01.utils.Const.KeyIntent.EXTRA_DO
 /**
  * Created by Vinh on 07/03/2017.
  */
-public class ShopDomainFragment extends Fragment implements ShopContract.View {
-    private ShopContract.Presenter mPresenter;
+public class ShopDomainFragment extends Fragment implements ShopDomainContract.View {
+    private ShopDomainContract.Presenter mPresenter;
     private List<Shop> mShopList = new ArrayList<>();
-    private ObservableField<ShopAdapter> mShopAdapter = new ObservableField<>();
+    private ObservableField<ShopDomainAdapter> mShopAdapter = new ObservableField<>();
     private FragmentShopDomainBinding mBinding;
     private Domain mDomain;
 
@@ -47,22 +45,17 @@ public class ShopDomainFragment extends Fragment implements ShopContract.View {
                              @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_shop_domain, container, false);
-        setPresenter(new ShopPresenter(this, ShopRepository.getInstance()));
+        setPresenter(new ShopDomainPresenter(this, ShopRepository.getInstance()));
         mPresenter.start();
         return mBinding.getRoot();
     }
 
     public void initRecyclerView() {
-        mShopAdapter.set(new ShopAdapter(mShopList, getActivity(), mPresenter));
+        mShopAdapter.set(new ShopDomainAdapter(getActivity(), mShopList, mPresenter));
     }
 
     @Override
-    public void openShopDetail(Shop shop) {
-        //TODO: Open shop detail
-    }
-
-    @Override
-    public void showAllShop(List<Shop> list) {
+    public void showAllShopDomain(List<Shop> list) {
         if (list == null) return;
         mShopList.clear();
         mShopList.addAll(list);
@@ -89,11 +82,11 @@ public class ShopDomainFragment extends Fragment implements ShopContract.View {
     }
 
     @Override
-    public void setPresenter(ShopContract.Presenter presenter) {
+    public void setPresenter(ShopDomainContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
-    public ObservableField<ShopAdapter> getShopAdapter() {
+    public ObservableField<ShopDomainAdapter> getShopAdapter() {
         return mShopAdapter;
     }
 }
