@@ -9,6 +9,8 @@
             name="activityDetailDomain"
             type="com.example.duong.android_forder_01.ui.domain.detaildomain.DetailDomainActivity"/>
 
+        <import type="com.example.duong.android_forder_01.utils.LayoutManagers"/>
+
     </data>
 
     <android.support.v4.widget.DrawerLayout

@@ -30,6 +30,8 @@ public class Shop implements Serializable {
     private List<Domain> mListDomain;
     @SerializedName("products")
     private List<Product> mListProduct;
+    @SerializedName("is_owner")
+    private int mIsOwner;
 
     public Shop() {
     }
@@ -129,5 +131,13 @@ public class Shop implements Serializable {
     public void setListDomain(
         List<Domain> listDomain) {
         mListDomain = listDomain;
+    }
+
+    public int getIsOwner() {
+        return mIsOwner;
+    }
+
+    public void setIsOwner(int isOwner) {
+        mIsOwner = isOwner;
     }
 }
