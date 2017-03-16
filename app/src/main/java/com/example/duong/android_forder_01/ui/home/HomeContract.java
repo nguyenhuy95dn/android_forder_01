@@ -15,11 +15,11 @@ public interface HomeContract {
         void showAllCategory(List<Category> list);
         void showDomain(List<Domain> domainList);
         void showGetDataError();
-        void showListProduct(int categoryId);
+        void showListProduct(Category category);
     }
 
     interface Presenter extends BasePresenter {
-        void openProductResultActivity(int categoryId);
+        void openProductResultActivity(Category category);
         void getAllCategory(int domainId);
         void getDomain(int userId);
     }

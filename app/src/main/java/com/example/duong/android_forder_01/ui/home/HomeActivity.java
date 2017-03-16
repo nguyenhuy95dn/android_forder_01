@@ -175,7 +175,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     }
 
     @Override
-    public void showListProduct(int categoryId) {
+    public void showListProduct(Category categoryId) {
         startActivity(ListProductActivity.getListProductIntent(this, categoryId));
     }
 

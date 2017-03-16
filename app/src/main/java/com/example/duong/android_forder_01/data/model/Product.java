@@ -37,23 +37,17 @@ public class Product implements Serializable {
     private Category mCategory;
 
     public Product(int id, String name, double price, String description,
-                   CollectionImage collectionImage) {
+                   CollectionImage collectionImage, String startHour, String endHour,
+                   Shop shop, Category category) {
         mId = id;
         mName = name;
         mPrice = price;
         mDescription = description;
         mCollectionImage = collectionImage;
-    }
-
-    public Product(int id, String name, double price, String description,
-                   CollectionImage collectionImage,
-                   Shop shop) {
-        mId = id;
-        mName = name;
-        mPrice = price;
-        mDescription = description;
-        mCollectionImage = collectionImage;
+        mStartHour = startHour;
+        mEndHour = endHour;
         mShop = shop;
+        mCategory = category;
     }
 
     public Product(Cursor cursor) {

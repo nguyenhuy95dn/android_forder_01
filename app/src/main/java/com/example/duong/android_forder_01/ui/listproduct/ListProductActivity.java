@@ -7,6 +7,7 @@ import android.databinding.ObservableField;
 import android.os.Bundle;
 
 import com.example.duong.android_forder_01.R;
+import com.example.duong.android_forder_01.data.model.Category;
 import com.example.duong.android_forder_01.data.model.Product;
 import com.example.duong.android_forder_01.data.source.ProductRepository;
 import com.example.duong.android_forder_01.data.source.ShoppingCardRepository;
@@ -27,11 +28,11 @@ public class ListProductActivity extends BaseActivity implements ProductContract
     private List<Product> mProducts = new ArrayList<>();
     private ActivityListProductBinding mBinding;
     private ObservableField<ProductAdapter> mProductAdapter = new ObservableField<>();
-    private int mCategoryId;
+    private Category mCategory;
 
-    public static Intent getListProductIntent(Context context, int categoryId) {
+    public static Intent getListProductIntent(Context context, Category category) {
         Intent intent = new Intent(context, ListProductActivity.class);
-        intent.putExtra(EXTRA_ID_CATEGORY, categoryId);
+        intent.putExtra(EXTRA_ID_CATEGORY, category);
         return intent;
     }
 
@@ -67,8 +68,8 @@ public class ListProductActivity extends BaseActivity implements ProductContract
 
     @Override
     public void start() {
-        mCategoryId = getIntent().getExtras().getInt(EXTRA_ID_CATEGORY);
-        mPresenter.getCategoryById(mCategoryId);
+        mCategory = (Category) getIntent().getSerializableExtra(EXTRA_ID_CATEGORY);
+        mPresenter.getCategoryById(mCategory.getId());
         mBinding.setListProductActivity(this);
         initRecyclerView();
     }

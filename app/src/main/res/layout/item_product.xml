@@ -35,7 +35,7 @@
                 <ImageView
                     android:id="@+id/image_product"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/dp_100"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
                     app:imageUrl="@{product.collectionImage.image.thumbnail.url}"

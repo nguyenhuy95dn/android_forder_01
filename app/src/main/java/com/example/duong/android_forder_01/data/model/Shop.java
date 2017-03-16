@@ -35,34 +35,13 @@ public class Shop implements Serializable {
     }
 
     public Shop(int id, String name, String description,
-                CollectionAvatar collectionAvatar) {
-        mId = id;
-        mName = name;
-        mDescription = description;
-        mCollectionAvatar = collectionAvatar;
-    }
-
-    public Shop(int id, String name, String description,
                 CollectionAvatar collectionAvatar,
-                User user,
-                List<Domain> listDomain,
-                List<Product> listProduct) {
+                List<Product> listProduct, float averageRating) {
         mId = id;
         mName = name;
         mDescription = description;
         mCollectionAvatar = collectionAvatar;
-        mUser = user;
-        mListDomain = listDomain;
-        mListProduct = listProduct;
-    }
-
-    public Shop(int id, String name, String description,
-                CollectionAvatar collectionAvatar,
-                List<Product> listProduct) {
-        mId = id;
-        mName = name;
-        mDescription = description;
-        mCollectionAvatar = collectionAvatar;
+        mAverageRating = averageRating;
         mListProduct = listProduct;
     }
 
