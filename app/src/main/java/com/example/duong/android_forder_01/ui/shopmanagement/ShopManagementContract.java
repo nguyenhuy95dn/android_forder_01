@@ -22,6 +22,8 @@ public interface ShopManagementContract {
     interface Presenter extends BasePresenter {
         void getShopByUser(int userId, String userToken);
         void sendRequest(ShopDomain shopDomain, Shop shop);
+        void cancelRequest(ShopDomain shopDomain, Shop shop);
+        void rejectRequest(ShopDomain shopDomain, Shop shop);
         void openDetailShop(ShopManagement shopManagement);
     }
 }
