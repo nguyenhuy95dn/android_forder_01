@@ -20,7 +20,8 @@
 
     </data>
 
-    <RelativeLayout
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -31,14 +32,19 @@
             app:adapter="@{productShopManagement.productAdapter}"
             app:layoutManager="@{LayoutManagers.linear()}"/>
 
-        <Button
-            android:layout_width="match_parent"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floating_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorAccent"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="@dimen/dp_16"
             android:onClick="@{() -> actionHandler.addProduct(product)}"
-            android:text="@string/action_add_product"
-            android:textAllCaps="false"/>
+            android:src="@drawable/ic_add_product"
+            app:backgroundTint="@color/color_red"
+            app:fabSize="mini"
+            app:layout_anchor="@id/recycler_view"
+            app:layout_anchorGravity="bottom|right|end"
+            app:layout_behavior="com.example.duong.android_forder_01.utils.FloatingActionButtonOnScroll"/>
+    </android.support.design.widget.CoordinatorLayout>
 
-    </RelativeLayout>
 </layout>

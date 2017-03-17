@@ -12,30 +12,38 @@
 
     </data>
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:fitsSystemWindows="true">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_layout_shop_management_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:overScrollMode="never"
-            app:tabGravity="center"
-            app:tabMode="scrollable"
-            app:tabSelectedTextColor="@android:color/white"
-            app:tabTextAppearance="@style/TabLayoutStyle"
-            app:tabTextColor="@color/color_gray"
-            bind:pager="@{viewpager}"/>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            bind:adapter="@{shopManagementDetail.adapter}"/>
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout_shop_management_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:overScrollMode="never"
+                app:tabGravity="center"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@android:color/white"
+                app:tabTextAppearance="@style/TabLayoutStyle"
+                app:tabTextColor="@color/color_gray"
+                bind:pager="@{viewpager}"/>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                bind:adapter="@{shopManagementDetail.adapter}"/>
+
+        </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
 
 </layout>
