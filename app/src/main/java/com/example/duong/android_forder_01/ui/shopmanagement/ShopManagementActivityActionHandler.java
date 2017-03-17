@@ -1,5 +1,7 @@
 package com.example.duong.android_forder_01.ui.shopmanagement;
 
+import android.widget.Toast;
+
 import com.example.duong.android_forder_01.data.model.Shop;
 import com.example.duong.android_forder_01.data.model.ShopDomain;
 import com.example.duong.android_forder_01.data.model.ShopManagement;
@@ -17,6 +19,16 @@ public class ShopManagementActivityActionHandler {
     public void sendRequest(ShopDomain shopDomain, Shop shop) {
         if (mListener == null) return;
         mListener.sendRequest(shopDomain, shop);
+    }
+
+    public void cancelRequest(ShopDomain shopDomain, Shop shop) {
+        if (mListener == null) return;
+        mListener.cancelRequest(shopDomain, shop);
+    }
+
+    public void rejectRequest(ShopDomain shopDomain, Shop shop) {
+        if (mListener == null) return;
+        mListener.rejectRequest(shopDomain, shop);
     }
 
     public void openDetailShop(ShopManagement shopManagement) {

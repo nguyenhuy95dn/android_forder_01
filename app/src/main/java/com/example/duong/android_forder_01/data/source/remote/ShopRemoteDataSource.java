@@ -207,27 +207,26 @@ public class ShopRemoteDataSource implements ShopDataSource {
             (new Image(image6, new Standard(image6), new Thumbnail(image6))),"10:00","11:00",
             shop6,category1));
 
-
         List<ShopDomain> shopDomains = new ArrayList<>();
-        shopDomains.add(new ShopDomain(1, true));
-        shopDomains.add(new ShopDomain(2, false));
-        shopDomains.add(new ShopDomain(3, true));
-        shopDomains.add(new ShopDomain(4, false));
+        shopDomains.add(new ShopDomain(1, 0));
+        shopDomains.add(new ShopDomain(2, 1));
+        shopDomains.add(new ShopDomain(3, 0));
+        shopDomains.add(new ShopDomain(4, 2));
+
         List<ShopInfo> shopInfos = new ArrayList<>();
         shopInfos.add(new ShopInfo(1, "Đà Nẵng", 10, 10, 20));
         shopInfos.add(new ShopInfo(2, "Hà Nội", 20, 40, 20));
         shopInfos.add(new ShopInfo(3, "HCM", 30, 10, 20));
         shopInfos.add(new ShopInfo(4, "Đà Nẵng", 10, 10, 20));
-        List<ShopManagement> shopManagements = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            shopManagements.add(new ShopManagement(shop1, shopDomains, shopInfos));
-            shopManagements.add(new ShopManagement(shop2, shopDomains, shopInfos));
-            shopManagements.add(new ShopManagement(shop3, shopDomains, shopInfos));
-            shopManagements.add(new ShopManagement(shop4, shopDomains, shopInfos));
-            shopManagements.add(new ShopManagement(shop5, shopDomains, shopInfos));
-            shopManagements.add(new ShopManagement(shop6, shopDomains, shopInfos));
 
-        }
+        List<ShopManagement> shopManagements = new ArrayList<>();
+        shopManagements.add(new ShopManagement(shop1, shopDomains, shopInfos));
+        shopManagements.add(new ShopManagement(shop2, shopDomains, shopInfos));
+        shopManagements.add(new ShopManagement(shop3, shopDomains, shopInfos));
+        shopManagements.add(new ShopManagement(shop4, shopDomains, shopInfos));
+        shopManagements.add(new ShopManagement(shop5, shopDomains, shopInfos));
+        shopManagements.add(new ShopManagement(shop6, shopDomains, shopInfos));
+
         getDataCallback.onLoaded(shopManagements);
     }
 }

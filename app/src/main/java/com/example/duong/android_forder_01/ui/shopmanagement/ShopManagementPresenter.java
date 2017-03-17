@@ -49,6 +49,16 @@ public class ShopManagementPresenter implements ShopManagementContract.Presenter
     }
 
     @Override
+    public void cancelRequest(ShopDomain shopDomain, Shop shop) {
+        // TODO cancel request out shop into domain
+    }
+
+    @Override
+    public void rejectRequest(ShopDomain shopDomain, Shop shop) {
+        // TODO reject request out shop into domain
+    }
+
+    @Override
     public void openDetailShop(ShopManagement shopManagement) {
         mView.showDetailShop(shopManagement);
     }
