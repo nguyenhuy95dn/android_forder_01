@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     public void loginComplete(User user) {
         saveUser(this, user);
         startActivity(new Intent(this, HomeActivity.class));
+        finish();
     }
 
     @Override
@@ -70,7 +71,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             getString(R.string.title_connect_server_error), Snackbar
                 .LENGTH_LONG)
             .show();
-        startActivity(new Intent(this, HomeActivity.class));
     }
 
     @Override

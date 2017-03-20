@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import com.example.duong.android_forder_01.data.model.LoginResult;
 import com.example.duong.android_forder_01.data.source.UserDataSource;
 
+import static com.example.duong.android_forder_01.utils.Const.ConstantApi.STATUS_LOGIN_COMPLETED;
+
 public class LoginPresenter implements LoginContract.Presenter {
     private LoginContract.View mLoginView;
     private UserDataSource mUserDataSource;
@@ -26,11 +28,11 @@ public class LoginPresenter implements LoginContract.Presenter {
         mUserDataSource.getLoginResult(userName, password, new UserDataSource.LoginCallback() {
             @Override
             public void onLogin(LoginResult loginResult) {
-                if (loginResult.getUser() == null) {
+                mLoginView.showProgress(false);
+                if (loginResult.getStatus() != STATUS_LOGIN_COMPLETED) {
                     mLoginView.showLoginError(loginResult.getMessage());
                     return;
                 }
-                mLoginView.showProgress(false);
                 mLoginView.loginComplete(loginResult.getUser());
             }
 

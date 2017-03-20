@@ -1,5 +1,7 @@
 package com.example.duong.android_forder_01.utils;
 
+import com.example.duong.android_forder_01.service.API;
+
 /**
  * Created by Duong on 2/14/2017.
  */
@@ -16,17 +18,18 @@ public class Const {
     public static final String TOKEN = "gx1JYEzMJe8KxcBb7G78";
 
     public static class ConstantApi {
+        public static final String PATH_LOGIN = "authen_user_tokens";
         public static final String PARAM_CATEGORY_ID = "category_id";
         public static final String PARAM_DOMAIN_ID = "domain_id";
         public static final String PARAM_USER_TOKEN = "user_token";
-        public static final String PATH_LOGIN = "PATH_LOGIN";
         public static final String PATH_CATEGORY = "v1/categories";
-        public static final String PATH_PRODUCT = "v1/products";
         public static final String PATH_DOMAIN = "v1/domains";
         public static final String URL_FORDER = "http://order.framgia.vn/";
+        public static final String PATH_PRODUCT = "v1/products";
         public static final String PARAM_USER_EMAIL = "user_email";
         public static final String PARAM_PASSWORD = "password";
         public static final String MESSAGE_CONTENT = "message";
+        public static final int STATUS_LOGIN_COMPLETED = 200;
     }
 
     public static class KeyIntent {
