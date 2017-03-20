@@ -1,6 +1,7 @@
 package com.example.duong.android_forder_01.ui.domain.privatedomain;
 
 import com.example.duong.android_forder_01.data.model.Domain;
+import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.ui.BasePresenter;
 import com.example.duong.android_forder_01.ui.BaseView;
 
@@ -17,7 +18,7 @@ public interface PrivateDomainContract {
     }
 
     interface Presenter extends BasePresenter {
-        void getAllPrivateDomain(int idUser);
+        void getAllPrivateDomain(User user);
         void getDomainDetail(Domain domain);
     }
 }

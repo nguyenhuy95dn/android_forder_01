@@ -17,6 +17,7 @@ import com.example.duong.android_forder_01.ui.home.product.ProductContract;
 import com.example.duong.android_forder_01.ui.home.product.ProductPresenter;
 import com.example.duong.android_forder_01.ui.productdetail.ProductDetailActivity;
 import com.example.duong.android_forder_01.utils.BaseActivity;
+import com.example.duong.android_forder_01.utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +72,7 @@ public class ListProductActivity extends BaseActivity implements ProductContract
     @Override
     public void start() {
         mCategory = (Category) getIntent().getSerializableExtra(EXTRA_ID_CATEGORY);
-        mPresenter.getCategoryById(ID_DOMAIN, mCategory.getId());
+        mPresenter.getCategoryById(ID_DOMAIN, mCategory.getId(), SharedPreferencesUtils.loadUser(this));
         mBinding.setListProductActivity(this);
         initRecyclerView();
     }

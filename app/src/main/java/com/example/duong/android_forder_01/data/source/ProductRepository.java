@@ -1,6 +1,7 @@
 package com.example.duong.android_forder_01.data.source;
 
 import com.example.duong.android_forder_01.data.model.Product;
+import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.data.source.remote.ProductRemoteDataSource;
 
 import java.util.List;
@@ -24,9 +25,10 @@ public class ProductRepository implements ProductDataSource<Product> {
     }
 
     @Override
-    public void getDatas(final int domainId, final GetDataCallback<Product> getDataCallback) {
-        if (getDataCallback == null) return;
-        mRemoteDataSource.getDatas(domainId, new GetDataCallback<Product>() {
+    public void getDatas(final int domainId, final User user, final GetDataCallback<Product>
+        getDataCallback) {
+        if (getDataCallback == null && user == null) return;
+        mRemoteDataSource.getDatas(domainId, user, new GetDataCallback<Product>() {
             @Override
             public void onLoaded(List<Product> datas) {
                 getDataCallback.onLoaded(datas);
@@ -40,19 +42,20 @@ public class ProductRepository implements ProductDataSource<Product> {
     }
 
     @Override
-    public void getProductByCategoryId(final int domainId, final int categoryId,
+    public void getProductByCategoryId(final int domainId, final int categoryId, final User user,
                                        final GetDataCallback<Product> getDataCallback) {
-        if (getDataCallback == null) return;
-        mRemoteDataSource.getProductByCategoryId(domainId, categoryId, new GetDataCallback<Product>() {
-            @Override
-            public void onLoaded(List<Product> datas) {
-                getDataCallback.onLoaded(datas);
-            }
+        if (getDataCallback == null && user == null) return;
+        mRemoteDataSource
+            .getProductByCategoryId(domainId, categoryId, user, new GetDataCallback<Product>() {
+                @Override
+                public void onLoaded(List<Product> datas) {
+                    getDataCallback.onLoaded(datas);
+                }
 
-            @Override
-            public void onNotAvailable() {
-                getDataCallback.onNotAvailable();
-            }
-        });
+                @Override
+                public void onNotAvailable() {
+                    getDataCallback.onNotAvailable();
+                }
+            });
     }
 }

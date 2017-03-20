@@ -31,12 +31,12 @@ import com.example.duong.android_forder_01.ui.listproduct.ListProductActivity;
 import com.example.duong.android_forder_01.ui.notification.NotificationActivity;
 import com.example.duong.android_forder_01.ui.shopmanagement.ShopManagementActivity;
 import com.example.duong.android_forder_01.ui.shoppingcard.ShoppingCardActivity;
+import com.example.duong.android_forder_01.utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.duong.android_forder_01.utils.Const.ID_DOMAIN;
-import static com.example.duong.android_forder_01.utils.Const.ID_USER;
 import static com.example.duong.android_forder_01.utils.SharedPreferencesUtils.saveCurrentDomain;
 
 public class HomeActivity extends AppCompatActivity implements HomeContract.View {
@@ -65,11 +65,11 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
     @Override
     public void start() {
-        mHomPresenter.getAllCategory(ID_DOMAIN);
+        mHomPresenter.getAllCategory(ID_DOMAIN, SharedPreferencesUtils.loadUser(this));
         mActivityHomeBinding.setActivityHome(this);
         initToolbar();
         initViewPager();
-        mHomPresenter.getDomain(ID_USER);
+        mHomPresenter.getDomain(SharedPreferencesUtils.loadUser(this));
         initCategoryRecyclerView();
     }
 
@@ -160,6 +160,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     public void showAllCategory(List<Category> list) {
         if (list == null) return;
         mCategories.addAll(list);
+        mCategoryAdapter.get().notifyDataSetChanged();
     }
 
     @Override
@@ -167,6 +168,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         if (domainList == null) return;
         mDomains.clear();
         mDomains.addAll(domainList);
+        mSpinnerAdapter.get().notifyDataSetChanged();
     }
 
     @Override

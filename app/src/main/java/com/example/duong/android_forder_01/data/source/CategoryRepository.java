@@ -1,6 +1,7 @@
 package com.example.duong.android_forder_01.data.source;
 
 import com.example.duong.android_forder_01.data.model.Category;
+import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.data.source.remote.CategoryRemoteDataSource;
 
 import java.util.List;
@@ -24,8 +25,9 @@ public class CategoryRepository implements ProductDataSource<Category> {
     }
 
     @Override
-    public void getDatas(int domainId, final GetDataCallback<Category> getDataCallback) {
-        mRemoteDataSource.getDatas(domainId, new GetDataCallback<Category>() {
+    public void getDatas(int domainId, User user, final GetDataCallback<Category> getDataCallback) {
+        if (getDataCallback == null && user == null) return;
+        mRemoteDataSource.getDatas(domainId, user, new GetDataCallback<Category>() {
             @Override
             public void onLoaded(List<Category> datas) {
                 getDataCallback.onLoaded(datas);
@@ -39,7 +41,7 @@ public class CategoryRepository implements ProductDataSource<Category> {
     }
 
     @Override
-    public void getProductByCategoryId(int domainId, int categoryId,
+    public void getProductByCategoryId(int domainId, int categoryId, User user,
                                        GetDataCallback<Category> getDataCallback) {
         // not required
     }

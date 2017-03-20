@@ -3,6 +3,7 @@ package com.example.duong.android_forder_01.ui.domain.publicdomain;
 import android.support.annotation.NonNull;
 
 import com.example.duong.android_forder_01.data.model.Domain;
+import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.data.source.DomainDataSource;
 import com.example.duong.android_forder_01.data.source.GetDataCallback;
 
@@ -28,17 +29,18 @@ public class PublicDomainPresenter implements PublicDomainContract.Presenter {
     }
 
     @Override
-    public void getAllPublicDomain(int idUser) {
-        mDomainDataSource.getDatasPublicDomainInfor(idUser, new GetDataCallback<Domain>() {
-                @Override
-                public void onLoaded(List<Domain> datas) {
-                    mView.showAllPublicDomain(datas);
-                }
+    public void getAllPublicDomain(User user) {
+        if (user == null) return;
+        mDomainDataSource.getDatasPublicDomainInfor(user, new GetDataCallback<Domain>() {
+            @Override
+            public void onLoaded(List<Domain> datas) {
+                mView.showAllPublicDomain(datas);
+            }
 
-                @Override
-                public void onNotAvailable() {
-                    mView.showGetDataError();
-                }
-            });
+            @Override
+            public void onNotAvailable() {
+                mView.showGetDataError();
+            }
+        });
     }
 }

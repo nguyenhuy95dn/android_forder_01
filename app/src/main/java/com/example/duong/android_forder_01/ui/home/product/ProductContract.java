@@ -2,6 +2,7 @@ package com.example.duong.android_forder_01.ui.home.product;
 
 import com.example.duong.android_forder_01.data.model.Product;
 import com.example.duong.android_forder_01.data.model.Shop;
+import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.ui.BasePresenter;
 import com.example.duong.android_forder_01.ui.BaseView;
 
@@ -19,7 +20,7 @@ public interface ProductContract {
         void openShopDetail(Shop shop);
         void openProductDetail(Product product);
         void addShoppingCard(Product product);
-        void getAllProduct(int domainId);
-        void getCategoryById(int domainId, int categoryId);
+        void getAllProduct(int domainId, User user);
+        void getCategoryById(int domainId, int categoryId, User user);
     }
 }

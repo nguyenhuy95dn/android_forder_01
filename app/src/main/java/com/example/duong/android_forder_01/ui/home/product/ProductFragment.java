@@ -5,7 +5,6 @@ import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import com.example.duong.android_forder_01.data.source.ShoppingCardRepository;
 import com.example.duong.android_forder_01.databinding.FragmentProductBinding;
 import com.example.duong.android_forder_01.ui.adapter.ProductAdapter;
 import com.example.duong.android_forder_01.ui.productdetail.ProductDetailActivity;
+import com.example.duong.android_forder_01.utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class ProductFragment extends Fragment
 
     @Override
     public void start() {
-        mPresenter.getAllProduct(ID_DOMAIN);
+        mPresenter.getAllProduct(ID_DOMAIN, SharedPreferencesUtils.loadUser(getActivity()));
         mBinding.setProductFragment(this);
         initRecyclerView();
     }

@@ -13,14 +13,16 @@ public class Const {
     public static final int START_INDEX = 11;
     public static final int END_INDEX = 16;
     public static final String EMAIL = "tran.duc.quoc@framgia.com";
-    public static final String TOKEN = "KceYRgtnyc2fVJpUTGJJ";
+    public static final String TOKEN = "gx1JYEzMJe8KxcBb7G78";
 
     public static class ConstantApi {
         public static final String PARAM_CATEGORY_ID = "category_id";
         public static final String PARAM_DOMAIN_ID = "domain_id";
         public static final String PARAM_USER_TOKEN = "user_token";
         public static final String PATH_LOGIN = "PATH_LOGIN";
+        public static final String PATH_CATEGORY = "v1/categories";
         public static final String PATH_PRODUCT = "v1/products";
+        public static final String PATH_DOMAIN = "v1/domains";
         public static final String URL_FORDER = "http://order.framgia.vn/";
         public static final String PARAM_USER_EMAIL = "user_email";
         public static final String PARAM_PASSWORD = "password";
