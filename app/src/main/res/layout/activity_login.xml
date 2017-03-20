@@ -43,6 +43,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/title_email"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:text="@={activity.username}"
                     android:textColor="@android:color/black"/>
 
@@ -58,6 +60,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/title_password"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:text="@={activity.passWord}"
                     android:textColor="@android:color/black"
                     app:useStrike="true"/>

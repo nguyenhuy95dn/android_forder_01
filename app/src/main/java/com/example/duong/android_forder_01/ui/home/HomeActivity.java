@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Category;
 import com.example.duong.android_forder_01.data.model.Domain;
+import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.data.source.CategoryRepository;
 import com.example.duong.android_forder_01.data.source.DomainReposity;
 import com.example.duong.android_forder_01.databinding.ActivityHomeBinding;
@@ -28,6 +29,7 @@ import com.example.duong.android_forder_01.ui.adapter.CategoryAdapter;
 import com.example.duong.android_forder_01.ui.adapter.ViewPagerAdapter;
 import com.example.duong.android_forder_01.ui.domain.DomainActivity;
 import com.example.duong.android_forder_01.ui.listproduct.ListProductActivity;
+import com.example.duong.android_forder_01.ui.login.LoginActivity;
 import com.example.duong.android_forder_01.ui.notification.NotificationActivity;
 import com.example.duong.android_forder_01.ui.shopmanagement.ShopManagementActivity;
 import com.example.duong.android_forder_01.ui.shoppingcard.ShoppingCardActivity;
@@ -37,6 +39,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.duong.android_forder_01.utils.Const.ID_DOMAIN;
+import static com.example.duong.android_forder_01.utils.Const.ID_USER;
+import static com.example.duong.android_forder_01.utils.SharedPreferencesUtils.deleteUser;
+import static com.example.duong.android_forder_01.utils.SharedPreferencesUtils.loadUser;
 import static com.example.duong.android_forder_01.utils.SharedPreferencesUtils.saveCurrentDomain;
 
 public class HomeActivity extends AppCompatActivity implements HomeContract.View {
@@ -82,6 +87,9 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_home, menu);
         initSpinner();
+        MenuItem itemUser = menu.findItem(R.id.item_username);
+        User user = loadUser(this);
+        itemUser.setTitle(user != null ? user.getFullName() : "");
         return true;
     }
 
@@ -121,6 +129,10 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
             case R.id.item_shopping_card:
                 startActivity(new Intent(this, ShoppingCardActivity.class));
                 break;
+            case R.id.item_logout:
+                deleteUser(this);
+                finish();
+                startActivity(new Intent(this, LoginActivity.class));
             default:
                 break;
         }

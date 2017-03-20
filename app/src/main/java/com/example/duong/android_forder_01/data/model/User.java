@@ -17,6 +17,8 @@ public class User {
     private int mOwner;
     @SerializedName("authentication_token")
     private String mAuthenticationToken;
+    @SerializedName("avatar")
+    private Avatar mAvatar;
 
     public int getId() {
         return mId;
@@ -46,6 +48,10 @@ public class User {
         return mAuthenticationToken;
     }
 
+    public void setAuthenticationToken(String authenticationToken) {
+        mAuthenticationToken = authenticationToken;
+    }
+
     public int getIsMember() {
         return mIsMember;
     }
@@ -70,7 +76,11 @@ public class User {
         mOwner = owner;
     }
 
-    public void setAuthenticationToken(String authenticationToken) {
-        mAuthenticationToken = authenticationToken;
+    public Avatar getAvatar() {
+        return mAvatar;
+    }
+
+    public void setAvatar(Avatar avatar) {
+        mAvatar = avatar;
     }
 }
