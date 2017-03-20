@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     public void loginComplete(User user) {
         saveUser(this, user);
         startActivity(new Intent(this, HomeActivity.class));
+        mProgressDialog.dismiss();
         finish();
     }
 

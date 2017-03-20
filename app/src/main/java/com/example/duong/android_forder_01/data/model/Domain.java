@@ -15,7 +15,7 @@ public class Domain implements Serializable {
     @SerializedName("name")
     private String mName;
     @SerializedName("status")
-    private int mStatus;
+    private String mStatus;
     @SerializedName("user")
     private List<User> mUser;
     @SerializedName("shop")
@@ -105,11 +105,11 @@ public class Domain implements Serializable {
         mName = name;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return mStatus;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         mStatus = status;
     }
 
