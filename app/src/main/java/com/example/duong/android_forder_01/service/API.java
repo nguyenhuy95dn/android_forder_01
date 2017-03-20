@@ -1,5 +1,7 @@
 package com.example.duong.android_forder_01.service;
 
+import com.example.duong.android_forder_01.data.model.CategoryResponse;
+import com.example.duong.android_forder_01.data.model.DomainResponse;
 import com.example.duong.android_forder_01.data.model.LoginResult;
 import com.example.duong.android_forder_01.data.model.ProductResponse;
 
@@ -21,6 +23,18 @@ public abstract class API {
     public static void getProduct(Map<String, String> params,
                                   Callback<ProductResponse> callback) {
         sAPIServices.getProduct(params)
+            .enqueue(callback);
+    }
+
+    public static void getCategory(Map<String, String> params,
+                                   Callback<CategoryResponse> callback) {
+        sAPIServices.getCategory(params)
+            .enqueue(callback);
+    }
+
+    public static void getDomain(Map<String, String> params,
+                                 Callback<DomainResponse> callback) {
+        sAPIServices.getDomain(params)
             .enqueue(callback);
     }
 

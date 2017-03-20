@@ -14,11 +14,10 @@ import com.example.duong.android_forder_01.data.model.Domain;
 import com.example.duong.android_forder_01.data.source.DomainReposity;
 import com.example.duong.android_forder_01.databinding.FragmentPublicDomainBinding;
 import com.example.duong.android_forder_01.ui.adapter.PublicDomainAdapter;
+import com.example.duong.android_forder_01.utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.duong.android_forder_01.utils.Const.ID_USER;
 
 /**
  * Created by Vinh on 03/03/2017.
@@ -63,7 +62,7 @@ public class PublicDomainFragment extends Fragment implements PublicDomainContra
     public void start() {
         mBinding.setPublicDomainFragment(this);
         initRecyclerView();
-        mPresenter.getAllPublicDomain(ID_USER);
+        mPresenter.getAllPublicDomain(SharedPreferencesUtils.loadUser(getActivity()));
     }
 
     @Override

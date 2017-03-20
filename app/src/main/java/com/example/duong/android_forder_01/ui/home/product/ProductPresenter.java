@@ -5,8 +5,9 @@ import android.support.annotation.NonNull;
 
 import com.example.duong.android_forder_01.data.model.Product;
 import com.example.duong.android_forder_01.data.model.Shop;
-import com.example.duong.android_forder_01.data.source.ProductDataSource;
+import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.data.source.GetDataCallback;
+import com.example.duong.android_forder_01.data.source.ProductDataSource;
 import com.example.duong.android_forder_01.data.source.ShoppingCardDataSource;
 
 import java.util.List;
@@ -49,8 +50,9 @@ public class ProductPresenter implements ProductContract.Presenter {
     }
 
     @Override
-    public void getAllProduct(int domainId) {
-        mDataRepository.getDatas(domainId, new GetDataCallback<Product>() {
+    public void getAllProduct(int domainId, User user) {
+        if (user == null) return;
+        mDataRepository.getDatas(domainId, user, new GetDataCallback<Product>() {
             @Override
             public void onLoaded(List<Product> datas) {
                 mProductView.showAllProduct(datas);
@@ -64,17 +66,19 @@ public class ProductPresenter implements ProductContract.Presenter {
     }
 
     @Override
-    public void getCategoryById(int domainId, int categoryId) {
-        mDataRepository.getProductByCategoryId(domainId, categoryId, new GetDataCallback<Product>() {
-            @Override
-            public void onLoaded(List<Product> datas) {
-                mProductView.showAllProduct(datas);
-            }
+    public void getCategoryById(int domainId, int categoryId, User user) {
+        if (user == null) return;
+        mDataRepository.getProductByCategoryId(domainId, categoryId, user, new
+            GetDataCallback<Product>() {
+                @Override
+                public void onLoaded(List<Product> datas) {
+                    mProductView.showAllProduct(datas);
+                }
 
-            @Override
-            public void onNotAvailable() {
-                mProductView.showGetDataError();
-            }
-        });
+                @Override
+                public void onNotAvailable() {
+                    mProductView.showGetDataError();
+                }
+            });
     }
 }

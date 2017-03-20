@@ -3,6 +3,7 @@ package com.example.duong.android_forder_01.ui.domain.privatedomain;
 import android.support.annotation.NonNull;
 
 import com.example.duong.android_forder_01.data.model.Domain;
+import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.data.source.DomainDataSource;
 import com.example.duong.android_forder_01.data.source.GetDataCallback;
 
@@ -28,9 +29,10 @@ public class PrivateDomainPresenter implements PrivateDomainContract.Presenter {
     }
 
     @Override
-    public void getAllPrivateDomain(int idUser) {
+    public void getAllPrivateDomain(User user) {
+        if (user == null) return;
         mDomainDataSource
-            .getDatasPrivateDomainInfor(idUser, new GetDataCallback<Domain>() {
+            .getDatasPrivateDomainInfor(user, new GetDataCallback<Domain>() {
                 @Override
                 public void onLoaded(List<Domain> datas) {
                     mView.showAllPrivateDomain(datas);

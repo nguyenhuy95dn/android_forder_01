@@ -2,6 +2,7 @@ package com.example.duong.android_forder_01.ui.home;
 
 import com.example.duong.android_forder_01.data.model.Category;
 import com.example.duong.android_forder_01.data.model.Domain;
+import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.ui.BasePresenter;
 import com.example.duong.android_forder_01.ui.BaseView;
 
@@ -20,7 +21,7 @@ public interface HomeContract {
 
     interface Presenter extends BasePresenter {
         void openProductResultActivity(Category category);
-        void getAllCategory(int domainId);
-        void getDomain(int userId);
+        void getAllCategory(int domainId, User user);
+        void getDomain(User user);
     }
 }
