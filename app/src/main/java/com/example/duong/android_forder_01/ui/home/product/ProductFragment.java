@@ -5,6 +5,7 @@ import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,9 +61,11 @@ public class ProductFragment extends Fragment
         startActivity(ProductDetailActivity.getProductDetailIntent(getActivity(), product));
     }
 
+    @Override
     public void showAllProduct(List<Product> list) {
         if (list == null) return;
         mProducts.addAll(list);
+        mProductAdapter.get().notifyDataSetChanged();
     }
 
     @Override

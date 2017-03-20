@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.example.duong.android_forder_01.data.model.Product;
 import com.example.duong.android_forder_01.data.model.Shop;
-import com.example.duong.android_forder_01.data.source.DataSource;
+import com.example.duong.android_forder_01.data.source.ProductDataSource;
 import com.example.duong.android_forder_01.data.source.GetDataCallback;
 import com.example.duong.android_forder_01.data.source.ShoppingCardDataSource;
 
@@ -15,12 +15,12 @@ import static com.example.duong.android_forder_01.utils.SharedPreferencesUtils.g
 
 public class ProductPresenter implements ProductContract.Presenter {
     private ProductContract.View mProductView;
-    private DataSource mDataRepository;
+    private ProductDataSource mDataRepository;
     private ShoppingCardDataSource mShoppingCardDataSource;
     private Context mContext;
 
     public ProductPresenter(@NonNull ProductContract.View productView,
-                            DataSource dataRepository, ShoppingCardDataSource
+                            ProductDataSource dataRepository, ShoppingCardDataSource
                                 shoppingCardDataSource, Context context) {
         mProductView = productView;
         mProductView.setPresenter(this);
@@ -49,8 +49,8 @@ public class ProductPresenter implements ProductContract.Presenter {
     }
 
     @Override
-    public void getAllProduct(int idDOmain) {
-        mDataRepository.getDatas(idDOmain, new GetDataCallback<Product>() {
+    public void getAllProduct(int domainId) {
+        mDataRepository.getDatas(domainId, new GetDataCallback<Product>() {
             @Override
             public void onLoaded(List<Product> datas) {
                 mProductView.showAllProduct(datas);
@@ -64,8 +64,8 @@ public class ProductPresenter implements ProductContract.Presenter {
     }
 
     @Override
-    public void getCategoryById(int idCategory) {
-        mDataRepository.getCategoryById(idCategory, new GetDataCallback<Product>() {
+    public void getCategoryById(int domainId, int categoryId) {
+        mDataRepository.getProductByCategoryId(domainId, categoryId, new GetDataCallback<Product>() {
             @Override
             public void onLoaded(List<Product> datas) {
                 mProductView.showAllProduct(datas);

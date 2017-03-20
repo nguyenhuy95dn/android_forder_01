@@ -12,7 +12,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.duong.android_forder_01.utils.Const.ConstantApi.PARAM_PASSWORD;
-import static com.example.duong.android_forder_01.utils.Const.ConstantApi.PARAM_USER_NAME;
+import static com.example.duong.android_forder_01.utils.Const.ConstantApi.PARAM_USER_EMAIL;
 
 public class UserRemoteDataSource implements UserDataSource {
     private static UserRemoteDataSource sUserRemoteDataSource;
@@ -31,7 +31,7 @@ public class UserRemoteDataSource implements UserDataSource {
     public void getLoginResult(String userName, String password,
                                final LoginCallback callback) {
         Map<String, String> params = new HashMap<>();
-        params.put(PARAM_USER_NAME, userName);
+        params.put(PARAM_USER_EMAIL, userName);
         params.put(PARAM_PASSWORD, password);
         API.getLoginResult(params, new Callback<LoginResult>() {
             @Override

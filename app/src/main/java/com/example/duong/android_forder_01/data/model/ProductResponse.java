@@ -2,15 +2,16 @@ package com.example.duong.android_forder_01.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ProductResponse {
-    @SerializedName("products")
+public class ProductResponse implements Serializable {
+    @SerializedName("content")
     private List<Product> mProductsList;
-    @SerializedName("next_products")
-    private String mNextProducts;
-    @SerializedName("product_end")
-    private boolean mProductEnd;
+    @SerializedName("status")
+    private int mStatus;
+    @SerializedName("message")
+    private String mMessage;
 
     public List<Product> getProductsList() {
         return mProductsList;
@@ -21,19 +22,19 @@ public class ProductResponse {
         mProductsList = productsList;
     }
 
-    public String getNextProducts() {
-        return mNextProducts;
+    public int getStatus() {
+        return mStatus;
     }
 
-    public void setNextProducts(String nextProducts) {
-        mNextProducts = nextProducts;
+    public void setStatus(int status) {
+        mStatus = status;
     }
 
-    public boolean isProductEnd() {
-        return mProductEnd;
+    public String getMessage() {
+        return mMessage;
     }
 
-    public void setProductEnd(boolean productEnd) {
-        mProductEnd = productEnd;
+    public void setMessage(String message) {
+        mMessage = message;
     }
 }

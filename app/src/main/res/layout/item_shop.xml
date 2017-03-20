@@ -33,7 +33,7 @@
                 android:layout_width="@dimen/dp_130"
                 android:layout_height="@dimen/dp_130"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{shop.collectionAvatar.avatar.thumbnail.url}"
+                app:imageUrl="@{shop.collectionAvatar.avatar.url}"
                 />
 
             <LinearLayout

@@ -9,7 +9,9 @@ import java.io.Serializable;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_PRODUCT;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_NAME;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_PRICE;
+import static com.example.duong.android_forder_01.utils.Const.END_INDEX;
 import static com.example.duong.android_forder_01.utils.Const.FORMAT_PRICE;
+import static com.example.duong.android_forder_01.utils.Const.START_INDEX;
 import static com.example.duong.android_forder_01.utils.Const.UNIT_MONEY;
 
 public class Product implements Serializable {
@@ -28,33 +30,35 @@ public class Product implements Serializable {
     @SerializedName("end_hour")
     private String mEndHour;
     @SerializedName("status")
-    private int mStatus;
+    private String mStatus;
     @SerializedName("shop")
     private Shop mShop;
-    @SerializedName("user")
-    private User mUser;
-    @SerializedName("category")
-    private Category mCategory;
-
-    public Product(int id, String name, double price, String description,
-                   CollectionImage collectionImage, String startHour, String endHour,
-                   Shop shop, Category category) {
-        mId = id;
-        mName = name;
-        mPrice = price;
-        mDescription = description;
-        mCollectionImage = collectionImage;
-        mStartHour = startHour;
-        mEndHour = endHour;
-        mShop = shop;
-        mCategory = category;
-    }
+    @SerializedName("shop_id")
+    private int mShopId;
+    @SerializedName("category_id")
+    private int mCategoryId;
 
     public Product(Cursor cursor) {
         mId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_PRODUCT));
         mName = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
         mPrice = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRICE));
         mCollectionImage = new CollectionImage(cursor);
+    }
+
+    public int getShopId() {
+        return mShopId;
+    }
+
+    public void setShopId(int shopId) {
+        mShopId = shopId;
+    }
+
+    public int getCategoryId() {
+        return mCategoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        mCategoryId = categoryId;
     }
 
     public int getId() {
@@ -113,14 +117,6 @@ public class Product implements Serializable {
         mStartHour = startHour;
     }
 
-    public int getStatus() {
-        return mStatus;
-    }
-
-    public void setStatus(int status) {
-        mStatus = status;
-    }
-
     public Shop getShop() {
         return mShop;
     }
@@ -129,27 +125,27 @@ public class Product implements Serializable {
         mShop = shop;
     }
 
-    public User getUser() {
-        return mUser;
+    public String getStatus() {
+        return mStatus;
     }
 
-    public void setUser(User user) {
-        mUser = user;
-    }
-
-    public Category getCategory() {
-        return mCategory;
-    }
-
-    public void setCategory(Category category) {
-        mCategory = category;
+    public void setStatus(String status) {
+        mStatus = status;
     }
 
     public String getFormatPrice() {
         return String.format(FORMAT_PRICE, mPrice) + UNIT_MONEY;
     }
 
+    public String getFromatStartHour() {
+        return mEndHour.substring(START_INDEX, END_INDEX);
+    }
+
+    public String getFromatEndHour() {
+        return mStartHour.substring(START_INDEX, END_INDEX);
+    }
+
     public String getTime() {
-        return mStartHour + " - " + mEndHour;
+        return getFromatStartHour() + " - " + getFromatEndHour();
     }
 }

@@ -16,14 +16,14 @@ public class Shop implements Serializable {
     private String mName;
     @SerializedName("description")
     private String mDescription;
-    @SerializedName("cover_image")
-    private String mCoverImage;
-    @SerializedName("collection")
+    @SerializedName("status")
+    private String mStatus;
+    @SerializedName("avatar")
     private CollectionAvatar mCollectionAvatar;
     @SerializedName("average_rating")
     private float mAverageRating;
-    @SerializedName("time_auto_reject")
-    private String mTimeAutoReject;
+    @SerializedName("owner_id")
+    private int mOwnerId;
     @SerializedName("user")
     private User mUser;
     @SerializedName("domains")
@@ -32,20 +32,6 @@ public class Shop implements Serializable {
     private List<Product> mListProduct;
     @SerializedName("is_owner")
     private int mIsOwner;
-
-    public Shop() {
-    }
-
-    public Shop(int id, String name, String description,
-                CollectionAvatar collectionAvatar,
-                List<Product> listProduct, float averageRating) {
-        mId = id;
-        mName = name;
-        mDescription = description;
-        mCollectionAvatar = collectionAvatar;
-        mAverageRating = averageRating;
-        mListProduct = listProduct;
-    }
 
     public Shop(Cursor cursor) {
         mId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_SHOP));
@@ -75,14 +61,6 @@ public class Shop implements Serializable {
         mDescription = description;
     }
 
-    public String getCoverImage() {
-        return mCoverImage;
-    }
-
-    public void setCoverImage(String coverImage) {
-        mCoverImage = coverImage;
-    }
-
     public CollectionAvatar getCollectionAvatar() {
         return mCollectionAvatar;
     }
@@ -97,14 +75,6 @@ public class Shop implements Serializable {
 
     public void setAverageRating(float averageRating) {
         mAverageRating = averageRating;
-    }
-
-    public String getTimeAutoReject() {
-        return mTimeAutoReject;
-    }
-
-    public void setTimeAutoReject(String timeAutoReject) {
-        mTimeAutoReject = timeAutoReject;
     }
 
     public User getUser() {
@@ -122,6 +92,22 @@ public class Shop implements Serializable {
     public void setListProduct(
         List<Product> listProduct) {
         mListProduct = listProduct;
+    }
+
+    public String getStatus() {
+        return mStatus;
+    }
+
+    public void setStatus(String status) {
+        mStatus = status;
+    }
+
+    public Integer getOwnerId() {
+        return mOwnerId;
+    }
+
+    public void setOwnerId(Integer ownerId) {
+        mOwnerId = ownerId;
     }
 
     public List<Domain> getListDomain() {

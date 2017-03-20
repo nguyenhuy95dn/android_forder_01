@@ -21,6 +21,7 @@ import com.example.duong.android_forder_01.utils.BaseActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.duong.android_forder_01.utils.Const.ID_DOMAIN;
 import static com.example.duong.android_forder_01.utils.Const.KeyIntent.EXTRA_ID_CATEGORY;
 
 public class ListProductActivity extends BaseActivity implements ProductContract.View {
@@ -59,6 +60,7 @@ public class ListProductActivity extends BaseActivity implements ProductContract
     public void showAllProduct(List<Product> list) {
         if (list == null) return;
         mProducts.addAll(list);
+        mProductAdapter.get().notifyDataSetChanged();
     }
 
     @Override
@@ -69,7 +71,7 @@ public class ListProductActivity extends BaseActivity implements ProductContract
     @Override
     public void start() {
         mCategory = (Category) getIntent().getSerializableExtra(EXTRA_ID_CATEGORY);
-        mPresenter.getCategoryById(mCategory.getId());
+        mPresenter.getCategoryById(ID_DOMAIN, mCategory.getId());
         mBinding.setListProductActivity(this);
         initRecyclerView();
     }
