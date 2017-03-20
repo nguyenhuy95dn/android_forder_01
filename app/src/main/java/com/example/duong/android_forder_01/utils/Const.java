@@ -10,12 +10,19 @@ public class Const {
     public static final int ID_ROOT_DOMAIN = 1;
     public static final String FORMAT_PRICE = "%1$,.0f";
     public static final String UNIT_MONEY = " VNĐ";
+    public static final int START_INDEX = 11;
+    public static final int END_INDEX = 16;
+    public static final String EMAIL = "tran.duc.quoc@framgia.com";
+    public static final String TOKEN = "KceYRgtnyc2fVJpUTGJJ";
 
     public static class ConstantApi {
+        public static final String PARAM_CATEGORY_ID = "category_id";
+        public static final String PARAM_DOMAIN_ID = "domain_id";
+        public static final String PARAM_USER_TOKEN = "user_token";
         public static final String PATH_LOGIN = "PATH_LOGIN";
-        public static final String PATH_PRODUCT = "PATH_PRODUCT";
-        public static final String URL_FORDER = "https://www.chatwork.com/";
-        public static final String PARAM_USER_NAME = "email";
+        public static final String PATH_PRODUCT = "v1/products";
+        public static final String URL_FORDER = "http://order.framgia.vn/";
+        public static final String PARAM_USER_EMAIL = "user_email";
         public static final String PARAM_PASSWORD = "password";
         public static final String MESSAGE_CONTENT = "message";
     }

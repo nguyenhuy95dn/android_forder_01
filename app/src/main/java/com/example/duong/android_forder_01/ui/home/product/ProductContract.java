@@ -19,7 +19,7 @@ public interface ProductContract {
         void openShopDetail(Shop shop);
         void openProductDetail(Product product);
         void addShoppingCard(Product product);
-        void getAllProduct(int idDomain);
-        void getCategoryById(int idCategory);
+        void getAllProduct(int domainId);
+        void getCategoryById(int domainId, int categoryId);
     }
 }

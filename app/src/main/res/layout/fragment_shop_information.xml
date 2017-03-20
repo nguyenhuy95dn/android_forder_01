@@ -41,7 +41,7 @@
                         android:layout_height="@dimen/dp_130"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/dp_130"
-                        app:imageUrl="@{shopInformation.shop.collectionAvatar.avatar.standard.url}"/>
+                        app:imageUrl="@{shopInformation.shop.collectionAvatar.avatar.url}"/>
                 </FrameLayout>
 
                 <TextView

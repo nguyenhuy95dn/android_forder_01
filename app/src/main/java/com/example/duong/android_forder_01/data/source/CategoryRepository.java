@@ -8,9 +8,9 @@ import java.util.List;
 /**
  * Created by tri on 27/02/2017.
  */
-public class CategoryRepository implements DataSource<Category> {
+public class CategoryRepository implements ProductDataSource<Category> {
     private static CategoryRepository sCategoryRepository;
-    private DataSource mRemoteDataSource;
+    private ProductDataSource mRemoteDataSource;
 
     private CategoryRepository(CategoryRemoteDataSource categoryRemoteDataSource) {
         mRemoteDataSource = categoryRemoteDataSource;
@@ -39,8 +39,8 @@ public class CategoryRepository implements DataSource<Category> {
     }
 
     @Override
-    public void getCategoryById(int idCategory,
-                                GetDataCallback<Category> getDataCallback) {
+    public void getProductByCategoryId(int domainId, int categoryId,
+                                       GetDataCallback<Category> getDataCallback) {
         // not required
     }
 }

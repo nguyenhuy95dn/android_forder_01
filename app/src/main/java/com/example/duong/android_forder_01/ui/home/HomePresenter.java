@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.example.duong.android_forder_01.data.model.Category;
 import com.example.duong.android_forder_01.data.model.Domain;
-import com.example.duong.android_forder_01.data.source.DataSource;
+import com.example.duong.android_forder_01.data.source.ProductDataSource;
 import com.example.duong.android_forder_01.data.source.DomainDataSource;
 import com.example.duong.android_forder_01.data.source.GetDataCallback;
 
@@ -13,10 +13,10 @@ import java.util.List;
 public class HomePresenter implements HomeContract.Presenter {
     private HomeContract.View mHomeView;
     private DomainDataSource mDomainDataRepository;
-    private DataSource mDataRepository;
+    private ProductDataSource mDataRepository;
 
     public HomePresenter(@NonNull HomeContract.View homeView, DomainDataSource domainDataSource,
-                         DataSource dataRepository) {
+                         ProductDataSource dataRepository) {
         mHomeView = homeView;
         homeView.setPresenter(this);
         mDomainDataRepository = domainDataSource;
