@@ -15,6 +15,7 @@ import com.example.duong.android_forder_01.data.source.ProductRepository;
 import com.example.duong.android_forder_01.data.source.ShoppingCardRepository;
 import com.example.duong.android_forder_01.databinding.FragmentProductBinding;
 import com.example.duong.android_forder_01.ui.adapter.ProductAdapter;
+import com.example.duong.android_forder_01.ui.home.HomeActivity;
 import com.example.duong.android_forder_01.ui.productdetail.ProductDetailActivity;
 import com.example.duong.android_forder_01.utils.SharedPreferencesUtils;
 
@@ -71,6 +72,11 @@ public class ProductFragment extends Fragment
     @Override
     public void showGetDataError() {
         // TODO show get data error
+    }
+
+    @Override
+    public void updateCard(int numberItem) {
+        HomeActivity.sTextNumberItem.setText(String.valueOf(numberItem));
     }
 
     @Override

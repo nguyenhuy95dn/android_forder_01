@@ -6,6 +6,7 @@ import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,7 +17,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Category;
@@ -24,6 +27,7 @@ import com.example.duong.android_forder_01.data.model.Domain;
 import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.data.source.CategoryRepository;
 import com.example.duong.android_forder_01.data.source.DomainReposity;
+import com.example.duong.android_forder_01.data.source.ShoppingCardRepository;
 import com.example.duong.android_forder_01.databinding.ActivityHomeBinding;
 import com.example.duong.android_forder_01.ui.adapter.CategoryAdapter;
 import com.example.duong.android_forder_01.ui.adapter.DomainAdapter;
@@ -41,10 +45,12 @@ import java.util.List;
 
 import static com.example.duong.android_forder_01.utils.Const.ID_DOMAIN;
 import static com.example.duong.android_forder_01.utils.SharedPreferencesUtils.deleteUser;
+import static com.example.duong.android_forder_01.utils.SharedPreferencesUtils.getCurrentDomain;
 import static com.example.duong.android_forder_01.utils.SharedPreferencesUtils.loadUser;
 import static com.example.duong.android_forder_01.utils.SharedPreferencesUtils.saveCurrentDomain;
 
 public class HomeActivity extends AppCompatActivity implements HomeContract.View {
+    public static TextView sTextNumberItem;
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private TabLayout mTabLayout;
@@ -65,7 +71,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         super.onCreate(savedInstanceState);
         mActivityHomeBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
         setPresenter(new HomePresenter(this, DomainReposity.getInstance(),
-            CategoryRepository.getInstance()));
+            CategoryRepository.getInstance(), ShoppingCardRepository.getInstance(this)));
         mHomPresenter.start();
     }
 
@@ -91,6 +97,15 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         MenuItem itemUser = menu.findItem(R.id.item_username);
         User user = loadUser(this);
         itemUser.setTitle(user != null ? user.getFullName() : "");
+        View card = MenuItemCompat.getActionView(menu.findItem(R.id.item_shopping_card));
+        sTextNumberItem = (TextView) card.findViewById(R.id.text_shopping_card);
+        FrameLayout frameLayout = (FrameLayout) card.findViewById(R.id.frame_card);
+        frameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ShoppingCardActivity.class));
+            }
+        });
         return true;
     }
 
@@ -105,6 +120,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
                     //TODO: Load shop, category, product in domain
                     mDomain = mDomains.get(position);
                     saveCurrentDomain(getApplicationContext(), mDomain);
+                    mHomPresenter.getCardItem(getCurrentDomain(getApplicationContext()).getId());
                 }
 
                 @Override
@@ -199,6 +215,10 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     @Override
     public void showDomainPublic(Domain domain) {
         // TODO open domain public
+    }
+
+    public void updateCard(int numberItem) {
+        sTextNumberItem.setText(String.valueOf(numberItem));
     }
 
     public ObservableField<CategoryAdapter> getCategoryAdapter() {

@@ -11,6 +11,7 @@ public interface ShoppingCardDataSource {
     void reduceQuantity(int productId, int domainId);
     void increaseQuantity(int productId, int domainId);
     void getShoppingCard(int domainId, GetShoppingCardCallback callback);
+    int getNumberItem(int domainId);
     interface GetShoppingCardCallback {
         void onLoaded(List<ShoppingCard> list, double totalPrice);
         void onLoadedError();

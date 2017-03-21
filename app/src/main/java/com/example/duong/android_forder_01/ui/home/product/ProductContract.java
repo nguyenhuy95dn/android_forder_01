@@ -14,6 +14,7 @@ public interface ProductContract {
         void showProductDetail(Product product);
         void showAllProduct(List<Product> list);
         void showGetDataError();
+        void updateCard(int numberItem);
     }
 
     interface Presenter extends BasePresenter {

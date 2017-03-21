@@ -47,6 +47,8 @@ public class ProductPresenter implements ProductContract.Presenter {
     @Override
     public void addShoppingCard(Product product) {
         mShoppingCardDataSource.addShoppingCardItem(product, getCurrentDomain(mContext).getId());
+        mProductView
+            .updateCard(mShoppingCardDataSource.getNumberItem(getCurrentDomain(mContext).getId()));
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.data.source.DomainDataSource;
 import com.example.duong.android_forder_01.data.source.GetDataCallback;
 import com.example.duong.android_forder_01.data.source.ProductDataSource;
+import com.example.duong.android_forder_01.data.source.ShoppingCardDataSource;
 
 import java.util.List;
 
@@ -15,13 +16,16 @@ public class HomePresenter implements HomeContract.Presenter {
     private HomeContract.View mHomeView;
     private DomainDataSource mDomainDataRepository;
     private ProductDataSource mDataRepository;
+    private ShoppingCardDataSource mShoppingCardDataSource;
 
     public HomePresenter(@NonNull HomeContract.View homeView, DomainDataSource domainDataSource,
-                         ProductDataSource dataRepository) {
+                         ProductDataSource dataRepository, ShoppingCardDataSource
+                             shoppingCardDataSource) {
         mHomeView = homeView;
         homeView.setPresenter(this);
         mDomainDataRepository = domainDataSource;
         mDataRepository = dataRepository;
+        mShoppingCardDataSource = shoppingCardDataSource;
     }
 
     @Override
@@ -69,5 +73,10 @@ public class HomePresenter implements HomeContract.Presenter {
                 mHomeView.showGetDataError();
             }
         });
+    }
+
+    @Override
+    public void getCardItem(int domainId) {
+        mHomeView.updateCard(mShoppingCardDataSource.getNumberItem(domainId));
     }
 }

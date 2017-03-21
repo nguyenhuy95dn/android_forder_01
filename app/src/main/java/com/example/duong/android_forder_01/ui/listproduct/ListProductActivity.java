@@ -70,6 +70,11 @@ public class ListProductActivity extends BaseActivity implements ProductContract
     }
 
     @Override
+    public void updateCard(int numberItem) {
+        //todo send broadcast update card
+    }
+
+    @Override
     public void start() {
         mCategory = (Category) getIntent().getSerializableExtra(EXTRA_ID_CATEGORY);
         mPresenter.getCategoryById(ID_DOMAIN, mCategory.getId(), SharedPreferencesUtils.loadUser(this));
