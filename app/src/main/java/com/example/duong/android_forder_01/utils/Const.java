@@ -14,8 +14,6 @@ public class Const {
     public static final String UNIT_MONEY = " VNĐ";
     public static final int START_INDEX = 11;
     public static final int END_INDEX = 16;
-    public static final String EMAIL = "tran.duc.quoc@framgia.com";
-    public static final String TOKEN = "gx1JYEzMJe8KxcBb7G78";
 
     public static class ConstantApi {
         public static final String PATH_LOGIN = "authen_user_tokens";
@@ -28,6 +26,7 @@ public class Const {
         public static final String PATH_PRODUCT = "v1/products";
         public static final String PARAM_USER_EMAIL = "user_email";
         public static final String PARAM_PASSWORD = "password";
+        public static final String PARAM_USER_ID = "user_id";
         public static final String MESSAGE_CONTENT = "message";
         public static final int STATUS_LOGIN_COMPLETED = 200;
     }

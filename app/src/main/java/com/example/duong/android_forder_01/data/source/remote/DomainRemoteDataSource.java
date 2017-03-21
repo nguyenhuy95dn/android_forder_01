@@ -17,8 +17,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.duong.android_forder_01.utils.Const.ConstantApi.PARAM_DOMAIN_ID;
 import static com.example.duong.android_forder_01.utils.Const.ConstantApi.PARAM_USER_EMAIL;
+import static com.example.duong.android_forder_01.utils.Const.ConstantApi.PARAM_USER_ID;
 import static com.example.duong.android_forder_01.utils.Const.ConstantApi.PARAM_USER_TOKEN;
 
 /**
@@ -38,9 +38,10 @@ public class DomainRemoteDataSource implements DomainDataSource {
     }
 
     @Override
-    public void getDatasDomain(User user, final GetDataCallback<Domain> getDataCallback) {
+    public void getDatasDomain(final User user, final GetDataCallback<Domain> getDataCallback) {
         if (getDataCallback == null && user == null) return;
         Map<String, String> params = new HashMap<>();
+        params.put(PARAM_USER_ID, String.valueOf(user.getId()));
         params.put(PARAM_USER_EMAIL, user.getUserName());
         params.put(PARAM_USER_TOKEN, user.getAuthenticationToken());
         API.getDomain(params, new Callback<DomainResponse>() {
