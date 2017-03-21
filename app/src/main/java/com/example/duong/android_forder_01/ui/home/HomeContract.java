@@ -17,9 +17,11 @@ public interface HomeContract {
         void showDomain(List<Domain> domainList);
         void showGetDataError();
         void showListProduct(Category category);
+        void showDomainPublic(Domain domain);
     }
 
     interface Presenter extends BasePresenter {
+        void openDomainPublic(Domain domain);
         void openProductResultActivity(Category category);
         void getAllCategory(int domainId, User user);
         void getDomain(User user);

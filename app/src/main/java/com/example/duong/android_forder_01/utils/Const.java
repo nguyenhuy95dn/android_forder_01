@@ -7,7 +7,7 @@ import com.example.duong.android_forder_01.service.API;
  */
 public class Const {
     public static final int ID_USER = 1;
-    public static final int ID_DOMAIN = 1;
+    public static final int ID_DOMAIN = 21;
     public static final int ID_CATEGORY = 1;
     public static final int ID_ROOT_DOMAIN = 1;
     public static final String FORMAT_PRICE = "%1$,.0f";

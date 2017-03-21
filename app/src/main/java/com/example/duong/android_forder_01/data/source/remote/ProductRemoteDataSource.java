@@ -66,8 +66,8 @@ public class ProductRemoteDataSource implements ProductDataSource<Product> {
                                        final GetDataCallback<Product> getDataCallback) {
         if (getDataCallback == null && user == null) return;
         Map<String, String> params = new HashMap<>();
-        params.put(PARAM_CATEGORY_ID, String.valueOf(domainId));
-        params.put(PARAM_DOMAIN_ID, String.valueOf(categoryId));
+        params.put(PARAM_CATEGORY_ID, String.valueOf(categoryId));
+        params.put(PARAM_DOMAIN_ID, String.valueOf(domainId));
         params.put(PARAM_USER_EMAIL, user.getUserName());
         params.put(PARAM_USER_TOKEN, user.getAuthenticationToken());
         API.getProduct(params, new Callback<ProductResponse>() {

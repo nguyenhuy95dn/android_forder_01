@@ -11,6 +11,8 @@
 
         <import type="com.example.duong.android_forder_01.utils.LayoutManagers"/>
 
+        <import type="android.support.v7.widget.LinearLayoutManager"/>
+
     </data>
 
     <android.support.v4.widget.DrawerLayout
@@ -44,6 +46,15 @@
                         android:textAlignment="center"
                         app:spinner="@{activityHome.spinnerAdapter}"/>
                 </android.support.v7.widget.Toolbar>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_domain"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:background="@color/colorAccent"
+                    app:adapter="@{activityHome.domainAdapter}"
+                    app:layoutManager="@{LayoutManagers.linear(LinearLayoutManager.HORIZONTAL)}"/>
 
                 <android.support.design.widget.TabLayout
                     android:id="@+id/tab_layout_home"

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="domain"
+            type="com.example.duong.android_forder_01.data.model.Domain"/>
+
+        <variable
+            name="actionHandler"
+            type="com.example.duong.android_forder_01.ui.home.CategoryItemActionHandler"/>
+
+    </data>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_5"
+        android:background="@drawable/border_item_domain"
+        android:onClick="@{() -> actionHandler.itemClickDomainPublic(domain)}"
+        android:paddingBottom="@dimen/dp_5"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_5"
+        android:text="@{domain.name}"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_15"/>
+</layout>

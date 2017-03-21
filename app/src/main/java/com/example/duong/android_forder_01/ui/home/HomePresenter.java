@@ -30,6 +30,11 @@ public class HomePresenter implements HomeContract.Presenter {
     }
 
     @Override
+    public void openDomainPublic(Domain domain) {
+        mHomeView.showDomainPublic(domain);
+    }
+
+    @Override
     public void openProductResultActivity(Category categoryId) {
         mHomeView.showListProduct(categoryId);
     }
