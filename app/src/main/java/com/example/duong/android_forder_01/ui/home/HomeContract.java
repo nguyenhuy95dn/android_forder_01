@@ -18,6 +18,7 @@ public interface HomeContract {
         void showGetDataError();
         void showListProduct(Category category);
         void showDomainPublic(Domain domain);
+        void updateCard(int numberItem);
     }
 
     interface Presenter extends BasePresenter {
@@ -25,5 +26,6 @@ public interface HomeContract {
         void openProductResultActivity(Category category);
         void getAllCategory(int domainId, User user);
         void getDomain(User user);
+        void getCardItem(int domainId);
     }
 }

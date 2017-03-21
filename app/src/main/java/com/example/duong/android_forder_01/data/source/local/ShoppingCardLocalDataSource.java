@@ -13,11 +13,13 @@ import com.example.duong.android_forder_01.data.source.ShoppingCardDataSource;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_COUNT;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_DOMAIN;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_PRODUCT;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_SHOP;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_IMAGE;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_NAME;
+import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_NUMBER;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_PRICE;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_QUANTITY;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_SHOP_NAME;
@@ -187,6 +189,26 @@ public class ShoppingCardLocalDataSource extends DataHelper implements
         } finally {
             close();
         }
+    }
+
+    @Override
+    public int getNumberItem(int domainId) {
+        int numberItem = 0;
+        openDatabase();
+        try {
+            String[] columns = new String[]{COLUMN_COUNT};
+            String selections = COLUMN_ID_DOMAIN + "=?";
+            String[] arguments = new String[]{String.valueOf(domainId)};
+            Cursor cursor = mDatabase.query(TABLE_NAME_SHOPPING_CARD, columns, selections,
+                arguments, null, null, null);
+            cursor.moveToFirst();
+            numberItem = cursor.getInt(cursor.getColumnIndex(COLUMN_NUMBER));
+        } catch (SQLiteException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return numberItem;
     }
 
     private double getTotalPrice(int domainId) {

@@ -61,4 +61,9 @@ public class ShoppingCardRepository
             }
         });
     }
+
+    @Override
+    public int getNumberItem(int domainId) {
+        return mLocalDataSource.getNumberItem(domainId);
+    }
 }

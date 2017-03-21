@@ -20,9 +20,12 @@ public class ShoppingCardContract {
         public static final String COLUMN_PRICE = "price";
         public static final String COLUMN_QUANTITY = "quantity";
         public static final String COLUMN_TOTAL = "total";
+        public static final String COLUMN_NUMBER = "number";
         public static final String COLUMN_SUM =
             "SUM(" + COLUMN_PRICE + "*" + COLUMN_QUANTITY + ") AS "
                 + COLUMN_TOTAL;
+        public static final String COLUMN_COUNT =
+            "COUNT(" + COLUMN_ID_PRODUCT + ") AS " + COLUMN_NUMBER;
         public static final int DEFAULT_QUANTITY = 1;
     }
 }

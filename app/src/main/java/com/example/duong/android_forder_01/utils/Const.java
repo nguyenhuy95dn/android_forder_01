@@ -1,7 +1,5 @@
 package com.example.duong.android_forder_01.utils;
 
-import com.example.duong.android_forder_01.service.API;
-
 /**
  * Created by Duong on 2/14/2017.
  */

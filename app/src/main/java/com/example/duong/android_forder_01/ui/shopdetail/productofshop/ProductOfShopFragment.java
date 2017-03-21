@@ -71,6 +71,11 @@ public class ProductOfShopFragment extends Fragment implements ProductContract.V
     }
 
     @Override
+    public void updateCard(int numberItem) {
+        //todo send broadcast update card
+    }
+
+    @Override
     public void start() {
         mShop = (Shop) getArguments().getSerializable(EXTRA_SHOP);
         mProducts.addAll(mShop.getListProduct());
