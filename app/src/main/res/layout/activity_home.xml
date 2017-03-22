@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
@@ -13,6 +14,10 @@
 
         <import type="android.support.v7.widget.LinearLayoutManager"/>
 
+        <import type="android.view.View"/>
+
+        <import type="com.example.duong.android_forder_01.R"/>
+
     </data>
 
     <android.support.v4.widget.DrawerLayout
@@ -20,60 +25,96 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
 
-            <android.support.design.widget.AppBarLayout
-                android:id="@+id/app_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar_home"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:contentInsetStartWithNavigation="0dp"
-                    app:logo="@drawable/logo"
-                    app:theme="@style/MenuItemColor">
-
-                    <android.support.v7.widget.AppCompatSpinner
-                        android:id="@+id/spinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        app:spinner="@{activityHome.spinnerAdapter}"/>
-                </android.support.v7.widget.Toolbar>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view_domain"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="start"
-                    android:background="@color/colorAccent"
-                    app:adapter="@{activityHome.domainAdapter}"
-                    app:layoutManager="@{LayoutManagers.linear(LinearLayoutManager.HORIZONTAL)}"/>
-
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tab_layout_home"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorAccent"
-                    app:tabSelectedTextColor="@android:color/white"
-                    app:tabTextAppearance="@style/TabLayoutStyle"
-                    app:tabTextColor="@color/color_gray"/>
-            </android.support.design.widget.AppBarLayout>
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/view_pager_home"
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/app_bar"/>
-        </RelativeLayout>
+                android:orientation="vertical">
+
+                <android.support.design.widget.AppBarLayout
+                    android:id="@+id/app_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/toolbar_home"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:contentInsetStartWithNavigation="0dp"
+                        app:logo="@drawable/logo"
+                        app:theme="@style/MenuItemColor">
+
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:id="@+id/spinner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            app:spinner="@{activityHome.spinnerAdapter}"/>
+                    </android.support.v7.widget.Toolbar>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view_domain"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="start"
+                        android:background="@color/colorAccent"
+                        app:adapter="@{activityHome.domainAdapter}"
+                        app:layoutManager="@{LayoutManagers.linear(LinearLayoutManager.HORIZONTAL)}"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_220"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="@drawable/ic_background"
+                        android:visibility="@{activityHome.checkDomain ? View.GONE : View.VISIBLE}"/>
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tab_layout_home"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorAccent"
+                        android:visibility="@{activityHome.checkDomain ? View.VISIBLE : View.GONE}"
+                        app:tabSelectedTextColor="@android:color/white"
+                        app:tabTextAppearance="@style/TabLayoutStyle"
+                        app:tabTextColor="@color/color_gray"
+                        bind:pager="@{viewpager}"/>
+                </android.support.design.widget.AppBarLayout>
+
+                <RelativeLayout
+                    android:id="@+id/relative_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/viewpager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_above="@+id/tab_introduce"
+                        bind:adapter="@{activityHome.checkDomain ? activityHome.viewPagerAdapter : activityHome.guideViewPagerAdapter}"/>
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tab_introduce"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:visibility="@{activityHome.checkDomain ? View.GONE : View.VISIBLE}"
+                        app:tabBackground="@drawable/tab_selector_background"
+                        app:tabTextAppearance="@style/TabLayoutStyle"
+                        bind:pager="@{viewpager}"/>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </android.support.design.widget.CoordinatorLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

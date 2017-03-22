@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="guide"
+            type="com.example.duong.android_forder_01.data.model.Guide"/>
+
+        <variable
+            name="guideFrament"
+            type="com.example.duong.android_forder_01.ui.home.guide.GuideFragment"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dp_20"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:gravity="center"
+            android:text="@{guide.title}"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_25"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:gravity="center"
+            android:text="@{guide.description}"
+            android:textSize="@dimen/sp_15"/>
+
+    </LinearLayout>
+
+</layout>

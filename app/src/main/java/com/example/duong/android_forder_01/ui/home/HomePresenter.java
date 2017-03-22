@@ -4,12 +4,14 @@ import android.support.annotation.NonNull;
 
 import com.example.duong.android_forder_01.data.model.Category;
 import com.example.duong.android_forder_01.data.model.Domain;
+import com.example.duong.android_forder_01.data.model.Guide;
 import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.data.source.DomainDataSource;
 import com.example.duong.android_forder_01.data.source.GetDataCallback;
 import com.example.duong.android_forder_01.data.source.ProductDataSource;
 import com.example.duong.android_forder_01.data.source.ShoppingCardDataSource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomePresenter implements HomeContract.Presenter {
@@ -78,5 +80,18 @@ public class HomePresenter implements HomeContract.Presenter {
     @Override
     public void getCardItem(int domainId) {
         mHomeView.updateCard(mShoppingCardDataSource.getNumberItem(domainId));
+    }
+
+    @Override
+    public void getListGuide(String[] title, String[] description) {
+        if (title == null || description == null) {
+            mHomeView.showGetDataError();
+            return;
+        }
+        List<Guide> list = new ArrayList<>();
+        for (int i = 0; i < title.length; i++) {
+            list.add(new Guide(title[i], description[i]));
+        }
+        mHomeView.showListGuide(list);
     }
 }

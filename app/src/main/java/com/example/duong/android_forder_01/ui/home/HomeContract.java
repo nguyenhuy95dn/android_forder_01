@@ -2,6 +2,7 @@ package com.example.duong.android_forder_01.ui.home;
 
 import com.example.duong.android_forder_01.data.model.Category;
 import com.example.duong.android_forder_01.data.model.Domain;
+import com.example.duong.android_forder_01.data.model.Guide;
 import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.ui.BasePresenter;
 import com.example.duong.android_forder_01.ui.BaseView;
@@ -19,6 +20,7 @@ public interface HomeContract {
         void showListProduct(Category category);
         void showDomainPublic(Domain domain);
         void updateCard(int numberItem);
+        void showListGuide(List<Guide> list);
     }
 
     interface Presenter extends BasePresenter {
@@ -27,5 +29,6 @@ public interface HomeContract {
         void getAllCategory(int domainId, User user);
         void getDomain(User user);
         void getCardItem(int domainId);
+        void getListGuide(String[] title, String[] description);
     }
 }

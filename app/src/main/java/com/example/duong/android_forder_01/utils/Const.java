@@ -31,6 +31,7 @@ public class Const {
     }
 
     public static class KeyIntent {
+        public static final String EXTRA_GUIDE = "guide";
         public static final String EXTRA_PRODUCT = "product";
         public static final String EXTRA_SHOP = "shop";
         public static final String EXTRA_ID_CATEGORY = "id_category";
