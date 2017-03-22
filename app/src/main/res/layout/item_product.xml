@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View"/>
+
         <variable
             name="product"
             type="com.example.duong.android_forder_01.data.model.Product"/>
@@ -49,7 +51,8 @@
                     android:background="@android:color/transparent"
                     android:onClick="@{() -> actionHandler.addShoppingCardClick(product)}"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_add_shopping_card"/>
+                    android:src="@drawable/ic_add_shopping_card"
+                    android:visibility="@{product.canOrder ? View.VISIBLE : View.GONE}"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
