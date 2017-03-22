@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_COUNT;
+import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_END_HOUR;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_DOMAIN;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_PRODUCT;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_SHOP;
@@ -23,6 +24,7 @@ import static com.example.duong.android_forder_01.data.source.local.ShoppingCard
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_PRICE;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_QUANTITY;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_SHOP_NAME;
+import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_START_HOUR;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_SUM;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_TOTAL;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.DEFAULT_QUANTITY;
@@ -59,6 +61,8 @@ public class ShoppingCardLocalDataSource extends DataHelper implements
             values.put(COLUMN_NAME, product.getName());
             values.put(COLUMN_PRICE, product.getPrice());
             values.put(COLUMN_QUANTITY, DEFAULT_QUANTITY);
+            values.put(COLUMN_START_HOUR, product.getFromatStartHour());
+            values.put(COLUMN_END_HOUR, product.getFromatEndHour());
             values
                 .put(COLUMN_IMAGE, product.getCollectionImage().getImage().getThumbnail().getUrl());
             mDatabase.insertOrThrow(TABLE_NAME_SHOPPING_CARD, null, values);

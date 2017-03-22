@@ -5,12 +5,15 @@ import android.database.Cursor;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_PRODUCT;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_NAME;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_PRICE;
 import static com.example.duong.android_forder_01.utils.Const.END_INDEX;
 import static com.example.duong.android_forder_01.utils.Const.FORMAT_PRICE;
+import static com.example.duong.android_forder_01.utils.Const.FORMAT_TIME;
 import static com.example.duong.android_forder_01.utils.Const.START_INDEX;
 import static com.example.duong.android_forder_01.utils.Const.UNIT_MONEY;
 
@@ -138,14 +141,31 @@ public class Product implements Serializable {
     }
 
     public String getFromatStartHour() {
-        return mEndHour.substring(START_INDEX, END_INDEX);
+        return mStartHour.substring(START_INDEX, END_INDEX);
     }
 
     public String getFromatEndHour() {
-        return mStartHour.substring(START_INDEX, END_INDEX);
+        return mEndHour.substring(START_INDEX, END_INDEX);
     }
 
     public String getTime() {
         return getFromatStartHour() + " - " + getFromatEndHour();
+    }
+
+    public boolean isCanOrder() {
+        SimpleDateFormat parser = new SimpleDateFormat(FORMAT_TIME);
+        Date currentHour = parseDate(parser.format(new Date()));
+        Date startHour = parseDate(getFromatStartHour());
+        Date endHour = parseDate(getFromatEndHour());
+        return currentHour.after(startHour) && currentHour.before(endHour);
+    }
+
+    private Date parseDate(String date) {
+        SimpleDateFormat parser = new SimpleDateFormat(FORMAT_TIME);
+        try {
+            return parser.parse(date);
+        } catch (java.text.ParseException e) {
+            return new Date();
+        }
     }
 }

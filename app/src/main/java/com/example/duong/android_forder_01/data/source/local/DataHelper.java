@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_END_HOUR;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_DOMAIN;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_DOMAIN_NAME;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_ID_PRODUCT;
@@ -14,6 +15,7 @@ import static com.example.duong.android_forder_01.data.source.local.ShoppingCard
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_PRICE;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_QUANTITY;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_SHOP_NAME;
+import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.COLUMN_START_HOUR;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.TABLE_NAME_DOMAIN;
 import static com.example.duong.android_forder_01.data.source.local.ShoppingCardContract.ShoppingCardEntry.TABLE_NAME_SHOPPING_CARD;
 
@@ -42,7 +44,9 @@ public class DataHelper extends SQLiteOpenHelper {
             + COLUMN_IMAGE + TEXT_TYPE + COMMA_SEP
             + COLUMN_NAME + TEXT_TYPE + COMMA_SEP
             + COLUMN_PRICE + REAL_TYPE + COMMA_SEP
-            + COLUMN_QUANTITY + INTERGER_TYPE + " )";
+            + COLUMN_QUANTITY + INTERGER_TYPE + COMMA_SEP
+            + COLUMN_START_HOUR + TEXT_TYPE + COMMA_SEP
+            + COLUMN_END_HOUR + TEXT_TYPE + COMMA_SEP + " )";
     private static final String DROP_TABLE_SHOPPING_CARD =
         DROPTABLE_IF_EXIST + TABLE_NAME_SHOPPING_CARD;
     private static final String DROP_TABLE_DOMAIN =

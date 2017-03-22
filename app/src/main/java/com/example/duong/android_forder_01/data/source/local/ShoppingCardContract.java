@@ -19,6 +19,8 @@ public class ShoppingCardContract {
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_PRICE = "price";
         public static final String COLUMN_QUANTITY = "quantity";
+        public static final String COLUMN_START_HOUR = "start_hour";
+        public static final String COLUMN_END_HOUR = "end_hour";
         public static final String COLUMN_TOTAL = "total";
         public static final String COLUMN_NUMBER = "number";
         public static final String COLUMN_SUM =

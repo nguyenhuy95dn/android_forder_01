@@ -9,6 +9,7 @@ public class Const {
     public static final int ID_CATEGORY = 1;
     public static final int ID_ROOT_DOMAIN = 1;
     public static final String FORMAT_PRICE = "%1$,.0f";
+    public static final String FORMAT_TIME = "HH:mm";
     public static final String UNIT_MONEY = " VNĐ";
     public static final int START_INDEX = 11;
     public static final int END_INDEX = 16;
