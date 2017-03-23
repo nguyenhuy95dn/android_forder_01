@@ -88,6 +88,20 @@ public class ShoppingCardLocalDataSource extends DataHelper implements
         }
     }
 
+    @Override
+    public void deleteShoppingCardOfDomain(int domainId) {
+        openDatabase();
+        try {
+            String selection = COLUMN_ID_DOMAIN + "=?";
+            String[] arguments = new String[]{String.valueOf(domainId)};
+            mDatabase.delete(TABLE_NAME_SHOPPING_CARD, selection, arguments);
+        } catch (SQLiteException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+    }
+
     public boolean isExistsItem(int productId, int domainId) {
         openDatabase();
         String selection = COLUMN_ID_DOMAIN + "=? AND " + COLUMN_ID_PRODUCT + "=?";
@@ -103,6 +117,10 @@ public class ShoppingCardLocalDataSource extends DataHelper implements
     public void reduceQuantity(int productId, int domainId) {
         openDatabase();
         try {
+            if (getQuantity(productId, domainId) == DEFAULT_QUANTITY) {
+                deleteShoppingCardItem(productId, domainId);
+                return;
+            }
             ContentValues values = new ContentValues();
             values.put(COLUMN_QUANTITY, getQuantity(productId, domainId) - DEFAULT_QUANTITY);
             String selections = COLUMN_ID_DOMAIN + "=? AND " + COLUMN_ID_PRODUCT + "=?";
@@ -213,6 +231,24 @@ public class ShoppingCardLocalDataSource extends DataHelper implements
             close();
         }
         return numberItem;
+    }
+
+    @Override
+    public void deleteAllItemOutOfTime(List<ShoppingCard> list, int domainId,
+                                       DeleteAllItemOutOfTimeCardCallback cardCallback) {
+        double total = 0;
+        List<String> listDeletedItem = new ArrayList<>();
+        for (ShoppingCard shoppingCard : list) {
+            for (ShoppingCardItem shoppingCardItem : shoppingCard.getShoppingCardDetails()) {
+                if (!shoppingCardItem.isCanOrder()) {
+                    listDeletedItem.add(shoppingCardItem.getProductName());
+                    deleteShoppingCardItem(shoppingCardItem.getProductId(), domainId);
+                } else {
+                    total += shoppingCardItem.getPrice() * shoppingCardItem.getQuantity();
+                }
+            }
+        }
+        cardCallback.onCompleted(listDeletedItem, total);
     }
 
     private double getTotalPrice(int domainId) {

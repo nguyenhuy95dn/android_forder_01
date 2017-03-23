@@ -77,4 +77,9 @@
     <string name="action_cance_manage">Cance Manage</string>
     <string name="action_add_member">Add</string>
     <string name="title_card_default">0</string>
+    <string name="title_confirm_order">Order Confirm</string>
+    <string name="title_total_order">Total price of your order:</string>
+    <string name="title_continue_order">All of product will sent, Do you want to continue?</string>
+    <string name="title_delete_order">The following products have been removed because out
+        of time for order, Do you want to continue?</string>
 </resources>

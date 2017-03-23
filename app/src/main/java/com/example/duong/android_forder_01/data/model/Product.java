@@ -41,6 +41,9 @@ public class Product implements Serializable {
     @SerializedName("category_id")
     private int mCategoryId;
 
+    public Product() {
+    }
+
     public Product(Cursor cursor) {
         mId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_PRODUCT));
         mName = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));

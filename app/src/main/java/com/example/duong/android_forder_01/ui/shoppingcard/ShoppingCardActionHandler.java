@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.example.duong.android_forder_01.data.model.ShoppingCard;
 
+import java.util.List;
+
 import static com.example.duong.android_forder_01.utils.SharedPreferencesUtils.getCurrentDomain;
 
 public class ShoppingCardActionHandler {
@@ -28,9 +30,10 @@ public class ShoppingCardActionHandler {
     }
 
     public void order(ShoppingCard shoppingCard) {
-        mListener.order(shoppingCard);
+        mListener.order(shoppingCard, getCurrentDomain(mContext).getId());
     }
 
-    public void orderAll() {
+    public void orderAll(List<ShoppingCard> list) {
+        mListener.orderAll(list, getCurrentDomain(mContext).getId());
     }
 }

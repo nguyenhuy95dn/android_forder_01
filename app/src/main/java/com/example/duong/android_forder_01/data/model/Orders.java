@@ -12,7 +12,7 @@ public class Orders {
     private int mId;
     private int mStatus;
     private String mEndDate;
-    private String mTotalPay;
+    private double mTotalPay;
     private User mUser;
     private Shop mShop;
     private List<OrderDetail> mOrderDetails;
@@ -41,11 +41,11 @@ public class Orders {
         mEndDate = endDate;
     }
 
-    public String getTotalPay() {
+    public double getTotalPay() {
         return mTotalPay;
     }
 
-    public void setTotalPay(String totalPay) {
+    public void setTotalPay(double totalPay) {
         mTotalPay = totalPay;
     }
 

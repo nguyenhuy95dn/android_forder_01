@@ -12,6 +12,8 @@ public interface ShoppingCardContract {
         void initToolbar();
         void loadShoppingCardCompleted(List<ShoppingCard> list, double totalPrice);
         void loadShoppingCardError();
+        void showConfirmOrder(String message);
+        void updateCard(int numberItem);
     }
 
     interface Presenter extends BasePresenter {
@@ -19,7 +21,10 @@ public interface ShoppingCardContract {
         void reduceQuantity(int productId, int domainId);
         void increaseQuantity(int productId, int domainId);
         void deleteItem(int productId, int domainId);
-        void order(ShoppingCard shoppingCard);
-        void orderAll(List<ShoppingCard> list);
+        void deleteShoppingCardOfDomain(int domainId);
+        void order(ShoppingCard shoppingCard, int domainId);
+        void orderAll(List<ShoppingCard> list, int domainId);
+        void acceptOrder(List<ShoppingCard> list);
+        String getAlertMessage(List<String> list, double total);
     }
 }
