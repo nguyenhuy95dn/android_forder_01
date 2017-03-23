@@ -46,7 +46,7 @@ public class DataHelper extends SQLiteOpenHelper {
             + COLUMN_PRICE + REAL_TYPE + COMMA_SEP
             + COLUMN_QUANTITY + INTERGER_TYPE + COMMA_SEP
             + COLUMN_START_HOUR + TEXT_TYPE + COMMA_SEP
-            + COLUMN_END_HOUR + TEXT_TYPE + COMMA_SEP + " )";
+            + COLUMN_END_HOUR + TEXT_TYPE + ")";
     private static final String DROP_TABLE_SHOPPING_CARD =
         DROPTABLE_IF_EXIST + TABLE_NAME_SHOPPING_CARD;
     private static final String DROP_TABLE_DOMAIN =

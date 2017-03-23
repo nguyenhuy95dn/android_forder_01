@@ -27,7 +27,7 @@ public class YourOrderActivity extends AppCompatActivity implements YourOrderCon
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout
-            .activity_shopping_card);
+            .activity_your_order);
         setPresenter(new YourOrderPresenter(this));
         mPresenter.start();
     }

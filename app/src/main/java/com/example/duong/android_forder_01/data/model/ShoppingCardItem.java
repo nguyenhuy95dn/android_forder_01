@@ -140,4 +140,20 @@ public class ShoppingCardItem {
     public void setStatus(int status) {
         mStatus = status;
     }
+
+    public String getStartHour() {
+        return mStartHour;
+    }
+
+    public void setStartHour(String startHour) {
+        mStartHour = startHour;
+    }
+
+    public String getEndHour() {
+        return mEndHour;
+    }
+
+    public void setEndHour(String endHour) {
+        mEndHour = endHour;
+    }
 }

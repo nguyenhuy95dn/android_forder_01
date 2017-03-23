@@ -37,6 +37,11 @@ public class ShoppingCardRepository
     }
 
     @Override
+    public void deleteShoppingCardOfDomain(int domainId) {
+        mLocalDataSource.deleteShoppingCardOfDomain(domainId);
+    }
+
+    @Override
     public void reduceQuantity(int productId, int domainId) {
         mLocalDataSource.reduceQuantity(productId, domainId);
     }
@@ -65,5 +70,17 @@ public class ShoppingCardRepository
     @Override
     public int getNumberItem(int domainId) {
         return mLocalDataSource.getNumberItem(domainId);
+    }
+
+    @Override
+    public void deleteAllItemOutOfTime(List<ShoppingCard> list, int domainId,
+                                       final DeleteAllItemOutOfTimeCardCallback cardCallback) {
+        mLocalDataSource
+            .deleteAllItemOutOfTime(list, domainId, new DeleteAllItemOutOfTimeCardCallback() {
+                @Override
+                public void onCompleted(List<String> list, double totalPrice) {
+                    cardCallback.onCompleted(list, totalPrice);
+                }
+            });
     }
 }

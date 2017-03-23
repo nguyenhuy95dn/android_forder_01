@@ -58,6 +58,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_10"
             android:background="@color/colorAccent"
+            android:onClick="@{()-> actionHandler.order(shoppingCardShop)}"
             android:text="@string/action_order_this"
             android:textAllCaps="false"/>
 
