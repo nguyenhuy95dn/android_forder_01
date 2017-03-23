@@ -43,6 +43,7 @@ public class CustomBindingAdapter {
     @BindingAdapter({"bind:pager"})
     public static void bindViewPagerTabs(final TabLayout view, final ViewPager pagerView) {
         view.setupWithViewPager(pagerView, true);
+        pagerView.setPageTransformer(true, new ZoomOutPageTransformer());
     }
 
     @BindingAdapter("bind:activity")

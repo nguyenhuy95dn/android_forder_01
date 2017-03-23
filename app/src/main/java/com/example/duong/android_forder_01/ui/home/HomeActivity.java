@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,12 +15,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.duong.android_forder_01.R;
 import com.example.duong.android_forder_01.data.model.Category;
 import com.example.duong.android_forder_01.data.model.Domain;
+import com.example.duong.android_forder_01.data.model.Guide;
+import com.example.duong.android_forder_01.data.model.Product;
 import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.data.source.CategoryRepository;
 import com.example.duong.android_forder_01.data.source.DomainReposity;
@@ -31,6 +29,7 @@ import com.example.duong.android_forder_01.data.source.ShoppingCardRepository;
 import com.example.duong.android_forder_01.databinding.ActivityHomeBinding;
 import com.example.duong.android_forder_01.ui.adapter.CategoryAdapter;
 import com.example.duong.android_forder_01.ui.adapter.DomainAdapter;
+import com.example.duong.android_forder_01.ui.adapter.GuideViewPagerAdapter;
 import com.example.duong.android_forder_01.ui.adapter.ViewPagerAdapter;
 import com.example.duong.android_forder_01.ui.domain.DomainActivity;
 import com.example.duong.android_forder_01.ui.listproduct.ListProductActivity;
@@ -53,18 +52,19 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     public static TextView sTextNumberItem;
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
-    private Spinner mSpinner;
     private ActionBarDrawerToggle mDrawerToggle;
     private HomeContract.Presenter mHomPresenter;
     private ActivityHomeBinding mActivityHomeBinding;
-    private List<Category> mCategories = new ArrayList<>();
+    private List<Category> mCategoryList = new ArrayList<>();
+    private List<Product> mProductList = new ArrayList<>();
     private ObservableField<CategoryAdapter> mCategoryAdapter = new ObservableField<>();
-    private List<Domain> mDomains = new ArrayList<>();
+    private List<Domain> mDomainList = new ArrayList<>();
     private ObservableField<ArrayAdapter> mSpinnerAdapter = new ObservableField<>();
     private ObservableField<DomainAdapter> mDomainAdapter = new ObservableField<>();
+    private ObservableField<ViewPagerAdapter> mViewPagerAdapter = new ObservableField<>();
+    private ObservableField<GuideViewPagerAdapter> mGuideViewPagerAdapter = new ObservableField<>();
     private Domain mDomain;
+    private boolean mCheckDomain = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +78,8 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     @Override
     public void start() {
         mHomPresenter.getAllCategory(ID_DOMAIN, SharedPreferencesUtils.loadUser(this));
+        mHomPresenter.getListGuide(getResources().getStringArray(R.array.guide_title),
+            getResources().getStringArray(R.array.guide_description));
         mActivityHomeBinding.setActivityHome(this);
         initToolbar();
         initViewPager();
@@ -111,14 +113,15 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
     private void initSpinner() {
         mSpinnerAdapter
-            .set(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, mDomains));
+            .set(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
+                mDomainList));
         mActivityHomeBinding.spinner.setOnItemSelectedListener(
             new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position,
                                            long l) {
                     //TODO: Load shop, category, product in domain
-                    mDomain = mDomains.get(position);
+                    mDomain = mDomainList.get(position);
                     saveCurrentDomain(getApplicationContext(), mDomain);
                     mHomPresenter.getCardItem(getCurrentDomain(getApplicationContext()).getId());
                 }
@@ -158,13 +161,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
     @Override
     public void initViewPager() {
-        mTabLayout = mActivityHomeBinding.tabLayoutHome;
-        mViewPager = mActivityHomeBinding.viewPagerHome;
-        FragmentManager manager = getSupportFragmentManager();
-        ViewPagerAdapter adapter = new ViewPagerAdapter(manager, this);
-        mViewPager.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-        mTabLayout.setupWithViewPager(mViewPager);
+        mViewPagerAdapter.set(new ViewPagerAdapter(getSupportFragmentManager(), this));
     }
 
     @Override
@@ -182,24 +179,31 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
     @Override
     public void initCategoryRecyclerView() {
-        mCategoryAdapter.set(new CategoryAdapter(mCategories, this, mHomPresenter));
-        mDomainAdapter.set(new DomainAdapter(mDomains, this, mHomPresenter));
+        mCategoryAdapter.set(new CategoryAdapter(mCategoryList, this, mHomPresenter));
+        mDomainAdapter.set(new DomainAdapter(mDomainList, this, mHomPresenter));
     }
 
     @Override
     public void showAllCategory(List<Category> list) {
         if (list == null) return;
-        mCategories.addAll(list);
+        mCategoryList.addAll(list);
         mCategoryAdapter.get().notifyDataSetChanged();
     }
 
     @Override
     public void showDomain(List<Domain> domainList) {
         if (domainList == null) return;
-        mDomains.clear();
-        mDomains.addAll(domainList);
+        mDomainList.clear();
+        mDomainList.addAll(domainList);
         mSpinnerAdapter.get().notifyDataSetChanged();
         mDomainAdapter.get().notifyDataSetChanged();
+    }
+
+    @Override
+    public void showListGuide(List<Guide> list) {
+        if (list == null) return;
+        mGuideViewPagerAdapter.set(new GuideViewPagerAdapter(getSupportFragmentManager(), this,
+            list));
     }
 
     @Override
@@ -231,5 +235,21 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
     public ObservableField<ArrayAdapter> getSpinnerAdapter() {
         return mSpinnerAdapter;
+    }
+
+    public ObservableField<ViewPagerAdapter> getViewPagerAdapter() {
+        return mViewPagerAdapter;
+    }
+
+    public ObservableField<GuideViewPagerAdapter> getGuideViewPagerAdapter() {
+        return mGuideViewPagerAdapter;
+    }
+
+    public boolean isCheckDomain() {
+        return mCheckDomain;
+    }
+
+    public void setCheckDomain(boolean checkDomain) {
+        mCheckDomain = checkDomain;
     }
 }

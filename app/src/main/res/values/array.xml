@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="guide_title">
+        <item>Giới thiệu</item>
+        <item>Bước 1</item>
+        <item>Bước 2</item>
+        <item>Bước 3</item>
+        <item>Kết thúc</item>
+    </string-array>
+
+    <string-array name="guide_description">
+        <item>Với F-order, bạn có thể dễ dàng tìm kiếm những món ăn,
+        đồ uống ngon, chất lượng theo từng miền. Bạn có thể đặt cho mình các sản phẩm một cách dễ
+        dàng, luôn nhận được thông báo mỗi khi
+        đơn hàng có sự thay đổi. F-order sẽ là nơi lý tưởng để đưa các sản phẩm của bạn đến với
+        tất cả mọi người, chỉ một vài bước đơn giản là bạn đã có thể làm chủ một cửa hàng của riêng mình
+        </item>
+        <item>Tham gia vào miền công khai hoặc miền riêng tư mà bạn là thành
+        viên.
+        Và bạn có thể tự tạo, quản lý miền của chính mình</item>
+        <item>Thực hiện thao tác đặt hàng các món ăn theo miền, theo cửa hàng.
+        Hoặc bạn có thể tự tạo cửa hàng cho riêng mình và quản lí chúng</item>
+        <item>Bạn có thể đặt hàng, quản lí đơn hàng, quản lí cửa hàng theo từng
+        miền riêng biệt</item>
+        <item>Bạn đã sẵng sàng sử dụng Forder!</item>
+    </string-array>
+
+    <integer-array name="guide_icon">
+        <item>@drawable/ic_introduce</item>
+        <item>@drawable/ic_step_one</item>
+        <item>@drawable/ic_step_two</item>
+        <item>@drawable/ic_step_three</item>
+        <item>@drawable/ic_finish</item>
+    </integer-array>
+
+</resources>
