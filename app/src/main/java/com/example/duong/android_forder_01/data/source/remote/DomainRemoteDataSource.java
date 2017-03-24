@@ -39,7 +39,7 @@ public class DomainRemoteDataSource implements DomainDataSource {
 
     @Override
     public void getDatasDomain(final User user, final GetDataCallback<Domain> getDataCallback) {
-        if (getDataCallback == null && user == null) return;
+        if (getDataCallback == null || user == null) return;
         Map<String, String> params = new HashMap<>();
         params.put(PARAM_USER_ID, String.valueOf(user.getId()));
         params.put(PARAM_USER_EMAIL, user.getUserName());
@@ -48,7 +48,7 @@ public class DomainRemoteDataSource implements DomainDataSource {
                 @Override
                 public void onResponse(Call<DomainResponse> call,
                                        Response<DomainResponse> response) {
-                    if (response == null && response.body().getDomainList() == null) {
+                    if (response == null || response.body().getDomainList() == null) {
                         getDataCallback.onNotAvailable();
                         return;
                     }
@@ -69,13 +69,13 @@ public class DomainRemoteDataSource implements DomainDataSource {
 
     @Override
     public void getDatasPrivateDomainInfor(User user, final GetDataCallback getDataCallback) {
-        if (getDataCallback == null && user == null) return;
+        if (getDataCallback == null || user == null) return;
         //TODO: Load private domain
     }
 
     @Override
     public void getDatasPublicDomainInfor(User user, final GetDataCallback getDataCallback) {
-        if (getDataCallback == null && user == null) return;
+        if (getDataCallback == null || user == null) return;
         //TODO: Load public domain
     }
 }
