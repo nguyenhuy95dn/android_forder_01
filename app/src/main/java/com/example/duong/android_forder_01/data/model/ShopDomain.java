@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-import static com.example.duong.android_forder_01.utils.Const.StatusCode.ACCEPT_CODE;
-import static com.example.duong.android_forder_01.utils.Const.StatusCode.PENDING_CODE;
-import static com.example.duong.android_forder_01.utils.Const.StatusCode.REJECT_CODE;
+import static com.example.duong.android_forder_01.utils.Const.Status.ACCEPT_CODE;
+import static com.example.duong.android_forder_01.utils.Const.Status.PENDING_CODE;
+import static com.example.duong.android_forder_01.utils.Const.Status.REJECT_CODE;
 
 /**
  * Created by tri on 03/03/2017.
@@ -15,15 +15,7 @@ public class ShopDomain implements Serializable {
     @SerializedName("domain_id")
     private int mDomainId;
     @SerializedName("status")
-    private int mStatus;
-
-    public ShopDomain(int domainId, int status) {
-        mDomainId = domainId;
-        mStatus = status;
-    }
-
-    public ShopDomain() {
-    }
+    private String mStatus;
 
     public int getDomainId() {
         return mDomainId;
@@ -33,20 +25,22 @@ public class ShopDomain implements Serializable {
         mDomainId = domainId;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return mStatus;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         mStatus = status;
     }
 
     public boolean isPendingStatus() {
-        return mStatus == PENDING_CODE;
+        if (mStatus.equals(PENDING_CODE)) return true;
+        return false;
     }
 
     public boolean isAcceptStatus() {
-        return mStatus == ACCEPT_CODE;
+        if (mStatus.equals(ACCEPT_CODE)) return true;
+        return false;
     }
 
     public boolean isRejectStatus() {

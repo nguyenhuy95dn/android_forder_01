@@ -3,6 +3,7 @@ package com.example.duong.android_forder_01.ui.shopmanagement;
 import com.example.duong.android_forder_01.data.model.Shop;
 import com.example.duong.android_forder_01.data.model.ShopDomain;
 import com.example.duong.android_forder_01.data.model.ShopManagement;
+import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.data.source.GetDataCallback;
 import com.example.duong.android_forder_01.data.source.ShopDataSource;
 
@@ -28,19 +29,19 @@ public class ShopManagementPresenter implements ShopManagementContract.Presenter
     }
 
     @Override
-    public void getShopByUser(int userId, String userToken) {
-        mDataRepository.getDataShopManagement(userId, userToken,
-            new GetDataCallback<ShopManagement>() {
-                @Override
-                public void onLoaded(List<ShopManagement> datas) {
-                    mView.showAllShop(datas);
-                }
+    public void getShopByUser(User user) {
+        if (user == null) return;
+        mDataRepository.getDataShopManagement(user, new GetDataCallback<ShopManagement>() {
+            @Override
+            public void onLoaded(List<ShopManagement> datas) {
+                mView.showAllShop(datas);
+            }
 
-                @Override
-                public void onNotAvailable() {
-                    mView.showGetDataError();
-                }
-            });
+            @Override
+            public void onNotAvailable() {
+                mView.showGetDataError();
+            }
+        });
     }
 
     @Override

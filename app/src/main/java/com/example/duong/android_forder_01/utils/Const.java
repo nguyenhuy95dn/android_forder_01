@@ -23,6 +23,7 @@ public class Const {
         public static final String PATH_DOMAIN = "v1/domains";
         public static final String URL_FORDER = "http://order.framgia.vn/";
         public static final String PATH_PRODUCT = "v1/products";
+        public static final String PATH_SHOP_MANAGEMENT = "v1/dashboard/shops";
         public static final String PARAM_USER_EMAIL = "user_email";
         public static final String PARAM_PASSWORD = "password";
         public static final String PARAM_USER_ID = "user_id";
@@ -42,5 +43,11 @@ public class Const {
         public static final int PENDING_CODE = 0;
         public static final int ACCEPT_CODE = 1;
         public static final int REJECT_CODE = 2;
+    }
+
+    public static class Status {
+        public static final String PENDING_CODE = "pending";
+        public static final String ACCEPT_CODE = "approved";
+        public static final String REJECT_CODE = "";
     }
 }

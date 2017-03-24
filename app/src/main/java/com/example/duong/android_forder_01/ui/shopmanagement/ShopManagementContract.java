@@ -3,6 +3,7 @@ package com.example.duong.android_forder_01.ui.shopmanagement;
 import com.example.duong.android_forder_01.data.model.Shop;
 import com.example.duong.android_forder_01.data.model.ShopDomain;
 import com.example.duong.android_forder_01.data.model.ShopManagement;
+import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.ui.BasePresenter;
 import com.example.duong.android_forder_01.ui.BaseView;
 
@@ -20,7 +21,7 @@ public interface ShopManagementContract {
     }
 
     interface Presenter extends BasePresenter {
-        void getShopByUser(int userId, String userToken);
+        void getShopByUser(User user);
         void sendRequest(ShopDomain shopDomain, Shop shop);
         void cancelRequest(ShopDomain shopDomain, Shop shop);
         void rejectRequest(ShopDomain shopDomain, Shop shop);
