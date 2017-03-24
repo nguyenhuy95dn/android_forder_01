@@ -38,7 +38,7 @@ public class ProductRemoteDataSource implements ProductDataSource<Product> {
     @Override
     public void getDatas(final int idDomain, final User user,
                          final GetDataCallback<Product> getDataCallback) {
-        if (getDataCallback == null && user == null) return;
+        if (getDataCallback == null || user == null) return;
         Map<String, String> params = new HashMap<>();
         params.put(PARAM_DOMAIN_ID, String.valueOf(idDomain));
         params.put(PARAM_USER_EMAIL, user.getUserName());
@@ -46,7 +46,7 @@ public class ProductRemoteDataSource implements ProductDataSource<Product> {
         API.getProduct(params, new Callback<ProductResponse>() {
                 @Override
                 public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
-                    if (response == null && response.body().getProductsList() == null) {
+                    if (response == null || response.body().getProductsList() == null) {
                         getDataCallback.onNotAvailable();
                         return;
                     }
@@ -64,7 +64,7 @@ public class ProductRemoteDataSource implements ProductDataSource<Product> {
     @Override
     public void getProductByCategoryId(int domainId, int categoryId, User user,
                                        final GetDataCallback<Product> getDataCallback) {
-        if (getDataCallback == null && user == null) return;
+        if (getDataCallback == null || user == null) return;
         Map<String, String> params = new HashMap<>();
         params.put(PARAM_CATEGORY_ID, String.valueOf(categoryId));
         params.put(PARAM_DOMAIN_ID, String.valueOf(domainId));
@@ -73,7 +73,7 @@ public class ProductRemoteDataSource implements ProductDataSource<Product> {
         API.getProduct(params, new Callback<ProductResponse>() {
                 @Override
                 public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
-                    if (response == null && response.body().getProductsList() == null) {
+                    if (response == null || response.body().getProductsList() == null) {
                         getDataCallback.onNotAvailable();
                         return;
                     }

@@ -26,7 +26,7 @@ public class DomainReposity implements DomainDataSource {
 
     @Override
     public void getDatasDomain(User user, final GetDataCallback getDataCallback) {
-        if (getDataCallback == null && user == null) return;
+        if (getDataCallback == null || user == null) return;
         mDomainDataSource.getDatasDomain(user, new GetDataCallback<Domain>() {
             @Override
             public void onLoaded(List datas) {
@@ -42,7 +42,7 @@ public class DomainReposity implements DomainDataSource {
 
     @Override
     public void getDatasPrivateDomainInfor(User user, final GetDataCallback getDataCallback) {
-        if (getDataCallback == null && user == null) return;
+        if (getDataCallback == null || user == null) return;
         mDomainDataSource.getDatasPrivateDomainInfor(user, new GetDataCallback<Domain>() {
             @Override
             public void onLoaded(List datas) {
@@ -58,7 +58,7 @@ public class DomainReposity implements DomainDataSource {
 
     @Override
     public void getDatasPublicDomainInfor(User user, final GetDataCallback getDataCallback) {
-        if (getDataCallback == null && user == null) return;
+        if (getDataCallback == null || user == null) return;
         mDomainDataSource.getDatasPublicDomainInfor(user, new GetDataCallback<Domain>() {
             @Override
             public void onLoaded(List datas) {

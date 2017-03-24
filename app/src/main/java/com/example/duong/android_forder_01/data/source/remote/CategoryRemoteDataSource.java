@@ -36,7 +36,7 @@ public class CategoryRemoteDataSource implements ProductDataSource<Category> {
 
     @Override
     public void getDatas(int idDomain, User user, final GetDataCallback<Category> getDataCallback) {
-        if (getDataCallback == null && user == null) return;
+        if (getDataCallback == null || user == null) return;
         Map<String, String> params = new HashMap<>();
         params.put(PARAM_DOMAIN_ID, String.valueOf(idDomain));
         params.put(PARAM_USER_EMAIL, user.getUserName());
@@ -45,7 +45,7 @@ public class CategoryRemoteDataSource implements ProductDataSource<Category> {
                 @Override
                 public void onResponse(Call<CategoryResponse> call,
                                        Response<CategoryResponse> response) {
-                    if (response == null && response.body().getCategoryList() == null) {
+                    if (response == null || response.body().getCategoryList() == null) {
                         getDataCallback.onNotAvailable();
                         return;
                     }

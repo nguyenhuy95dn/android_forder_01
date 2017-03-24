@@ -26,7 +26,7 @@ public class CategoryRepository implements ProductDataSource<Category> {
 
     @Override
     public void getDatas(int domainId, User user, final GetDataCallback<Category> getDataCallback) {
-        if (getDataCallback == null && user == null) return;
+        if (getDataCallback == null || user == null) return;
         mRemoteDataSource.getDatas(domainId, user, new GetDataCallback<Category>() {
             @Override
             public void onLoaded(List<Category> datas) {
