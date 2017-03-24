@@ -34,14 +34,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_200"
                         android:scaleType="centerCrop"
-                        app:imageUrl="@{shopInformation.shop.collectionAvatar.avatar.url}"/>
+                        app:imageUrl="@{shopInformation.shop.coverImage.url}"/>
 
                     <ImageView
                         android:layout_width="@dimen/dp_130"
                         android:layout_height="@dimen/dp_130"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/dp_130"
-                        app:imageUrl="@{shopInformation.shop.collectionAvatar.avatar.url}"/>
+                        app:imageUrl="@{shopInformation.shop.avatar.url}"/>
                 </FrameLayout>
 
                 <TextView
@@ -57,8 +57,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/dp_10"
-                    android:rating="@{shopInformation.shop.averageRating}"
-                    android:progressTint="@color/colorAccent"/>
+                    android:progressTint="@color/colorAccent"
+                    android:rating="@{shopInformation.shop.averageRating}"/>
             </LinearLayout>
 
             <TableLayout
@@ -83,6 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/dp_5"
+                        android:text="@{String.valueOf(shopInformation.shop.ownerId)}"
                         android:textColor="@android:color/white"/>
                 </TableRow>
 
@@ -151,6 +152,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/dp_5"
+                        android:text="@{shopInformation.shop.formatTimeTReject}"
                         android:textColor="@android:color/white"/>
                 </TableRow>
             </TableLayout>

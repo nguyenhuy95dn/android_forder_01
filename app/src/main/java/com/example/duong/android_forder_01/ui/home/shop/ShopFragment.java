@@ -15,6 +15,7 @@ import com.example.duong.android_forder_01.data.source.ShopRepository;
 import com.example.duong.android_forder_01.databinding.FragmentShopBinding;
 import com.example.duong.android_forder_01.ui.adapter.ShopAdapter;
 import com.example.duong.android_forder_01.ui.shopdetail.ShopDetailActivity;
+import com.example.duong.android_forder_01.utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class ShopFragment extends Fragment implements ShopContract.View {
 
     @Override
     public void start() {
-        mPresenter.getAllShop(ID_DOMAIN);
+        mPresenter.getAllShop(ID_DOMAIN, SharedPreferencesUtils.loadUser(getContext()));
         mBinding.setShopFragment(this);
         initRecyclerView();
     }

@@ -4,7 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Avatar implements Serializable {
+/**
+ * Created by tri on 24/03/2017.
+ */
+public class CoverImage implements Serializable {
     @SerializedName("url")
     private String mUrl;
 

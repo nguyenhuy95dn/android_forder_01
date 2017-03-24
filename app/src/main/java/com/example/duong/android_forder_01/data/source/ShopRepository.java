@@ -2,6 +2,7 @@ package com.example.duong.android_forder_01.data.source;
 
 import com.example.duong.android_forder_01.data.model.Shop;
 import com.example.duong.android_forder_01.data.model.ShopManagement;
+import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.data.source.remote.ShopRemoteDataSource;
 
 import java.util.List;
@@ -25,9 +26,10 @@ public class ShopRepository implements ShopDataSource {
     }
 
     @Override
-    public void getDataShop(int domainId,
+    public void getDataShop(int domainId, User user,
                             final GetDataCallback<Shop> getDataCallback) {
-        mRemoteDataSource.getDataShop(domainId, new GetDataCallback<Shop>() {
+        if (getDataCallback == null || user == null) return;
+        mRemoteDataSource.getDataShop(domainId, user, new GetDataCallback<Shop>() {
             @Override
             public void onLoaded(List<Shop> datas) {
                 getDataCallback.onLoaded(datas);
@@ -41,9 +43,10 @@ public class ShopRepository implements ShopDataSource {
     }
 
     @Override
-    public void getDataShopManagement(int userId, String userToken,
+    public void getDataShopManagement(User user,
                                       final GetDataCallback<ShopManagement> getDataCallback) {
-        mRemoteDataSource.getDataShopManagement(userId, userToken,
+        if (getDataCallback == null || user == null) return;
+        mRemoteDataSource.getDataShopManagement(user,
             new GetDataCallback<ShopManagement>() {
                 @Override
                 public void onLoaded(List<ShopManagement> datas) {

@@ -10,27 +10,17 @@ import java.util.List;
  */
 public class ShopManagementResponse implements Serializable {
     @SerializedName("status")
-    private Integer mStatus;
+    private int mStatus;
     @SerializedName("message")
     private String mMessage;
     @SerializedName("content")
     private List<ShopManagement> mShopManagementList;
 
-    public ShopManagementResponse(Integer status, String message,
-                                  List<ShopManagement> shopManagementList) {
-        mStatus = status;
-        mMessage = message;
-        mShopManagementList = shopManagementList;
-    }
-
-    public ShopManagementResponse() {
-    }
-
-    public Integer getStatus() {
+    public int getStatus() {
         return mStatus;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         mStatus = status;
     }
 

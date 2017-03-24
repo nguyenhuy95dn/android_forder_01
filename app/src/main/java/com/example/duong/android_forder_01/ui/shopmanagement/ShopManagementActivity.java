@@ -13,6 +13,7 @@ import com.example.duong.android_forder_01.databinding.ActivityShopManagementBin
 import com.example.duong.android_forder_01.ui.adapter.ShopManagementAdapter;
 import com.example.duong.android_forder_01.ui.shopmanagementdetail.ShopManagementDetailActivity;
 import com.example.duong.android_forder_01.utils.BaseActivity;
+import com.example.duong.android_forder_01.utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,6 @@ public class ShopManagementActivity extends BaseActivity implements ShopManageme
     private ActivityShopManagementBinding mBinding;
     private List<ShopManagement> mShopManagementList = new ArrayList<>();
     private ObservableField<ShopManagementAdapter> mShopManagementAdapter = new ObservableField<>();
-    private int mUserId;
-    private String mUserToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,9 @@ public class ShopManagementActivity extends BaseActivity implements ShopManageme
     @Override
     public void showAllShop(List<ShopManagement> list) {
         if (list == null) return;
+        mShopManagementList.clear();
         mShopManagementList.addAll(list);
+        mShopManagementAdapter.get().notifyDataSetChanged();
     }
 
     @Override
@@ -58,7 +59,7 @@ public class ShopManagementActivity extends BaseActivity implements ShopManageme
 
     @Override
     public void start() {
-        mPresenter.getShopByUser(mUserId, mUserToken);
+        mPresenter.getShopByUser(SharedPreferencesUtils.loadUser(this));
         getSupportActionBar().setTitle(getResources().getString((R.string.title_your_shop)));
         mBinding.setShopManagement(this);
         mShopManagementAdapter

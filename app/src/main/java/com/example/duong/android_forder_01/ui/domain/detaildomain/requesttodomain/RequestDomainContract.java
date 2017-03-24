@@ -1,6 +1,7 @@
 package com.example.duong.android_forder_01.ui.domain.detaildomain.requesttodomain;
 
 import com.example.duong.android_forder_01.data.model.Shop;
+import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.ui.BasePresenter;
 import com.example.duong.android_forder_01.ui.BaseView;
 
@@ -16,6 +17,6 @@ public interface RequestDomainContract {
     }
 
     interface Presenter extends BasePresenter {
-        void getAllShopRequestDomain(int idDomain);
+        void getAllShopRequestDomain(int domainId, User user);
     }
 }

@@ -3,6 +3,7 @@ package com.example.duong.android_forder_01.ui.domain.detaildomain.requesttodoma
 import android.support.annotation.NonNull;
 
 import com.example.duong.android_forder_01.data.model.Shop;
+import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.data.source.GetDataCallback;
 import com.example.duong.android_forder_01.data.source.ShopDataSource;
 
@@ -30,19 +31,7 @@ public class RequestDomainPresent implements RequestDomainContract.Presenter {
     }
 
     @Override
-    public void getAllShopRequestDomain(int idDomain) {
-        if (idDomain != ID_ROOT_DOMAIN) {
-            mDataRepository.getDataShop(idDomain, new GetDataCallback<Shop>() {
-                @Override
-                public void onLoaded(List<Shop> datas) {
-                    mView.showAllShopRequestDomain(datas);
-                }
-
-                @Override
-                public void onNotAvailable() {
-                    mView.showGetDataError();
-                }
-            });
-        }
+    public void getAllShopRequestDomain(int domainId, User user) {
+        if (user == null) return;
     }
 }

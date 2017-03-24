@@ -51,7 +51,7 @@ public class ProductShopFragment extends Fragment implements ProductShopFragment
     @Override
     public void start() {
         mShop = (Shop) getArguments().getSerializable(EXTRA_SHOP);
-        mProductList.addAll(mShop.getListProduct());
+        //Wait Api get Product by shopId
         mBinding.setProductShopManagement(this);
         mProductAdapter
             .set(new ProductShopManagementAdapter(mProductList, getActivity(), mPresenter));
