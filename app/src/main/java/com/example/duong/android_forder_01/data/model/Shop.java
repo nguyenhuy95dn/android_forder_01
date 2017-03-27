@@ -14,6 +14,10 @@ import static com.example.duong.android_forder_01.utils.Const.START_INDEX;
 public class Shop implements Serializable {
     @SerializedName("id")
     private int mId;
+    @SerializedName("domain_id")
+    private int mDomainId;
+    @SerializedName("shop_id")
+    private int mShopId;
     @SerializedName("name")
     private String mName;
     @SerializedName("description")
@@ -49,6 +53,22 @@ public class Shop implements Serializable {
 
     public Shop(Cursor cursor) {
         mId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_SHOP));
+    }
+
+    public int getDomainId() {
+        return mDomainId;
+    }
+
+    public void setDomainId(int domainId) {
+        mDomainId = domainId;
+    }
+
+    public int getShopId() {
+        return mShopId;
+    }
+
+    public void setShopId(int shopId) {
+        mShopId = shopId;
     }
 
     public int getId() {

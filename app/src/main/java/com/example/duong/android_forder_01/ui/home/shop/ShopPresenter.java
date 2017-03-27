@@ -32,6 +32,7 @@ public class ShopPresenter implements ShopContract.Presenter {
 
     @Override
     public void getAllShop(int idDomain, User user) {
+        if (user == null) return;
         mDataRepository.getDataShop(idDomain, user, new GetDataCallback<Shop>() {
             @Override
             public void onLoaded(List<Shop> datas) {

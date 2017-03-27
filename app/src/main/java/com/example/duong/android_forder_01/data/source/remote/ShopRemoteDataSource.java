@@ -1,12 +1,9 @@
 package com.example.duong.android_forder_01.data.source.remote;
 
-import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.example.duong.android_forder_01.data.model.Shop;
 import com.example.duong.android_forder_01.data.model.ShopManagement;
 import com.example.duong.android_forder_01.data.model.ShopManagementResponse;
+import com.example.duong.android_forder_01.data.model.ShopResponse;
 import com.example.duong.android_forder_01.data.model.User;
 import com.example.duong.android_forder_01.data.source.GetDataCallback;
 import com.example.duong.android_forder_01.data.source.ShopDataSource;
@@ -19,6 +16,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.duong.android_forder_01.utils.Const.ConstantApi.PARAM_DOMAIN_ID;
 import static com.example.duong.android_forder_01.utils.Const.ConstantApi.PARAM_USER_EMAIL;
 import static com.example.duong.android_forder_01.utils.Const.ConstantApi.PARAM_USER_ID;
 import static com.example.duong.android_forder_01.utils.Const.ConstantApi.PARAM_USER_TOKEN;
@@ -28,7 +26,6 @@ import static com.example.duong.android_forder_01.utils.Const.ConstantApi.PARAM_
  */
 public class ShopRemoteDataSource implements ShopDataSource {
     private static ShopRemoteDataSource sShopRemoteDataSource;
-    private Context mContext;
 
     private ShopRemoteDataSource() {
     }
@@ -42,7 +39,26 @@ public class ShopRemoteDataSource implements ShopDataSource {
 
     @Override
     public void getDataShop(int domainId, User user, final GetDataCallback<Shop> getDataCallback) {
-        if (getDataCallback == null) return;
+        if (getDataCallback == null || user == null) return;
+        Map<String, String> params = new HashMap<>();
+        params.put(PARAM_DOMAIN_ID, String.valueOf(domainId));
+        params.put(PARAM_USER_EMAIL, user.getUserName());
+        params.put(PARAM_USER_TOKEN, user.getAuthenticationToken());
+        API.getShop(params, new Callback<ShopResponse>() {
+            @Override
+            public void onResponse(Call<ShopResponse> call, Response<ShopResponse> response) {
+                if (response == null || response.body().getShopList() == null) {
+                    getDataCallback.onNotAvailable();
+                    return;
+                }
+                getDataCallback.onLoaded(response.body().getShopList());
+            }
+
+            @Override
+            public void onFailure(Call<ShopResponse> call, Throwable t) {
+                getDataCallback.onNotAvailable();
+            }
+        });
     }
 
     @Override

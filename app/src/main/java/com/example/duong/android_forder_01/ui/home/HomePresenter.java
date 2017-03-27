@@ -37,7 +37,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void openDomainPublic(Domain domain) {
-        mHomeView.showDomainPublic(domain);
+        mHomeView.openDomainPublic(domain);
     }
 
     @Override
@@ -93,5 +93,21 @@ public class HomePresenter implements HomeContract.Presenter {
             list.add(new Guide(title[i], description[i]));
         }
         mHomeView.showListGuide(list);
+    }
+
+    @Override
+    public void getDomainPublic(User user) {
+        if (user == null) return;
+        mDomainDataRepository.getDatasDomainPublic(user, new GetDataCallback<Domain>() {
+            @Override
+            public void onLoaded(List<Domain> datas) {
+                mHomeView.showDomainPublic(datas);
+            }
+
+            @Override
+            public void onNotAvailable() {
+                mHomeView.showGetDataError();
+            }
+        });
     }
 }

@@ -68,6 +68,19 @@ public class DomainRemoteDataSource implements DomainDataSource {
     }
 
     @Override
+    public void getDatasDomainPublic(User user, GetDataCallback<Domain> getDataCallback) {
+        if (getDataCallback == null || user == null) return;
+        //Fake data
+        List<Domain> domains = new ArrayList<>();
+        int[] id = {21, 1, 1};
+        String[] name = {"Hà nội", "HCM", "Test"};
+        for (int i = 0; i < 2; i++) {
+            domains.add(new Domain(id[i], name[i]));
+        }
+        getDataCallback.onLoaded(domains);
+    }
+
+    @Override
     public void getDatasPrivateDomainInfor(User user, final GetDataCallback getDataCallback) {
         if (getDataCallback == null || user == null) return;
         //TODO: Load private domain

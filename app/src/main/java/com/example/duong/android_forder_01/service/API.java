@@ -5,6 +5,7 @@ import com.example.duong.android_forder_01.data.model.DomainResponse;
 import com.example.duong.android_forder_01.data.model.LoginResult;
 import com.example.duong.android_forder_01.data.model.ProductResponse;
 import com.example.duong.android_forder_01.data.model.ShopManagementResponse;
+import com.example.duong.android_forder_01.data.model.ShopResponse;
 
 import java.util.Map;
 
@@ -46,6 +47,12 @@ public abstract class API {
     public static void getShopManagement(Map<String, String> params,
                                          Callback<ShopManagementResponse> callback) {
         sAPIServices.getShopManagement(params)
+            .enqueue(callback);
+    }
+
+    public static void getShop(Map<String, String> params,
+                               Callback<ShopResponse> callback) {
+        sAPIServices.getShop(params)
             .enqueue(callback);
     }
 }

@@ -14,13 +14,15 @@ public interface HomeContract {
         void initViewPager();
         void initToolbar();
         void initCategoryRecyclerView();
+        void initDomainPublicRecyclerView();
         void showAllCategory(List<Category> list);
         void showDomain(List<Domain> domainList);
         void showGetDataError();
         void showListProduct(Category category);
-        void showDomainPublic(Domain domain);
         void updateCard(int numberItem);
         void showListGuide(List<Guide> list);
+        void showDomainPublic(List<Domain> domainList);
+        void openDomainPublic(Domain domain);
     }
 
     interface Presenter extends BasePresenter {
@@ -30,5 +32,6 @@ public interface HomeContract {
         void getDomain(User user);
         void getCardItem(int domainId);
         void getListGuide(String[] title, String[] description);
+        void getDomainPublic(User user);
     }
 }
