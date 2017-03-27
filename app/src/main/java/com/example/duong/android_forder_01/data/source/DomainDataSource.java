@@ -10,4 +10,5 @@ public interface DomainDataSource {
     void getDatasDomain(User user, GetDataCallback<Domain> getDataCallback);
     void getDatasPrivateDomainInfor(User user, GetDataCallback<Domain> getDataCallback);
     void getDatasPublicDomainInfor(User user, GetDataCallback<Domain> getDataCallback);
+    void getDatasDomainPublic(User user, GetDataCallback<Domain> getDataCallback);
 }

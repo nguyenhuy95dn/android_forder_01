@@ -41,6 +41,11 @@ public class Domain implements Serializable {
     @SerializedName("root_domain")
     private int mRootDomain;
 
+    public Domain(int id, String name) {
+        mId = id;
+        mName = name;
+    }
+
     public Domain(int id, String name,
                   List<User> user,
                   List<Shop> shop, String numberMember, String numberShop,

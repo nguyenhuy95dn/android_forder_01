@@ -65,6 +65,7 @@ public class ProductFragment extends Fragment
     @Override
     public void showAllProduct(List<Product> list) {
         if (list == null) return;
+        mProducts.clear();
         mProducts.addAll(list);
         mProductAdapter.get().notifyDataSetChanged();
     }

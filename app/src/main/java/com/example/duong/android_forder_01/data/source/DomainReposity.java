@@ -71,4 +71,20 @@ public class DomainReposity implements DomainDataSource {
             }
         });
     }
+
+    @Override
+    public void getDatasDomainPublic(User user, final GetDataCallback<Domain> getDataCallback) {
+        if (getDataCallback == null || user == null) return;
+        mDomainDataSource.getDatasDomainPublic(user, new GetDataCallback<Domain>() {
+            @Override
+            public void onLoaded(List<Domain> datas) {
+                getDataCallback.onLoaded(datas);
+            }
+
+            @Override
+            public void onNotAvailable() {
+                getDataCallback.onNotAvailable();
+            }
+        });
+    }
 }

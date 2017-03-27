@@ -66,7 +66,9 @@ public class ShopFragment extends Fragment implements ShopContract.View {
     @Override
     public void showAllShop(List<Shop> list) {
         if (list == null) return;
+        mShops.clear();
         mShops.addAll(list);
+        mShopAdapter.get().notifyDataSetChanged();
     }
 
     @Override

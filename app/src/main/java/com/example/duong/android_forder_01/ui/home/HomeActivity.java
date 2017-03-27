@@ -37,7 +37,6 @@ import com.example.duong.android_forder_01.ui.login.LoginActivity;
 import com.example.duong.android_forder_01.ui.notification.NotificationActivity;
 import com.example.duong.android_forder_01.ui.shopmanagement.ShopManagementActivity;
 import com.example.duong.android_forder_01.ui.shoppingcard.ShoppingCardActivity;
-import com.example.duong.android_forder_01.utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +64,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     private ObservableField<GuideViewPagerAdapter> mGuideViewPagerAdapter = new ObservableField<>();
     private Domain mDomain;
     private boolean mCheckDomain = true;
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,14 +77,17 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
     @Override
     public void start() {
-        mHomPresenter.getAllCategory(ID_DOMAIN, SharedPreferencesUtils.loadUser(this));
+        mUser = loadUser(this);
+        mHomPresenter.getDomainPublic(mUser);
+        mHomPresenter.getAllCategory(ID_DOMAIN, mUser);
         mHomPresenter.getListGuide(getResources().getStringArray(R.array.guide_title),
             getResources().getStringArray(R.array.guide_description));
+        mHomPresenter.getDomain(mUser);
         mActivityHomeBinding.setActivityHome(this);
         initToolbar();
         initViewPager();
-        mHomPresenter.getDomain(SharedPreferencesUtils.loadUser(this));
         initCategoryRecyclerView();
+        initDomainPublicRecyclerView();
     }
 
     @Override
@@ -180,12 +183,17 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     @Override
     public void initCategoryRecyclerView() {
         mCategoryAdapter.set(new CategoryAdapter(mCategoryList, this, mHomPresenter));
+    }
+
+    @Override
+    public void initDomainPublicRecyclerView() {
         mDomainAdapter.set(new DomainAdapter(mDomainList, this, mHomPresenter));
     }
 
     @Override
     public void showAllCategory(List<Category> list) {
         if (list == null) return;
+        mCategoryList.clear();
         mCategoryList.addAll(list);
         mCategoryAdapter.get().notifyDataSetChanged();
     }
@@ -196,7 +204,6 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         mDomainList.clear();
         mDomainList.addAll(domainList);
         mSpinnerAdapter.get().notifyDataSetChanged();
-        mDomainAdapter.get().notifyDataSetChanged();
     }
 
     @Override
@@ -207,6 +214,19 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     }
 
     @Override
+    public void showDomainPublic(List<Domain> domainList) {
+        if (domainList == null) return;
+        mDomainList.clear();
+        mDomainList.addAll(domainList);
+    }
+
+    @Override
+    public void openDomainPublic(Domain domain) {
+        initViewPager();
+        initCategoryRecyclerView();
+    }
+
+    @Override
     public void showGetDataError() {
         // TODO show get data error
     }
@@ -214,11 +234,6 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     @Override
     public void showListProduct(Category categoryId) {
         startActivity(ListProductActivity.getListProductIntent(this, categoryId));
-    }
-
-    @Override
-    public void showDomainPublic(Domain domain) {
-        // TODO open domain public
     }
 
     public void updateCard(int numberItem) {
