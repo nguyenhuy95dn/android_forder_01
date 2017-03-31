@@ -72,9 +72,9 @@ public class DomainRemoteDataSource implements DomainDataSource {
         if (getDataCallback == null || user == null) return;
         //Fake data
         List<Domain> domains = new ArrayList<>();
-        int[] id = {21, 1, 1};
-        String[] name = {"Hà nội", "HCM", "Test"};
-        for (int i = 0; i < 2; i++) {
+        int[] id = {1, 21, 22, 18};
+        String[] name = {"Hà nội", "HCM", "Đà nẵng", "Test"};
+        for (int i = 0; i < id.length; i++) {
             domains.add(new Domain(id[i], name[i]));
         }
         getDataCallback.onLoaded(domains);

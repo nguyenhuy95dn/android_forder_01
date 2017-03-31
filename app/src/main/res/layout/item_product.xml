@@ -107,7 +107,7 @@
                     android:background="@android:color/transparent"
                     android:onClick="@{() -> actionHandler.openShopDetailClick(product.shop)}"
                     android:scaleType="centerCrop"
-                    app:imageUrl="@{product.shop.avatar.url}"/>
+                    app:imageUrl="@{product.shop.avatar.collectionAvatar.url}"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
