@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -47,7 +50,8 @@ import static com.example.duong.android_forder_01.utils.SharedPreferencesUtils.g
 import static com.example.duong.android_forder_01.utils.SharedPreferencesUtils.loadUser;
 import static com.example.duong.android_forder_01.utils.SharedPreferencesUtils.saveCurrentDomain;
 
-public class HomeActivity extends AppCompatActivity implements HomeContract.View {
+public class HomeActivity extends AppCompatActivity
+    implements HomeContract.View, NavigationView.OnNavigationItemSelectedListener {
     public static TextView sTextNumberItem;
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
@@ -276,5 +280,44 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
     public void setDomain(Domain domain) {
         mDomain = domain;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_notification:
+                startActivity(new Intent(this, NotificationActivity.class));
+                break;
+            case R.id.item_shop_management:
+                startActivity(new Intent(this, ShopManagementActivity.class));
+                break;
+            case R.id.item_domain:
+                startActivity(new Intent(this, DomainActivity.class));
+                break;
+            case R.id.item_shopping_card:
+                startActivity(new Intent(this, ShoppingCardActivity.class));
+                break;
+            case R.id.item_logout:
+                deleteUser(this);
+                finish();
+                startActivity(new Intent(this, LoginActivity.class));
+            case R.id.item_setting:
+                //TODO activity setting
+            default:
+                break;
+        }
+        mActivityHomeBinding.drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else super.onBackPressed();
+    }
+
+    public User getUser() {
+        return mUser;
     }
 }

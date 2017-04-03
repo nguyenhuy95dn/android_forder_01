@@ -23,7 +23,8 @@
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -47,7 +48,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
                         app:contentInsetStartWithNavigation="0dp"
-                        app:logo="@drawable/logo"
                         app:theme="@style/MenuItemColor">
 
                         <android.support.v7.widget.AppCompatSpinner
@@ -111,33 +111,20 @@
 
                 </RelativeLayout>
 
-
             </LinearLayout>
 
         </android.support.design.widget.CoordinatorLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_light_orange"
-                android:padding="@dimen/dp_10"
-                android:src="@drawable/logo_big_size"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view_category"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="start"
-                android:background="@color/color_gray_transparent"
-                app:adapter="@{activityHome.categoryAdapter}"
-                app:layoutManager="@{LayoutManagers.linear()}"/>
-        </LinearLayout>
+            android:fitsSystemWindows="true"
+            app:itemIconTint="@color/colorAccent"
+            app:menu="@menu/main_nav"
+            app:navigationItemSelected="@{activityHome}"
+            bind:user="@{activityHome.user}"/>
 
     </android.support.v4.widget.DrawerLayout>
 

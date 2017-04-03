@@ -54,7 +54,7 @@ public class ProductFragment extends Fragment
 
     @Override
     public void initRecyclerView() {
-        mProductAdapter.set(new ProductAdapter(mProducts, getActivity(), mPresenter));
+        mProductAdapter.set(new ProductAdapter(getActivity(), mProducts, mPresenter));
     }
 
     @Override

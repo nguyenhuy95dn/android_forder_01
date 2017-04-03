@@ -2,17 +2,21 @@ package com.example.duong.android_forder_01.utils;
 
 import android.databinding.BindingAdapter;
 import android.graphics.Color;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.example.duong.android_forder_01.data.model.Domain;
+import com.example.duong.android_forder_01.data.model.User;
+import com.example.duong.android_forder_01.databinding.NavHeaderMainBinding;
 import com.squareup.picasso.Picasso;
 
 public class CustomBindingAdapter {
@@ -50,6 +54,18 @@ public class CustomBindingAdapter {
     public static void setSupportActionBar(Toolbar toolbar, AppCompatActivity activity) {
         toolbar.setTitleTextColor(Color.WHITE);
         activity.setSupportActionBar(toolbar);
+    }
+
+    @BindingAdapter({"bind:user", "bind:navigationItemSelected"})
+    public static void loadHeader(NavigationView view,
+                                  NavigationView.OnNavigationItemSelectedListener listenner,
+                                  User user) {
+        NavHeaderMainBinding binding =
+            NavHeaderMainBinding.inflate(LayoutInflater.from(view.getContext()));
+        binding.setUser(user);
+        binding.executePendingBindings();
+        view.addHeaderView(binding.getRoot());
+        view.setNavigationItemSelectedListener(listenner);
     }
 
     @BindingAdapter({"spinner"})
