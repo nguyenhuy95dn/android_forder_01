@@ -222,8 +222,10 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
     @Override
     public void openDomainPublic(Domain domain) {
-        initViewPager();
+        mCategoryList.clear();
+        mHomPresenter.getAllCategory(domain.getId(), loadUser(this));
         initCategoryRecyclerView();
+        initViewPager();
     }
 
     @Override
@@ -266,5 +268,13 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
     public void setCheckDomain(boolean checkDomain) {
         mCheckDomain = checkDomain;
+    }
+
+    public Domain getDomain() {
+        return mDomain;
+    }
+
+    public void setDomain(Domain domain) {
+        mDomain = domain;
     }
 }
