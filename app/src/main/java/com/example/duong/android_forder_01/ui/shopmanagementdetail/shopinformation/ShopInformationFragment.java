@@ -1,0 +1,54 @@
+package com.example.duong.android_forder_01.ui.shopmanagementdetail.shopinformation;
+
+import android.databinding.DataBindingUtil;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.duong.android_forder_01.R;
+import com.example.duong.android_forder_01.data.model.Shop;
+import com.example.duong.android_forder_01.databinding.FragmentYourShopInformationBinding;
+
+import static com.example.duong.android_forder_01.utils.Const.KeyIntent.EXTRA_SHOP;
+
+public class ShopInformationFragment extends Fragment
+    implements ShopInformationContract.View {
+    private FragmentYourShopInformationBinding mBinding;
+    private ShopInformationContract.Presenter mPresenter;
+    private Shop mShop;
+
+    public static ShopInformationFragment newInstance(Shop shop) {
+        ShopInformationFragment fragment = new ShopInformationFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(EXTRA_SHOP, shop);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        mBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_your_shop_information, container, false);
+        setPresenter(new ShopInformationPresenter(this));
+        mPresenter.start();
+        return mBinding.getRoot();
+    }
+
+    @Override
+    public void start() {
+        mShop = (Shop) getArguments().getSerializable(EXTRA_SHOP);
+        mBinding.setShopInformation(this);
+    }
+
+    @Override
+    public void setPresenter(ShopInformationContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
+    public Shop getShop() {
+        return mShop;
+    }
+}

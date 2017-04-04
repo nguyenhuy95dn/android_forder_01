@@ -6,7 +6,11 @@
 
         <variable
             name="shopInformation"
-            type="com.example.duong.android_forder_01.ui.shopdetail.shopinformation.ShopInformationFragment"/>
+            type="com.example.duong.android_forder_01.ui.shopmanagementdetail.shopinformation.ShopInformationFragment"/>
+
+        <variable
+            name="actionHandler"
+            type="com.example.duong.android_forder_01.ui.shopmanagementdetail.shopinformation.ShopInformationActionHandler"/>
     </data>
 
     <ScrollView
@@ -69,13 +73,58 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
                 android:background="@android:color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_5">
+
+                <Button
+                    android:id="@+id/button_continue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_blue"
+                    android:onClick="@{()-> actionHandler.openOrderList(shopInformation.shop)}"
+                    android:text="@string/action_order_list"
+                    android:textAllCaps="false"
+                    />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_green"
+                    android:onClick="@{()-> actionHandler.openOrderHistory(shopInformation.shop)}"
+                    android:text="@string/action_order_history"
+                    android:textAllCaps="false"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@android:color/white"
                 android:orientation="vertical"
                 android:padding="@dimen/dp_10">
 
-                <TextView
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_shop_owner"/>
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_shop_owner"/>
+
+                    <ImageButton
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_alignParentRight="true"
+                        android:background="@android:color/transparent"
+                        android:onClick="@{()-> actionHandler.editOwner(shopInformation.shop)}"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_edit"/>
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -130,6 +179,7 @@
                                 android:textColor="@android:color/holo_blue_dark"
                                 android:textSize="@dimen/sp_18"/>
                         </TableRow>
+
                     </TableLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -142,10 +192,24 @@
                 android:orientation="vertical"
                 android:padding="@dimen/dp_10">
 
-                <TextView
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_shop_information"/>
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_shop_information"/>
+
+                    <ImageButton
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_alignParentRight="true"
+                        android:background="@android:color/transparent"
+                        android:onClick="@{()-> actionHandler.editInformation(shopInformation.shop)}"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_edit"/>
+                </RelativeLayout>
 
                 <TableLayout
                     android:layout_width="match_parent"
@@ -202,6 +266,7 @@
                     </TableRow>
 
                     <TableRow android:gravity="center">
+
                         <ImageView
                             android:layout_width="@dimen/dp_20"
                             android:layout_height="@dimen/dp_20"
