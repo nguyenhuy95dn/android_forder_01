@@ -24,16 +24,12 @@
             android:orientation="vertical">
 
             <android.support.design.widget.TabLayout
-                android:id="@+id/tab_layout_shop_management_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                android:overScrollMode="never"
-                app:tabGravity="center"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@android:color/white"
+                android:background="@color/color_white"
+                app:tabSelectedTextColor="@color/colorAccent"
                 app:tabTextAppearance="@style/TabLayoutStyle"
-                app:tabTextColor="@color/color_gray"
+                app:tabTextColor="@color/cardview_dark_background"
                 bind:pager="@{viewpager}"/>
 
             <android.support.v4.view.ViewPager

@@ -82,5 +82,8 @@
     <string name="title_continue_order">All of product will sent, Do you want to continue?</string>
     <string name="title_delete_order">The following products have been removed because out
         of time for order, Do you want to continue?</string>
+    <string name="title_shop_name">Shop name</string>
+    <string name="action_order_list">Orders list</string>
+    <string name="action_order_history">Orders history</string>
 </resources>
 
