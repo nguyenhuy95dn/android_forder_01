@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 
 import com.example.duong.android_forder_01.BR;
 import com.example.duong.android_forder_01.R;
@@ -20,12 +21,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private List<Product> mListProduct;
     private LayoutInflater mLayoutInflater;
     private ProductContract.Presenter mListener;
+    private Context mContext;
 
-    public ProductAdapter(List<Product> list, Context context,
+    public ProductAdapter(Context context, List<Product> list,
                           ProductContract.Presenter presenter) {
         mListProduct = list;
         mLayoutInflater = LayoutInflater.from(context);
         mListener = presenter;
+        mContext = context;
     }
 
     @Override
@@ -58,6 +61,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             mDataBinding.setVariable(BR.product, product);
             mDataBinding.setVariable(BR.actionHandler, new ProductItemActionHandler(mListener));
             mDataBinding.executePendingBindings();
+            itemView.startAnimation(
+                AnimationUtils.loadAnimation(mContext.getApplicationContext(), android.R.anim
+                    .slide_in_left));
         }
     }
 }

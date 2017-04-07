@@ -49,7 +49,7 @@ public class ListProductActivity extends BaseActivity implements ProductContract
 
     @Override
     public void initRecyclerView() {
-        mProductAdapter.set(new ProductAdapter(mProducts, this, mPresenter));
+        mProductAdapter.set(new ProductAdapter(this, mProducts, mPresenter));
     }
 
     @Override
@@ -77,7 +77,8 @@ public class ListProductActivity extends BaseActivity implements ProductContract
     @Override
     public void start() {
         mCategory = (Category) getIntent().getSerializableExtra(EXTRA_ID_CATEGORY);
-        mPresenter.getCategoryById(ID_DOMAIN, mCategory.getId(), SharedPreferencesUtils.loadUser(this));
+        mPresenter
+            .getCategoryById(ID_DOMAIN, mCategory.getId(), SharedPreferencesUtils.loadUser(this));
         mBinding.setListProductActivity(this);
         initRecyclerView();
     }
