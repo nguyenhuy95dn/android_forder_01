@@ -3,4 +3,11 @@
     <string name="title_featured_shop">Featured shops</string>
     <string name="title_featured_product">Featured products</string>
     <string name="action_see_more">See more</string>
+    <string name="username"> Username</string>
+    <string name="password"> Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login">Login</string>
+    <string name="sign_up">SignUp</string>
+    <string name="font_serif">serif</string>
+    <string name="do_not_have_an_account">Do not have an Account?</string>
 </resources>
