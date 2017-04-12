@@ -86,6 +86,7 @@ dependencies {
 
   compile dependencies.supportDesign
   compile dependencies.constraintLayout
+  compile dependencies.cardView
 
   compile dependencies.rxJava
   compile dependencies.rxAndroid

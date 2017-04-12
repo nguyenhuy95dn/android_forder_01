@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">FOrder</string>
+    <string name="title_featured_shop">Featured shops</string>
+    <string name="title_featured_product">Featured products</string>
+    <string name="action_see_more">See more</string>
 </resources>
