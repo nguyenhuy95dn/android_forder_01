@@ -10,9 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".screen.login.LoginActivity"
+            android:name=".screen.splash.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+            android:theme="@style/StyleSplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -30,6 +30,10 @@
         <activity
             android:name=".screen.chooseDomain.ChooseDomainActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".screen.login.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>
