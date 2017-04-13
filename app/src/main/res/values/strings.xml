@@ -18,4 +18,12 @@
     <string name="select_domain">Select domain:</string>
     <string name="next">Next</string>
     <string name="welcome">Welcome to</string>
+    <string name="dummy_user_name_profile">Nguyen Tien Vinh</string> <!--TODO dummy data remove later-->
+    <string name="dummy_user_email_profile">nguyen.tien.vinh@framgia.com</string> <!--TODO dummy data remove later-->
+    <string name="btn_detail_profile">Your profile</string>
+    <string name="order_history">Order history</string>
+    <string name="your_order">Your order</string>
+    <string name="shop_management">Shop management</string>
+    <string name="domain_management">Domain management</string>
+    <string name="logout">Logout</string>
 </resources>
