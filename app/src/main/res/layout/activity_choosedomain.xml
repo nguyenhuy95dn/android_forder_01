@@ -52,7 +52,7 @@
             android:textColor="@color/color_white"
             android:textSize="@dimen/sp_17"
             />
-        <Spinner
+        <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spinner"
             android:layout_width="@dimen/dp_300"
             android:layout_height="@dimen/dp_40"
@@ -61,6 +61,7 @@
             android:layout_marginRight="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_10"
             android:background="@drawable/border_spinner"
+            android:spinnerMode="dropdown"
             />
         <Button
             android:layout_width="@dimen/dp_170"
