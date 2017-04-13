@@ -29,4 +29,12 @@
     <string name="featured">Featured</string>
     <string name="new_">New</string>
     <string name="sale_off">Sale off</string>
+    <string name="email">Email</string>
+    <string name="chatwork_id">Chatwork id</string>
+    <string name="join_date">Join date</string>
+    <string name="status">Status</string>
+    <string name="description">Description</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="current_password">Current password</string>
+    <string name="submit">Submit</string>
 </resources>
