@@ -9,7 +9,7 @@ public final class Constant {
         // No-op
     }
 
-    public static final String END_POINT_URL = "https://api.github.com";
+    public static final String END_POINT_URL = "http://order.framgia.vn/";
 
     // For bundle
     public static final String ARGUMENT_LIST_USER = "ARGUMENT_LIST_USER";

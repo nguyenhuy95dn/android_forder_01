@@ -38,4 +38,10 @@
     <string name="current_password">Current password</string>
     <string name="submit">Submit</string>
     <string name="money_unit">\u0020VNĐ</string>
+    <string name="text_must_not_emty">Text must not Emty !</string>
+    <string name="login_error">Login Error !</string>
+    <string name="login_success">Login Success !</string>
+    <string name="wrong_email_or_password">Can Not Find the User!</string>
+    <string name="message">Message</string>
+    <string name="ok">OK</string>
 </resources>

@@ -5,9 +5,9 @@ package com.framgia.forder.data.source.local.sharedprf;
  */
 
 public final class SharedPrefsKey {
+    public static final String KEY_USER = "KEY_USER";
 
     private SharedPrefsKey() {
         // No-op
     }
-
 }
