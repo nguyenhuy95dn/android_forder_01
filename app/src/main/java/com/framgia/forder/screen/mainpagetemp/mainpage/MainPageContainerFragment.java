@@ -23,7 +23,9 @@ public class MainPageContainerFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        mViewModel = new MainPageContainerViewModel();
+        MainPageContainerAdapter adapter =
+                new MainPageContainerAdapter(getChildFragmentManager(), getActivity());
+        mViewModel = new MainPageContainerViewModel(adapter);
         MainPageContainerContract.Presenter presenter = new MainPageContainerPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
         FragmentMainPageContainerBinding binding =

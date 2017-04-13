@@ -7,8 +7,10 @@ package com.framgia.forder.screen.mainpagetemp.mainpage;
 public class MainPageContainerViewModel implements MainPageContainerContract.ViewModel {
 
     private MainPageContainerContract.Presenter mPresenter;
+    private MainPageContainerAdapter mAdapter;
 
-    public MainPageContainerViewModel() {
+    public MainPageContainerViewModel(MainPageContainerAdapter adapter) {
+        mAdapter = adapter;
     }
 
     @Override

@@ -26,4 +26,7 @@
     <string name="shop_management">Shop management</string>
     <string name="domain_management">Domain management</string>
     <string name="logout">Logout</string>
+    <string name="featured">Featured</string>
+    <string name="new_">New</string>
+    <string name="sale_off">Sale off</string>
 </resources>
