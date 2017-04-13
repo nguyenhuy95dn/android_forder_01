@@ -35,4 +35,10 @@ public final class BindingUtils {
     public static void setViewPagerTabs(final TabLayout tabLayout, final ViewPager viewPager) {
         tabLayout.setupWithViewPager(viewPager, true);
     }
+
+    @BindingAdapter({ "bind:currentFragment" })
+    public static void setCurrentViewPager(final ViewPager viewPager, final int currentPage) {
+        viewPager.setCurrentItem(currentPage);
+        viewPager.beginFakeDrag();
+    }
 }

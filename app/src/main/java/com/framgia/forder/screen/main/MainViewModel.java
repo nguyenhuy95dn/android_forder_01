@@ -1,14 +1,25 @@
 package com.framgia.forder.screen.main;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.support.annotation.IntDef;
+import android.view.View;
+import com.framgia.forder.BR;
+import com.framgia.forder.R;
+
 /**
  * Exposes the data to be used in the Main screen.
  */
 
-public class MainViewModel implements MainContract.ViewModel {
+public class MainViewModel extends BaseObservable implements MainContract.ViewModel {
 
     private MainContract.Presenter mPresenter;
+    private MainViewPagerAdapter mViewPagerAdapter;
+    @Tab
+    private int mCurrentTab;
 
-    public MainViewModel() {
+    public MainViewModel(MainViewPagerAdapter mainViewPagerAdapter) {
+        mViewPagerAdapter = mainViewPagerAdapter;
     }
 
     @Override
@@ -24,5 +35,50 @@ public class MainViewModel implements MainContract.ViewModel {
     @Override
     public void setPresenter(MainContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Bindable
+    public int getCurrentTab() {
+        return mCurrentTab;
+    }
+
+    public void setCurrentTab(@Tab int tab) {
+        mCurrentTab = tab;
+        notifyPropertyChanged(BR.currentTab);
+    }
+
+    public void onFooterClicked(View view) {
+        switch (view.getId()) {
+            case R.id.layout_home:
+                setCurrentTab(Tab.TAB_HOME);
+                break;
+            case R.id.layout_seach:
+                setCurrentTab(Tab.TAB_SEARCH);
+                break;
+            case R.id.img_top:
+                setCurrentTab(Tab.TAB_CART);
+                break;
+            case R.id.layout_notify:
+                setCurrentTab(Tab.TAB_NOTIFICATION);
+                break;
+            case R.id.layout_profile:
+                setCurrentTab(Tab.TAB_PROFILE);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public MainViewPagerAdapter getViewPagerAdapter() {
+        return mViewPagerAdapter;
+    }
+
+    @IntDef({ Tab.TAB_HOME, Tab.TAB_SEARCH, Tab.TAB_CART, Tab.TAB_NOTIFICATION, Tab.TAB_PROFILE })
+    public @interface Tab {
+        int TAB_HOME = 0;
+        int TAB_SEARCH = 1;
+        int TAB_CART = 2;
+        int TAB_NOTIFICATION = 3;
+        int TAB_PROFILE = 4;
     }
 }

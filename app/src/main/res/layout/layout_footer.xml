@@ -4,9 +4,14 @@
     >
 
     <data>
+        <variable
+            name="viewModel"
+            type="com.framgia.forder.screen.main.MainViewModel"
+            />
     </data>
 
     <RelativeLayout
+        android:id="@+id/layout_footer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_65"
         android:layout_alignParentBottom="true"
@@ -20,6 +25,7 @@
             >
             <LinearLayout
                 android:id="@+id/layout_home"
+                android:onClick="@{viewModel::onFooterClicked}"
                 style="@style/StyleTabFooter"
                 >
                 <ImageView
@@ -33,6 +39,7 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/layout_seach"
+                android:onClick="@{viewModel::onFooterClicked}"
                 style="@style/StyleTabFooter"
                 >
                 <ImageView
@@ -49,6 +56,7 @@
                 />
             <LinearLayout
                 android:id="@+id/layout_notify"
+                android:onClick="@{viewModel::onFooterClicked}"
                 style="@style/StyleTabFooter"
                 >
                 <ImageView
@@ -62,6 +70,7 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/layout_profile"
+                android:onClick="@{viewModel::onFooterClicked}"
                 style="@style/StyleTabFooter"
                 >
                 <ImageView
@@ -81,6 +90,8 @@
             android:layout_height="@dimen/dp_60"
             android:layout_centerInParent="true"
             android:background="@drawable/center_tab_footer"
+            android:onClick="@{viewModel::onFooterClicked}"
+            android:scaleType="center"
             app:srcCompat="@drawable/ic_cart"
             />
 

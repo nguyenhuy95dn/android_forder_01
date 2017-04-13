@@ -45,6 +45,15 @@ public class Navigator {
         mActivity.startActivity(new Intent(mActivity, clazz));
     }
 
+    public void finishActivity() {
+        if (mActivity != null) {
+            mActivity.finish();
+        }
+        if (mFragment != null) {
+            mFragment.getActivity().finish();
+        }
+    }
+
     public void startActivity(@NonNull Class<? extends Activity> clazz, Bundle args) {
         Intent intent = new Intent(mActivity, clazz);
         intent.putExtras(args);

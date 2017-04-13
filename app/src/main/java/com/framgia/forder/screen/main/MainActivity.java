@@ -17,7 +17,8 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mViewModel = new MainViewModel();
+        MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager());
+        mViewModel = new MainViewModel(adapter);
 
         MainContract.Presenter presenter = new MainPresenter(mViewModel);
         mViewModel.setPresenter(presenter);

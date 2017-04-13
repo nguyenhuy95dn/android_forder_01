@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.framgia.forder.R;
 import com.framgia.forder.databinding.ActivityLoginBinding;
 import com.framgia.forder.screen.BaseActivity;
+import com.framgia.forder.utils.navigator.Navigator;
 
 /**
  * Login Screen.
@@ -17,7 +18,8 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mViewModel = new LoginViewModel();
+        Navigator navigator = new Navigator(this);
+        mViewModel = new LoginViewModel(navigator);
 
         LoginContract.Presenter presenter = new LoginPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
