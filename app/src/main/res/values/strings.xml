@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">FOrder</string>
+    <string name="title_tab_home">Home</string>
+    <string name="title_tab_search">Search</string>
+    <string name="title_tab_nitofy">Notifications</string>
+    <string name="title_tab_profile">Profile</string>
     <string name="title_featured_shop">Featured shops</string>
     <string name="title_featured_product">Featured products</string>
     <string name="action_see_more">See more</string>
