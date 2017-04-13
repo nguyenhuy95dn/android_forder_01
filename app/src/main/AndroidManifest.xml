@@ -27,6 +27,9 @@
         <activity
             android:name=".screen.mainpagetemp.MainPageTempActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".screen.chooseDomain.ChooseDomainActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

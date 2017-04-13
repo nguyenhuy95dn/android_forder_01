@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.framgia.forder.screen.chooseDomain.ChooseDomainViewModel"
+            />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/border"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp50"
+            android:gravity="center"
+            android:text="@string/welcome"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/sp30"
+            />
+        <ImageView
+            android:layout_width="@dimen/dp200"
+            android:layout_height="@dimen/dp100"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_logo_forder"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp50"
+            android:text="@string/where_are_you"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/sp20"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp35"
+            android:layout_marginTop="@dimen/dp30"
+            android:text="@string/select_domain"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/sp17"
+            />
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="@dimen/dp300"
+            android:layout_height="@dimen/dp40"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginRight="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp10"
+            android:background="@drawable/border_spinner"
+            />
+        <Button
+            android:layout_width="@dimen/dp170"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp90"
+            android:background="@drawable/border_button_next"
+            android:text="@string/next"
+            android:textColor="@color/color_orange"
+            />
+    </LinearLayout>
+</layout>

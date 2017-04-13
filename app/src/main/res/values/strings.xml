@@ -10,4 +10,8 @@
     <string name="sign_up">SignUp</string>
     <string name="font_serif">serif</string>
     <string name="do_not_have_an_account">Do not have an Account?</string>
+    <string name="where_are_you">Where are you?</string>
+    <string name="select_domain">Select domain:</string>
+    <string name="next">Next</string>
+    <string name="welcome">Welcome to</string>
 </resources>
