@@ -1,4 +1,4 @@
-package com.framgia.forder.screen.mainpagetemp.mainpage.mainpagetab;
+package com.framgia.forder.screen.mainpage.shop;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -16,9 +16,9 @@ import java.util.List;
 public class ShopAdapter extends BaseRecyclerViewAdapter<ShopAdapter.ItemViewHolder> {
 
     private List<Shop> mShops;
-    private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Shop> mItemClickListener;
+    private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
-    protected ShopAdapter(@NonNull Context context, List<Shop> shops) {
+    public ShopAdapter(@NonNull Context context, List<Shop> shops) {
         super(context);
         mShops = new ArrayList<>();
         if (shops == null) {
@@ -44,23 +44,24 @@ public class ShopAdapter extends BaseRecyclerViewAdapter<ShopAdapter.ItemViewHol
         return mShops.size();
     }
 
-    void setItemClickListener(OnRecyclerViewItemClickListener<Shop> itemClickListener) {
+    public void setItemClickListener(OnRecyclerViewItemClickListener<Object> itemClickListener) {
         mItemClickListener = itemClickListener;
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private ItemShopBinding mBinding;
-        private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Shop> mItemClickListener;
+        private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
         ItemViewHolder(ItemShopBinding binding,
-                BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Shop> listener) {
+                BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> listener) {
             super(binding.getRoot());
             mBinding = binding;
             mItemClickListener = listener;
         }
 
         void bind(Shop shop) {
+            mBinding.setViewModel(new ItemShopViewModel(shop, mItemClickListener));
             mBinding.executePendingBindings();
         }
     }

@@ -23,10 +23,6 @@
             android:name=".screen.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
-        <!-- TODO remove later -->
-        <activity
-            android:name=".screen.mainpagetemp.MainPageTempActivity"
-            android:screenOrientation="portrait"/>
         <activity
             android:name=".screen.chooseDomain.ChooseDomainActivity"
             android:screenOrientation="portrait"/>

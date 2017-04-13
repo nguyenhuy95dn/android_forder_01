@@ -5,6 +5,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
+import com.bumptech.glide.Glide;
+import com.framgia.forder.R;
 
 /**
  * Created by le.quang.dao on 20/03/2017.
@@ -40,5 +43,13 @@ public final class BindingUtils {
     public static void setCurrentViewPager(final ViewPager viewPager, final int currentPage) {
         viewPager.setCurrentItem(currentPage);
         viewPager.beginFakeDrag();
+    }
+
+    @BindingAdapter("bind:imageUrl")
+    public static void loadImage(ImageView imageView, String url) {
+        Glide.with(imageView.getContext())
+                .load(url)
+                .placeholder(R.drawable.ic_placeholder)
+                .into(imageView);
     }
 }

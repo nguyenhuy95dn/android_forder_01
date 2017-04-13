@@ -2,6 +2,7 @@ package com.framgia.forder.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.framgia.forder.utils.Utils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -18,6 +19,8 @@ public class Product implements Parcelable {
         }
     };
 
+    private static final String INPUT_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    private static final String OUTPUT_TIME_FORMAT = "HH:mm";
     @Expose
     @SerializedName("id")
     private int mId;
@@ -152,6 +155,16 @@ public class Product implements Parcelable {
 
     public void setStatus(String status) {
         mStatus = status;
+    }
+
+    public String getFormatStartHour() {
+        return Utils.DateTimeUntils.convertUiFormatToDataFormat(mStartHour, INPUT_TIME_FORMAT,
+                OUTPUT_TIME_FORMAT);
+    }
+
+    public String getFormatEndHour() {
+        return Utils.DateTimeUntils.convertUiFormatToDataFormat(mEndHour, INPUT_TIME_FORMAT,
+                OUTPUT_TIME_FORMAT);
     }
 
     @Override

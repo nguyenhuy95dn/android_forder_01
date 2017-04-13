@@ -1,4 +1,4 @@
-package com.framgia.forder.screen.mainpagetemp.mainpage.mainpagetab;
+package com.framgia.forder.screen.mainpage.product;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -15,10 +15,11 @@ import java.util.List;
 
 public class ProductAdapter extends BaseRecyclerViewAdapter<ProductAdapter.ItemViewHolder> {
 
+    private static OrderListener mOrderListener;
     private List<Product> mProducts;
-    private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Product> mItemClickListener;
+    private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
-    protected ProductAdapter(@NonNull Context context, List<Product> products) {
+    public ProductAdapter(@NonNull Context context, List<Product> products) {
         super(context);
         mProducts = new ArrayList<>();
         if (products == null) {
@@ -45,23 +46,29 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<ProductAdapter.ItemV
         return mProducts.size();
     }
 
-    void setItemClickListener(OnRecyclerViewItemClickListener<Product> itemClickListener) {
+    public void setOrderListener(OrderListener listener) {
+        mOrderListener = listener;
+    }
+
+    public void setItemClickListener(OnRecyclerViewItemClickListener<Object> itemClickListener) {
         mItemClickListener = itemClickListener;
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private ItemProductBinding mBinding;
-        private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Product> mItemClickListener;
+        private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
         ItemViewHolder(ItemProductBinding binding,
-                BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Product> listener) {
+                BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> listener) {
             super(binding.getRoot());
             mBinding = binding;
             mItemClickListener = listener;
         }
 
         void bind(Product product) {
+            mBinding.setViewModel(
+                    new ItemProductViewModel(product, mItemClickListener, mOrderListener));
             mBinding.executePendingBindings();
         }
     }

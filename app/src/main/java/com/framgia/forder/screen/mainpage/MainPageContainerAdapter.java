@@ -1,11 +1,10 @@
-package com.framgia.forder.screen.mainpagetemp.mainpage;
+package com.framgia.forder.screen.mainpage;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import com.framgia.forder.R;
-import com.framgia.forder.screen.mainpagetemp.mainpage.mainpagetab.MainPageFragment;
 
 public class MainPageContainerAdapter extends FragmentPagerAdapter {
     private static final int TAB_NUMBER = 3;

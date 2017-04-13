@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
-
+    <data>
+        <variable
+            name="viewModel"
+            type="com.framgia.forder.screen.mainpage.product.ItemProductViewModel"
+            />
+    </data>
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{()-> viewModel.onItemClicked()}"
         >
 
         <RelativeLayout
@@ -28,6 +35,7 @@
                     android:layout_height="@dimen/dp_120"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
+                    app:imageUrl="@{viewModel.productImage}"
                     />
 
                 <ImageButton
@@ -37,6 +45,7 @@
                     android:layout_gravity="right"
                     android:layout_margin="@dimen/dp_10"
                     android:background="@android:color/transparent"
+                    android:onClick="@{()-> viewModel.addCart()}"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_add_cart"
                     />
@@ -49,6 +58,7 @@
                     android:background="@color/color_black_transparent"
                     android:gravity="center"
                     android:padding="@dimen/dp_5"
+                    android:text="@{viewModel.orderTime}"
                     />
 
             </FrameLayout>
@@ -67,6 +77,7 @@
                     android:layout_height="@dimen/dp_50"
                     android:background="@android:color/transparent"
                     android:scaleType="centerCrop"
+                    app:imageUrl="@{viewModel.shopImage}"
                     />
 
                 <LinearLayout
@@ -81,6 +92,7 @@
                         android:id="@+id/text_product_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@{viewModel.productName}"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/sp_15"
                         />
@@ -89,6 +101,7 @@
                         android:id="@+id/text_shop_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@{viewModel.shopName}"
                         android:textColor="@android:color/holo_blue_dark"
                         android:textSize="@dimen/sp_12"
                         />
@@ -97,6 +110,7 @@
                         android:id="@+id/text_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@{viewModel.productPrice +@string/money_unit}"
                         android:textColor="@android:color/holo_red_dark"
                         android:textSize="@dimen/sp_18"
                         />

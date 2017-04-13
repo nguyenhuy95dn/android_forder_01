@@ -1,4 +1,4 @@
-package com.framgia.forder.screen.mainpagetemp.mainpage.mainpagetab;
+package com.framgia.forder.screen.mainpage;
 
 import com.framgia.forder.screen.BasePresenter;
 import com.framgia.forder.screen.BaseViewModel;
