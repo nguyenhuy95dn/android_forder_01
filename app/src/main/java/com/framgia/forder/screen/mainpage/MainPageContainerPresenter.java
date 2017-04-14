@@ -1,4 +1,4 @@
-package com.framgia.forder.screen.mainpagetemp.mainpage;
+package com.framgia.forder.screen.mainpage;
 
 import com.framgia.forder.screen.main.MainActivity;
 

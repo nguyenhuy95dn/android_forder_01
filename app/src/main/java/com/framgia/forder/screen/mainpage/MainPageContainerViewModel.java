@@ -1,4 +1,4 @@
-package com.framgia.forder.screen.mainpagetemp.mainpage;
+package com.framgia.forder.screen.mainpage;
 
 /**
  * Exposes the data to be used in the Main screen.
@@ -26,5 +26,9 @@ public class MainPageContainerViewModel implements MainPageContainerContract.Vie
     @Override
     public void setPresenter(MainPageContainerContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    public MainPageContainerAdapter getAdapter() {
+        return mAdapter;
     }
 }

@@ -1,4 +1,4 @@
-package com.framgia.forder.screen.mainpagetemp.mainpage.mainpagetab;
+package com.framgia.forder.screen.mainpage;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -8,7 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.Product;
+import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.databinding.FragmentMainPageBinding;
+import com.framgia.forder.screen.mainpage.product.ProductAdapter;
+import com.framgia.forder.screen.mainpage.shop.ShopAdapter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Duong on 4/13/2017.
@@ -23,12 +29,15 @@ public class MainPageFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        mViewModel = new MainPageViewModel();
+        List<Product> products = new ArrayList<>();
+        List<Shop> shops = new ArrayList<>();
+        ProductAdapter productAdapter = new ProductAdapter(getActivity(), products);
+        ShopAdapter shopAdapter = new ShopAdapter(getActivity(), shops);
+        mViewModel = new MainPageViewModel(productAdapter, shopAdapter);
         MainPageContract.Presenter presenter = new MainPagePresenter(mViewModel);
         mViewModel.setPresenter(presenter);
         FragmentMainPageBinding binding =
-                DataBindingUtil.inflate(inflater, R.layout.fragment_main_page, container,
-                        false);
+                DataBindingUtil.inflate(inflater, R.layout.fragment_main_page, container, false);
         binding.setViewModel((MainPageViewModel) mViewModel);
         return binding.getRoot();
     }

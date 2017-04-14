@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.screen.mainpage.MainPageContainerFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 
 import static com.framgia.forder.screen.main.MainViewModel.Tab.TAB_CART;
@@ -38,7 +39,9 @@ public class FragmentContainer extends Fragment {
         @MainViewModel.Tab int tab = getArguments().getInt(EXTRA_TAB_FOOTER);
         switch (tab) {
             case TAB_HOME:
-                //TODO new Fragment Home
+                navigator.goNextChildFragment(R.id.layout_content,
+                        MainPageContainerFragment.newInstance(), true, Navigator.NONE,
+                        "MainPageContainerFragment");
                 break;
             case TAB_SEARCH:
                 //TODO new Fragment Search

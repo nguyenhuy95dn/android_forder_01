@@ -95,6 +95,7 @@ dependencies {
   compile dependencies.retrofit2Adapter
   compile dependencies.retrofitGson
   compile dependencies.loggingInterceptor
+  compile dependencies.glide
 
   testCompile dependencies.junit
   testCompile dependencies.mockito
