@@ -44,4 +44,5 @@
     <string name="wrong_email_or_password">Can Not Find the User!</string>
     <string name="message">Message</string>
     <string name="ok">OK</string>
+    <string name="cannot_load_the_data">Cannot load the data</string>
 </resources>

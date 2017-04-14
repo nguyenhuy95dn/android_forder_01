@@ -4,147 +4,149 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import io.realm.RealmModel;
 import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by le.quang.dao on 10/03/2017.
  */
 
-public class User extends BaseModel implements Parcelable, RealmModel {
+public class User extends BaseModel implements Parcelable {
 
     @SerializedName("login")
     @Expose
     @PrimaryKey
-    private String login;
+    private String mLogin;
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private Integer mId;
     @SerializedName("avatar_url")
     @Expose
-    private String avatarUrl;
+    private String mAvatarUrl;
     @SerializedName("gravatar_id")
     @Expose
-    private String gravatarId;
+    private String mGravatarId;
     @SerializedName("url")
     @Expose
-    private String url;
+    private String mUrl;
     @SerializedName("html_url")
     @Expose
-    private String htmlUrl;
+    private String mHtmlUrl;
     @SerializedName("followers_url")
     @Expose
-    private String followersUrl;
+    private String mFollowersUrl;
     @SerializedName("following_url")
     @Expose
-    private String followingUrl;
+    private String mFollowingUrl;
     @SerializedName("gists_url")
     @Expose
-    private String gistsUrl;
+    private String mGistsUrl;
     @SerializedName("starred_url")
     @Expose
-    private String starredUrl;
+    private String mStarredUrl;
     @SerializedName("subscriptions_url")
     @Expose
-    private String subscriptionsUrl;
+    private String mSubscriptionsUrl;
     @SerializedName("organizations_url")
     @Expose
-    private String organizationsUrl;
+    private String mOrganizationsUrl;
     @SerializedName("repos_url")
     @Expose
-    private String reposUrl;
+    private String mReposUrl;
     @SerializedName("events_url")
     @Expose
-    private String eventsUrl;
+    private String mEventsUrl;
     @SerializedName("received_events_url")
     @Expose
-    private String receivedEventsUrl;
+    private String mReceivedEventsUrl;
     @SerializedName("type")
     @Expose
-    private String type;
+    private String mType;
     @SerializedName("site_admin")
     @Expose
     private Boolean siteAdmin;
     @SerializedName("name")
     @Expose
-    private String name;
+    private String mName;
     @SerializedName("company")
     @Expose
-    private String company;
+    private String mCompany;
     @SerializedName("blog")
     @Expose
-    private String blog;
+    private String mBlog;
     @SerializedName("location")
     @Expose
-    private String location;
+    private String mLocation;
     @SerializedName("email")
     @Expose
-    private String email;
+    private String mEmail;
     @SerializedName("hireable")
     @Expose
-    private String hireable;
+    private String mHireable;
     @SerializedName("bio")
     @Expose
-    private String bio;
+    private String mBio;
     @SerializedName("public_repos")
     @Expose
-    private Integer publicRepos;
+    private Integer mBublicRepos;
     @SerializedName("public_gists")
     @Expose
-    private Integer publicGists;
+    private Integer mPublicGists;
     @SerializedName("followers")
     @Expose
-    private Integer followers;
+    private Integer mFollowers;
     @SerializedName("following")
     @Expose
-    private Integer following;
+    private Integer mFollowing;
     @SerializedName("created_at")
     @Expose
-    private String createdAt;
+    private String mCreatedAt;
     @SerializedName("updated_at")
     @Expose
-    private String updatedAt;
+    private String mUpdatedAt;
+    @SerializedName("authentication_token")
+    @Expose
+    private String mToken;
 
     public User() {
     }
 
     public User(final String userLogin, final String name, final String avatarUrl,
             final String bio) {
-        this.login = userLogin;
-        this.name = name;
-        this.avatarUrl = avatarUrl;
-        this.bio = bio;
+        mLogin = userLogin;
+        mName = name;
+        mAvatarUrl = avatarUrl;
+        mBio = bio;
     }
 
     public User(final String userLogin) {
-        this.login = userLogin;
+        mLogin = userLogin;
     }
 
     protected User(Parcel in) {
-        login = in.readString();
-        avatarUrl = in.readString();
-        gravatarId = in.readString();
-        url = in.readString();
-        htmlUrl = in.readString();
-        followersUrl = in.readString();
-        followingUrl = in.readString();
-        gistsUrl = in.readString();
-        starredUrl = in.readString();
-        subscriptionsUrl = in.readString();
-        organizationsUrl = in.readString();
-        reposUrl = in.readString();
-        eventsUrl = in.readString();
-        receivedEventsUrl = in.readString();
-        type = in.readString();
-        name = in.readString();
-        company = in.readString();
-        blog = in.readString();
-        location = in.readString();
-        email = in.readString();
-        hireable = in.readString();
-        bio = in.readString();
-        createdAt = in.readString();
-        updatedAt = in.readString();
+        mLogin = in.readString();
+        mAvatarUrl = in.readString();
+        mGravatarId = in.readString();
+        mUrl = in.readString();
+        mHtmlUrl = in.readString();
+        mFollowersUrl = in.readString();
+        mFollowingUrl = in.readString();
+        mGistsUrl = in.readString();
+        mStarredUrl = in.readString();
+        mSubscriptionsUrl = in.readString();
+        mOrganizationsUrl = in.readString();
+        mReposUrl = in.readString();
+        mEventsUrl = in.readString();
+        mReceivedEventsUrl = in.readString();
+        mType = in.readString();
+        mName = in.readString();
+        mCompany = in.readString();
+        mBlog = in.readString();
+        mLocation = in.readString();
+        mEmail = in.readString();
+        mHireable = in.readString();
+        mBio = in.readString();
+        mCreatedAt = in.readString();
+        mUpdatedAt = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -159,142 +161,256 @@ public class User extends BaseModel implements Parcelable, RealmModel {
         }
     };
 
-    /**
-     * @return The login
-     */
     public String getLogin() {
-        return login;
+        return mLogin;
     }
 
     public void setLogin(String login) {
-        this.login = login;
+        mLogin = login;
     }
 
-    /**
-     * @return The id
-     */
     public Integer getId() {
-        return id;
+        return mId;
+    }
+
+    public void setId(Integer id) {
+        mId = id;
     }
 
     public String getAvatarUrl() {
-        return avatarUrl;
+        return mAvatarUrl;
     }
 
     public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
+        mAvatarUrl = avatarUrl;
     }
 
     public String getGravatarId() {
-        return gravatarId;
+        return mGravatarId;
+    }
+
+    public void setGravatarId(String gravatarId) {
+        mGravatarId = gravatarId;
     }
 
     public String getUrl() {
-        return url;
+        return mUrl;
+    }
+
+    public void setUrl(String url) {
+        mUrl = url;
     }
 
     public String getHtmlUrl() {
-        return htmlUrl;
+        return mHtmlUrl;
+    }
+
+    public void setHtmlUrl(String htmlUrl) {
+        mHtmlUrl = htmlUrl;
     }
 
     public String getFollowersUrl() {
-        return followersUrl;
+        return mFollowersUrl;
+    }
+
+    public void setFollowersUrl(String followersUrl) {
+        mFollowersUrl = followersUrl;
     }
 
     public String getFollowingUrl() {
-        return followingUrl;
+        return mFollowingUrl;
+    }
+
+    public void setFollowingUrl(String followingUrl) {
+        mFollowingUrl = followingUrl;
     }
 
     public String getGistsUrl() {
-        return gistsUrl;
+        return mGistsUrl;
+    }
+
+    public void setGistsUrl(String gistsUrl) {
+        mGistsUrl = gistsUrl;
     }
 
     public String getStarredUrl() {
-        return starredUrl;
+        return mStarredUrl;
+    }
+
+    public void setStarredUrl(String starredUrl) {
+        mStarredUrl = starredUrl;
     }
 
     public String getSubscriptionsUrl() {
-        return subscriptionsUrl;
+        return mSubscriptionsUrl;
     }
 
     public void setSubscriptionsUrl(String subscriptionsUrl) {
-        this.subscriptionsUrl = subscriptionsUrl;
+        mSubscriptionsUrl = subscriptionsUrl;
     }
 
     public String getOrganizationsUrl() {
-        return organizationsUrl;
+        return mOrganizationsUrl;
+    }
+
+    public void setOrganizationsUrl(String organizationsUrl) {
+        mOrganizationsUrl = organizationsUrl;
     }
 
     public String getReposUrl() {
-        return reposUrl;
+        return mReposUrl;
+    }
+
+    public void setReposUrl(String reposUrl) {
+        mReposUrl = reposUrl;
     }
 
     public String getEventsUrl() {
-        return eventsUrl;
+        return mEventsUrl;
+    }
+
+    public void setEventsUrl(String eventsUrl) {
+        mEventsUrl = eventsUrl;
     }
 
     public String getReceivedEventsUrl() {
-        return receivedEventsUrl;
+        return mReceivedEventsUrl;
+    }
+
+    public void setReceivedEventsUrl(String receivedEventsUrl) {
+        mReceivedEventsUrl = receivedEventsUrl;
     }
 
     public String getType() {
-        return type;
+        return mType;
+    }
+
+    public void setType(String type) {
+        mType = type;
     }
 
     public Boolean getSiteAdmin() {
         return siteAdmin;
     }
 
-    public String getName() {
-        return name;
+    public void setSiteAdmin(Boolean siteAdmin) {
+        this.siteAdmin = siteAdmin;
     }
 
-    public Object getCompany() {
-        return company;
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String name) {
+        mName = name;
+    }
+
+    public String getCompany() {
+        return mCompany;
+    }
+
+    public void setCompany(String company) {
+        mCompany = company;
     }
 
     public String getBlog() {
-        return blog;
+        return mBlog;
+    }
+
+    public void setBlog(String blog) {
+        mBlog = blog;
     }
 
     public String getLocation() {
-        return location;
+        return mLocation;
     }
 
-    public Object getEmail() {
-        return email;
+    public void setLocation(String location) {
+        mLocation = location;
     }
 
-    public Object getHireable() {
-        return hireable;
+    public String getEmail() {
+        return mEmail;
+    }
+
+    public void setEmail(String email) {
+        mEmail = email;
+    }
+
+    public String getHireable() {
+        return mHireable;
+    }
+
+    public void setHireable(String hireable) {
+        mHireable = hireable;
     }
 
     public String getBio() {
-        return bio;
+        return mBio;
     }
 
-    public Integer getPublicRepos() {
-        return publicRepos;
+    public void setBio(String bio) {
+        mBio = bio;
+    }
+
+    public Integer getBublicRepos() {
+        return mBublicRepos;
+    }
+
+    public void setBublicRepos(Integer bublicRepos) {
+        mBublicRepos = bublicRepos;
     }
 
     public Integer getPublicGists() {
-        return publicGists;
+        return mPublicGists;
+    }
+
+    public void setPublicGists(Integer publicGists) {
+        mPublicGists = publicGists;
     }
 
     public Integer getFollowers() {
-        return followers;
+        return mFollowers;
+    }
+
+    public void setFollowers(Integer followers) {
+        mFollowers = followers;
     }
 
     public Integer getFollowing() {
-        return following;
+        return mFollowing;
+    }
+
+    public void setFollowing(Integer following) {
+        mFollowing = following;
     }
 
     public String getCreatedAt() {
-        return createdAt;
+        return mCreatedAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        mCreatedAt = createdAt;
     }
 
     public String getUpdatedAt() {
-        return updatedAt;
+        return mUpdatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        mUpdatedAt = updatedAt;
+    }
+
+    public String getToken() {
+        return mToken;
+    }
+
+    public void setToken(String token) {
+        mToken = token;
+    }
+
+    public static Creator<User> getCREATOR() {
+        return CREATOR;
     }
 
     @Override
@@ -304,29 +420,29 @@ public class User extends BaseModel implements Parcelable, RealmModel {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(login);
-        dest.writeString(avatarUrl);
-        dest.writeString(gravatarId);
-        dest.writeString(url);
-        dest.writeString(htmlUrl);
-        dest.writeString(followersUrl);
-        dest.writeString(followingUrl);
-        dest.writeString(gistsUrl);
-        dest.writeString(starredUrl);
-        dest.writeString(subscriptionsUrl);
-        dest.writeString(organizationsUrl);
-        dest.writeString(reposUrl);
-        dest.writeString(eventsUrl);
-        dest.writeString(receivedEventsUrl);
-        dest.writeString(type);
-        dest.writeString(name);
-        dest.writeString(company);
-        dest.writeString(blog);
-        dest.writeString(location);
-        dest.writeString(email);
-        dest.writeString(hireable);
-        dest.writeString(bio);
-        dest.writeString(createdAt);
-        dest.writeString(updatedAt);
+        dest.writeString(mLogin);
+        dest.writeString(mAvatarUrl);
+        dest.writeString(mGravatarId);
+        dest.writeString(mUrl);
+        dest.writeString(mHtmlUrl);
+        dest.writeString(mFollowersUrl);
+        dest.writeString(mFollowingUrl);
+        dest.writeString(mGistsUrl);
+        dest.writeString(mStarredUrl);
+        dest.writeString(mSubscriptionsUrl);
+        dest.writeString(mOrganizationsUrl);
+        dest.writeString(mReposUrl);
+        dest.writeString(mEventsUrl);
+        dest.writeString(mReceivedEventsUrl);
+        dest.writeString(mType);
+        dest.writeString(mName);
+        dest.writeString(mCompany);
+        dest.writeString(mBlog);
+        dest.writeString(mLocation);
+        dest.writeString(mEmail);
+        dest.writeString(mHireable);
+        dest.writeString(mBio);
+        dest.writeString(mCreatedAt);
+        dest.writeString(mUpdatedAt);
     }
 }

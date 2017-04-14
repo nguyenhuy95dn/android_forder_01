@@ -2,6 +2,7 @@ package com.framgia.forder.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -9,18 +10,25 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Domain implements Parcelable {
+    @Expose
     @SerializedName("id")
     private Integer mId;
+    @Expose
     @SerializedName("name")
     private String mName;
+    @Expose
     @SerializedName("created_at")
     private String mCreatedAt;
+    @Expose
     @SerializedName("updated_at")
     private String mUpdatedAt;
+    @Expose
     @SerializedName("slug")
     private String mSlug;
+    @Expose
     @SerializedName("status")
     private String mStatus;
+    @Expose
     @SerializedName("owner")
     private Integer mOwner;
 
