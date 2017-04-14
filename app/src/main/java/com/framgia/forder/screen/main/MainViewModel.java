@@ -4,6 +4,8 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.annotation.IntDef;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import com.framgia.forder.BR;
 import com.framgia.forder.R;
 
@@ -66,6 +68,23 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
                 break;
             default:
                 break;
+        }
+        setTabSelected(view);
+    }
+
+    private void setTabSelected(View view) {
+        ViewGroup viewGroup = null;
+        if (view instanceof ImageView && !view.isSelected()) {
+            view.setSelected(!view.isSelected());
+            viewGroup = (ViewGroup) ((ViewGroup) view.getParent()).getChildAt(0);
+        } else if (!(view instanceof ImageView)) {
+            viewGroup = (ViewGroup) view.getParent();
+            ((ViewGroup) viewGroup.getParent()).getChildAt(1).setSelected(false);
+        }
+        if (viewGroup == null) return;
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+            View tab = viewGroup.getChildAt(i);
+            tab.setSelected(tab == view);
         }
     }
 
