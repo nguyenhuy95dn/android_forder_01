@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.screen.mainpage.MainPageContainerFragment;
+import com.framgia.forder.screen.profilepage.ProfilePageFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 
 import static com.framgia.forder.screen.main.MainViewModel.Tab.TAB_CART;
@@ -53,7 +54,9 @@ public class FragmentContainer extends Fragment {
                 //TODO new Fragment Notifications
                 break;
             case TAB_PROFILE:
-                //TODO new Fragment Profile
+                navigator.goNextChildFragment(R.id.layout_content,
+                        ProfilePageFragment.newInstance(), true, Navigator.NONE,
+                        "ProfilePageFragment");
                 break;
             default:
                 break;

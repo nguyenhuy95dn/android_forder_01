@@ -28,4 +28,8 @@ public class UserRepository {
     public User getUser() {
         return mUserLocalDataSource.getUser();
     }
+
+    public void clearData(){
+        mUserLocalDataSource.clearData();
+    }
 }
