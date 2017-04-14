@@ -29,6 +29,7 @@
                 style="@style/StyleTabFooter"
                 >
                 <ImageView
+                    android:src="@drawable/selected_ic_home"
                     app:srcCompat="@drawable/ic_home"
                     style="@style/StyleImageViewTabFooter"
                     />
@@ -43,6 +44,7 @@
                 style="@style/StyleTabFooter"
                 >
                 <ImageView
+                    android:src="@drawable/selected_ic_search"
                     app:srcCompat="@drawable/ic_search"
                     style="@style/StyleImageViewTabFooter"
                     />
@@ -60,6 +62,7 @@
                 style="@style/StyleTabFooter"
                 >
                 <ImageView
+                    android:src="@drawable/selected_ic_notifications"
                     app:srcCompat="@drawable/ic_notifications"
                     style="@style/StyleImageViewTabFooter"
                     />
@@ -74,6 +77,7 @@
                 style="@style/StyleTabFooter"
                 >
                 <ImageView
+                    android:src="@drawable/selected_ic_profile"
                     app:srcCompat="@drawable/ic_person"
                     style="@style/StyleImageViewTabFooter"
                     />
@@ -92,6 +96,7 @@
             android:background="@drawable/center_tab_footer"
             android:onClick="@{viewModel::onFooterClicked}"
             android:scaleType="center"
+            android:src="@drawable/selected_ic_cart"
             app:srcCompat="@drawable/ic_cart"
             />
 

@@ -8,7 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
     <style name="StyleTabFooter">
         <item name="android:gravity">center</item>
         <item name="android:orientation">vertical</item>
@@ -20,7 +19,8 @@
     <style name="StyleTitleTabFooter">
         <item name="android:textSize">@dimen/sp_12</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>\
+        <item name="android:textColor">@color/selected_title_tab</item>
     </style>
 
     <style name="StyleImageViewTabFooter">
