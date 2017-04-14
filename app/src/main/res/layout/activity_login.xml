@@ -96,6 +96,7 @@
             android:layout_marginTop="@dimen/dp_30"
             android:background="@drawable/border_button"
             android:fontFamily="@string/font_serif"
+            android:onClick="@{viewModel::onLoginButtonClicked}"
             android:text="@string/login"
             android:textColor="@color/color_orange"
             android:textStyle="bold"
