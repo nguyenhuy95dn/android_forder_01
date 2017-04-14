@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.widget.Toast;
 import com.framgia.forder.R;
 
 /**
@@ -35,6 +37,7 @@ public class Navigator {
 
     public Navigator(Fragment fragment) {
         mFragment = fragment;
+        mActivity = fragment.getActivity();
     }
 
     public void startActivity(@NonNull Intent intent) {
@@ -136,5 +139,9 @@ public class Navigator {
     @interface ActivityTransition {
         int START = 0x00;
         int FINISH = 0x01;
+    }
+
+    public void showToast(@StringRes int stringId) {
+        Toast.makeText(mActivity, mActivity.getString(stringId) + "", Toast.LENGTH_SHORT).show();
     }
 }
