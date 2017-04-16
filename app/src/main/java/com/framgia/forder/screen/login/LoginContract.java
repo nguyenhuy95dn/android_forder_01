@@ -1,6 +1,6 @@
 package com.framgia.forder.screen.login;
 
-import com.framgia.forder.data.model.User;
+import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BasePresenter;
 import com.framgia.forder.screen.BaseViewModel;
 
@@ -9,7 +9,7 @@ import com.framgia.forder.screen.BaseViewModel;
  */
 interface LoginContract {
     interface ViewModel extends BaseViewModel<Presenter> {
-        void onLoginError(Throwable throwable);
+        void onLoginError(BaseException throwable);
 
         void onLoginSuccess();
 
@@ -28,7 +28,5 @@ interface LoginContract {
         void login(String userName, String passWord);
 
         boolean validateDataInput(String userName, String passWord);
-
-        void saveUser(User user);
     }
 }

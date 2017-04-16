@@ -144,4 +144,8 @@ public class Navigator {
     public void showToast(@StringRes int stringId) {
         Toast.makeText(mActivity, mActivity.getString(stringId) + "", Toast.LENGTH_SHORT).show();
     }
+
+    public void showToast(String message) {
+        Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
+    }
 }

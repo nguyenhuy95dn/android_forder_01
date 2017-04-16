@@ -5,6 +5,7 @@ import android.databinding.Bindable;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import com.framgia.forder.data.model.Domain;
+import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.main.MainActivity;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class ChooseDomainViewModel extends BaseObservable
     }
 
     @Override
-    public void onGetDomainError(Throwable throwable) {
+    public void onGetDomainError(BaseException e) {
         // TODO show dialog error later
     }
 

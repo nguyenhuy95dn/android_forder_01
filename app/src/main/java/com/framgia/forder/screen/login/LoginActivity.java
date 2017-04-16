@@ -3,7 +3,6 @@ package com.framgia.forder.screen.login;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import com.framgia.forder.R;
-import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.local.UserLocalDataSource;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
@@ -25,9 +24,8 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getApplicationContext());
-        User user = new User();
         Navigator navigator = new Navigator(this);
-        mViewModel = new LoginViewModel(user, navigator);
+        mViewModel = new LoginViewModel(navigator);
         UserRepository userRepository =
                 new UserRepository(new UserRemoteDataSource(FOrderServiceClient.getInstance()),
                         new UserLocalDataSource(prefsApi));

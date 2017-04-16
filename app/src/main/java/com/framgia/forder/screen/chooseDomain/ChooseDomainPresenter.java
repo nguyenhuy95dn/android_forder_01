@@ -2,6 +2,8 @@ package com.framgia.forder.screen.chooseDomain;
 
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.source.DomainRepository;
+import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -47,10 +49,10 @@ final class ChooseDomainPresenter implements ChooseDomainContract.Presenter {
                     public void call(List<Domain> domains) {
                         mViewModel.onGetDomainSuccess(domains);
                     }
-                }, new Action1<Throwable>() {
+                }, new SafetyError() {
                     @Override
-                    public void call(Throwable throwable) {
-                        mViewModel.onGetDomainError(throwable);
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onGetDomainError(error);
                     }
                 });
         mCompositeSubscription.add(subscription);

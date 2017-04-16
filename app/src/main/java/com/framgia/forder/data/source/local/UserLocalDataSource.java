@@ -3,7 +3,6 @@ package com.framgia.forder.data.source.local;
 import android.support.annotation.NonNull;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.UserDataSource;
-import com.framgia.forder.data.source.local.realm.RealmApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsKey;
 import com.google.gson.Gson;
@@ -26,5 +25,10 @@ public class UserLocalDataSource implements UserDataSource.LocalDataSource {
 
     public User getUser() {
         return mSharedPrefsApi.get(SharedPrefsKey.KEY_USER, User.class);
+    }
+
+    @Override
+    public void saveAccessToken(String token) {
+        mSharedPrefsApi.put(SharedPrefsKey.KEY_USER_TOKEN, token);
     }
 }

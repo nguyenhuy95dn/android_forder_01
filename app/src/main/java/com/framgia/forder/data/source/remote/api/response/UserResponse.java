@@ -1,7 +1,8 @@
-package com.framgia.forder.data.model;
+package com.framgia.forder.data.source.remote.api.response;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.framgia.forder.data.model.User;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by levutantuan on 4/14/17.
  */
 
-public class UserReponse implements Parcelable {
+public class UserResponse implements Parcelable {
     @Expose
     @SerializedName("content")
     private User mUser;
@@ -20,7 +21,7 @@ public class UserReponse implements Parcelable {
     @SerializedName("message")
     private String mMessage;
 
-    protected UserReponse(Parcel in) {
+    protected UserResponse(Parcel in) {
         mUser = in.readParcelable(User.class.getClassLoader());
         mStatus = in.readInt();
         mMessage = in.readString();
@@ -38,15 +39,15 @@ public class UserReponse implements Parcelable {
         return 0;
     }
 
-    public static final Creator<UserReponse> CREATOR = new Creator<UserReponse>() {
+    public static final Creator<UserResponse> CREATOR = new Creator<UserResponse>() {
         @Override
-        public UserReponse createFromParcel(Parcel in) {
-            return new UserReponse(in);
+        public UserResponse createFromParcel(Parcel in) {
+            return new UserResponse(in);
         }
 
         @Override
-        public UserReponse[] newArray(int size) {
-            return new UserReponse[size];
+        public UserResponse[] newArray(int size) {
+            return new UserResponse[size];
         }
     };
 

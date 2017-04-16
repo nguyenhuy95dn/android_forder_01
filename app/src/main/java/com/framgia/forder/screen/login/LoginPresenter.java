@@ -3,6 +3,8 @@ package com.framgia.forder.screen.login;
 import android.text.TextUtils;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.UserRepository;
+import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -46,12 +48,14 @@ final class LoginPresenter implements LoginContract.Presenter {
                 .subscribe(new Action1<User>() {
                     @Override
                     public void call(User user) {
+                        mUserRepository.saveUser(user);
+                        mUserRepository.saveAccessToken(user.getToken());
                         mViewModel.onLoginSuccess();
                     }
-                }, new Action1<Throwable>() {
+                }, new SafetyError() {
                     @Override
-                    public void call(Throwable throwable) {
-                        mViewModel.onLoginError(throwable);
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onLoginError(error);
                     }
                 });
         mCompositeSubscription.add(subscription);
@@ -69,10 +73,5 @@ final class LoginPresenter implements LoginContract.Presenter {
             mViewModel.onInputPasswordError();
         }
         return isValidate;
-    }
-
-    @Override
-    public void saveUser(User user) {
-        mUserRepository.saveUser(user);
     }
 }

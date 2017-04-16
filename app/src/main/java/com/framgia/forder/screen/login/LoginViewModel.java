@@ -2,9 +2,8 @@ package com.framgia.forder.screen.login;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.ObservableField;
 import com.framgia.forder.R;
-import com.framgia.forder.data.model.User;
+import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.chooseDomain.ChooseDomainActivity;
 import com.framgia.forder.utils.navigator.Navigator;
 
@@ -13,18 +12,16 @@ import com.framgia.forder.utils.navigator.Navigator;
  */
 
 public class LoginViewModel extends BaseObservable implements LoginContract.ViewModel {
-    public final ObservableField<Integer> progressBarVisibility = new ObservableField<>();
+
     private Navigator mNavigator;
     private LoginContract.Presenter mPresenter;
     private String mUsernameError;
-    private String mPassswordError;
+    private String mPasswordError;
     private String mUsername;
     private String mPassword;
-    private User mUser;
 
-    public LoginViewModel(User user, Navigator navigator) {
+    public LoginViewModel(Navigator navigator) {
         mNavigator = navigator;
-        mUser = user;
     }
 
     @Override
@@ -61,9 +58,9 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     }
 
     @Override
-    public void onLoginError(Throwable throwable) {
+    public void onLoginError(BaseException e) {
         //TODO Login Error !
-        mNavigator.showToast(R.string.login_error);
+        mNavigator.showToast(e.getMessage());
     }
 
     @Override
@@ -71,7 +68,6 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     public void onLoginSuccess() {
         //TODO Login Success !
         mNavigator.showToast(R.string.login_success);
-        mPresenter.saveUser(mUser);
         mNavigator.startActivity(ChooseDomainActivity.class);
         mNavigator.finishActivity();
     }
@@ -117,10 +113,10 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     @Bindable
     public String getPassswordError() {
-        return mPassswordError;
+        return mPasswordError;
     }
 
-    public void setPassswordError(String passswordError) {
-        mPassswordError = passswordError;
+    public void setPassswordError(String passwordError) {
+        mPasswordError = passwordError;
     }
 }

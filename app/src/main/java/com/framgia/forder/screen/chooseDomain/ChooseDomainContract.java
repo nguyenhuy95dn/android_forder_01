@@ -1,6 +1,7 @@
 package com.framgia.forder.screen.chooseDomain;
 
 import com.framgia.forder.data.model.Domain;
+import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BasePresenter;
 import com.framgia.forder.screen.BaseViewModel;
 import java.util.List;
@@ -15,7 +16,7 @@ interface ChooseDomainContract {
     interface ViewModel extends BaseViewModel<Presenter> {
         void onGetDomainSuccess(List<Domain> domains);
 
-        void onGetDomainError(Throwable throwable);
+        void onGetDomainError(BaseException e);
     }
 
     /**

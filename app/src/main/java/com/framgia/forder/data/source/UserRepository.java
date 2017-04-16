@@ -37,6 +37,10 @@ public class UserRepository {
         mUserLocalDataSource = userLocalDataSource;
     }
 
+    public void saveAccessToken(String token){
+        mUserLocalDataSource.saveAccessToken(token);
+    }
+
     public void saveUser(User user) {
         mUserLocalDataSource.saveUser(user);
     }
