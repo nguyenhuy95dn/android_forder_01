@@ -3,6 +3,7 @@ package com.framgia.forder.data.source.local;
 import android.support.annotation.NonNull;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.DomainDataSource;
+import com.framgia.forder.data.source.UserDataSource;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsKey;
 
@@ -13,14 +14,17 @@ import com.framgia.forder.data.source.local.sharedprf.SharedPrefsKey;
 public class DomainLocalDataSource implements DomainDataSource.LocalDataSource {
 
     private SharedPrefsApi mSharedPrefsApi;
+    private UserDataSource.LocalDataSource mUserLocalDataSource;
 
-    public DomainLocalDataSource(@NonNull SharedPrefsApi prefsApi) {
+    public DomainLocalDataSource(@NonNull SharedPrefsApi prefsApi,
+            UserDataSource.LocalDataSource userLocalDataSource) {
         mSharedPrefsApi = prefsApi;
+        mUserLocalDataSource = userLocalDataSource;
     }
 
     @Override
     public User getUser() {
-        return mSharedPrefsApi.get(SharedPrefsKey.KEY_USER, User.class);
+        return mUserLocalDataSource.getUser();
     }
 
     @Override

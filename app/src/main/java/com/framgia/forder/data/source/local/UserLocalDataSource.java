@@ -24,7 +24,8 @@ public class UserLocalDataSource implements UserDataSource.LocalDataSource {
     }
 
     public User getUser() {
-        return mSharedPrefsApi.get(SharedPrefsKey.KEY_USER, User.class);
+        String data = mSharedPrefsApi.get(SharedPrefsKey.KEY_USER, String.class);
+        return new Gson().fromJson(data, User.class);
     }
 
     @Override
