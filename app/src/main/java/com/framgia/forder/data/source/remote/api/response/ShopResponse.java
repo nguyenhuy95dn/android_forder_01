@@ -1,46 +1,39 @@
-package com.framgia.forder.data.model;
+package com.framgia.forder.data.source.remote.api.response;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.framgia.forder.data.model.Shop;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
-public class ProductResponse implements Parcelable {
-    public static final Creator<ProductResponse> CREATOR = new Creator<ProductResponse>() {
+public class ShopResponse implements Parcelable {
+    public static final Creator<ShopResponse> CREATOR = new Creator<ShopResponse>() {
         @Override
-        public ProductResponse createFromParcel(Parcel in) {
-            return new ProductResponse(in);
+        public ShopResponse createFromParcel(Parcel in) {
+            return new ShopResponse(in);
         }
 
         @Override
-        public ProductResponse[] newArray(int size) {
-            return new ProductResponse[size];
+        public ShopResponse[] newArray(int size) {
+            return new ShopResponse[size];
         }
     };
 
-    @Expose
-    @SerializedName("content")
-    private List<Product> mListProduct;
     @Expose
     @SerializedName("status")
     private int mStatus;
     @Expose
     @SerializedName("message")
     private String mMessage;
+    @Expose
+    @SerializedName("content")
+    private List<Shop> mListShop;
 
-    protected ProductResponse(Parcel in) {
-        mListProduct = in.createTypedArrayList(Product.CREATOR);
+    protected ShopResponse(Parcel in) {
         mStatus = in.readInt();
         mMessage = in.readString();
-    }
-
-    public List<Product> getListProduct() {
-        return mListProduct;
-    }
-
-    public void setListProduct(List<Product> listProduct) {
-        mListProduct = listProduct;
+        mListShop = in.createTypedArrayList(Shop.CREATOR);
     }
 
     public int getStatus() {
@@ -59,6 +52,14 @@ public class ProductResponse implements Parcelable {
         mMessage = message;
     }
 
+    public List<Shop> getListShop() {
+        return mListShop;
+    }
+
+    public void setListShop(List<Shop> listShop) {
+        mListShop = listShop;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -66,8 +67,8 @@ public class ProductResponse implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedList(mListProduct);
         dest.writeInt(mStatus);
         dest.writeString(mMessage);
+        dest.writeTypedList(mListShop);
     }
 }
