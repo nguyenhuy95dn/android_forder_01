@@ -17,7 +17,6 @@ import rx.subscriptions.CompositeSubscription;
  * the UI as required.
  */
 final class ChooseDomainPresenter implements ChooseDomainContract.Presenter {
-    private static final String TAG = ChooseDomainPresenter.class.getName();
 
     private final ChooseDomainContract.ViewModel mViewModel;
     private CompositeSubscription mCompositeSubscription;

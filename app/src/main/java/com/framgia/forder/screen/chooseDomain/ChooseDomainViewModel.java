@@ -20,21 +20,14 @@ public class ChooseDomainViewModel extends BaseObservable
 
     private ChooseDomainContract.Presenter mPresenter;
     private ArrayAdapter<String> mAdapter;
-    private ArrayAdapter<Domain> mAdapterDomain;
     private List<Domain> mDomains;
     private int mSelectedTypePosition;
     private Navigator mNavigator;
 
-    public ChooseDomainViewModel(ArrayAdapter<String> adapter, ArrayAdapter<Domain> adapterDomain,
-            Navigator navigator) {
+    public ChooseDomainViewModel(ArrayAdapter<String> adapter, Navigator navigator) {
         mDomains = new ArrayList<>();
         mNavigator = navigator;
         mAdapter = adapter;
-        mAdapterDomain = adapterDomain;
-    }
-
-    public ArrayAdapter<String> getAdapter() {
-        return mAdapter;
     }
 
     @Override
@@ -59,7 +52,6 @@ public class ChooseDomainViewModel extends BaseObservable
         }
         mDomains.clear();
         mDomains.addAll(domains);
-        mAdapterDomain.notifyDataSetChanged();
         for (Domain domain : domains) {
             mAdapter.add(domain.getName());
         }
@@ -69,6 +61,10 @@ public class ChooseDomainViewModel extends BaseObservable
     @Override
     public void onGetDomainError(BaseException e) {
         // TODO show dialog error later
+    }
+
+    public ArrayAdapter<String> getAdapter() {
+        return mAdapter;
     }
 
     public void onClickNext(View view) {

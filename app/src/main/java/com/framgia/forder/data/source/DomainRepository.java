@@ -11,30 +11,28 @@ import rx.Observable;
 
 public class DomainRepository {
 
-    private static final String TAG = "DomainRepository";
-
-    private DomainDataSource.RemoteDataSource mDomainRemoteDataSource;
-    private DomainDataSource.LocalDataSource mDomainLocalDataSource;
+    private DomainDataSource.RemoteDataSource mRemoteDataSource;
+    private DomainDataSource.LocalDataSource mLocalDataSource;
 
     public DomainRepository(DomainDataSource.RemoteDataSource remoteDataSource,
             DomainDataSource.LocalDataSource localDataSource) {
-        mDomainRemoteDataSource = remoteDataSource;
-        mDomainLocalDataSource = localDataSource;
+        mRemoteDataSource = remoteDataSource;
+        mLocalDataSource = localDataSource;
     }
 
     public Observable<List<Domain>> getListDomain() {
-        User user = mDomainLocalDataSource.getUser();
+        User user = mLocalDataSource.getUser();
         int userId = user.getId();
         String userEmail = user.getEmail();
         String userToken = user.getToken();
-        return mDomainRemoteDataSource.getListDomain(userId, userEmail, userToken);
+        return mRemoteDataSource.getListDomain(userId, userEmail, userToken);
     }
 
     public void saveDomainId(int id) {
-        mDomainLocalDataSource.saveDomainId(id);
+        mLocalDataSource.saveDomainId(id);
     }
 
     public int getDomainId() {
-        return mDomainLocalDataSource.getDomainId();
+        return mLocalDataSource.getDomainId();
     }
 }
