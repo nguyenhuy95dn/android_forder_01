@@ -27,7 +27,7 @@ public class LoginActivity extends BaseActivity {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getApplicationContext());
         Navigator navigator = new Navigator(this);
-        mViewModel = new LoginViewModel(navigator);
+        mViewModel = new LoginViewModel(getApplicationContext(), navigator);
         UserRepository userRepository =
                 new UserRepository(new UserRemoteDataSource(FOrderServiceClient.getInstance()),
                         new UserLocalDataSource(prefsApi));
