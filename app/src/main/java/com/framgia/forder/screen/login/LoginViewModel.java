@@ -1,7 +1,9 @@
 package com.framgia.forder.screen.login;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.chooseDomain.ChooseDomainActivity;
@@ -13,6 +15,7 @@ import com.framgia.forder.utils.navigator.Navigator;
 
 public class LoginViewModel extends BaseObservable implements LoginContract.ViewModel {
 
+    private Context mContext;
     private Navigator mNavigator;
     private LoginContract.Presenter mPresenter;
     private String mUsernameError;
@@ -20,7 +23,8 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     private String mUsername;
     private String mPassword;
 
-    public LoginViewModel(Navigator navigator) {
+    public LoginViewModel(Context context, Navigator navigator) {
+        mContext = context;
         mNavigator = navigator;
     }
 
@@ -74,14 +78,14 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     @Override
     public void onInputUserNameError() {
-        //TODO UserName Error!
-        mNavigator.showToast(R.string.text_must_not_emty);
+        mUsernameError = mContext.getString(R.string.email_is_Emty);
+        notifyPropertyChanged(BR.usernameError);
     }
 
     @Override
     public void onInputPasswordError() {
-        //TODO Password Error !
-        mNavigator.showToast(R.string.text_must_not_emty);
+        mPasswordError = mContext.getString(R.string.pass_word_is_Emty);
+        notifyPropertyChanged(BR.passswordError);
     }
 
     @Bindable

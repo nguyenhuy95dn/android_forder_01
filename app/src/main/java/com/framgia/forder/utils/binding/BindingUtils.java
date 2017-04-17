@@ -7,6 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.framgia.forder.R;
@@ -65,5 +67,10 @@ public final class BindingUtils {
     public static void setLayoutManager(RecyclerView recyclerView,
             LayoutManagers.LayoutManagerFactory layoutManagerFactory) {
         recyclerView.setLayoutManager(layoutManagerFactory.create(recyclerView));
+    }
+
+    @BindingAdapter("errorText")
+    public static void setErrorText(EditText editText, String text) {
+        editText.setError(text);
     }
 }

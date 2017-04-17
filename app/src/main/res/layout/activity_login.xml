@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
 
@@ -49,12 +50,13 @@
                 android:drawableLeft="@drawable/ic_username"
                 android:drawablePadding="@dimen/dp_20"
                 android:fontFamily="@string/font_serif"
-                android:hint="@string/username"
+                android:hint="@string/email"
                 android:inputType="textCapWords"
                 android:paddingLeft="@dimen/dp_10"
                 android:text="@={viewModel.username}"
                 android:textColor="@color/color_white"
                 android:textColorHint="@color/color_white"
+                app:errorText="@{viewModel.usernameError}"
                 />
             <EditText
                 android:id="@+id/text_password"
@@ -72,6 +74,7 @@
                 android:text="@={viewModel.password}"
                 android:textColor="@color/color_white"
                 android:textColorHint="@color/color_white"
+                app:errorText="@{viewModel.passswordError}"
                 />
             <TextView
                 android:layout_width="wrap_content"
