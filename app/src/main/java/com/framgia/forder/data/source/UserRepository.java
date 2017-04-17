@@ -21,26 +21,6 @@ public class UserRepository {
         return mUserRemoteDataSource.login(userName, passWord);
     }
 
-    public UserDataSource.RemoteDataSource getUserRemoteDataSource() {
-        return mUserRemoteDataSource;
-    }
-
-    public void setUserRemoteDataSource(UserDataSource.RemoteDataSource userRemoteDataSource) {
-        mUserRemoteDataSource = userRemoteDataSource;
-    }
-
-    public UserDataSource.LocalDataSource getUserLocalDataSource() {
-        return mUserLocalDataSource;
-    }
-
-    public void setUserLocalDataSource(UserDataSource.LocalDataSource userLocalDataSource) {
-        mUserLocalDataSource = userLocalDataSource;
-    }
-
-    public void saveAccessToken(String token){
-        mUserLocalDataSource.saveAccessToken(token);
-    }
-
     public void saveUser(User user) {
         mUserLocalDataSource.saveUser(user);
     }

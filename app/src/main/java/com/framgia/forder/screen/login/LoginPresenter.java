@@ -49,7 +49,6 @@ final class LoginPresenter implements LoginContract.Presenter {
                     @Override
                     public void call(User user) {
                         mUserRepository.saveUser(user);
-                        mUserRepository.saveAccessToken(user.getToken());
                         mViewModel.onLoginSuccess();
                     }
                 }, new SafetyError() {

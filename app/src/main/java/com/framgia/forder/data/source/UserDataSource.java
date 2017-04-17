@@ -13,8 +13,6 @@ public class UserDataSource {
         void saveUser(User user);
 
         User getUser();
-
-        void saveAccessToken(String token);
     }
 
     public interface RemoteDataSource {
