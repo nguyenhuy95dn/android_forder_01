@@ -2,6 +2,7 @@ package com.framgia.forder.screen.login;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import com.framgia.forder.R;
 import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.local.UserLocalDataSource;
@@ -23,6 +24,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getApplicationContext());
         Navigator navigator = new Navigator(this);
         mViewModel = new LoginViewModel(navigator);
