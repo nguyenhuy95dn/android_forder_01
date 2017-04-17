@@ -6,6 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Shop implements Parcelable {
+
     public static final Creator<Shop> CREATOR = new Creator<Shop>() {
         @Override
         public Shop createFromParcel(Parcel in) {
@@ -38,7 +39,7 @@ public class Shop implements Parcelable {
     private String mStatus;
     @Expose
     @SerializedName("avatar")
-    private Image mImage;
+    private CollectionAvatar mCollectionAvatar;
     @Expose
     @SerializedName("averate_rating")
     private float mAverageRating;
@@ -51,26 +52,6 @@ public class Shop implements Parcelable {
     @Expose
     @SerializedName("time_auto_reject")
     private String mTimeAutoReject;
-    @Expose
-    @SerializedName("cover_image")
-    private Image mCoverImage;
-
-    public Shop(int id, int domainId, int shopId, String name, String description, String status,
-            Image image, float averageRating, int ownerId, User user, String timeAutoReject,
-            Image coverImage) {
-        mId = id;
-        mDomainId = domainId;
-        mShopId = shopId;
-        mName = name;
-        mDescription = description;
-        mStatus = status;
-        mImage = image;
-        mAverageRating = averageRating;
-        mOwnerId = ownerId;
-        mUser = user;
-        mTimeAutoReject = timeAutoReject;
-        mCoverImage = coverImage;
-    }
 
     protected Shop(Parcel in) {
         mId = in.readInt();
@@ -79,6 +60,7 @@ public class Shop implements Parcelable {
         mName = in.readString();
         mDescription = in.readString();
         mStatus = in.readString();
+        mCollectionAvatar = in.readParcelable(CollectionAvatar.class.getClassLoader());
         mAverageRating = in.readFloat();
         mOwnerId = in.readInt();
         mUser = in.readParcelable(User.class.getClassLoader());
@@ -169,20 +151,12 @@ public class Shop implements Parcelable {
         mTimeAutoReject = timeAutoReject;
     }
 
-    public Image getImage() {
-        return mImage;
+    public CollectionAvatar getCollectionAvatar() {
+        return mCollectionAvatar;
     }
 
-    public void setImage(Image image) {
-        mImage = image;
-    }
-
-    public Image getCoverImage() {
-        return mCoverImage;
-    }
-
-    public void setCoverImage(Image coverImage) {
-        mCoverImage = coverImage;
+    public void setCollectionAvatar(CollectionAvatar collectionAvatar) {
+        mCollectionAvatar = collectionAvatar;
     }
 
     @Override
@@ -198,6 +172,7 @@ public class Shop implements Parcelable {
         dest.writeString(mName);
         dest.writeString(mDescription);
         dest.writeString(mStatus);
+        dest.writeParcelable(mCollectionAvatar, flags);
         dest.writeFloat(mAverageRating);
         dest.writeInt(mOwnerId);
         dest.writeParcelable(mUser, flags);

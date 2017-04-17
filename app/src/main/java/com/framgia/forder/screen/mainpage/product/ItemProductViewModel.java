@@ -22,7 +22,12 @@ public class ItemProductViewModel extends BaseObservable {
     }
 
     public String getProductImage() {
-        return mProduct.getImage().getUrl();
+        if (mProduct != null
+                && mProduct.getCollectionImage() != null
+                && mProduct.getCollectionImage().getImage() != null) {
+            return mProduct.getCollectionImage().getImage().getUrl();
+        }
+        return "";
     }
 
     public String getProductName() {
@@ -34,7 +39,7 @@ public class ItemProductViewModel extends BaseObservable {
     }
 
     public String getProductPrice() {
-        return String.valueOf(mProduct.getPrice());
+        return mProduct.getFormatPrice();
     }
 
     public String getShopName() {
@@ -42,7 +47,13 @@ public class ItemProductViewModel extends BaseObservable {
     }
 
     public String getShopImage() {
-        return mProduct.getShop().getImage().getUrl();
+        if (mProduct != null
+                && mProduct.getShop() != null
+                && mProduct.getShop().getCollectionAvatar() != null
+                && mProduct.getShop().getCollectionAvatar().getImage() != null) {
+            return mProduct.getShop().getCollectionAvatar().getImage().getUrl();
+        }
+        return "";
     }
 
     public void onItemClicked() {

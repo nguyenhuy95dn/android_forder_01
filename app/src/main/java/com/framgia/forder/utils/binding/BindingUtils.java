@@ -6,10 +6,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.framgia.forder.R;
-import android.widget.ArrayAdapter;
 
 /**
  * Created by le.quang.dao on 20/03/2017.
@@ -59,5 +59,11 @@ public final class BindingUtils {
     public static void setAdapterForSpinner(AppCompatSpinner spinner,
             ArrayAdapter<String> adapter) {
         spinner.setAdapter(adapter);
+    }
+
+    @BindingAdapter("layoutManager")
+    public static void setLayoutManager(RecyclerView recyclerView,
+            LayoutManagers.LayoutManagerFactory layoutManagerFactory) {
+        recyclerView.setLayoutManager(layoutManagerFactory.create(recyclerView));
     }
 }

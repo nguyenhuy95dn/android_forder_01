@@ -48,6 +48,15 @@ public class ShopAdapter extends BaseRecyclerViewAdapter<ShopAdapter.ItemViewHol
         mItemClickListener = itemClickListener;
     }
 
+    public void updateData(List<Shop> shops) {
+        if (shops == null) {
+            return;
+        }
+        mShops.clear();
+        mShops.addAll(shops);
+        notifyDataSetChanged();
+    }
+
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private ItemShopBinding mBinding;

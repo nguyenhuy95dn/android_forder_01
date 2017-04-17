@@ -17,7 +17,7 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<ProductAdapter.ItemV
 
     private static OrderListener mOrderListener;
     private List<Product> mProducts;
-    private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
+    private OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
     public ProductAdapter(@NonNull Context context, List<Product> products) {
         super(context);
@@ -54,13 +54,22 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<ProductAdapter.ItemV
         mItemClickListener = itemClickListener;
     }
 
+    public void updateData(List<Product> products) {
+        if (products == null) {
+            return;
+        }
+        mProducts.clear();
+        mProducts.addAll(products);
+        notifyDataSetChanged();
+    }
+
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private ItemProductBinding mBinding;
-        private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
+        private OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
         ItemViewHolder(ItemProductBinding binding,
-                BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> listener) {
+                OnRecyclerViewItemClickListener<Object> listener) {
             super(binding.getRoot());
             mBinding = binding;
             mItemClickListener = listener;
