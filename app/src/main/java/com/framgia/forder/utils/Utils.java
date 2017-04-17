@@ -10,6 +10,10 @@ import java.util.Locale;
  */
 
 public class Utils {
+    public static final String INPUT_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+    public static final String OUTPUT_TIME_FORMAT = "HH:mm";
+    public static final String FORMAT_PRICE = "%1$,.0f";
+
     public static class DateTimeUntils {
         public static String convertUiFormatToDataFormat(String time, String inputFormat,
                 String outputFormat) {
@@ -21,7 +25,6 @@ public class Utils {
             try {
                 return newSdf.format(sdf.parse(time));
             } catch (ParseException e) {
-                e.printStackTrace();
                 return null;
             }
         }

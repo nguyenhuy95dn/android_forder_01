@@ -19,8 +19,6 @@ public class Product implements Parcelable {
         }
     };
 
-    private static final String INPUT_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-    private static final String OUTPUT_TIME_FORMAT = "HH:mm";
     @Expose
     @SerializedName("id")
     private int mId;
@@ -35,7 +33,7 @@ public class Product implements Parcelable {
     private String mDescription;
     @Expose
     @SerializedName("image")
-    private Image mImage;
+    private CollectionImage mCollectionImage;
     @Expose
     @SerializedName("start_hour")
     private String mStartHour;
@@ -52,13 +50,14 @@ public class Product implements Parcelable {
     @SerializedName("shop_id")
     private int mShopId;
 
-    public Product(int id, String name, double price, String description, Image image,
-            String startHour, String endHour, String status, Shop shop, int shopId) {
+    public Product(int id, String name, double price, String description,
+            CollectionImage collectionImage, String startHour, String endHour, String status,
+            Shop shop, int shopId) {
         mId = id;
         mName = name;
         mPrice = price;
         mDescription = description;
-        mImage = image;
+        mCollectionImage = collectionImage;
         mStartHour = startHour;
         mEndHour = endHour;
         mStatus = status;
@@ -117,12 +116,12 @@ public class Product implements Parcelable {
         mDescription = description;
     }
 
-    public Image getImage() {
-        return mImage;
+    public CollectionImage getCollectionImage() {
+        return mCollectionImage;
     }
 
-    public void setImage(Image image) {
-        mImage = image;
+    public void setCollectionImage(CollectionImage collectionImage) {
+        mCollectionImage = collectionImage;
     }
 
     public String getEndHour() {
@@ -158,13 +157,17 @@ public class Product implements Parcelable {
     }
 
     public String getFormatStartHour() {
-        return Utils.DateTimeUntils.convertUiFormatToDataFormat(mStartHour, INPUT_TIME_FORMAT,
-                OUTPUT_TIME_FORMAT);
+        return Utils.DateTimeUntils.convertUiFormatToDataFormat(mStartHour, Utils.INPUT_TIME_FORMAT,
+                Utils.OUTPUT_TIME_FORMAT);
     }
 
     public String getFormatEndHour() {
-        return Utils.DateTimeUntils.convertUiFormatToDataFormat(mEndHour, INPUT_TIME_FORMAT,
-                OUTPUT_TIME_FORMAT);
+        return Utils.DateTimeUntils.convertUiFormatToDataFormat(mEndHour, Utils.INPUT_TIME_FORMAT,
+                Utils.OUTPUT_TIME_FORMAT);
+    }
+
+    public String getFormatPrice() {
+        return String.format(Utils.FORMAT_PRICE, mPrice);
     }
 
     @Override

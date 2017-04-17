@@ -59,6 +59,7 @@
                     android:gravity="center"
                     android:padding="@dimen/dp_5"
                     android:text="@{viewModel.orderTime}"
+                    android:textColor="@android:color/white"
                     />
 
             </FrameLayout>
