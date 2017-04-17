@@ -13,6 +13,8 @@ public class UserDataSource {
         void saveUser(User user);
 
         User getUser();
+
+        void clearData();
     }
 
     public interface RemoteDataSource {

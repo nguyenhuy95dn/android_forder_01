@@ -19,32 +19,45 @@ public class SplashActivity extends AppCompatActivity {
     private static final int SECOND_DELAYED = 2000;
     private Handler mHandler;
     private Runnable mRunnable;
+    private Intent mIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPrefsApi prefsApi = new SharedPrefsImpl(getApplicationContext());
+        SharedPrefsApi sharedPrefsApi = new SharedPrefsImpl(getApplicationContext());
         final DomainRepository domainRepository =
-                new DomainRepository(null, new DomainLocalDataSource(prefsApi, null));
+                new DomainRepository(null, new DomainLocalDataSource(sharedPrefsApi, null));
         final UserRepository userRepository =
-                new UserRepository(null, new UserLocalDataSource(prefsApi));
+                new UserRepository(null, new UserLocalDataSource(sharedPrefsApi));
         mHandler = new Handler();
         mRunnable = new Runnable() {
             @Override
             public void run() {
-                Intent intent;
-                if (userRepository.getUser() != null && domainRepository.getDomainId() == 0) {
-                    intent = new Intent(SplashActivity.this, ChooseDomainActivity.class);
-                } else if (domainRepository.getDomainId() != 0) {
-                    intent = new Intent(SplashActivity.this, MainActivity.class);
+
+                if (userRepository.getUser() == null) {
+                    loginPage();
+                } else if (domainRepository.getDomainId() == 0) {
+                    chooseDomainPage();
                 } else {
-                    intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    mainPage();
                 }
-                new Navigator(SplashActivity.this).startActivity(intent);
+                new Navigator(SplashActivity.this).startActivity(mIntent);
                 finish();
             }
         };
         mHandler.postDelayed(mRunnable, SECOND_DELAYED);
+    }
+
+    public void chooseDomainPage() {
+        mIntent = new Intent(SplashActivity.this, ChooseDomainActivity.class);
+    }
+
+    public void mainPage() {
+        mIntent = new Intent(SplashActivity.this, MainActivity.class);
+    }
+
+    public void loginPage() {
+        mIntent = new Intent(SplashActivity.this, LoginActivity.class);
     }
 
     @Override
