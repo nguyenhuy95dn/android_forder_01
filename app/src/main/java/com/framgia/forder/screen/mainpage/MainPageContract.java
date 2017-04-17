@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.mainpage;
 
+import com.framgia.forder.data.model.Product;
 import com.framgia.forder.screen.BasePresenter;
 import com.framgia.forder.screen.BaseViewModel;
 
@@ -17,5 +18,6 @@ interface MainPageContract {
      * Presenter.
      */
     interface Presenter extends BasePresenter {
+        public void addToCart(Product product);
     }
 }
