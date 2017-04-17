@@ -1,0 +1,121 @@
+package com.framgia.forder.data.model;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+import static com.framgia.forder.utils.Constant.FORMAT_PRICE;
+import static com.framgia.forder.utils.Constant.UNIT_MONEY;
+
+/**
+ * Created by tri on 17/04/2017.
+ */
+
+public class ShoppingCart extends RealmObject {
+    @PrimaryKey
+    private int mIdShoppingCard;
+    private int mDomainId;
+    private int mShopId;
+    private int mQuantity;
+    private int mProductId;
+    private double mPrice;
+    private String mShopName;
+    private String mProductName;
+    private String mProductImage;
+    private String mStartHour;
+    private String mEndHour;
+
+    public ShoppingCart() {
+    }
+
+    public int getIdShoppingCard() {
+        return mIdShoppingCard;
+    }
+
+    public void setIdShoppingCard(int idShoppingCard) {
+        mIdShoppingCard = idShoppingCard;
+    }
+
+    public int getDomainId() {
+        return mDomainId;
+    }
+
+    public void setDomainId(int domainId) {
+        mDomainId = domainId;
+    }
+
+    public int getShopId() {
+        return mShopId;
+    }
+
+    public void setShopId(int shopId) {
+        mShopId = shopId;
+    }
+
+    public int getQuantity() {
+        return mQuantity;
+    }
+
+    public void setQuantity(int quantity) {
+        mQuantity = quantity;
+    }
+
+    public int getProductId() {
+        return mProductId;
+    }
+
+    public void setProductId(int productId) {
+        mProductId = productId;
+    }
+
+    public double getPrice() {
+        return mPrice;
+    }
+
+    public void setPrice(double price) {
+        mPrice = price;
+    }
+
+    public String getShopName() {
+        return mShopName;
+    }
+
+    public void setShopName(String shopName) {
+        mShopName = shopName;
+    }
+
+    public String getProductName() {
+        return mProductName;
+    }
+
+    public void setProductName(String productName) {
+        mProductName = productName;
+    }
+
+    public String getProductImage() {
+        return mProductImage;
+    }
+
+    public void setProductImage(String productImage) {
+        mProductImage = productImage;
+    }
+
+    public String getStartHour() {
+        return mStartHour;
+    }
+
+    public void setStartHour(String startHour) {
+        mStartHour = startHour;
+    }
+
+    public String getEndHour() {
+        return mEndHour;
+    }
+
+    public void setEndHour(String endHour) {
+        mEndHour = endHour;
+    }
+
+    public String getFormatPrice() {
+        return String.format(FORMAT_PRICE, mPrice) + UNIT_MONEY;
+    }
+}

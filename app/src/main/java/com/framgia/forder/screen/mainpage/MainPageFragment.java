@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
+import com.framgia.forder.data.source.ProductRepository;
+import com.framgia.forder.data.source.local.realm.RealmApi;
+import com.framgia.forder.data.source.local.ProductLocalDataSource;
 import com.framgia.forder.databinding.FragmentMainPageBinding;
 import com.framgia.forder.screen.mainpage.product.ProductAdapter;
 import com.framgia.forder.screen.mainpage.shop.ShopAdapter;
@@ -29,12 +32,18 @@ public class MainPageFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
+
         List<Product> products = new ArrayList<>();
         List<Shop> shops = new ArrayList<>();
         ProductAdapter productAdapter = new ProductAdapter(getActivity(), products);
         ShopAdapter shopAdapter = new ShopAdapter(getActivity(), shops);
         mViewModel = new MainPageViewModel(productAdapter, shopAdapter);
-        MainPageContract.Presenter presenter = new MainPagePresenter(mViewModel);
+
+        RealmApi realmApi = new RealmApi();
+        ProductRepository repository =
+                new ProductRepository(new ProductLocalDataSource(realmApi));
+        MainPageContract.Presenter presenter = new MainPagePresenter(mViewModel, repository);
+
         mViewModel.setPresenter(presenter);
         FragmentMainPageBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_main_page, container, false);

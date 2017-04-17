@@ -48,7 +48,10 @@ public class MainPageViewModel extends Observable implements MainPageContract.Vi
 
     @Override
     public void onAddToCart(Product product) {
-        // TODO implement later in here
+        if (product == null) {
+            return;
+        }
+        mPresenter.addToCart(product);
     }
 
     public ProductAdapter getProductAdapter() {
