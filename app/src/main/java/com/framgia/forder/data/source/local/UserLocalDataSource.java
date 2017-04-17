@@ -27,9 +27,4 @@ public class UserLocalDataSource implements UserDataSource.LocalDataSource {
         String data = mSharedPrefsApi.get(SharedPrefsKey.KEY_USER, String.class);
         return new Gson().fromJson(data, User.class);
     }
-
-    @Override
-    public void saveAccessToken(String token) {
-        mSharedPrefsApi.put(SharedPrefsKey.KEY_USER_TOKEN, token);
-    }
 }

@@ -87,7 +87,7 @@ public final class RxErrorHandlingCallAdapterFactory extends CallAdapter.Factory
                         ErrorResponse errorResponse =
                                 new Gson().fromJson(response.errorBody().string(),
                                         ErrorResponse.class);
-                        if (errorResponse != null && TextUtils.isEmpty(
+                        if (errorResponse != null && !TextUtils.isEmpty(
                                 errorResponse.getMessage())) {
                             return BaseException.toServerError(errorResponse);
                         } else {

@@ -1,7 +1,6 @@
 package com.framgia.forder.data.source.remote.api.middleware;
 
-import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
-import com.framgia.forder.data.source.local.sharedprf.SharedPrefsKey;
+import com.framgia.forder.data.model.User;
 import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -12,11 +11,11 @@ import okhttp3.Response;
  */
 
 public class RetrofitInterceptor implements Interceptor {
-    
-    private SharedPrefsApi mPrefsApi;
 
-    public RetrofitInterceptor(SharedPrefsApi prefsApi) {
-        mPrefsApi = prefsApi;
+    private User mUser;
+
+    public RetrofitInterceptor(User user) {
+        mUser = user;
     }
 
     @Override
@@ -28,13 +27,13 @@ public class RetrofitInterceptor implements Interceptor {
     }
 
     private Request.Builder initializeHeader(Chain chain) {
-        String accessToken = mPrefsApi.get(SharedPrefsKey.KEY_USER_TOKEN, String.class);
         Request originRequest = chain.request();
         return originRequest.newBuilder()
                 .header("Accept", "application/json")
                 .addHeader("Cache-Control", "no-cache")
                 .addHeader("Cache-Control", "no-store")
-                .header("Authorization", "Bearer " + accessToken)
+                .header("X-User-Email", mUser.getEmail())
+                .header("X-User-Token", mUser.getToken())
                 .method(originRequest.method(), originRequest.body());
     }
 }
