@@ -33,7 +33,8 @@ public class ChooseDomainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, mDomains);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
-        mViewModel = new ChooseDomainViewModel(adapter, new Navigator(this));
+        mViewModel =
+                new ChooseDomainViewModel(getApplicationContext(), adapter, new Navigator(this));
 
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getApplicationContext());
         UserDataSource.LocalDataSource userLocalDataSource = new UserLocalDataSource(prefsApi);

@@ -1,9 +1,11 @@
 package com.framgia.forder.screen.chooseDomain;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import com.framgia.forder.R;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.main.MainActivity;
@@ -18,16 +20,19 @@ import java.util.List;
 public class ChooseDomainViewModel extends BaseObservable
         implements ChooseDomainContract.ViewModel {
 
+    private Context mContext;
     private ChooseDomainContract.Presenter mPresenter;
     private ArrayAdapter<String> mAdapter;
     private List<Domain> mDomains;
     private int mSelectedTypePosition;
     private Navigator mNavigator;
 
-    public ChooseDomainViewModel(ArrayAdapter<String> adapter, Navigator navigator) {
-        mDomains = new ArrayList<>();
-        mNavigator = navigator;
+    public ChooseDomainViewModel(Context context, ArrayAdapter<String> adapter,
+            Navigator navigator) {
+        mContext = context;
         mAdapter = adapter;
+        mNavigator = navigator;
+        mDomains = new ArrayList<>();
     }
 
     @Override
@@ -52,6 +57,7 @@ public class ChooseDomainViewModel extends BaseObservable
         }
         mDomains.clear();
         mDomains.addAll(domains);
+        mAdapter.add(mContext.getString(R.string.none));
         for (Domain domain : domains) {
             mAdapter.add(domain.getName());
         }
@@ -68,10 +74,14 @@ public class ChooseDomainViewModel extends BaseObservable
     }
 
     public void onClickNext(View view) {
-        Domain domain = mDomains.get(mSelectedTypePosition);
-        mPresenter.saveDomainId(domain.getId());
-        mNavigator.startActivity(MainActivity.class);
-        mNavigator.finishActivity();
+        if (mSelectedTypePosition == 0) {
+            mNavigator.showToast(R.string.you_need_to_choose_a_domain_to_continue);
+        } else {
+            Domain domain = mDomains.get(mSelectedTypePosition);
+            mPresenter.saveDomainId(domain.getId());
+            mNavigator.startActivity(MainActivity.class);
+            mNavigator.finishActivity();
+        }
     }
 
     @Bindable
