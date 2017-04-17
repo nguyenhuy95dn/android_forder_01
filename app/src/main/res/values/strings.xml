@@ -46,4 +46,6 @@
     <string name="cannot_load_the_data">Cannot load the data</string>
     <string name="email_is_Emty">Email is Emty !</string>
     <string name="pass_word_is_Emty">Password is Emty!</string>
+    <string name="you_need_to_choose_a_domain_to_continue">You need to choose a domain to continue!</string>
+    <string name="none">None</string>
 </resources>
