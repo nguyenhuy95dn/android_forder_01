@@ -1,4 +1,4 @@
-package com.framgia.forder.screen.profilepage;
+package com.framgia.forder.screen.profilepage.profiledetail;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -8,35 +8,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
-import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.local.UserLocalDataSource;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
-import com.framgia.forder.databinding.FragmentProfileBinding;
+import com.framgia.forder.databinding.FragmentProfileDetailBinding;
 import com.framgia.forder.utils.navigator.Navigator;
 
 /**
- * ProfileFragment Screen.
+ * Created by ASUS on 4/17/2017.
  */
-public class ProfilePageFragment extends Fragment {
 
-    private ProfilePageContract.ViewModel mViewModel;
+public class ProfileDetailFragment extends Fragment {
 
-    public static ProfilePageFragment newInstance() {
-        return new ProfilePageFragment();
+    private ProfileDetailContract.ViewModel mViewModel;
+
+    public static ProfileDetailFragment newInstance() {
+        return new ProfileDetailFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Navigator navigator = new Navigator(getParentFragment());
-        mViewModel = new ProfilePageViewModel(navigator);
+        Navigator navigator = new Navigator(this);
+        mViewModel = new ProfileDetailViewModel(navigator);
         SharedPrefsApi sharedPrefsApi = new SharedPrefsImpl(getActivity().getApplicationContext());
         UserRepository userRepository =
                 new UserRepository(null, new UserLocalDataSource(sharedPrefsApi));
-        ProfilePageContract.Presenter presenter =
-                new ProfilePagePresenter(mViewModel, userRepository);
+        ProfileDetailContract.Presenter presenter =
+                new ProfileDetailPresenter(mViewModel, userRepository);
         mViewModel.setPresenter(presenter);
     }
 
@@ -45,9 +45,10 @@ public class ProfilePageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
 
-        FragmentProfileBinding binding =
-                DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
-        binding.setViewModel((ProfilePageViewModel) mViewModel);
+        FragmentProfileDetailBinding binding =
+                DataBindingUtil.inflate(inflater, R.layout.fragment_profile_detail, container,
+                        false);
+        binding.setViewModel((ProfileDetailViewModel) mViewModel);
         return binding.getRoot();
     }
 
@@ -62,4 +63,5 @@ public class ProfilePageFragment extends Fragment {
         mViewModel.onStop();
         super.onStop();
     }
+
 }
