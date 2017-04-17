@@ -131,12 +131,8 @@ public class Shop implements Parcelable {
         mStatus = status;
     }
 
-    public Integer getOwnerId() {
+    public int getOwnerId() {
         return mOwnerId;
-    }
-
-    public void setOwnerId(Integer ownerId) {
-        mOwnerId = ownerId;
     }
 
     public void setOwnerId(int ownerId) {

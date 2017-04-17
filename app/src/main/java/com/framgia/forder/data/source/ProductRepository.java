@@ -3,22 +3,22 @@ package com.framgia.forder.data.source;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.ShoppingCart;
 import com.framgia.forder.data.source.local.ProductLocalDataSource;
+import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
 import java.util.List;
 import rx.Observable;
 
-/**
- * Created by tri on 17/04/2017.
- */
-
 public class ProductRepository {
+    private ProductDataSource.RemoteDataSource mRemoteDataSource;
     private ProductDataSource.LocalDataSource mLocalDataSource;
 
-    public ProductRepository(ProductLocalDataSource localDataSource) {
+    public ProductRepository(ProductRemoteDataSource remoteDataSource,
+            ProductLocalDataSource localDataSource) {
+        mRemoteDataSource = remoteDataSource;
         mLocalDataSource = localDataSource;
     }
 
-    public ProductDataSource.LocalDataSource getLocalDataSource() {
-        return mLocalDataSource;
+    public Observable<List<Product>> getListProduct(int domainId) {
+        return mRemoteDataSource.getListProduct(domainId);
     }
 
     public Observable<Void> addToCart(Product product) {
