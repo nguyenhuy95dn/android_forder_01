@@ -32,4 +32,11 @@ public class UserRemoteDataSource extends BaseRemoteDataSource
                     }
                 });
     }
+
+    @Override
+    public Observable<User> updateProfile(String newPassword, String chatWorkId, String description,
+            String currentPassword) {
+        // TODO: Send information to server
+        return null;
+    }
 }
