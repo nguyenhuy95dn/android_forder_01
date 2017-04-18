@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
-import com.framgia.forder.databinding.FragmentProductpageBinding;
+import com.framgia.forder.databinding.FragmentListproductBinding;
 import com.framgia.forder.utils.navigator.Navigator;
 
 /**
@@ -36,7 +36,7 @@ public class ListProductFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
 
-        FragmentProductpageBinding binding =
+        FragmentListproductBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_listproduct, container, false);
         binding.setViewModel((ListProductViewModel) mViewModel);
         return binding.getRoot();
