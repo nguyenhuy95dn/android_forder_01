@@ -10,9 +10,17 @@ import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
+import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ProductRepository;
-import com.framgia.forder.data.source.local.realm.RealmApi;
+import com.framgia.forder.data.source.local.DomainLocalDataSource;
 import com.framgia.forder.data.source.local.ProductLocalDataSource;
+import com.framgia.forder.data.source.local.UserLocalDataSource;
+import com.framgia.forder.data.source.local.realm.RealmApi;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
+import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
+import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentMainPageBinding;
 import com.framgia.forder.screen.mainpage.product.ProductAdapter;
 import com.framgia.forder.screen.mainpage.shop.ShopAdapter;
@@ -37,18 +45,38 @@ public class MainPageFragment extends Fragment {
         List<Shop> shops = new ArrayList<>();
         ProductAdapter productAdapter = new ProductAdapter(getActivity(), products);
         ShopAdapter shopAdapter = new ShopAdapter(getActivity(), shops);
+
         mViewModel = new MainPageViewModel(productAdapter, shopAdapter);
 
         RealmApi realmApi = new RealmApi();
-        ProductRepository repository =
-                new ProductRepository(new ProductLocalDataSource(realmApi));
-        MainPageContract.Presenter presenter = new MainPagePresenter(mViewModel, repository);
 
+        SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
+        DomainRepository domainRepository =
+                new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
+                        new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
+        ProductRepository productRepository = new ProductRepository(
+                new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
+                new ProductLocalDataSource(realmApi));
+        MainPageContract.Presenter presenter =
+                new MainPagePresenter(mViewModel, productRepository, domainRepository);
         mViewModel.setPresenter(presenter);
+
         FragmentMainPageBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_main_page, container, false);
         binding.setViewModel((MainPageViewModel) mViewModel);
         binding.setMainPage(this);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mViewModel.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        mViewModel.onStop();
+        super.onStop();
     }
 }

@@ -1,7 +1,8 @@
 package com.framgia.forder.data.source.remote.api.service;
 
-import com.framgia.forder.data.source.remote.api.response.UserResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
+import com.framgia.forder.data.source.remote.api.response.ProductResponse;
+import com.framgia.forder.data.source.remote.api.response.UserResponse;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -19,7 +20,11 @@ public interface FOrderApi {
     @GET("v1/authen_user_tokens")
     Observable<UserResponse> login(@Query("user_email") String userEmail,
             @Query("password") String passWord);
+
     @GET("v1/domains")
     Observable<DomainResponse> getDomains(@Query("user_id") int id,
             @Query("user_email") String userEmail, @Query("user_token") String userToken);
+
+    @GET("v1/products")
+    Observable<ProductResponse> getListProduct(@Query("domain_id") int id);
 }

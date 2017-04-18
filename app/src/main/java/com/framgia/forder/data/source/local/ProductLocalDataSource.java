@@ -15,10 +15,6 @@ import rx.functions.Action2;
 
 import static com.framgia.forder.utils.Constant.DEFAULT_QUANTITY;
 
-/**
- * Created by tri on 17/04/2017.
- */
-
 public class ProductLocalDataSource implements ProductDataSource.LocalDataSource {
     private RealmApi mRealmApi;
 
