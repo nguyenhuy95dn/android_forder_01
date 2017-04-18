@@ -84,7 +84,7 @@
                     android:background="@drawable/button"
                     android:text="@string/btn_detail_profile"
                     android:textColor="@color/color_white"
-                    android:onClick="@{() -> viewModel.onClickUpdateProfile()}"
+                    android:onClick="@{() -> viewModel.onClickProfileDetail()}"
                     />
 
             </RelativeLayout>

@@ -3,6 +3,7 @@ package com.framgia.forder.screen.profilepage;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.screen.login.LoginActivity;
+import com.framgia.forder.screen.profilepage.profiledetail.ProfileDetailFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 
 /**
@@ -10,6 +11,7 @@ import com.framgia.forder.utils.navigator.Navigator;
  */
 
 public class ProfilePageViewModel implements ProfilePageContract.ViewModel {
+    private static final String TAG = "ProfileDetailFragment";
 
     private Navigator mNavigator;
     private ProfilePageContract.Presenter mPresenter;
@@ -43,21 +45,16 @@ public class ProfilePageViewModel implements ProfilePageContract.ViewModel {
     }
 
     public String getUsername() {
-        if (mUser == null) {
-            return "";
-        }
-        return mUser.getName();
+        return mUser != null ? mUser.getName() : "";
     }
 
     public String getEmail() {
-        if (mUser == null) {
-            return "";
-        }
-        return mUser.getEmail();
+        return mUser != null ? mUser.getEmail() : "";
     }
 
-    public void onClickUpdateProfile() {
-        //TODO: open Update Profile
+    public void onClickProfileDetail() {
+        mNavigator.goNextChildFragment(R.id.layout_content, ProfileDetailFragment.newInstance(),
+                true, Navigator.RIGHT_LEFT, TAG);
     }
 
     public void onClickHistoryOrder() {

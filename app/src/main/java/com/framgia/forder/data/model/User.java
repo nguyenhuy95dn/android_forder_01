@@ -2,6 +2,7 @@ package com.framgia.forder.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.framgia.forder.utils.Utils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -122,5 +123,10 @@ public class User implements Parcelable {
 
     public void setUpdatedAt(String updatedAt) {
         mUpdatedAt = updatedAt;
+    }
+
+    public String getFormatDate() {
+        return Utils.DateTimeUntils.convertUiFormatToDataFormat(mCreatedAt, Utils.INPUT_TIME_FORMAT,
+                Utils.OUTPUT_DATE_FORMAT);
     }
 }
