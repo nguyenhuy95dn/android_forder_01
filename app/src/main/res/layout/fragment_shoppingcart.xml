@@ -14,10 +14,25 @@
 
     </data>
 
-    <android.support.v7.widget.RecyclerView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="@{LayoutManagers.linear}"
-        />
-
+        >
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/button_order"
+            app:layoutManager="@{LayoutManagers.linear}"
+            />
+        <Button
+            android:id="@+id/button_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_orange_mos"
+            android:text="@string/action_order_all"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            />
+    </RelativeLayout>
 </layout>
