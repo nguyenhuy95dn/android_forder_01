@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">FOrder</string>
+    <string name="title_total">Total :\u0020 </string>
+    <string name="action_order_this">Order this</string>
     <string name="title_tab_home">Home</string>
     <string name="title_tab_search">Search</string>
     <string name="title_tab_nitofy">Notifications</string>
