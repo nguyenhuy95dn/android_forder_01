@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.screen.cart.ShoppingCartFragment;
 import com.framgia.forder.screen.mainpage.MainPageContainerFragment;
 import com.framgia.forder.screen.profilepage.ProfilePageFragment;
 import com.framgia.forder.screen.searchpage.SearchContainerFragment;
@@ -51,7 +52,9 @@ public class FragmentContainer extends Fragment {
                         "SearchContainerFragment");
                 break;
             case TAB_CART:
-                //TODO new Fragment Card
+                navigator.goNextChildFragment(R.id.layout_content,
+                        ShoppingCartFragment.newInstance(), true, Navigator.BOTTOM_UP,
+                        "ShoppingCartFragment");
                 break;
             case TAB_NOTIFICATION:
                 //TODO new Fragment Notifications
