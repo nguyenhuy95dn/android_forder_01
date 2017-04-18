@@ -67,6 +67,10 @@ public class MainPageViewModel extends Observable implements MainPageContract.Vi
         mProductAdapter.updateData(products);
     }
 
+    public void onSeeMoreProductClick() {
+        //TODO List All Product
+    }
+
     public ProductAdapter getProductAdapter() {
         return mProductAdapter;
     }
