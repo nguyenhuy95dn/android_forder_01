@@ -25,6 +25,26 @@ public class ProductRepository {
         return mLocalDataSource.addShoppingCard(product);
     }
 
+    public Observable<Void> deleteCart(int productId, int domainId) {
+        return mLocalDataSource.deleteShoppingCard(productId, domainId);
+    }
+
+    public Observable<Void> upQuantity(int productId, int domainId) {
+        return mLocalDataSource.upQuantity(productId, domainId);
+    }
+
+    public Observable<Void> downQuantity(int productId, int domainId) {
+        return mLocalDataSource.downQuantity(productId, domainId);
+    }
+
+    public Observable<Integer> getNumberItem(int domainId) {
+        return mLocalDataSource.getNumberItem(domainId);
+    }
+
+    public Observable<Double> getTotalPrice(int domainId) {
+        return mLocalDataSource.getTotalPrice(domainId);
+    }
+
     public Observable<List<ShoppingCart>> getAllShoppingCart() {
         return mLocalDataSource.getAllShoppingCart();
     }
