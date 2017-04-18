@@ -19,8 +19,6 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="@{LayoutManagers.grid(productList.getResources.getInteger(R.integer.item_col))}"
-        app:recyclerAdapter="@{viewModel.productAdapter}"
         />
 
 </layout>
