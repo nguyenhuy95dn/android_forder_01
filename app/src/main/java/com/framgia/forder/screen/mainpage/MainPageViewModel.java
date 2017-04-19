@@ -1,6 +1,7 @@
 package com.framgia.forder.screen.mainpage;
 
 import com.framgia.forder.data.model.Product;
+import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
@@ -32,6 +33,7 @@ public class MainPageViewModel extends Observable implements MainPageContract.Vi
     public void onStart() {
         mPresenter.onStart();
         mPresenter.getListProduct();
+        mPresenter.getListShop();
     }
 
     @Override
@@ -65,6 +67,16 @@ public class MainPageViewModel extends Observable implements MainPageContract.Vi
     @Override
     public void onGetListProductSuccess(List<Product> products) {
         mProductAdapter.updateData(products);
+    }
+
+    @Override
+    public void onGetListShopError(BaseException exception) {
+        // Todo show dialog message
+    }
+
+    @Override
+    public void onGetListShopSuccess(List<Shop> shops) {
+        mShopAdapter.updateData(shops);
     }
 
     public void onSeeMoreProductClick() {

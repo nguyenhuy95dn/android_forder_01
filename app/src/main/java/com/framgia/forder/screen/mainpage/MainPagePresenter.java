@@ -1,8 +1,10 @@
 package com.framgia.forder.screen.mainpage;
 
 import com.framgia.forder.data.model.Product;
+import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ProductRepository;
+import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import java.util.List;
@@ -17,14 +19,17 @@ final class MainPagePresenter implements MainPageContract.Presenter {
     private final MainPageContract.ViewModel mViewModel;
     private final CompositeSubscription mCompositeSubscription;
     private ProductRepository mProductRepository;
+    private ShopRepository mShopRepository;
     private DomainRepository mDomainRepository;
 
     public MainPagePresenter(MainPageContract.ViewModel viewModel,
-            ProductRepository productRepository, DomainRepository domainRepository) {
+            ProductRepository productRepository, DomainRepository domainRepository,
+            ShopRepository shopRepository) {
         mViewModel = viewModel;
         mProductRepository = productRepository;
         mCompositeSubscription = new CompositeSubscription();
         mDomainRepository = domainRepository;
+        mShopRepository = shopRepository;
     }
 
     @Override
@@ -53,6 +58,25 @@ final class MainPagePresenter implements MainPageContract.Presenter {
                                 mViewModel.onGetListProductError(error);
                             }
                         });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void getListShop() {
+        Subscription subscription = mShopRepository.getListShop(mDomainRepository.getDomainId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<List<Shop>>() {
+                    @Override
+                    public void call(List<Shop> shops) {
+                        mViewModel.onGetListShopSuccess(shops);
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onGetListShopError(error);
+                    }
+                });
         mCompositeSubscription.add(subscription);
     }
 
