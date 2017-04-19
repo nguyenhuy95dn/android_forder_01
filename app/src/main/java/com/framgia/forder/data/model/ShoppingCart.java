@@ -12,7 +12,7 @@ import static com.framgia.forder.utils.Constant.UNIT_MONEY;
 
 public class ShoppingCart extends RealmObject {
     @PrimaryKey
-    private int mIdShoppingCard;
+    private int mShoppingCartId = 0;
     private int mDomainId;
     private int mShopId;
     private int mQuantity;
@@ -23,16 +23,17 @@ public class ShoppingCart extends RealmObject {
     private String mProductImage;
     private String mStartHour;
     private String mEndHour;
+    private Double mTotal;
 
     public ShoppingCart() {
     }
 
-    public int getIdShoppingCard() {
-        return mIdShoppingCard;
+    public int getShoppingCartId() {
+        return mShoppingCartId;
     }
 
-    public void setIdShoppingCard(int idShoppingCard) {
-        mIdShoppingCard = idShoppingCard;
+    public void setShoppingCartId(int shoppingCartId) {
+        mShoppingCartId = shoppingCartId;
     }
 
     public int getDomainId() {
@@ -117,5 +118,17 @@ public class ShoppingCart extends RealmObject {
 
     public String getFormatPrice() {
         return String.format(FORMAT_PRICE, mPrice) + UNIT_MONEY;
+    }
+
+    public String getFormatTotal() {
+        return String.format(FORMAT_PRICE, mTotal) + UNIT_MONEY;
+    }
+
+    public Double getTotal() {
+        return mPrice * mQuantity;
+    }
+
+    public void setTotal(Double total) {
+        mTotal = total;
     }
 }

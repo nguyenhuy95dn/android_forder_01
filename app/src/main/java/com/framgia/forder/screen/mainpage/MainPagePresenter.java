@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.mainpage;
 
+import android.util.Log;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.DomainRepository;
@@ -8,6 +9,7 @@ import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import java.util.List;
+import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -37,8 +39,19 @@ final class MainPagePresenter implements MainPageContract.Presenter {
         if (product == null) {
             return;
         }
-        mProductRepository.addToCart(product);
-        mCompositeSubscription.clear();
+        Subscription subscription = mProductRepository.addToCart(product)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        mViewModel.onAddToCartSuccess();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onAddToCartError(error);
+                    }
+                });
+          mCompositeSubscription.add(subscription);
     }
 
     @Override
