@@ -23,12 +23,14 @@ import static com.framgia.forder.screen.main.MainViewModel.Tab.TAB_SEARCH;
  * Created by tri on 13/04/2017.
  */
 
-public class FragmentContainer extends Fragment {
+public class MainContainerFragment extends Fragment {
 
     private static final String EXTRA_TAB_FOOTER = "EXTRA_TAB_FOOTER";
 
-    public static FragmentContainer newInstance(@MainViewModel.Tab int tab) {
-        FragmentContainer fragment = new FragmentContainer();
+    private Navigator mNavigator;
+
+    public static MainContainerFragment newInstance(@MainViewModel.Tab int tab) {
+        MainContainerFragment fragment = new MainContainerFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(EXTRA_TAB_FOOTER, tab);
         fragment.setArguments(bundle);
@@ -38,21 +40,21 @@ public class FragmentContainer extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_container, container, false);
-        Navigator navigator = new Navigator(this);
+        mNavigator = new Navigator(this);
         @MainViewModel.Tab int tab = getArguments().getInt(EXTRA_TAB_FOOTER);
         switch (tab) {
             case TAB_HOME:
-                navigator.goNextChildFragment(R.id.layout_content,
+                mNavigator.goNextChildFragment(R.id.layout_content,
                         MainPageContainerFragment.newInstance(), true, Navigator.NONE,
                         "MainPageContainerFragment");
                 break;
             case TAB_SEARCH:
-                navigator.goNextChildFragment(R.id.layout_content,
+                mNavigator.goNextChildFragment(R.id.layout_content,
                         SearchContainerFragment.newInstance(), true, Navigator.NONE,
                         "SearchContainerFragment");
                 break;
             case TAB_CART:
-                navigator.goNextChildFragment(R.id.layout_content,
+                mNavigator.goNextChildFragment(R.id.layout_content,
                         ShoppingCartFragment.newInstance(), true, Navigator.BOTTOM_UP,
                         "ShoppingCartFragment");
                 break;
@@ -60,7 +62,7 @@ public class FragmentContainer extends Fragment {
                 //TODO new Fragment Notifications
                 break;
             case TAB_PROFILE:
-                navigator.goNextChildFragment(R.id.layout_content,
+                mNavigator.goNextChildFragment(R.id.layout_content,
                         ProfilePageFragment.newInstance(), true, Navigator.NONE,
                         "ProfilePageFragment");
                 break;
@@ -68,5 +70,9 @@ public class FragmentContainer extends Fragment {
                 break;
         }
         return view;
+    }
+
+    public boolean onBackPressed() {
+        return mNavigator.goBackChildFragment();
     }
 }

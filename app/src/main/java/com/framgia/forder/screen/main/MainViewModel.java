@@ -3,6 +3,7 @@ package com.framgia.forder.screen.main;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.annotation.IntDef;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -90,6 +91,16 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
 
     public MainViewPagerAdapter getViewPagerAdapter() {
         return mViewPagerAdapter;
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        Fragment fragment = mViewPagerAdapter.getCurrentFragment();
+        if (fragment instanceof MainContainerFragment) {
+            MainContainerFragment containerFragment = (MainContainerFragment) fragment;
+            return containerFragment.onBackPressed();
+        }
+        return false;
     }
 
     @IntDef({ Tab.TAB_HOME, Tab.TAB_SEARCH, Tab.TAB_CART, Tab.TAB_NOTIFICATION, Tab.TAB_PROFILE })
