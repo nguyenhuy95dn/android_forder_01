@@ -20,4 +20,9 @@ final class MainPresenter implements MainContract.Presenter {
     @Override
     public void onStop() {
     }
+
+    @Override
+    public void getCurrentDomain() {
+        // todo load current domain
+    }
 }

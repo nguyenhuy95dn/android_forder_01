@@ -11,11 +11,11 @@
     </data>
 
     <RelativeLayout
-        android:background="@android:color/transparent"
         android:id="@+id/layout_footer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_65"
         android:layout_alignParentBottom="true"
+        android:background="@android:color/transparent"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,6 +27,7 @@
             <LinearLayout
                 android:id="@+id/layout_home"
                 android:onClick="@{viewModel::onFooterClicked}"
+                app:selected="@{true}"
                 style="@style/StyleTabFooter"
                 >
                 <ImageView
