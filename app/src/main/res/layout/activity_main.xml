@@ -26,36 +26,49 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
-            <android.support.design.widget.AppBarLayout
-                android:id="@+id/app_bar"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_home"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                app:logo="@drawable/ic_logo"
                 >
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar_home"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorPrimary"
-                    app:logo="@drawable/ic_logo"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:gravity="center"
+                    android:onClick="@{()-> viewModel.onChangeDomainClick()}"
+                    android:orientation="horizontal"
                     >
-                    <android.support.v7.widget.AppCompatSpinner
-                        android:id="@+id/spinner"
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/ic_place"
+                        />
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:text="@{viewModel.currentDomain}"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/sp_20"
+                        android:textStyle="bold"
                         />
-                </android.support.v7.widget.Toolbar>
-            </android.support.design.widget.AppBarLayout>
+                </LinearLayout>
+            </android.support.v7.widget.Toolbar>
 
             <com.framgia.forder.utils.UnSwipeViewPager
                 android:id="@+id/layout_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_above="@+id/layout_footer"
-                android:layout_below="@+id/app_bar"
+                android:layout_below="@+id/toolbar_home"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 bind:adapter="@{viewModel.viewPagerAdapter}"
                 bind:currentFragment="@{viewModel.currentTab}"
+                app:offscreenPageLimit="@{viewModel.pageLimit}"
                 />
 
             <include

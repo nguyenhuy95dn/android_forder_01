@@ -18,6 +18,9 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
 
     private MainContract.Presenter mPresenter;
     private MainViewPagerAdapter mViewPagerAdapter;
+    private String mCurrentDomain;
+    private int mPageLimit = 5;
+
     @Tab
     private int mCurrentTab;
 
@@ -101,6 +104,23 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
             return containerFragment.onBackPressed();
         }
         return false;
+    }
+
+    @Override
+    public void showCurrentDomain(String domainName) {
+        mCurrentDomain = domainName;
+    }
+
+    public String getCurrentDomain() {
+        return mCurrentDomain;
+    }
+
+    public void onChangeDomainClick() {
+        // todo show dialog change domain
+    }
+
+    public int getPageLimit() {
+        return mPageLimit;
     }
 
     @IntDef({ Tab.TAB_HOME, Tab.TAB_SEARCH, Tab.TAB_CART, Tab.TAB_NOTIFICATION, Tab.TAB_PROFILE })

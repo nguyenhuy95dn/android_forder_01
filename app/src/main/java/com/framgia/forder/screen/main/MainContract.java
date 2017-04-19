@@ -12,11 +12,14 @@ interface MainContract {
      */
     interface ViewModel extends BaseViewModel<Presenter> {
         boolean onBackPressed();
+
+        void showCurrentDomain(String domainName);
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
+        void getCurrentDomain();
     }
 }

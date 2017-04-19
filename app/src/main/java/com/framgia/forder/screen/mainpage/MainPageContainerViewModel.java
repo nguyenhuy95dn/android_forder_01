@@ -8,6 +8,7 @@ public class MainPageContainerViewModel implements MainPageContainerContract.Vie
 
     private MainPageContainerContract.Presenter mPresenter;
     private MainPageContainerAdapter mAdapter;
+    private int mPageLimit = 3;
 
     public MainPageContainerViewModel(MainPageContainerAdapter adapter) {
         mAdapter = adapter;
@@ -30,5 +31,9 @@ public class MainPageContainerViewModel implements MainPageContainerContract.Vie
 
     public MainPageContainerAdapter getAdapter() {
         return mAdapter;
+    }
+
+    public int getPageLimit() {
+        return mPageLimit;
     }
 }
