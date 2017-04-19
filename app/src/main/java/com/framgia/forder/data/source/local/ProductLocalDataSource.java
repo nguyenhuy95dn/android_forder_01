@@ -194,9 +194,7 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
             public void call(Subscriber<? super List<Cart>> subscriber, Realm realm) {
                 List<Cart> cartList = new ArrayList<>();
 
-                RealmResults<ShoppingCart> shop = realm.where(ShoppingCart.class)
-                        .equalTo("mDomainId", domainId)
-                        .distinct("mShopId");
+                RealmResults<ShoppingCart> shop = realm.where(ShoppingCart.class).findAll();
 
                 for (ShoppingCart shoppingCart : shop) {
                     Cart cart = new Cart(shoppingCart.getDomainId(), shoppingCart.getShopId(),
@@ -214,10 +212,12 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                                         shoppingCart.getQuantity(), shoppingCart.getProductId(),
                                         shoppingCart.getProductName(),
                                         shoppingCart.getProductImage(), shoppingCart.getPrice(),
-                                        shoppingCart.getStartHour(), shoppingCart.getEndHour());
+                                        shoppingCart.getStartHour(), shoppingCart.getEndHour(),
+                                        shoppingCart.getTotal());
                         cartItemList.add(cartItem);
                     }
                     cart.setCartItemList(cartItemList);
+                    cart.setTotal(shopId.sum("mTotal").doubleValue());
                 }
                 try {
                     subscriber.onNext(cartList);

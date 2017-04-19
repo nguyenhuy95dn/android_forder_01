@@ -73,6 +73,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@android:color/transparent"
+                            android:onClick="@{()-> viewModel.downQuantity()}"
                             android:padding="@dimen/dp_5"
                             android:src="@drawable/ic_remove_black"
                             />
@@ -102,6 +103,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@android:color/transparent"
+                            android:onClick="@{()-> viewModel.upQuantity()}"
                             android:padding="@dimen/dp_5"
                             android:src="@drawable/ic_add_black"
                             />
@@ -114,6 +116,7 @@
                     android:layout_gravity="center"
                     android:layout_marginRight="@dimen/dp_20"
                     android:background="@android:color/transparent"
+                    android:onClick="@{()-> viewModel.deleteProduct()}"
                     app:srcCompat="@drawable/ic_delete"
                     />
             </LinearLayout>

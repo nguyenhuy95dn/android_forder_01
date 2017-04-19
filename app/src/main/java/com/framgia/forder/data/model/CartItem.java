@@ -17,12 +17,13 @@ public class CartItem {
     private double mPrice;
     private String mStartHour;
     private String mEndHour;
+    private Double mTotal;
 
     public CartItem() {
     }
 
     public CartItem(int domainId, int shopId, int quantity, int productId, String productName,
-            String productImage, double price, String startHour, String endHour) {
+            String productImage, double price, String startHour, String endHour, Double total) {
         mDomainId = domainId;
         mShopId = shopId;
         mQuantity = quantity;
@@ -32,6 +33,7 @@ public class CartItem {
         mPrice = price;
         mStartHour = startHour;
         mEndHour = endHour;
+        mTotal = total;
     }
 
     public int getDomainId() {
@@ -107,6 +109,14 @@ public class CartItem {
     }
 
     public String getFormatPrice() {
-        return String.format(FORMAT_PRICE, mPrice) + UNIT_MONEY;
+        return String.format(FORMAT_PRICE, mTotal) + UNIT_MONEY;
+    }
+
+    public Double getTotal() {
+        return mQuantity * mPrice;
+    }
+
+    public void setTotal(Double total) {
+        mTotal = total;
     }
 }
