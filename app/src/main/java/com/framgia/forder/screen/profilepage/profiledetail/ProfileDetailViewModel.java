@@ -1,7 +1,9 @@
 package com.framgia.forder.screen.profilepage.profiledetail;
 
-import com.framgia.forder.data.model.Image;
+import com.framgia.forder.R;
 import com.framgia.forder.data.model.User;
+import com.framgia.forder.screen.profilepage.ProfilePageFragment;
+import com.framgia.forder.screen.profilepage.updateprofile.UpdateProfileFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 
 /**
@@ -9,6 +11,7 @@ import com.framgia.forder.utils.navigator.Navigator;
  */
 
 public class ProfileDetailViewModel implements ProfileDetailContract.ViewModel {
+    private static final String TAG = "UpdateProfileFragment";
 
     private ProfileDetailContract.Presenter mPresenter;
     private Navigator mNavigator;
@@ -48,5 +51,15 @@ public class ProfileDetailViewModel implements ProfileDetailContract.ViewModel {
 
     public String getCreatedAt() {
         return mUser != null ? mUser.getFormatDate() : "";
+    }
+
+    public void onClickUpdateProfile() {
+        mNavigator.goNextChildFragment(R.id.layout_content, UpdateProfileFragment.newInstance(),
+                true, Navigator.RIGHT_LEFT, TAG);
+    }
+
+    public void onClickBack() {
+        mNavigator.goNextChildFragment(R.id.layout_content, ProfilePageFragment.newInstance(), true,
+                Navigator.FADED, TAG);
     }
 }

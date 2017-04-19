@@ -19,5 +19,8 @@ public class UserDataSource {
 
     public interface RemoteDataSource {
         Observable<User> login(String userName, String passWord);
+
+        Observable<User> updateProfile(String newPassword, String chatWorkId, String description,
+                String currentPassword);
     }
 }

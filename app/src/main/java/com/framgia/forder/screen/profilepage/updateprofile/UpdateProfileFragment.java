@@ -1,4 +1,4 @@
-package com.framgia.forder.screen.profilepage.profiledetail;
+package com.framgia.forder.screen.profilepage.updateprofile;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -12,31 +12,33 @@ import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.local.UserLocalDataSource;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
-import com.framgia.forder.databinding.FragmentProfileDetailBinding;
+import com.framgia.forder.data.source.remote.UserRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
+import com.framgia.forder.databinding.FragmentProfileUpdateBinding;
 import com.framgia.forder.utils.navigator.Navigator;
 
 /**
- * Created by ASUS on 4/17/2017.
+ * ProfileUpdate Screen.
  */
+public class UpdateProfileFragment extends Fragment {
 
-public class ProfileDetailFragment extends Fragment {
+    private UpdateProfileContract.ViewModel mViewModel;
 
-    private ProfileDetailContract.ViewModel mViewModel;
-
-    public static ProfileDetailFragment newInstance() {
-        return new ProfileDetailFragment();
+    public static UpdateProfileFragment newInstance() {
+        return new UpdateProfileFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Navigator navigator = new Navigator(getParentFragment());
-        mViewModel = new ProfileDetailViewModel(navigator);
+        mViewModel = new UpdateProfileViewModel(navigator);
         SharedPrefsApi sharedPrefsApi = new SharedPrefsImpl(getActivity().getApplicationContext());
         UserRepository userRepository =
-                new UserRepository(null, new UserLocalDataSource(sharedPrefsApi));
-        ProfileDetailContract.Presenter presenter =
-                new ProfileDetailPresenter(mViewModel, userRepository);
+                new UserRepository(new UserRemoteDataSource(FOrderServiceClient.getInstance()),
+                        new UserLocalDataSource(sharedPrefsApi));
+        UpdateProfileContract.Presenter presenter =
+                new UpdateProfilePresenter(mViewModel, userRepository);
         mViewModel.setPresenter(presenter);
     }
 
@@ -45,10 +47,10 @@ public class ProfileDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
 
-        FragmentProfileDetailBinding binding =
-                DataBindingUtil.inflate(inflater, R.layout.fragment_profile_detail, container,
+        FragmentProfileUpdateBinding binding =
+                DataBindingUtil.inflate(inflater, R.layout.fragment_profile_update, container,
                         false);
-        binding.setViewModel((ProfileDetailViewModel) mViewModel);
+        binding.setViewModel((UpdateProfileViewModel) mViewModel);
         return binding.getRoot();
     }
 

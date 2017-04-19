@@ -117,7 +117,7 @@
                         android:layout_marginLeft="@dimen/dp_10"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_history_order"
+                        android:src="@drawable/ic_history"
                         />
 
                     <TextView
@@ -152,7 +152,7 @@
                         android:layout_marginLeft="@dimen/dp_10"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_oder"
+                        android:src="@drawable/ic_order"
                         />
 
                     <TextView

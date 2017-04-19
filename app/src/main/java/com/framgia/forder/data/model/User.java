@@ -33,6 +33,14 @@ public class User implements Parcelable {
     @Expose
     private String mUpdatedAt;
 
+    @SerializedName("chatwork_id")
+    @Expose
+    private String mChatworkId;
+
+    @SerializedName("description")
+    @Expose
+    private String mDescription;
+
     protected User(Parcel in) {
         mName = in.readString();
         mEmail = in.readString();
@@ -40,6 +48,8 @@ public class User implements Parcelable {
         mToken = in.readString();
         mCreatedAt = in.readString();
         mUpdatedAt = in.readString();
+        mChatworkId = in.readString();
+        mDescription = in.readString();
     }
 
     @Override
@@ -50,6 +60,8 @@ public class User implements Parcelable {
         dest.writeString(mToken);
         dest.writeString(mCreatedAt);
         dest.writeString(mUpdatedAt);
+        dest.writeString(mChatworkId);
+        dest.writeString(mDescription);
     }
 
     @Override
@@ -123,6 +135,22 @@ public class User implements Parcelable {
 
     public void setUpdatedAt(String updatedAt) {
         mUpdatedAt = updatedAt;
+    }
+
+    public String getChatworkId() {
+        return mChatworkId;
+    }
+
+    public void setChatworkId(String chatworkId) {
+        mChatworkId = chatworkId;
+    }
+
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
     }
 
     public String getFormatDate() {
