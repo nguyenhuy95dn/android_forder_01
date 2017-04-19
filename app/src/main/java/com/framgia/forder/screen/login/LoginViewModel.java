@@ -1,11 +1,13 @@
 package com.framgia.forder.screen.login;
 
+import android.app.Application;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.screen.chooseDomain.ChooseDomainActivity;
 import com.framgia.forder.utils.navigator.Navigator;
 
@@ -16,6 +18,7 @@ import com.framgia.forder.utils.navigator.Navigator;
 public class LoginViewModel extends BaseObservable implements LoginContract.ViewModel {
 
     private Context mContext;
+    private Application mApplication;
     private Navigator mNavigator;
     private LoginContract.Presenter mPresenter;
     private String mUsernameError;
@@ -23,8 +26,9 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     private String mUsername;
     private String mPassword;
 
-    public LoginViewModel(Context context, Navigator navigator) {
+    public LoginViewModel(Context context, Application application, Navigator navigator) {
         mContext = context;
+        mApplication = application;
         mNavigator = navigator;
     }
 
@@ -73,6 +77,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
         //TODO Login Success !
         mNavigator.showToast(R.string.login_success);
         mNavigator.startActivity(ChooseDomainActivity.class);
+        FOrderServiceClient.initialize(mApplication);
         mNavigator.finishActivity();
     }
 
