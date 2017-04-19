@@ -1,6 +1,7 @@
 package com.framgia.forder.screen.mainpage;
 
 import com.framgia.forder.data.model.Product;
+import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BasePresenter;
 import com.framgia.forder.screen.BaseViewModel;
@@ -17,6 +18,10 @@ interface MainPageContract {
         void onGetListProductError(BaseException exception);
 
         void onGetListProductSuccess(List<Product> products);
+
+        void onGetListShopError(BaseException exception);
+
+        void onGetListShopSuccess(List<Shop> shops);
     }
 
     /**
@@ -26,5 +31,7 @@ interface MainPageContract {
         void addToCart(Product product);
 
         void getListProduct();
+
+        void getListShop();
     }
 }

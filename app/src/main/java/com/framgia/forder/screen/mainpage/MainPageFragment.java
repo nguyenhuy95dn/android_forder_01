@@ -12,6 +12,7 @@ import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ProductRepository;
+import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.local.DomainLocalDataSource;
 import com.framgia.forder.data.source.local.ProductLocalDataSource;
 import com.framgia.forder.data.source.local.UserLocalDataSource;
@@ -20,6 +21,7 @@ import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
 import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
 import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
+import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentMainPageBinding;
 import com.framgia.forder.screen.mainpage.product.ProductAdapter;
@@ -57,8 +59,11 @@ public class MainPageFragment extends Fragment {
         ProductRepository productRepository = new ProductRepository(
                 new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
                 new ProductLocalDataSource(realmApi));
+        ShopRepository shopRepository =
+                new ShopRepository(new ShopRemoteDataSource(FOrderServiceClient.getInstance()));
         MainPageContract.Presenter presenter =
-                new MainPagePresenter(mViewModel, productRepository, domainRepository);
+                new MainPagePresenter(mViewModel, productRepository, domainRepository,
+                        shopRepository);
         mViewModel.setPresenter(presenter);
 
         FragmentMainPageBinding binding =
