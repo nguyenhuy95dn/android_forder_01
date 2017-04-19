@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import com.framgia.forder.R;
+import com.framgia.forder.screen.searchproduct.ProductSearchResultFragment;
+import com.framgia.forder.screen.searchshop.ShopSearchResultFragment;
 
 public class SearchContainerAdapter extends FragmentPagerAdapter {
     private static final int TAB_NUMBER = 2;
@@ -21,6 +23,10 @@ public class SearchContainerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
+            case TAB_PRODUCT:
+                return ProductSearchResultFragment.newInstance();
+            case TAB_SHOP:
+                return ShopSearchResultFragment.newInstance();
             default:
                 return null;
         }
@@ -43,4 +49,3 @@ public class SearchContainerAdapter extends FragmentPagerAdapter {
         }
     }
 }
-
