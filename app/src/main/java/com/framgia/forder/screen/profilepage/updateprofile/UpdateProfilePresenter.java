@@ -1,9 +1,16 @@
 package com.framgia.forder.screen.profilepage.updateprofile;
 
-import android.text.TextUtils;
-import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.UserRepository;
+import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.error.SafetyError;
+import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
+import com.framgia.forder.data.source.remote.api.response.UpdateProfileRespone;
 import java.util.Objects;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Listens to user actions from the UI ({@link UpdateProfileFragment}), retrieves the data and
@@ -14,55 +21,67 @@ final class UpdateProfilePresenter implements UpdateProfileContract.Presenter {
     private static final String TAG = UpdateProfilePresenter.class.getName();
 
     private final UpdateProfileContract.ViewModel mViewModel;
+    private CompositeSubscription mCompositeSubscription;
     private UserRepository mUserRepository;
-    private User mUser;
 
     public UpdateProfilePresenter(UpdateProfileContract.ViewModel viewModel,
             UserRepository userRepository) {
         mViewModel = viewModel;
         mUserRepository = userRepository;
+        mCompositeSubscription = new CompositeSubscription();
     }
 
     @Override
     public void onStart() {
-        mUser = mUserRepository.getUser();
-        mViewModel.onGetUserProfile(mUser);
+        getUserProfile();
     }
 
     @Override
     public void onStop() {
+        mCompositeSubscription.clear();
     }
 
     @Override
-    public void updateProfile(String newPassword, String chatWorkId, String description,
-            String currentPassword) {
-        if (!chatWorkId.equals(mUser.getChatworkId())
-                || !description.equals(mUser.getDescription())
-                || TextUtils.isEmpty(newPassword)) {
-            //TODO: Handle update information
-        }
+    public void updateProfile(UpdateProfileRequest updateProfileRequest) {
+        Subscription subscription = mUserRepository.updateProfile(updateProfileRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<UpdateProfileRespone>() {
+                    @Override
+                    public void call(UpdateProfileRespone updateProfileRespone) {
+                        mUserRepository.clearData();
+                        mUserRepository.saveUser(
+                                updateProfileRespone.getUpdateProfileRequest().getUser());
+                        mViewModel.onUpdateProfileSuccess();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onUpdateProfileError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    public void getUserProfile() {
+        mViewModel.onGetUserProfile(mUserRepository.getUser());
     }
 
     @Override
-    public boolean validateDataInput(String newPassword, String confirmNewPassword,
-            String currentPassword) {
-        boolean isValidate = true;
-        if (TextUtils.isEmpty(newPassword)) {
-            isValidate = false;
-            mViewModel.onInputNewPasswordError();
+    public boolean validateDataInputChange(String userName, String chatwordId, String description) {
+        boolean isDataChange = false;
+        String oldUsername = mUserRepository.getUser().getName();
+        String oldChatworkId = mUserRepository.getUser().getChatworkId();
+        String oldDescription = mUserRepository.getUser().getDescription();
+        if (!Objects.equals(userName, oldUsername)) {
+            isDataChange = true;
         }
-        if (TextUtils.isEmpty(confirmNewPassword)) {
-            isValidate = false;
-            mViewModel.onInputConfirmNewPasswordError();
+        if (!Objects.equals(chatwordId, oldChatworkId)) {
+            isDataChange = true;
         }
-        if (TextUtils.isEmpty(currentPassword)) {
-            isValidate = false;
-            mViewModel.onInputCurrentPasswordError();
+        if (!Objects.equals(description, oldDescription)) {
+            isDataChange = true;
         }
-        if (!TextUtils.equals(currentPassword, confirmNewPassword)) {
-            isValidate = false;
-            mViewModel.onCheckConfirmPasswordError();
-        }
-        return isValidate;
+        return isDataChange;
     }
 }

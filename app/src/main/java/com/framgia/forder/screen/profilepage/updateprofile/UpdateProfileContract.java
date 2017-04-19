@@ -1,6 +1,8 @@
 package com.framgia.forder.screen.profilepage.updateprofile;
 
 import com.framgia.forder.data.model.User;
+import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
 import com.framgia.forder.screen.BasePresenter;
 import com.framgia.forder.screen.BaseViewModel;
 
@@ -16,23 +18,17 @@ interface UpdateProfileContract {
 
         void onUpdateProfileSuccess();
 
-        void onInputNewPasswordError();
-
-        void onInputConfirmNewPasswordError();
-
-        void onInputCurrentPasswordError();
-
-        void onCheckConfirmPasswordError();
+        void onUpdateProfileError(BaseException throwable);
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
-        void updateProfile(String newPassword, String chatWorkId, String description,
-                String currentPassword);
+        void updateProfile(UpdateProfileRequest updateProfileRequest);
 
-        boolean validateDataInput(String newPassword, String confirmNewPassword,
-                String currentPassword);
+        void getUserProfile();
+
+        boolean validateDataInputChange(String userName, String chatwordId, String description);
     }
 }

@@ -1,9 +1,13 @@
 package com.framgia.forder.data.source.remote.api.service;
 
+import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
+import com.framgia.forder.data.source.remote.api.response.UpdateProfileRespone;
 import com.framgia.forder.data.source.remote.api.response.UserResponse;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -31,4 +35,8 @@ public interface FOrderApi {
     // TODO edit later
     @GET("v1/products")
     Observable<ProductResponse> getListShop(@Query("domain_id") int id);
+
+    // TODO edit later: There is no api profile link yet
+    @POST("v1/profile")
+    Observable<UpdateProfileRespone> updateUserInformation(@Body UpdateProfileRequest updateProfileRequest);
 }

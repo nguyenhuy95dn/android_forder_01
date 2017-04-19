@@ -1,6 +1,8 @@
 package com.framgia.forder.data.source;
 
 import com.framgia.forder.data.model.User;
+import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
+import com.framgia.forder.data.source.remote.api.response.UpdateProfileRespone;
 import rx.Observable;
 
 /**
@@ -21,6 +23,11 @@ public class UserRepository {
         return mUserRemoteDataSource.login(userName, passWord);
     }
 
+    public Observable<UpdateProfileRespone> updateProfile(
+            UpdateProfileRequest updateProfileRequest) {
+        return mUserRemoteDataSource.updateProfile(updateProfileRequest);
+    }
+
     public void saveUser(User user) {
         mUserLocalDataSource.saveUser(user);
     }
@@ -29,7 +36,7 @@ public class UserRepository {
         return mUserLocalDataSource.getUser();
     }
 
-    public void clearData(){
+    public void clearData() {
         mUserLocalDataSource.clearData();
     }
 }

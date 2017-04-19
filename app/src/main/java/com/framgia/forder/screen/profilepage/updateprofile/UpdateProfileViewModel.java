@@ -2,8 +2,8 @@ package com.framgia.forder.screen.profilepage.updateprofile;
 
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.User;
-import com.framgia.forder.screen.profilepage.ProfilePageFragment;
-import com.framgia.forder.screen.profilepage.profiledetail.ProfileDetailFragment;
+import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
 import com.framgia.forder.utils.navigator.Navigator;
 
 /**
@@ -18,11 +18,8 @@ public class UpdateProfileViewModel implements UpdateProfileContract.ViewModel {
     private User mUser;
     private String mEmail;
     private String mUsername;
-    private String mNewPassword;
-    private String mConfirmNewPassword;
     private String mChatworkId;
     private String mDescription;
-    private String mCurrentPassword;
 
     public UpdateProfileViewModel(Navigator navigator) {
         mNavigator = navigator;
@@ -52,40 +49,39 @@ public class UpdateProfileViewModel implements UpdateProfileContract.ViewModel {
     }
 
     public void onUpdateProfileClick() {
-        if (!mPresenter.validateDataInput(mNewPassword, mConfirmNewPassword, mCurrentPassword)) {
-            return;
+        UpdateProfileRequest updateProfileRequest = new UpdateProfileRequest();
+        mUser.setName(mUsername);
+        mUser.setChatworkId(mChatworkId);
+        mUser.setDescription(mDescription);
+        updateProfileRequest.setUser(mUser);
+        if (!mPresenter.validateDataInputChange(mUsername, mChatworkId, mDescription)) {
+            onNothingChange();
+        } else {
+            mPresenter.updateProfile(updateProfileRequest);
         }
-        mPresenter.updateProfile(mNewPassword, mChatworkId, mDescription, mCurrentPassword);
     }
 
     public void onClickBack() {
-        mNavigator.goNextChildFragment(R.id.layout_content, ProfileDetailFragment.newInstance(),
-                true, Navigator.FADED, TAG);
+        mNavigator.goBackChildFragment();
+    }
+
+    public void onChangePassword() {
+        //TODO: navigate to change password fragment
+    }
+
+    public void onNothingChange() {
+        mNavigator.showToast(R.string.nothing_change);
     }
 
     @Override
     public void onUpdateProfileSuccess() {
-        //TODO: send success messenger
+        mNavigator.showToast(R.string.update_profile_success);
+        mPresenter.getUserProfile();
     }
 
     @Override
-    public void onInputNewPasswordError() {
-        //TODO: Alert new password is empty
-    }
-
-    @Override
-    public void onInputConfirmNewPasswordError() {
-        //TODO: Alert confirm new password is empty
-    }
-
-    @Override
-    public void onInputCurrentPasswordError() {
-        //TODO: Alert current password is empty
-    }
-
-    @Override
-    public void onCheckConfirmPasswordError() {
-        //TODO: Alert confirm password does not match
+    public void onUpdateProfileError(BaseException e) {
+        mNavigator.showToast(e.getMessage());
     }
 
     public String getEmail() {
@@ -104,22 +100,6 @@ public class UpdateProfileViewModel implements UpdateProfileContract.ViewModel {
         mUsername = username;
     }
 
-    public String getNewPassword() {
-        return mNewPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        mNewPassword = newPassword;
-    }
-
-    public String getConfirmNewPassword() {
-        return mConfirmNewPassword;
-    }
-
-    public void setConfirmNewPassword(String confirmNewPassword) {
-        mConfirmNewPassword = confirmNewPassword;
-    }
-
     public String getChatworkId() {
         return mUser != null ? mUser.getChatworkId() : "";
     }
@@ -134,13 +114,5 @@ public class UpdateProfileViewModel implements UpdateProfileContract.ViewModel {
 
     public void setDescription(String description) {
         mDescription = description;
-    }
-
-    public String getCurrentPassword() {
-        return mCurrentPassword;
-    }
-
-    public void setCurrentPassword(String currentPassword) {
-        mCurrentPassword = currentPassword;
     }
 }

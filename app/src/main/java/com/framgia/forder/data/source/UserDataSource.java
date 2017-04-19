@@ -1,6 +1,8 @@
 package com.framgia.forder.data.source;
 
 import com.framgia.forder.data.model.User;
+import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
+import com.framgia.forder.data.source.remote.api.response.UpdateProfileRespone;
 import rx.Observable;
 
 /**
@@ -20,7 +22,6 @@ public class UserDataSource {
     public interface RemoteDataSource {
         Observable<User> login(String userName, String passWord);
 
-        Observable<User> updateProfile(String newPassword, String chatWorkId, String description,
-                String currentPassword);
+        Observable<UpdateProfileRespone> updateProfile(UpdateProfileRequest updateProfileRequest);
     }
 }
