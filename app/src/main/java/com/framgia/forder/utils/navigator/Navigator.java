@@ -109,6 +109,22 @@ public class Navigator {
         mFragment.getChildFragmentManager().executePendingTransactions();
     }
 
+    /**
+     * Always keep 1 fragment in container
+     *
+     * @return true if fragment stack has pop
+     */
+    public boolean goBackChildFragment() {
+        if (mFragment == null) {
+            return false;
+        }
+        boolean isShowPrevious = mFragment.getChildFragmentManager().getBackStackEntryCount() > 1;
+        if (isShowPrevious) {
+            mFragment.getChildFragmentManager().popBackStackImmediate();
+        }
+        return isShowPrevious;
+    }
+
     private void setFragmentTransactionAnimation(FragmentTransaction transaction,
             @NavigateAnim int animation) {
         switch (animation) {
