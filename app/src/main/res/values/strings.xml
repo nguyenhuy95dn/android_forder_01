@@ -60,4 +60,8 @@
     <string name="nothing_change">Nothing change</string>
     <string name="change_password">Change password</string>
     <string name="change_domain">Change domain</string>
+    <string name="shop_name">Shop name: </string>
+    <string name="product_quantity">Product quantity: </string>
+    <string name="owner">Shop owner: </string>
+    <string name="rating">Rating: </string>
 </resources>
