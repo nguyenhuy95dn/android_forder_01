@@ -12,6 +12,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.source.DomainRepository;
+import com.framgia.forder.data.source.SearchRepository;
+import com.framgia.forder.data.source.local.DomainLocalDataSource;
+import com.framgia.forder.data.source.local.UserLocalDataSource;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
+import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
+import com.framgia.forder.data.source.remote.SearchRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentSearchContainerBinding;
 
 /**
@@ -31,10 +40,17 @@ public class SearchContainerFragment extends Fragment implements SearchView.OnQu
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         SearchContainerAdapter adapter =
-                new SearchContainerAdapter(getChildFragmentManager(), getActivity());
+                new SearchContainerAdapter(getActivity(), getChildFragmentManager());
         mViewModel = new SearchContainerViewModel(adapter);
+        SearchRepository searchRepository =
+                new SearchRepository(new SearchRemoteDataSource(FOrderServiceClient.getInstance()));
 
-        SearchContainerContract.Presenter presenter = new SearchContainerPresenter(mViewModel);
+        SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity().getApplicationContext());
+        DomainRepository domainRepository =
+                new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
+                        new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
+        SearchContainerContract.Presenter presenter =
+                new SearchContainerPresenter(mViewModel, searchRepository, domainRepository);
         mViewModel.setPresenter(presenter);
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_container, container,
@@ -68,6 +84,7 @@ public class SearchContainerFragment extends Fragment implements SearchView.OnQu
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        mViewModel.onClickSearch(query);
         return false;
     }
 

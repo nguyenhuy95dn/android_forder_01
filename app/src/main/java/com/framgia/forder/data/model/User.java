@@ -52,6 +52,12 @@ public class User implements Parcelable {
         mDescription = in.readString();
     }
 
+    public User(Integer id, String name, String email) {
+        mId = id;
+        mName = name;
+        mEmail = email;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mName);

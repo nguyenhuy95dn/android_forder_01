@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.databinding.FragmentShopSearchResultBinding;
+import java.util.List;
 
 /**
  * Searchshop Screen.
@@ -35,5 +37,8 @@ public class ShopSearchResultFragment extends Fragment {
                         false);
         binding.setViewModel((ShopSearchResultViewModel) mViewModel);
         return binding.getRoot();
+    }
+
+    public void setShops(List<Shop> shops) {
     }
 }

@@ -67,6 +67,22 @@ public class Shop implements Parcelable {
         mTimeAutoReject = in.readString();
     }
 
+    public Shop(int id, int domainId, int shopId, String name, String description, String status,
+            CollectionAvatar collectionAvatar, float averageRating, int ownerId, User user,
+            String timeAutoReject) {
+        mId = id;
+        mDomainId = domainId;
+        mShopId = shopId;
+        mName = name;
+        mDescription = description;
+        mStatus = status;
+        mCollectionAvatar = collectionAvatar;
+        mAverageRating = averageRating;
+        mOwnerId = ownerId;
+        mUser = user;
+        mTimeAutoReject = timeAutoReject;
+    }
+
     public int getDomainId() {
         return mDomainId;
     }
