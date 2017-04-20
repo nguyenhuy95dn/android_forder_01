@@ -8,11 +8,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.Product;
+import com.framgia.forder.data.source.DomainRepository;
+import com.framgia.forder.data.source.ProductRepository;
+import com.framgia.forder.data.source.local.DomainLocalDataSource;
+import com.framgia.forder.data.source.local.ProductLocalDataSource;
+import com.framgia.forder.data.source.local.UserLocalDataSource;
+import com.framgia.forder.data.source.local.realm.RealmApi;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
+import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
+import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentListproductBinding;
+import com.framgia.forder.screen.mainpage.product.ProductAdapter;
 import com.framgia.forder.utils.navigator.Navigator;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Productpage Screen.
+ * ProductList Screen.
  */
 public class ListProductFragment extends Fragment {
 
@@ -22,19 +37,25 @@ public class ListProductFragment extends Fragment {
         return new ListProductFragment();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Navigator navigator = new Navigator(getParentFragment());
-        mViewModel = new ListProductViewModel(navigator);
-        ListProductContract.Presenter presenter = new ListProductPresenter(mViewModel);
-        mViewModel.setPresenter(presenter);
-    }
-
-    @Nullable
-    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        List<Product> products = new ArrayList<>();
+        ProductAdapter productAdapter = new ProductAdapter(getActivity(), products);
+        Navigator navigator = new Navigator(getParentFragment());
+        mViewModel = new ListProductViewModel(getActivity(), productAdapter, navigator);
+        RealmApi realmApi = new RealmApi();
+
+        SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
+        DomainRepository domainRepository =
+                new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
+                        new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
+        ProductRepository productRepository = new ProductRepository(
+                new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
+                new ProductLocalDataSource(realmApi));
+        ListProductContract.Presenter presenter =
+                new ListProductPresenter(mViewModel, productRepository, domainRepository);
+        mViewModel.setPresenter(presenter);
 
         FragmentListproductBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_listproduct, container, false);

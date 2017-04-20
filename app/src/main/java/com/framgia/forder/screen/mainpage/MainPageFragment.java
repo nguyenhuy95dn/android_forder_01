@@ -26,6 +26,7 @@ import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentMainPageBinding;
 import com.framgia.forder.screen.mainpage.product.ProductAdapter;
 import com.framgia.forder.screen.mainpage.shop.ShopAdapter;
+import com.framgia.forder.utils.navigator.Navigator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,8 +48,9 @@ public class MainPageFragment extends Fragment {
         List<Shop> shops = new ArrayList<>();
         ProductAdapter productAdapter = new ProductAdapter(getActivity(), products);
         ShopAdapter shopAdapter = new ShopAdapter(getActivity(), shops);
+        Navigator navigator = new Navigator(getParentFragment().getParentFragment());
 
-        mViewModel = new MainPageViewModel(productAdapter, shopAdapter);
+        mViewModel = new MainPageViewModel(productAdapter, shopAdapter, navigator);
 
         RealmApi realmApi = new RealmApi();
 

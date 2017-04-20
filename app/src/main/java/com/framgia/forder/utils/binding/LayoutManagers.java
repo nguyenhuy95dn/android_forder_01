@@ -8,7 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 public class LayoutManagers {
-    protected LayoutManagers() {
+    public LayoutManagers() {
     }
 
     public static LayoutManagerFactory linear() {

@@ -22,6 +22,8 @@ final class MainPagePresenter implements MainPageContract.Presenter {
     private ProductRepository mProductRepository;
     private ShopRepository mShopRepository;
     private DomainRepository mDomainRepository;
+    private static final int START_SUB_LIST = 0;
+    private static final int END_SUB_LIST = 6;
 
     public MainPagePresenter(MainPageContract.ViewModel viewModel,
             ProductRepository productRepository, DomainRepository domainRepository,
@@ -65,7 +67,8 @@ final class MainPagePresenter implements MainPageContract.Presenter {
                 .subscribe(new Action1<List<Product>>() {
                     @Override
                     public void call(List<Product> products) {
-                        mViewModel.onGetListProductSuccess(products);
+                        mViewModel.onGetListProductSuccess(
+                                products.subList(START_SUB_LIST, END_SUB_LIST));
                     }
                 }, new SafetyError() {
                     @Override
