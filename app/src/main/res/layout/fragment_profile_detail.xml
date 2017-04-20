@@ -49,9 +49,9 @@
                 <ImageView
                     android:layout_width="@dimen/dp_40"
                     android:layout_height="@dimen/dp_40"
-                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginLeft="@dimen/dp_2"
                     android:onClick="@{() -> viewModel.onClickBack()}"
-                    android:src="@drawable/ic_back"
+                    android:src="@drawable/ic_arrow_back"
                     />
                 <ImageView
                     android:layout_width="@dimen/dp_40"

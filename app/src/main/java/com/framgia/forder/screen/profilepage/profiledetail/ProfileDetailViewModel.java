@@ -59,7 +59,6 @@ public class ProfileDetailViewModel implements ProfileDetailContract.ViewModel {
     }
 
     public void onClickBack() {
-        mNavigator.goNextChildFragment(R.id.layout_content, ProfilePageFragment.newInstance(), true,
-                Navigator.FADED, TAG);
+        mNavigator.goBackChildFragment();
     }
 }
