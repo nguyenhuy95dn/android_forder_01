@@ -59,4 +59,5 @@
     <string name="update_profile_success">Update profile success</string>
     <string name="nothing_change">Nothing change</string>
     <string name="change_password">Change password</string>
+    <string name="change_domain">Change domain</string>
 </resources>
