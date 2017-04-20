@@ -1,5 +1,7 @@
 package com.framgia.forder.screen.main;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.annotation.IntDef;
@@ -9,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.framgia.forder.BR;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.Domain;
+import com.framgia.forder.data.source.remote.api.error.BaseException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Exposes the data to be used in the Main screen.
@@ -20,17 +26,21 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     private MainViewPagerAdapter mViewPagerAdapter;
     private String mCurrentDomain;
     private int mPageLimit = 5;
+    private AlertDialog.Builder mDialogChangeDomain;
 
     @Tab
     private int mCurrentTab;
 
-    public MainViewModel(MainViewPagerAdapter mainViewPagerAdapter) {
+    public MainViewModel(MainViewPagerAdapter mainViewPagerAdapter,
+            AlertDialog.Builder alertDialog) {
         mViewPagerAdapter = mainViewPagerAdapter;
+        mDialogChangeDomain = alertDialog;
     }
 
     @Override
     public void onStart() {
         mPresenter.onStart();
+        mPresenter.getCurrentDomain();
     }
 
     @Override
@@ -109,14 +119,44 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     @Override
     public void showCurrentDomain(String domainName) {
         mCurrentDomain = domainName;
+        notifyPropertyChanged(BR.currentDomain);
     }
 
+    @Override
+    public void onGetListDomainSuccess(final List<Domain> domains) {
+        List<String> listDomainName = new ArrayList<>();
+        for (Domain domain : domains) {
+            listDomainName.add(domain.getName());
+        }
+        mDialogChangeDomain.setTitle(R.string.change_domain);
+        mDialogChangeDomain.setSingleChoiceItems(
+                listDomainName.toArray(new String[listDomainName.size()]), -1,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        mPresenter.saveCurrentDomain(domains.get(item));
+                        mPresenter.getCurrentDomain();
+                        // todo reload data
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = mDialogChangeDomain.create();
+        alertDialog.show();
+        alertDialog.getListView()
+                .setItemChecked(mPresenter.getCurrentDomainPosition(domains), true);
+    }
+
+    @Override
+    public void onGetListDomainError(BaseException e) {
+
+    }
+
+    @Bindable
     public String getCurrentDomain() {
         return mCurrentDomain;
     }
 
     public void onChangeDomainClick() {
-        // todo show dialog change domain
+        mPresenter.getListDomain();
     }
 
     public int getPageLimit() {

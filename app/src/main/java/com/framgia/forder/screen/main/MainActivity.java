@@ -1,10 +1,18 @@
 package com.framgia.forder.screen.main;
 
+import android.app.AlertDialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 import com.framgia.forder.R;
+import com.framgia.forder.data.source.DomainRepository;
+import com.framgia.forder.data.source.local.DomainLocalDataSource;
+import com.framgia.forder.data.source.local.UserLocalDataSource;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
+import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.ActivityMainBinding;
 import com.framgia.forder.screen.BaseActivity;
 
@@ -25,9 +33,15 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager());
-        mViewModel = new MainViewModel(adapter);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        mViewModel = new MainViewModel(adapter, alertDialog);
 
-        MainContract.Presenter presenter = new MainPresenter(mViewModel);
+        SharedPrefsApi prefsApi = new SharedPrefsImpl(getApplicationContext());
+        DomainRepository domainRepository =
+                new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
+                        new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
+
+        MainContract.Presenter presenter = new MainPresenter(mViewModel, domainRepository);
         mViewModel.setPresenter(presenter);
 
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
