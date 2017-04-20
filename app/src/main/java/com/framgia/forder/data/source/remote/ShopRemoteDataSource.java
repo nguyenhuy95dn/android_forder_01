@@ -16,8 +16,6 @@ import rx.functions.Func1;
 
 public class ShopRemoteDataSource extends BaseRemoteDataSource
         implements ShopDataSource.RemoteDataSource {
-    private final int START_SUB_LIST = 0;
-    private final int END_SUB_LIST = 6;
 
     public ShopRemoteDataSource(FOrderApi fOrderApi) {
         super(fOrderApi);
@@ -38,15 +36,6 @@ public class ShopRemoteDataSource extends BaseRemoteDataSource
                             return Observable.just(shops);
                         }
                         return Observable.error(new NullPointerException());
-                    }
-                })
-                .map(new Func1<List<Shop>, List<Shop>>() {
-                    @Override
-                    public List<Shop> call(List<Shop> list) {
-                        if (list.size() <= END_SUB_LIST) {
-                            return list;
-                        }
-                        return list.subList(START_SUB_LIST, END_SUB_LIST);
                     }
                 });
     }

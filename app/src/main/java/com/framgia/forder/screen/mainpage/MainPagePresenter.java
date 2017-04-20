@@ -91,7 +91,8 @@ final class MainPagePresenter implements MainPageContract.Presenter {
                 .subscribe(new Action1<List<Shop>>() {
                     @Override
                     public void call(List<Shop> shops) {
-                        mViewModel.onGetListShopSuccess(shops);
+                        mViewModel.onGetListShopSuccess(
+                                shops.subList(START_SUB_LIST, END_SUB_LIST));
                     }
                 }, new SafetyError() {
                     @Override
