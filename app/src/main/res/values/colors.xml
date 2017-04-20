@@ -16,4 +16,6 @@
     <color name="color_slightly_orange">#FFAC63</color>
     <color name="color_orange_mos">#FF5C00</color>
     <color name="color_green">#009900</color>
+    <color name="color_red">#FF0000</color>
+    <color name="color_white_transparent">#BFFAFAFA</color>
 </resources>
