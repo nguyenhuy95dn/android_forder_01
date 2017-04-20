@@ -8,10 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
-import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
+import com.framgia.forder.data.source.DomainRepository;
+import com.framgia.forder.data.source.ShopRepository;
+import com.framgia.forder.data.source.local.DomainLocalDataSource;
+import com.framgia.forder.data.source.local.UserLocalDataSource;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
+import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
+import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentListShopBinding;
-import com.framgia.forder.screen.mainpage.shop.ShopAdapter;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +38,17 @@ public class ListShopFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         List<Shop> shops = new ArrayList<>();
-        ShopAdapter shopAdapter = new ShopAdapter(getActivity(), shops);
+        ListShopAdapter listShopAdapter = new ListShopAdapter(getActivity(), shops);
         Navigator navigator = new Navigator(getParentFragment());
-        mViewModel = new ListShopViewModel(getActivity(), shopAdapter, navigator);
-        ListShopContract.Presenter presenter = new ListShopPresenter(mViewModel);
+        mViewModel = new ListShopViewModel(listShopAdapter, navigator);
+        SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
+        DomainRepository domainRepository =
+                new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
+                        new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
+        ShopRepository shopRepository =
+                new ShopRepository(new ShopRemoteDataSource(FOrderServiceClient.getInstance()));
+        ListShopContract.Presenter presenter =
+                new ListShopPresenter(mViewModel, shopRepository, domainRepository);
         mViewModel.setPresenter(presenter);
     }
 

@@ -31,6 +31,21 @@ public class ItemShopViewModel extends BaseObservable {
         return mShop.getName();
     }
 
+    public String getOwner() {
+        if (mShop != null && mShop.getUser() != null && mShop.getUser().getName() != null) {
+            return mShop.getUser().getName();
+        }
+        return "";
+    }
+
+    public String getDescription() {
+        return mShop.getDescription();
+    }
+
+    public float getRating() {
+        return mShop.getAverageRating();
+    }
+
     public void onItemClicked() {
         if (mItemClickListener == null) {
             return;
