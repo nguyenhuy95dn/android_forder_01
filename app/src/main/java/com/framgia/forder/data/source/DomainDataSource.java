@@ -13,9 +13,9 @@ public class DomainDataSource {
     public interface LocalDataSource {
         User getUser();
 
-        void saveDomainId(int id);
+        void saveCurrentDomain(Domain domain);
 
-        int getDomainId();
+        Domain getCurrentDomain();
     }
 
     public interface RemoteDataSource {

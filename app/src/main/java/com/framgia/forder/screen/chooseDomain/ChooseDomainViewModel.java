@@ -78,7 +78,7 @@ public class ChooseDomainViewModel extends BaseObservable
             mNavigator.showToast(R.string.you_need_to_choose_a_domain_to_continue);
         } else {
             Domain domain = mDomains.get(mSelectedTypePosition - 1);
-            mPresenter.saveDomainId(domain.getId());
+            mPresenter.saveCurrentDomain(domain);
             mNavigator.startActivity(MainActivity.class);
             mNavigator.finishActivity();
         }

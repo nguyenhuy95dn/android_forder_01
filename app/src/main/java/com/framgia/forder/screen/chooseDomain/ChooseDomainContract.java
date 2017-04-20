@@ -23,6 +23,6 @@ interface ChooseDomainContract {
      * Presenter.
      */
     interface Presenter extends BasePresenter {
-        void saveDomainId(int id);
+        void saveCurrentDomain(Domain domain);
     }
 }

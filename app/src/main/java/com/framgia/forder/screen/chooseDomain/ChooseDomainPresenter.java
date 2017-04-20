@@ -58,7 +58,7 @@ final class ChooseDomainPresenter implements ChooseDomainContract.Presenter {
     }
 
     @Override
-    public void saveDomainId(int id) {
-        mDomainRepository.saveDomainId(id);
+    public void saveCurrentDomain(Domain domain) {
+        mDomainRepository.saveCurrentDomain(domain);
     }
 }

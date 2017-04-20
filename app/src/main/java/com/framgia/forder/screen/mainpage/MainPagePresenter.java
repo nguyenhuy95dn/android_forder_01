@@ -1,6 +1,6 @@
 package com.framgia.forder.screen.mainpage;
 
-import android.util.Log;
+import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.DomainRepository;
@@ -9,7 +9,6 @@ import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import java.util.List;
-import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -39,8 +38,8 @@ final class MainPagePresenter implements MainPageContract.Presenter {
         if (product == null) {
             return;
         }
-        Subscription subscription = mProductRepository.addToCart(product)
-                .subscribe(new Action1<Void>() {
+        Subscription subscription =
+                mProductRepository.addToCart(product).subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
                         mViewModel.onAddToCartSuccess();
@@ -51,32 +50,39 @@ final class MainPagePresenter implements MainPageContract.Presenter {
                         mViewModel.onAddToCartError(error);
                     }
                 });
-          mCompositeSubscription.add(subscription);
+        mCompositeSubscription.add(subscription);
     }
 
     @Override
     public void getListProduct() {
-        Subscription subscription =
-                mProductRepository.getListProduct(mDomainRepository.getDomainId())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Action1<List<Product>>() {
-                            @Override
-                            public void call(List<Product> products) {
-                                mViewModel.onGetListProductSuccess(products);
-                            }
-                        }, new SafetyError() {
-                            @Override
-                            public void onSafetyError(BaseException error) {
-                                mViewModel.onGetListProductError(error);
-                            }
-                        });
+        Domain domain = mDomainRepository.getCurrentDomain();
+        if (domain == null) {
+            return;
+        }
+        Subscription subscription = mProductRepository.getListProduct(domain.getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<List<Product>>() {
+                    @Override
+                    public void call(List<Product> products) {
+                        mViewModel.onGetListProductSuccess(products);
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onGetListProductError(error);
+                    }
+                });
         mCompositeSubscription.add(subscription);
     }
 
     @Override
     public void getListShop() {
-        Subscription subscription = mShopRepository.getListShop(mDomainRepository.getDomainId())
+        Domain domain = mDomainRepository.getCurrentDomain();
+        if (domain == null) {
+            return;
+        }
+        Subscription subscription = mShopRepository.getListShop(domain.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Shop>>() {

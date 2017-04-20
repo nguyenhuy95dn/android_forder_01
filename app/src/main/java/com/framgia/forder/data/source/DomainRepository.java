@@ -28,11 +28,11 @@ public class DomainRepository {
         return mRemoteDataSource.getListDomain(userId, userEmail, userToken);
     }
 
-    public void saveDomainId(int id) {
-        mLocalDataSource.saveDomainId(id);
+    public void saveCurrentDomain(Domain domain) {
+        mLocalDataSource.saveCurrentDomain(domain);
     }
 
-    public int getDomainId() {
-        return mLocalDataSource.getDomainId();
+    public Domain getCurrentDomain() {
+        return mLocalDataSource.getCurrentDomain();
     }
 }

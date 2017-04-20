@@ -36,7 +36,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 if (userRepository.getUser() == null) {
                     loginPage();
-                } else if (domainRepository.getDomainId() == 0) {
+                } else if (domainRepository.getCurrentDomain() == null) {
                     chooseDomainPage();
                 } else {
                     mainPage();
