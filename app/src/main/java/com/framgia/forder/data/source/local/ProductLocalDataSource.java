@@ -1,6 +1,7 @@
 package com.framgia.forder.data.source.local;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.ShoppingCart;
 import com.framgia.forder.data.source.ProductDataSource;
@@ -45,8 +46,8 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                         .findFirst();
                 if (shoppingCart == null) {
                     ShoppingCart cart = new ShoppingCart();
-                    cart.setIdShoppingCard(
-                            realm.where(ShoppingCart.class).max("mIdShoppingCard").intValue() + 1);
+                    cart.setShoppingCartId(
+                            realm.where(ShoppingCart.class).max("mShoppingCartId").intValue() + 1);
                     cart.setDomainId(product.getShop().getDomainId());
                     cart.setShopId(product.getShop().getShopId());
                     cart.setQuantity(DEFAULT_QUANTITY);
@@ -58,13 +59,19 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                     cart.setStartHour(product.getStartHour());
                     cart.setEndHour(product.getEndHour());
                     try {
-                        realm.insert(cart);
+                        realm.insertOrUpdate(cart);
                         subscriber.onCompleted();
                     } catch (IllegalStateException e) {
                         subscriber.onError(e);
                     }
                 } else {
-                    upQuantity(product.getId(), product.getShop().getDomainId());
+                    try {
+                        shoppingCart.setQuantity(shoppingCart.getQuantity() + 1);
+                        realm.insertOrUpdate(shoppingCart);
+                        subscriber.onCompleted();
+                    } catch (IllegalStateException e) {
+                        subscriber.onError(e);
+                    }
                 }
             }
         }).observeOn(AndroidSchedulers.mainThread());
@@ -100,8 +107,7 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                         .equalTo("mDomainId", domainId)
                         .findFirst();
                 try {
-                    cart.setQuantity(
-                            realm.where(ShoppingCart.class).max("mQuantity").intValue() + 1);
+                    cart.setQuantity(cart.getQuantity() + 1);
                     realm.insertOrUpdate(cart);
                     subscriber.onCompleted();
                 } catch (IllegalStateException e) {
@@ -126,8 +132,7 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                     return;
                 } else {
                     try {
-                        cart.setQuantity(
-                                realm.where(ShoppingCart.class).max("mQuantity").intValue() - 1);
+                        cart.setQuantity(cart.getQuantity() - 1);
                         realm.insertOrUpdate(cart);
                         subscriber.onCompleted();
                     } catch (IllegalStateException e) {
@@ -140,14 +145,14 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
 
     @Override
     public Observable<Integer> getNumberItem(@NonNull final int domainId) {
-        return mRealmApi.realmTransactionAsync(new Action2<Subscriber<? super Integer>, Realm>() {
+        return mRealmApi.realmGet(new Action2<Subscriber<? super Integer>, Realm>() {
             @Override
             public void call(Subscriber<? super Integer> subscriber, Realm realm) {
-
                 try {
-                    double carts =
-                            realm.where(ShoppingCart.class).equalTo("mDomainId", domainId).count();
-                    subscriber.onNext((int) carts);
+                    RealmResults<ShoppingCart> carts = realm.where(ShoppingCart.class)
+                            .equalTo("mDomainId", domainId)
+                            .findAll();
+                    subscriber.onNext(carts.size());
                     subscriber.onCompleted();
                 } catch (IllegalStateException e) {
                     subscriber.onError(e);
@@ -158,8 +163,20 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
 
     @Override
     public Observable<Double> getTotalPrice(@NonNull final int domainId) {
-        return null;
-        // TODO get Total price in ShoppingCart
+        return mRealmApi.realmGet(new Action2<Subscriber<? super Double>, Realm>() {
+            @Override
+            public void call(Subscriber<? super Double> subscriber, Realm realm) {
+                try {
+                    RealmResults<ShoppingCart> carts = realm.where(ShoppingCart.class)
+                            .equalTo("mDomainId", domainId)
+                            .findAll();
+                    subscriber.onNext(carts.sum("mTotal").doubleValue());
+                    subscriber.onCompleted();
+                } catch (IllegalStateException e) {
+                    subscriber.onError(e);
+                }
+            }
+        }).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
