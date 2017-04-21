@@ -36,4 +36,9 @@ public class MainPageContainerViewModel implements MainPageContainerContract.Vie
     public int getPageLimit() {
         return mPageLimit;
     }
+
+    @Override
+    public void reloadData() {
+        mAdapter.notifyDataSetChanged();
+    }
 }
