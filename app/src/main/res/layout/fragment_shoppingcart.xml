@@ -18,11 +18,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-        <android.support.v7.widget.RecyclerView
+        <ExpandableListView
+            android:id="@+id/expand_list_cart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/button_order"
-            app:layoutManager="@{LayoutManagers.linear}"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:dividerHeight="@dimen/dp_2"
+            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
             />
         <Button
             android:id="@+id/button_order"

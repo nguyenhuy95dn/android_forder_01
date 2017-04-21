@@ -1,6 +1,7 @@
 package com.framgia.forder.data.source;
 
 import android.support.annotation.NonNull;
+import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.ShoppingCart;
 import com.framgia.forder.data.source.local.realm.BaseLocalDataSource;
@@ -22,7 +23,7 @@ public interface ProductDataSource {
 
         Observable<Double> getTotalPrice(@NonNull int domainId);
 
-        Observable<List<ShoppingCart>> getAllShoppingCart();
+        Observable<List<Cart>> getAllShoppingCart(int domainId);
     }
 
     interface RemoteDataSource {
