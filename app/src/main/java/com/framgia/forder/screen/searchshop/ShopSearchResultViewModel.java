@@ -2,7 +2,6 @@ package com.framgia.forder.screen.searchshop;
 
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
-import com.framgia.forder.screen.mainpage.shop.ShopAdapter;
 import java.util.List;
 
 /**
@@ -13,9 +12,9 @@ public class ShopSearchResultViewModel implements ShopSearchResultContract.ViewM
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
 
     private ShopSearchResultContract.Presenter mPresenter;
-    private ShopAdapter mAdapter;
+    private ShopSearchResultAdapter mAdapter;
 
-    public ShopSearchResultViewModel(ShopAdapter adapter) {
+    public ShopSearchResultViewModel(ShopSearchResultAdapter adapter) {
         mAdapter = adapter;
         mAdapter.setItemClickListener(this);
     }
@@ -35,7 +34,7 @@ public class ShopSearchResultViewModel implements ShopSearchResultContract.ViewM
         mPresenter = presenter;
     }
 
-    public ShopAdapter getAdapter() {
+    public ShopSearchResultAdapter getAdapter() {
         return mAdapter;
     }
 

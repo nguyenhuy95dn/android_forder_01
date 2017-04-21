@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.databinding.FragmentShopSearchResultBinding;
-import com.framgia.forder.screen.mainpage.shop.ShopAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class ShopSearchResultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         List<Shop> shops = new ArrayList<>();
-        ShopAdapter adapter = new ShopAdapter(getContext(), shops);
+        ShopSearchResultAdapter adapter = new ShopSearchResultAdapter(getContext(), shops);
         mViewModel = new ShopSearchResultViewModel(adapter);
 
         ShopSearchResultContract.Presenter presenter = new ShopSearchResultPresenter(mViewModel);
