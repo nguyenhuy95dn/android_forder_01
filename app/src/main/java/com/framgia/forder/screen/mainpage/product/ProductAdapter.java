@@ -63,7 +63,7 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<ProductAdapter.ItemV
         notifyDataSetChanged();
     }
 
-    static class ItemViewHolder extends RecyclerView.ViewHolder {
+     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private ItemProductBinding mBinding;
         private OnRecyclerViewItemClickListener<Object> mItemClickListener;
