@@ -15,9 +15,9 @@ public class ProductSearchResultViewModel extends BaseObservable
         implements ProductSearchResultContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener {
     private ProductSearchResultContract.Presenter mPresenter;
-    private ProductAdapter mAdapter;
+    private ProductSearchResultAdapter mAdapter;
 
-    public ProductSearchResultViewModel(ProductAdapter adapter) {
+    public ProductSearchResultViewModel(ProductSearchResultAdapter adapter) {
         mAdapter = adapter;
         mAdapter.setOrderListener(this);
         mAdapter.setItemClickListener(this);
@@ -38,7 +38,7 @@ public class ProductSearchResultViewModel extends BaseObservable
         mPresenter = presenter;
     }
 
-    public ProductAdapter getAdapter() {
+    public ProductSearchResultAdapter getAdapter() {
         return mAdapter;
     }
 

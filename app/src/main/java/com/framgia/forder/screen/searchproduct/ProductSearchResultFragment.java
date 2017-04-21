@@ -30,7 +30,7 @@ public class ProductSearchResultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         List<Product> products = new ArrayList<>();
-        ProductAdapter adapter = new ProductAdapter(getContext(), products);
+        ProductSearchResultAdapter adapter = new ProductSearchResultAdapter(getContext(), products);
         mViewModel = new ProductSearchResultViewModel(adapter);
         ProductSearchResultContract.Presenter presenter =
                 new ProductSearchResultPresenter(mViewModel);
