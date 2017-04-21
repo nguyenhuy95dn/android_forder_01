@@ -38,7 +38,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_30"
                 android:background="@color/colorAccent"
+                app:tabIndicatorColor="@android:color/white"
                 app:tabSelectedTextColor="@android:color/white"
+                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                app:tabTextColor="@color/color_gray_white"
                 bind:pager="@{viewpager}"
                 />
         </android.support.design.widget.AppBarLayout>

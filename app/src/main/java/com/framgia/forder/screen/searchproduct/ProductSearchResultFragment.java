@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.databinding.FragmentProductSearchResultBinding;
+import com.framgia.forder.screen.mainpage.product.ProductAdapter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,10 +29,13 @@ public class ProductSearchResultFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        mViewModel = new ProductSearchResultViewModel();
+        List<Product> products = new ArrayList<>();
+        ProductAdapter adapter = new ProductAdapter(getContext(), products);
+        mViewModel = new ProductSearchResultViewModel(adapter);
         ProductSearchResultContract.Presenter presenter =
                 new ProductSearchResultPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
+
         FragmentProductSearchResultBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_product_search_result,
                         container, false);
@@ -39,5 +44,6 @@ public class ProductSearchResultFragment extends Fragment {
     }
 
     public void setProducts(List<Product> products) {
+        mViewModel.onSearchSuccess(products);
     }
 }
