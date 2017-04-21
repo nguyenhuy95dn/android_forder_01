@@ -30,25 +30,25 @@ public class ItemShoppingCartViewModel extends BaseObservable {
         mOrderItemListener.onOrderItem(mCart);
     }
 
-    public void upQuantity(CartItem cartItem) {
+    public void upQuantity() {
         if (mOrderItemListener == null) {
             return;
         }
-        mOrderItemListener.onUpQuantity(cartItem);
+        mOrderItemListener.onUpQuantity(mCartItem);
     }
 
-    public void downQuantity(CartItem cartItem) {
+    public void downQuantity() {
         if (mOrderItemListener == null) {
             return;
         }
-        mOrderItemListener.onDownQuantity(cartItem);
+        mOrderItemListener.onDownQuantity(mCartItem);
     }
 
-    public void deleteProduct(CartItem cartItem) {
+    public void deleteProduct() {
         if (mOrderItemListener == null) {
             return;
         }
-        mOrderItemListener.onDeleteProduct(cartItem);
+        mOrderItemListener.onDeleteProduct(mCartItem);
     }
 
     public String getProductImage() {
@@ -69,5 +69,9 @@ public class ItemShoppingCartViewModel extends BaseObservable {
 
     public String getShopName() {
         return mCart.getShopName();
+    }
+
+    public String getTotal() {
+        return mCart.getFormatTotal();
     }
 }

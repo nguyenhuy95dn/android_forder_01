@@ -27,6 +27,7 @@
             android:layout_alignParentStart="true"
             android:dividerHeight="@dimen/dp_2"
             android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+            app:adapter="@{viewModel.shoppingCartAdapter}"
             />
         <Button
             android:id="@+id/button_order"
