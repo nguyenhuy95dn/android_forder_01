@@ -1,7 +1,7 @@
 package com.framgia.forder.data.source;
 
+import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Product;
-import com.framgia.forder.data.model.ShoppingCart;
 import com.framgia.forder.data.source.local.ProductLocalDataSource;
 import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
 import java.util.List;
@@ -45,8 +45,8 @@ public class ProductRepository {
         return mLocalDataSource.getTotalPrice(domainId);
     }
 
-    public Observable<List<ShoppingCart>> getAllShoppingCart() {
-        return mLocalDataSource.getAllShoppingCart();
+    public Observable<List<Cart>> getAllShoppingCart(int domainId) {
+        return mLocalDataSource.getAllShoppingCart(domainId);
     }
 
     public void openTransaction() {

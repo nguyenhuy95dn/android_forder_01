@@ -1,0 +1,19 @@
+package com.framgia.forder.screen.cart;
+
+import com.framgia.forder.data.model.Cart;
+import com.framgia.forder.data.model.CartItem;
+import com.framgia.forder.data.model.ShoppingCart;
+
+/**
+ * Created by tri on 19/04/2017.
+ */
+
+public interface OrderItemListener {
+    void onOrderItem(Cart cart);
+
+    void onUpQuantity(CartItem cartItem);
+
+    void onDownQuantity(CartItem cartItem);
+
+    void onDeleteProduct(CartItem cartItem);
+}

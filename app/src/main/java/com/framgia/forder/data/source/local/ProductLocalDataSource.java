@@ -1,13 +1,15 @@
 package com.framgia.forder.data.source.local;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
+import com.framgia.forder.data.model.Cart;
+import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.ShoppingCart;
 import com.framgia.forder.data.source.ProductDataSource;
 import com.framgia.forder.data.source.local.realm.RealmApi;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import java.util.ArrayList;
 import java.util.List;
 import rx.Observable;
 import rx.Subscriber;
@@ -46,10 +48,15 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                         .findFirst();
                 if (shoppingCart == null) {
                     ShoppingCart cart = new ShoppingCart();
-                    cart.setShoppingCartId(
-                            realm.where(ShoppingCart.class).max("mShoppingCartId").intValue() + 1);
+                    if (realm.where(ShoppingCart.class).findAll().size() == 0) {
+                        cart.setShoppingCartId(1);
+                    } else {
+                        cart.setShoppingCartId(
+                                realm.where(ShoppingCart.class).max("mShoppingCartId").intValue()
+                                        + 1);
+                    }
                     cart.setDomainId(product.getShop().getDomainId());
-                    cart.setShopId(product.getShop().getShopId());
+                    cart.setShopId(product.getShopId());
                     cart.setQuantity(DEFAULT_QUANTITY);
                     cart.setProductId(product.getId());
                     cart.setPrice(product.getPrice());
@@ -58,6 +65,7 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                     cart.setProductImage(product.getCollectionImage().getImage().getUrl());
                     cart.setStartHour(product.getStartHour());
                     cart.setEndHour(product.getEndHour());
+                    cart.setTotal(cart.getTotal());
                     try {
                         realm.insertOrUpdate(cart);
                         subscriber.onCompleted();
@@ -180,13 +188,39 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
     }
 
     @Override
-    public Observable<List<ShoppingCart>> getAllShoppingCart() {
-        return mRealmApi.realmGet(new Action2<Subscriber<? super List<ShoppingCart>>, Realm>() {
+    public Observable<List<Cart>> getAllShoppingCart(final int domainId) {
+        return mRealmApi.realmGet(new Action2<Subscriber<? super List<Cart>>, Realm>() {
             @Override
-            public void call(Subscriber<? super List<ShoppingCart>> subscriber, Realm realm) {
+            public void call(Subscriber<? super List<Cart>> subscriber, Realm realm) {
+                List<Cart> cartList = new ArrayList<>();
+
+                RealmResults<ShoppingCart> shop = realm.where(ShoppingCart.class)
+                        .equalTo("mDomainId", domainId)
+                        .distinct("mShopId");
+
+                for (ShoppingCart shoppingCart : shop) {
+                    Cart cart = new Cart(shoppingCart.getDomainId(), shoppingCart.getShopId(),
+                            shoppingCart.getShopName(), shoppingCart.getTotal());
+                    cartList.add(cart);
+                }
+                for (Cart cart : cartList) {
+                    RealmResults<ShoppingCart> shopId = realm.where(ShoppingCart.class)
+                            .equalTo("mShopId", cart.getShopId())
+                            .findAll();
+                    List<CartItem> cartItemList = new ArrayList<>();
+                    for (ShoppingCart shoppingCart : shopId) {
+                        CartItem cartItem =
+                                new CartItem(shoppingCart.getDomainId(), shoppingCart.getShopId(),
+                                        shoppingCart.getQuantity(), shoppingCart.getProductId(),
+                                        shoppingCart.getProductName(),
+                                        shoppingCart.getProductImage(), shoppingCart.getPrice(),
+                                        shoppingCart.getStartHour(), shoppingCart.getEndHour());
+                        cartItemList.add(cartItem);
+                    }
+                    cart.setCartItemList(cartItemList);
+                }
                 try {
-                    RealmResults<ShoppingCart> carts = realm.where(ShoppingCart.class).findAll();
-                    subscriber.onNext(carts);
+                    subscriber.onNext(cartList);
                     subscriber.onCompleted();
                 } catch (IllegalStateException e) {
                     subscriber.onError(e);
