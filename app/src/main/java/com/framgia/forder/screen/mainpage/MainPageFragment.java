@@ -60,7 +60,7 @@ public class MainPageFragment extends Fragment {
                         new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
         ProductRepository productRepository = new ProductRepository(
                 new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
-                new ProductLocalDataSource(realmApi));
+                new ProductLocalDataSource(realmApi), domainRepository);
         ShopRepository shopRepository =
                 new ShopRepository(new ShopRemoteDataSource(FOrderServiceClient.getInstance()));
         MainPageContract.Presenter presenter =

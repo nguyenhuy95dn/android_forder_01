@@ -1,6 +1,5 @@
 package com.framgia.forder.screen.listProduct;
 
-import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ProductRepository;
@@ -23,13 +22,11 @@ final class ListProductPresenter implements ListProductContract.Presenter {
     private final ListProductContract.ViewModel mViewModel;
     private final CompositeSubscription mCompositeSubscription;
     private ProductRepository mProductRepository;
-    private DomainRepository mDomainRepository;
 
     public ListProductPresenter(ListProductContract.ViewModel viewModel,
-            ProductRepository productRepository, DomainRepository domainRepository) {
+            ProductRepository productRepository) {
         mViewModel = viewModel;
         mProductRepository = productRepository;
-        mDomainRepository = domainRepository;
         mCompositeSubscription = new CompositeSubscription();
     }
 
@@ -62,16 +59,11 @@ final class ListProductPresenter implements ListProductContract.Presenter {
                     }
                 });
         mCompositeSubscription.add(subscription);
-        mCompositeSubscription.clear();
     }
 
     @Override
     public void getListAllProduct() {
-        Domain domain = mDomainRepository.getCurrentDomain();
-        if (domain == null) {
-            return;
-        }
-        Subscription subscription = mProductRepository.getListProduct(domain.getId())
+        Subscription subscription = mProductRepository.getListProduct()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Product>>() {

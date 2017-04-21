@@ -2,12 +2,11 @@ package com.framgia.forder.screen.cart;
 
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
-import com.framgia.forder.data.model.Domain;
-import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ProductRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import java.util.List;
+import rx.Subscriber;
 import rx.Subscription;
 import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
@@ -22,13 +21,11 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
     private final CompositeSubscription mCompositeSubscription;
     private final ShoppingCartContract.ViewModel mViewModel;
     private ProductRepository mProductRepository;
-    private DomainRepository mDomainRepository;
 
     public ShoppingCartPresenter(ShoppingCartContract.ViewModel viewModel,
-            ProductRepository productRepository, DomainRepository domainRepository) {
+            ProductRepository productRepository) {
         mViewModel = viewModel;
         mProductRepository = productRepository;
-        mDomainRepository = domainRepository;
         mCompositeSubscription = new CompositeSubscription();
     }
 
@@ -45,12 +42,8 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
 
     @Override
     public void getListCart() {
-        Domain domain = mDomainRepository.getCurrentDomain();
-        if (domain == null) {
-            return;
-        }
-        Subscription subscriptions = mProductRepository.getAllShoppingCart(domain.getId())
-                .subscribe(new Action1<List<Cart>>() {
+        Subscription subscriptions =
+                mProductRepository.getAllShoppingCart().subscribe(new Action1<List<Cart>>() {
                     @Override
                     public void call(List<Cart> carts) {
                         mViewModel.onGetListCartSuccess(carts);
@@ -74,67 +67,76 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
 
     @Override
     public void upQuantity(CartItem cartItem) {
-        Domain domain = mDomainRepository.getCurrentDomain();
-        if (cartItem == null || domain == null) {
+        if (cartItem == null) {
             return;
         }
-        Subscription subscriptions =
-                mProductRepository.upQuantity(cartItem.getProductId(), domain.getId())
-                        .subscribe(new Action1<Void>() {
-                            @Override
-                            public void call(Void aVoid) {
-                                mViewModel.onUpQuantitySuccess();
-                            }
-                        }, new SafetyError() {
-                            @Override
-                            public void onSafetyError(BaseException error) {
-                                mViewModel.onUpQuantityError(error);
-                            }
-                        });
+        Subscription subscriptions = mProductRepository.upQuantity(cartItem.getProductId())
+                .subscribe(new Subscriber<Void>() {
+                    @Override
+                    public void onCompleted() {
+                        mViewModel.onUpQuantitySuccess();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mViewModel.onUpQuantityError(null);
+                    }
+
+                    @Override
+                    public void onNext(Void aVoid) {
+                        // No-Op
+                    }
+                });
         mCompositeSubscription.add(subscriptions);
     }
 
     @Override
     public void downQuantity(CartItem cartItem) {
-        Domain domain = mDomainRepository.getCurrentDomain();
-        if (cartItem == null || domain == null) {
+        if (cartItem == null) {
             return;
         }
-        Subscription subscriptions =
-                mProductRepository.downQuantity(cartItem.getProductId(), domain.getId())
-                        .subscribe(new Action1<Void>() {
-                            @Override
-                            public void call(Void aVoid) {
-                                mViewModel.onDownQuantitySuccess();
-                            }
-                        }, new SafetyError() {
-                            @Override
-                            public void onSafetyError(BaseException error) {
-                                mViewModel.onDownQuantityError(error);
-                            }
-                        });
+        Subscription subscriptions = mProductRepository.downQuantity(cartItem.getProductId())
+                .subscribe(new Subscriber<Void>() {
+                    @Override
+                    public void onCompleted() {
+                        mViewModel.onDownQuantitySuccess();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mViewModel.onDownQuantityError(null);
+                    }
+
+                    @Override
+                    public void onNext(Void aVoid) {
+                        // No-Op
+                    }
+                });
         mCompositeSubscription.add(subscriptions);
     }
 
     @Override
     public void deleteProduct(CartItem cartItem) {
-        Domain domain = mDomainRepository.getCurrentDomain();
-        if (cartItem == null || domain == null) {
+        if (cartItem == null) {
             return;
         }
-        Subscription subscriptions =
-                mProductRepository.deleteCart(cartItem.getProductId(), domain.getId())
-                        .subscribe(new Action1<Void>() {
-                            @Override
-                            public void call(Void aVoid) {
-                                mViewModel.onDeleteProductSuccess();
-                            }
-                        }, new SafetyError() {
-                            @Override
-                            public void onSafetyError(BaseException error) {
-                                mViewModel.onDeleteProductError(error);
-                            }
-                        });
+        Subscription subscriptions = mProductRepository.deleteCart(cartItem.getProductId())
+                .subscribe(new Subscriber<Void>() {
+                    @Override
+                    public void onCompleted() {
+                        mViewModel.onDeleteProductSuccess();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mViewModel.onDeleteProductError(null);
+                    }
+
+                    @Override
+                    public void onNext(Void aVoid) {
+                        // No-Op
+                    }
+                });
         mCompositeSubscription.add(subscriptions);
     }
 }

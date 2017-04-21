@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
-import com.framgia.forder.databinding.FragmentDetailproductBinding;
+import com.framgia.forder.databinding.FragmentProductDetailBinding;
 
 /**
  * Detailproduct Screen.
@@ -35,7 +35,7 @@ public class ProductDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
 
-        FragmentDetailproductBinding binding =
+        FragmentProductDetailBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_product_detail, container,
                         false);
         binding.setViewModel((ProductDetailViewModel) mViewModel);

@@ -53,10 +53,10 @@ public class ShoppingCartFragment extends Fragment {
 
         ProductRepository productRepository = new ProductRepository(
                 new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
-                new ProductLocalDataSource(realmApi));
+                new ProductLocalDataSource(realmApi), domainRepository);
 
         ShoppingCartContract.Presenter presenter =
-                new ShoppingCartPresenter(mViewModel, productRepository, domainRepository);
+                new ShoppingCartPresenter(mViewModel, productRepository);
         mViewModel.setPresenter(presenter);
     }
 

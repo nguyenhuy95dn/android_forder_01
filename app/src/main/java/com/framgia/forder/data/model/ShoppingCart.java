@@ -1,6 +1,7 @@
 package com.framgia.forder.data.model;
 
 import io.realm.RealmObject;
+import io.realm.annotations.Index;
 import io.realm.annotations.PrimaryKey;
 
 import static com.framgia.forder.utils.Constant.FORMAT_PRICE;
@@ -12,8 +13,9 @@ import static com.framgia.forder.utils.Constant.UNIT_MONEY;
 
 public class ShoppingCart extends RealmObject {
     @PrimaryKey
-    private int mShoppingCartId = 0;
+    private int mShoppingCartId;
     private int mDomainId;
+    @Index
     private int mShopId;
     private int mQuantity;
     private int mProductId;
