@@ -11,7 +11,7 @@ import java.util.List;
  * Created by ASUS on 24-04-2017.
  */
 
-public class NotificationRespone implements Parcelable {
+public class NotificationResponse implements Parcelable {
     @Expose
     @SerializedName("content")
     private List<Notification> mNotifications;
@@ -22,7 +22,7 @@ public class NotificationRespone implements Parcelable {
     @SerializedName("message")
     private String mMessage;
 
-    protected NotificationRespone(Parcel in) {
+    protected NotificationResponse(Parcel in) {
         mNotifications = in.createTypedArrayList(Notification.CREATOR);
         mStatus = in.readInt();
         mMessage = in.readString();
@@ -40,15 +40,15 @@ public class NotificationRespone implements Parcelable {
         return 0;
     }
 
-    public static final Creator<NotificationRespone> CREATOR = new Creator<NotificationRespone>() {
+    public static final Creator<NotificationResponse> CREATOR = new Creator<NotificationResponse>() {
         @Override
-        public NotificationRespone createFromParcel(Parcel in) {
-            return new NotificationRespone(in);
+        public NotificationResponse createFromParcel(Parcel in) {
+            return new NotificationResponse(in);
         }
 
         @Override
-        public NotificationRespone[] newArray(int size) {
-            return new NotificationRespone[size];
+        public NotificationResponse[] newArray(int size) {
+            return new NotificationResponse[size];
         }
     };
 
