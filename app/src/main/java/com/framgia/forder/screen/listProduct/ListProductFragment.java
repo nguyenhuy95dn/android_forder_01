@@ -52,9 +52,9 @@ public class ListProductFragment extends Fragment {
                         new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
         ProductRepository productRepository = new ProductRepository(
                 new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
-                new ProductLocalDataSource(realmApi));
+                new ProductLocalDataSource(realmApi), domainRepository);
         ListProductContract.Presenter presenter =
-                new ListProductPresenter(mViewModel, productRepository, domainRepository);
+                new ListProductPresenter(mViewModel, productRepository);
         mViewModel.setPresenter(presenter);
 
         FragmentListproductBinding binding =

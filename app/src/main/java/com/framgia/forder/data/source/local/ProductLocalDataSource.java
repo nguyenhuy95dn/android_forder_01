@@ -38,12 +38,13 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
     }
 
     @Override
-    public Observable<Void> addShoppingCard(@NonNull final Product product) {
+    public Observable<Void> addShoppingCard(@NonNull final Product product,
+            @NonNull final int domainId) {
         return mRealmApi.realmTransactionAsync(new Action2<Subscriber<? super Void>, Realm>() {
             @Override
             public void call(Subscriber<? super Void> subscriber, Realm realm) {
                 ShoppingCart shoppingCart = realm.where(ShoppingCart.class)
-                        .equalTo("mDomainId", product.getShop().getDomainId())
+                        .equalTo("mDomainId", domainId)
                         .equalTo("mProductId", product.getId())
                         .findFirst();
                 if (shoppingCart == null) {
@@ -55,7 +56,7 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                                 realm.where(ShoppingCart.class).max("mShoppingCartId").intValue()
                                         + 1);
                     }
-                    cart.setDomainId(product.getShop().getDomainId());
+                    cart.setDomainId(domainId);
                     cart.setShopId(product.getShopId());
                     cart.setQuantity(DEFAULT_QUANTITY);
                     cart.setProductId(product.getId());
@@ -68,7 +69,6 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                     cart.setTotal(cart.getTotal());
                     try {
                         realm.insertOrUpdate(cart);
-                        subscriber.onCompleted();
                     } catch (IllegalStateException e) {
                         subscriber.onError(e);
                     }
@@ -76,7 +76,6 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                     try {
                         shoppingCart.setQuantity(shoppingCart.getQuantity() + 1);
                         realm.insertOrUpdate(shoppingCart);
-                        subscriber.onCompleted();
                     } catch (IllegalStateException e) {
                         subscriber.onError(e);
                     }
@@ -97,7 +96,6 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                         .findFirst();
                 try {
                     cart.deleteFromRealm();
-                    subscriber.onCompleted();
                 } catch (IllegalStateException e) {
                     subscriber.onError(e);
                 }
@@ -117,7 +115,6 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                 try {
                     cart.setQuantity(cart.getQuantity() + 1);
                     realm.insertOrUpdate(cart);
-                    subscriber.onCompleted();
                 } catch (IllegalStateException e) {
                     subscriber.onError(e);
                 }
@@ -136,13 +133,15 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                         .equalTo("mDomainId", domainId)
                         .findFirst();
                 if (cart.getQuantity() == DEFAULT_QUANTITY) {
-                    deleteShoppingCard(productId, domainId);
-                    return;
+                    try {
+                        cart.deleteFromRealm();
+                    } catch (IllegalStateException e) {
+                        subscriber.onError(e);
+                    }
                 } else {
                     try {
                         cart.setQuantity(cart.getQuantity() - 1);
                         realm.insertOrUpdate(cart);
-                        subscriber.onCompleted();
                     } catch (IllegalStateException e) {
                         subscriber.onError(e);
                     }
@@ -194,19 +193,24 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
             public void call(Subscriber<? super List<Cart>> subscriber, Realm realm) {
                 List<Cart> cartList = new ArrayList<>();
 
-                RealmResults<ShoppingCart> shop = realm.where(ShoppingCart.class).findAll();
+                RealmResults<ShoppingCart> shops = realm.where(ShoppingCart.class)
+                        .equalTo("mDomainId", domainId)
+                        .distinct("mShopId");
 
-                for (ShoppingCart shoppingCart : shop) {
+                for (ShoppingCart shoppingCart : shops) {
                     Cart cart = new Cart(shoppingCart.getDomainId(), shoppingCart.getShopId(),
                             shoppingCart.getShopName(), shoppingCart.getTotal());
                     cartList.add(cart);
                 }
                 for (Cart cart : cartList) {
-                    RealmResults<ShoppingCart> shopId = realm.where(ShoppingCart.class)
+                    double chargeForOrderInShop = 0;
+                    RealmResults<ShoppingCart> orderInShops = realm.where(ShoppingCart.class)
                             .equalTo("mShopId", cart.getShopId())
+                            .equalTo("mDomainId", domainId)
                             .findAll();
                     List<CartItem> cartItemList = new ArrayList<>();
-                    for (ShoppingCart shoppingCart : shopId) {
+                    for (ShoppingCart shoppingCart : orderInShops) {
+                        chargeForOrderInShop += shoppingCart.getTotal();
                         CartItem cartItem =
                                 new CartItem(shoppingCart.getDomainId(), shoppingCart.getShopId(),
                                         shoppingCart.getQuantity(), shoppingCart.getProductId(),
@@ -217,7 +221,7 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                         cartItemList.add(cartItem);
                     }
                     cart.setCartItemList(cartItemList);
-                    cart.setTotal(shopId.sum("mTotal").doubleValue());
+                    cart.setTotal(chargeForOrderInShop);
                 }
                 try {
                     subscriber.onNext(cartList);

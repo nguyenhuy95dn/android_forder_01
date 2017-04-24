@@ -49,6 +49,7 @@ final class MainPagePresenter implements MainPageContract.Presenter {
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
+
                         mViewModel.onAddToCartError(error);
                     }
                 });
@@ -57,11 +58,7 @@ final class MainPagePresenter implements MainPageContract.Presenter {
 
     @Override
     public void getListProduct() {
-        Domain domain = mDomainRepository.getCurrentDomain();
-        if (domain == null) {
-            return;
-        }
-        Subscription subscription = mProductRepository.getListProduct(domain.getId())
+        Subscription subscription = mProductRepository.getListProduct()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Product>>() {

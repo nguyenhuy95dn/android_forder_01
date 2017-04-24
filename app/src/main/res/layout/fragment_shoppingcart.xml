@@ -14,30 +14,13 @@
 
     </data>
 
-    <RelativeLayout
+    <ExpandableListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-        <ExpandableListView
-            android:id="@+id/expand_list_cart"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/button_order"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:dividerHeight="@dimen/dp_2"
-            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
-            app:adapter="@{viewModel.shoppingCartAdapter}"
-            />
-        <Button
-            android:id="@+id/button_order"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/color_orange_mos"
-            android:text="@string/action_order_all"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:dividerHeight="@dimen/dp_2"
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        app:adapter="@{viewModel.shoppingCartAdapter}"
+        />
+
 </layout>

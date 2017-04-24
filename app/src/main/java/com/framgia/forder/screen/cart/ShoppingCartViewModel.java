@@ -87,7 +87,7 @@ public class ShoppingCartViewModel implements ShoppingCartContract.ViewModel, Or
 
     @Override
     public void onUpQuantitySuccess() {
-        // Todo show dialog message
+        mPresenter.getListCart();
     }
 
     @Override
@@ -97,7 +97,7 @@ public class ShoppingCartViewModel implements ShoppingCartContract.ViewModel, Or
 
     @Override
     public void onDownQuantitySuccess() {
-        // Todo show dialog message
+        mPresenter.getListCart();
     }
 
     @Override
@@ -107,6 +107,6 @@ public class ShoppingCartViewModel implements ShoppingCartContract.ViewModel, Or
 
     @Override
     public void onDeleteProductSuccess() {
-        // Todo show dialog message
+        mPresenter.getListCart();
     }
 }
