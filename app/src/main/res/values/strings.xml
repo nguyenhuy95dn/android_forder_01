@@ -68,4 +68,8 @@
     <string name="products_shop">Products Shop</string>
     <string name="see_all">See All</string>
     <string name="title_shop">Shop :\u0020 </string>
+    <string name="shop_information">Shop Information</string>
+    <string name="shop_owner_information">Shop owner information</string>
+    <string name="number_product">Number product:</string>
+    <string name="time">Time:</string>
 </resources>

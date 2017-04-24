@@ -1,8 +1,10 @@
 package com.framgia.forder.screen.listshop;
 
+import com.framgia.forder.R;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
+import com.framgia.forder.screen.shopDetail.ShopDetailFragment;
 import com.framgia.forder.utils.binding.LayoutManagers;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
@@ -52,7 +54,8 @@ public class ListShopViewModel extends Observable implements ListShopContract.Vi
 
     @Override
     public void onItemRecyclerViewClick(Object item) {
-        //TODO: Click Item
+        mNavigator.goNextChildFragment(R.id.layout_content, ShopDetailFragment.newInstance(), true,
+                Navigator.RIGHT_LEFT, "ShopDetailFragment");
     }
 
     public LayoutManagers.LayoutManagerFactory getLayoutManager() {
