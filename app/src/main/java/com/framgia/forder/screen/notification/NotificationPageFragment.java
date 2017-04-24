@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Notification;
+import com.framgia.forder.data.source.NotificationRepository;
+import com.framgia.forder.data.source.remote.NotificationRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentListNotificationBinding;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.ArrayList;
@@ -34,7 +37,10 @@ public class NotificationPageFragment extends Fragment {
                 new NotificationPageAdapter(getActivity(), notifications);
         Navigator navigator = new Navigator(getParentFragment());
         mViewModel = new NotificationPageViewModel(notificationPageAdapter, navigator);
-        NotificationPageContract.Presenter presenter = new NotificationPagePresenter(mViewModel);
+        NotificationRepository notificationRepository = new NotificationRepository(
+                new NotificationRemoteDataSource(FOrderServiceClient.getInstance()));
+        NotificationPageContract.Presenter presenter =
+                new NotificationPagePresenter(mViewModel, notificationRepository);
         mViewModel.setPresenter(presenter);
     }
 

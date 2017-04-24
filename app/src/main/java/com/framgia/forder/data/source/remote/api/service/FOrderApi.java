@@ -2,6 +2,7 @@ package com.framgia.forder.data.source.remote.api.service;
 
 import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
+import com.framgia.forder.data.source.remote.api.response.NotificationResponse;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
 import com.framgia.forder.data.source.remote.api.response.SearchResponse;
 import com.framgia.forder.data.source.remote.api.response.UpdateProfileRespone;
@@ -44,4 +45,7 @@ public interface FOrderApi {
 
     @GET("v1/search")
     Observable<SearchResponse> search(@Query("domain_id") int id, @Query("keyWord") String keyWord);
+
+    @GET("v1/notifications")
+    Observable<NotificationResponse> getListNotification();
 }

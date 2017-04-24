@@ -3,7 +3,6 @@ package com.framgia.forder.screen.notification;
 import com.framgia.forder.data.model.Notification;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
-import com.framgia.forder.utils.binding.LayoutManagers;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
 import java.util.Observable;
