@@ -34,4 +34,8 @@ public class MainPageContainerFragment extends Fragment {
         binding.setViewModel((MainPageContainerViewModel) mViewModel);
         return binding.getRoot();
     }
+
+    public void reloadData() {
+        mViewModel.reloadData();
+    }
 }

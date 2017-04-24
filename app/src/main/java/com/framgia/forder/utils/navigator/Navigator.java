@@ -147,6 +147,18 @@ public class Navigator {
         }
     }
 
+    public void showToast(@StringRes int stringId) {
+        Toast.makeText(mActivity, mActivity.getString(stringId) + "", Toast.LENGTH_SHORT).show();
+    }
+
+    public void showToast(String message) {
+        Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void goBackFragmentByTag(String tag, int flags) {
+        mFragment.getChildFragmentManager().popBackStackImmediate(tag, flags);
+    }
+
     @IntDef({ RIGHT_LEFT, BOTTOM_UP, FADED, NONE, LEFT_RIGHT })
     public @interface NavigateAnim {
     }
@@ -155,13 +167,5 @@ public class Navigator {
     @interface ActivityTransition {
         int START = 0x00;
         int FINISH = 0x01;
-    }
-
-    public void showToast(@StringRes int stringId) {
-        Toast.makeText(mActivity, mActivity.getString(stringId) + "", Toast.LENGTH_SHORT).show();
-    }
-
-    public void showToast(String message) {
-        Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
     }
 }

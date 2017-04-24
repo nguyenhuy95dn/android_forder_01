@@ -11,6 +11,7 @@ interface MainPageContainerContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
+        void reloadData();
     }
 
     /**

@@ -13,6 +13,8 @@ import com.framgia.forder.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.screen.mainpage.MainPageContainerFragment;
+import com.framgia.forder.utils.navigator.Navigator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,7 @@ import java.util.List;
 
 public class MainViewModel extends BaseObservable implements MainContract.ViewModel {
 
+    private static final int POP_BACK_STACK_CLEAR_TASK = 0;
     private MainContract.Presenter mPresenter;
     private MainViewPagerAdapter mViewPagerAdapter;
     private String mCurrentDomain;
@@ -135,7 +138,7 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
                     public void onClick(DialogInterface dialog, int item) {
                         mPresenter.saveCurrentDomain(domains.get(item));
                         mPresenter.getCurrentDomain();
-                        // todo reload data
+                        reloadData();
                         dialog.cancel();
                     }
                 });
@@ -161,6 +164,17 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
 
     public int getPageLimit() {
         return mPageLimit;
+    }
+
+    public void reloadData() {
+        Navigator navigator = new Navigator(mViewPagerAdapter.getFragment(Tab.TAB_HOME));
+        navigator.goBackFragmentByTag("MainPageContainerFragment", POP_BACK_STACK_CLEAR_TASK);
+        MainPageContainerFragment fragment =
+                (MainPageContainerFragment) mViewPagerAdapter.getFragment(Tab.TAB_HOME)
+                        .getChildFragmentManager()
+                        .getFragments()
+                        .get(Tab.TAB_HOME);
+        fragment.reloadData();
     }
 
     @IntDef({ Tab.TAB_HOME, Tab.TAB_SEARCH, Tab.TAB_CART, Tab.TAB_NOTIFICATION, Tab.TAB_PROFILE })
