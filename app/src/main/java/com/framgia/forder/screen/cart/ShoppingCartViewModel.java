@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.cart;
 
+import android.util.Log;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
@@ -12,6 +13,7 @@ import java.util.List;
 public class ShoppingCartViewModel implements ShoppingCartContract.ViewModel, OrderItemListener {
     private ShoppingCartAdapter mShoppingCartAdapter;
     private ShoppingCartContract.Presenter mPresenter;
+    private static final String TAG = "ShoppingCartFragment";
 
     public ShoppingCartViewModel(ShoppingCartAdapter shoppingCartAdapter) {
         mShoppingCartAdapter = shoppingCartAdapter;
@@ -77,12 +79,12 @@ public class ShoppingCartViewModel implements ShoppingCartContract.ViewModel, Or
 
     @Override
     public void onGetListCartError(BaseException exception) {
-        // Todo show dialog message
+        Log.e(TAG, "onGetListCartError", exception);
     }
 
     @Override
-    public void onUpQuantityError(BaseException exception) {
-        // Todo show dialog message
+    public void onUpQuantityError(Throwable throwable) {
+        Log.e(TAG, "onUpQuantityError", throwable);
     }
 
     @Override
@@ -91,8 +93,8 @@ public class ShoppingCartViewModel implements ShoppingCartContract.ViewModel, Or
     }
 
     @Override
-    public void onDownQuantityError(BaseException exception) {
-        // Todo show dialog message
+    public void onDownQuantityError(Throwable throwable) {
+        Log.e(TAG, "onDownQuantityError", throwable);
     }
 
     @Override
@@ -101,12 +103,17 @@ public class ShoppingCartViewModel implements ShoppingCartContract.ViewModel, Or
     }
 
     @Override
-    public void onDeleteProductError(BaseException exception) {
-        // Todo show dialog message
+    public void onDeleteProductError(Throwable throwable) {
+        Log.e(TAG, "onDeleteProductError", throwable);
     }
 
     @Override
     public void onDeleteProductSuccess() {
+        mPresenter.getListCart();
+    }
+
+    @Override
+    public void reloadData() {
         mPresenter.getListCart();
     }
 }

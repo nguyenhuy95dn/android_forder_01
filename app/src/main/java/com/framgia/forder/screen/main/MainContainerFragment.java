@@ -78,4 +78,17 @@ public class MainContainerFragment extends Fragment {
     public boolean onBackPressed() {
         return mNavigator.goBackChildFragment();
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if (!isAdded()) {
+            return;
+        }
+        Fragment fragment = getChildFragmentManager().findFragmentById(R.id.layout_content);
+        if (fragment == null) {
+            return;
+        }
+        fragment.setUserVisibleHint(isVisibleToUser);
+        super.setUserVisibleHint(isVisibleToUser);
+    }
 }

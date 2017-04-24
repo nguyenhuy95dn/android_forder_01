@@ -79,7 +79,7 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        mViewModel.onUpQuantityError(null);
+                        mViewModel.onUpQuantityError(e);
                     }
 
                     @Override
@@ -104,7 +104,7 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        mViewModel.onDownQuantityError(null);
+                        mViewModel.onDownQuantityError(e);
                     }
 
                     @Override
@@ -129,7 +129,7 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        mViewModel.onDeleteProductError(null);
+                        mViewModel.onDeleteProductError(e);
                     }
 
                     @Override
