@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.screen.cart.ShoppingCartFragment;
 import com.framgia.forder.screen.mainpage.MainPageContainerFragment;
+import com.framgia.forder.screen.notification.NotificationPageFragment;
 import com.framgia.forder.screen.profilepage.ProfilePageFragment;
 import com.framgia.forder.screen.searchpage.SearchContainerFragment;
 import com.framgia.forder.utils.navigator.Navigator;
@@ -59,7 +60,9 @@ public class MainContainerFragment extends Fragment {
                         "ShoppingCartFragment");
                 break;
             case TAB_NOTIFICATION:
-                //TODO new Fragment Notifications
+                mNavigator.goNextChildFragment(R.id.layout_content,
+                        NotificationPageFragment.newInstance(), true, Navigator.NONE,
+                        "NotificationPageFragment");
                 break;
             case TAB_PROFILE:
                 mNavigator.goNextChildFragment(R.id.layout_content,
