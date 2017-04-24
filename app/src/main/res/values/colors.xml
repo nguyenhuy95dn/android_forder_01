@@ -17,5 +17,7 @@
     <color name="color_orange_mos">#FF5C00</color>
     <color name="color_green">#009900</color>
     <color name="color_red">#FF0000</color>
+    <color name="color_red_mos">#DE2D31</color>
+    <color name="color_yellow_mos">#F6E44A</color>
     <color name="color_white_transparent">#BFFAFAFA</color>
 </resources>

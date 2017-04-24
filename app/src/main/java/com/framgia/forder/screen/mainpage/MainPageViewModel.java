@@ -1,11 +1,11 @@
 package com.framgia.forder.screen.mainpage;
 
 import com.framgia.forder.R;
-import android.util.Log;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
+import com.framgia.forder.screen.productdetail.ProductDetailFragment;
 import com.framgia.forder.screen.listProduct.ListProductFragment;
 import com.framgia.forder.screen.listshop.ListShopFragment;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
@@ -57,7 +57,8 @@ public class MainPageViewModel extends Observable implements MainPageContract.Vi
 
     @Override
     public void onItemRecyclerViewClick(Object item) {
-        // TODO implement later in here
+        mNavigator.goNextChildFragment(R.id.layout_content, ProductDetailFragment.newInstance(),
+                true, Navigator.RIGHT_LEFT, "ProductDetailFragment");
     }
 
     @Override

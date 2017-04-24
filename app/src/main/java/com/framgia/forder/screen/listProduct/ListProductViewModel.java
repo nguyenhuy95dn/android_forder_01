@@ -1,9 +1,11 @@
 package com.framgia.forder.screen.listProduct;
 
 import android.content.Context;
+import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
+import com.framgia.forder.screen.productdetail.ProductDetailFragment;
 import com.framgia.forder.screen.listProduct.adapter.ListProductAdapter;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
 import com.framgia.forder.utils.navigator.Navigator;
@@ -78,7 +80,8 @@ public class ListProductViewModel extends Observable implements ListProductContr
 
     @Override
     public void onItemRecyclerViewClick(Object item) {
-        //TODO Click Item
+        mNavigator.goNextChildFragment(R.id.layout_content, ProductDetailFragment.newInstance(),
+                true, Navigator.RIGHT_LEFT, "ProductDetailFragment");
     }
 
     public ListProductAdapter getListProductAdapter() {

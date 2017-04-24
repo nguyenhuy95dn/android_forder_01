@@ -64,4 +64,7 @@
     <string name="product_quantity">Product quantity: </string>
     <string name="owner">Shop owner: </string>
     <string name="rating">Rating: </string>
+    <string name="comments">Comments</string>
+    <string name="products_shop">Products Shop</string>
+    <string name="see_all">See All</string>
 </resources>

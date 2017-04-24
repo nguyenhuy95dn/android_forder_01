@@ -41,4 +41,6 @@
     <dimen name="dp_150">150dp</dimen>
     <dimen name="dp_140">140dp</dimen>
     <dimen name="dp_185">185dp</dimen>
+    <dimen name="dp_250">250dp</dimen>
+    <dimen name="dp_70">70dp</dimen>
 </resources>
