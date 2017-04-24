@@ -43,7 +43,7 @@ public class ListProductFragment extends Fragment {
         List<Product> products = new ArrayList<>();
         ListProductAdapter productAdapter = new ListProductAdapter(getActivity(), products);
         Navigator navigator = new Navigator(getParentFragment());
-        mViewModel = new ListProductViewModel(getActivity(), productAdapter, navigator);
+        mViewModel = new ListProductViewModel(productAdapter, navigator);
         RealmApi realmApi = new RealmApi();
 
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());

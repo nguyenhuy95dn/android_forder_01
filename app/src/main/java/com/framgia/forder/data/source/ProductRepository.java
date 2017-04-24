@@ -68,4 +68,8 @@ public class ProductRepository {
     public void closeTransaction() {
         mLocalProductDataSource.closeTransaction();
     }
+
+    public Observable<List<Product>> getListProductInShop(int shopId) {
+        return mRemoteDataSource.getListProductInShop(shopId, mCurrentDomainId);
+    }
 }

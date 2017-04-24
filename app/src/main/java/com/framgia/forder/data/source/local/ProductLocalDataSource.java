@@ -250,7 +250,8 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
     }
 
     @Override
-    public Observable<Void> removeOrderOneShop(@NonNull final int shopId, @NonNull final int domainId) {
+    public Observable<Void> removeOrderOneShop(@NonNull final int shopId,
+            @NonNull final int domainId) {
         return mRealmApi.realmTransactionAsync(new Action2<Subscriber<? super Void>, Realm>() {
             @Override
             public void call(Subscriber<? super Void> subscriber, Realm realm) {

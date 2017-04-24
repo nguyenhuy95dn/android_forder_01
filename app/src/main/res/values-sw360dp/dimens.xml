@@ -46,4 +46,5 @@
     <dimen name="sp_40">40sp</dimen>
     <dimen name="dp_85">85dp</dimen>
     <dimen name="dp_230">230dp</dimen>
+    <dimen name="dp_0">0dp</dimen>
 </resources>
