@@ -1,19 +1,27 @@
 package com.framgia.forder.screen.cart;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.util.Log;
+import com.framgia.forder.BR;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import java.util.List;
 
+import static com.framgia.forder.utils.Constant.FORMAT_PRICE;
+import static com.framgia.forder.utils.Constant.UNIT_MONEY;
+
 /**
  * Exposes the data to be used in the ShoppingCart screen.
  */
 
-public class ShoppingCartViewModel implements ShoppingCartContract.ViewModel, OrderItemListener {
+public class ShoppingCartViewModel extends BaseObservable
+        implements ShoppingCartContract.ViewModel, OrderItemListener {
     private ShoppingCartAdapter mShoppingCartAdapter;
     private ShoppingCartContract.Presenter mPresenter;
     private static final String TAG = "ShoppingCartFragment";
+    private double mTotalPrice;
 
     public ShoppingCartViewModel(ShoppingCartAdapter shoppingCartAdapter) {
         mShoppingCartAdapter = shoppingCartAdapter;
@@ -24,6 +32,7 @@ public class ShoppingCartViewModel implements ShoppingCartContract.ViewModel, Or
     public void onStart() {
         mPresenter.onStart();
         mPresenter.getListCart();
+        mPresenter.getTotalPrice();
     }
 
     @Override
@@ -89,7 +98,7 @@ public class ShoppingCartViewModel implements ShoppingCartContract.ViewModel, Or
 
     @Override
     public void onUpQuantitySuccess() {
-        mPresenter.getListCart();
+        reloadData();
     }
 
     @Override
@@ -99,7 +108,7 @@ public class ShoppingCartViewModel implements ShoppingCartContract.ViewModel, Or
 
     @Override
     public void onDownQuantitySuccess() {
-        mPresenter.getListCart();
+        reloadData();
     }
 
     @Override
@@ -109,11 +118,29 @@ public class ShoppingCartViewModel implements ShoppingCartContract.ViewModel, Or
 
     @Override
     public void onDeleteProductSuccess() {
-        mPresenter.getListCart();
+        reloadData();
     }
 
     @Override
     public void reloadData() {
         mPresenter.getListCart();
+        mPresenter.getTotalPrice();
+    }
+
+    @Override
+    public void onGetTotalPriceSuccess(double totalPrice) {
+        mTotalPrice = totalPrice;
+        notifyPropertyChanged(BR.totalPrice);
+        mPresenter.getListCart();
+    }
+
+    @Override
+    public void onGetTotalPriceError(Throwable throwable) {
+        Log.e(TAG, "onGetTotalPriceError", throwable);
+    }
+
+    @Bindable
+    public String getTotalPrice() {
+        return String.format(FORMAT_PRICE, mTotalPrice) + UNIT_MONEY;
     }
 }

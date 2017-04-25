@@ -174,10 +174,14 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
             @Override
             public void call(Subscriber<? super Double> subscriber, Realm realm) {
                 try {
+                    double totalPrice = 0;
                     RealmResults<ShoppingCart> carts = realm.where(ShoppingCart.class)
                             .equalTo("mDomainId", domainId)
                             .findAll();
-                    subscriber.onNext(carts.sum("mTotal").doubleValue());
+                    for (ShoppingCart shoppingCart : carts) {
+                        totalPrice += shoppingCart.getTotal();
+                    }
+                    subscriber.onNext(totalPrice);
                     subscriber.onCompleted();
                 } catch (IllegalStateException e) {
                     subscriber.onError(e);
