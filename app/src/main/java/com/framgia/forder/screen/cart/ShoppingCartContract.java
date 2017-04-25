@@ -19,17 +19,19 @@ interface ShoppingCartContract {
 
         void onGetListCartSuccess(List<Cart> carts);
 
-        void onUpQuantityError(BaseException exception);
+        void onUpQuantityError(Throwable throwable);
 
         void onUpQuantitySuccess();
 
-        void onDownQuantityError(BaseException exception);
+        void onDownQuantityError(Throwable throwable);
 
         void onDownQuantitySuccess();
 
-        void onDeleteProductError(BaseException exception);
+        void onDeleteProductError(Throwable throwable);
 
         void onDeleteProductSuccess();
+
+        void reloadData();
     }
 
     /**

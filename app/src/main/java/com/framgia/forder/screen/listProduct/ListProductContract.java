@@ -18,7 +18,7 @@ interface ListProductContract {
 
         void onGetListAllProductSuccess(List<Product> products);
 
-        void onAddToCartError(BaseException exception);
+        void onAddToCartError(Throwable throwable);
 
         void onAddToCartSuccess();
     }

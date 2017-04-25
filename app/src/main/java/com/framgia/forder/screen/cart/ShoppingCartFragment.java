@@ -28,7 +28,6 @@ import java.util.List;
  * ShoppingCart Screen.
  */
 public class ShoppingCartFragment extends Fragment {
-
     private ShoppingCartContract.ViewModel mViewModel;
 
     public static ShoppingCartFragment newInstance() {
@@ -64,7 +63,6 @@ public class ShoppingCartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-
         FragmentShoppingcartBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_shoppingcart, container, false);
         binding.setViewModel((ShoppingCartViewModel) mViewModel);
@@ -81,5 +79,14 @@ public class ShoppingCartFragment extends Fragment {
     public void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!isVisibleToUser) {
+            return;
+        }
+        mViewModel.reloadData();
     }
 }

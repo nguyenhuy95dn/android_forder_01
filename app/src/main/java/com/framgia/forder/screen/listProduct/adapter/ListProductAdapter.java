@@ -76,6 +76,10 @@ public class ListProductAdapter extends BaseRecyclerViewAdapter<RecyclerView.Vie
         return mProducts.size();
     }
 
+    public void setOrderListener(OrderListener listener) {
+        mOrderListener = listener;
+    }
+
     public void setItemClickListener(OnRecyclerViewItemClickListener<Object> itemClickListener) {
         mItemClickListener = itemClickListener;
     }
