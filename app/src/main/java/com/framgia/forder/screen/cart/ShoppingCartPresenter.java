@@ -139,4 +139,21 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
                 });
         mCompositeSubscription.add(subscriptions);
     }
+
+    @Override
+    public void getTotalPrice() {
+        Subscription subscriptions =
+                mProductRepository.getTotalPrice().subscribe(new Action1<Double>() {
+                    @Override
+                    public void call(Double totalPrice) {
+                        mViewModel.onGetTotalPriceSuccess(totalPrice);
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onGetTotalPriceError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscriptions);
+    }
 }

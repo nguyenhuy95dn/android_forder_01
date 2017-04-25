@@ -32,6 +32,10 @@ interface ShoppingCartContract {
         void onDeleteProductSuccess();
 
         void reloadData();
+
+        void onGetTotalPriceSuccess(double totalPrice);
+
+        void onGetTotalPriceError(Throwable throwable);
     }
 
     /**
@@ -47,5 +51,7 @@ interface ShoppingCartContract {
         void downQuantity(CartItem cartItem);
 
         void deleteProduct(CartItem cartItem);
+
+        void getTotalPrice();
     }
 }
