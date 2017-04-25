@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <data>
+        <variable
+            name="viewModel"
+            type="com.framgia.forder.screen.ordermanagement.checkorder.ItemParentCheckOrderViewModel"
+            />
+        <import type="android.view.View"/>
+    </data>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -10,12 +16,12 @@
         >
 
         <TextView
-            android:id="@+id/text_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/linear_layout"
             android:layout_toRightOf="@+id/frame_status"
+            android:text="@{viewModel.userName}"
             android:textColor="@android:color/white"
             android:textSize="@dimen/sp_15"
             />
@@ -33,9 +39,9 @@
             >
 
             <TextView
-                android:id="@+id/text_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{viewModel.orderDate}"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/sp_15"
                 />
@@ -45,6 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
+                android:text="@{viewModel.totalPrice}"
                 android:textColor="@android:color/holo_red_light"
                 />
 
@@ -53,36 +60,39 @@
         <FrameLayout
             android:id="@+id/frame_status"
             android:layout_width="@dimen/dp_80"
-            android:layout_height="@dimen/dp_30"
+            android:layout_height="@dimen/dp_20"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             >
 
             <TextView
                 android:layout_width="@dimen/dp_80"
-                android:layout_height="@dimen/dp_30"
+                android:layout_height="@dimen/dp_20"
                 android:background="@color/color_blue"
                 android:gravity="center"
                 android:text="@string/pending"
                 android:textColor="@android:color/white"
+                android:visibility="@{viewModel.pendingStatus ? View.VISIBLE : View.GONE}"
                 />
 
             <TextView
                 android:layout_width="@dimen/dp_80"
-                android:layout_height="@dimen/dp_30"
+                android:layout_height="@dimen/dp_20"
                 android:background="@color/color_red"
                 android:gravity="center"
                 android:text="@string/rejected"
                 android:textColor="@android:color/white"
+                android:visibility="@{viewModel.rejectStatus ? View.VISIBLE : View.GONE}"
                 />
 
             <TextView
                 android:layout_width="@dimen/dp_80"
-                android:layout_height="@dimen/dp_30"
+                android:layout_height="@dimen/dp_20"
                 android:background="@color/color_green"
                 android:gravity="center"
                 android:text="@string/accepted"
                 android:textColor="@android:color/white"
+                android:visibility="@{viewModel.acceptStatus ? View.VISIBLE : View.GONE}"
                 />
         </FrameLayout>
     </RelativeLayout>

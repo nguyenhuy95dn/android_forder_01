@@ -81,4 +81,5 @@
     <string name="continue_check">Continue</string>
     <string name="shop_related">Shop Related</string>
     <string name="add_a_comment">Add a comment</string>
+    <string name="quantity">Quantity</string>
 </resources>
