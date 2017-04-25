@@ -21,6 +21,12 @@ public class Notification implements Parcelable {
     @SerializedName("avatar")
     private CollectionAvatar mCollectionAvatar;
 
+    public Notification(String title, String time, CollectionAvatar collectionAvatar) {
+        mTitle = title;
+        mTime = time;
+        mCollectionAvatar = collectionAvatar;
+    }
+
     protected Notification(Parcel in) {
         mTitle = in.readString();
         mTime = in.readString();

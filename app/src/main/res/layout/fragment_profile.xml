@@ -164,7 +164,7 @@
                         android:clickable="true"
                         android:onClick="@{() -> viewModel.onClickYourOrder()}"
                         android:padding="@dimen/dp_10"
-                        android:text="@string/your_order"
+                        android:text="@string/order_management"
                         android:textSize="@dimen/sp_20"
                         />
                 </LinearLayout>

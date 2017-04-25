@@ -40,7 +40,7 @@ public class NotificationPagePresenter implements NotificationPageContract.Prese
     }
 
     private void getListNotification() {
-        Subscription subscription = mNotificationRepository.getListNotificationI()
+        Subscription subscription = mNotificationRepository.getListNotification()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Notification>>() {

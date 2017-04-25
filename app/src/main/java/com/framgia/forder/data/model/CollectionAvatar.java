@@ -23,6 +23,10 @@ public class CollectionAvatar implements Parcelable {
         }
     };
 
+    public CollectionAvatar(Image image) {
+        mImage = image;
+    }
+
     @Expose
     @SerializedName("avatar")
     private Image mImage;
