@@ -72,4 +72,11 @@
     <string name="shop_owner_information">Shop owner information</string>
     <string name="number_product">Number product:</string>
     <string name="time">Time:</string>
+    <string name="pending">Pending</string>
+    <string name="accepted">Accepted</string>
+    <string name="rejected">Rejected</string>
+    <string name="completed">Completed</string>
+    <string name="step_one_check_order">Step 1: Check orders</string>
+    <string name="step_two_close_order">Step 2: Close orders</string>
+    <string name="continue_check">Continue</string>
 </resources>
