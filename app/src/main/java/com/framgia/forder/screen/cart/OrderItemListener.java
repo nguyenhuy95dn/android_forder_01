@@ -2,7 +2,6 @@ package com.framgia.forder.screen.cart;
 
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
-import com.framgia.forder.data.model.ShoppingCart;
 
 /**
  * Created by tri on 19/04/2017.

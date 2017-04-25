@@ -31,24 +31,24 @@ public final class BindingUtils {
         recyclerView.setAdapter(adapter);
     }
 
-    @BindingAdapter({ "bind:adapter" })
+    @BindingAdapter({ "adapter" })
     public static void setViewPagerAdapter(final ViewPager viewPager,
             final FragmentPagerAdapter adapter) {
         viewPager.setAdapter(adapter);
     }
 
-    @BindingAdapter({ "bind:pager" })
+    @BindingAdapter({ "pager" })
     public static void setViewPagerTabs(final TabLayout tabLayout, final ViewPager viewPager) {
         tabLayout.setupWithViewPager(viewPager, true);
     }
 
-    @BindingAdapter({ "bind:currentFragment" })
+    @BindingAdapter({ "currentFragment" })
     public static void setCurrentViewPager(final ViewPager viewPager, final int currentPage) {
         viewPager.setCurrentItem(currentPage);
         viewPager.beginFakeDrag();
     }
 
-    @BindingAdapter("bind:imageUrl")
+    @BindingAdapter("imageUrl")
     public static void loadImage(ImageView imageView, String url) {
         Glide.with(imageView.getContext())
                 .load(url)

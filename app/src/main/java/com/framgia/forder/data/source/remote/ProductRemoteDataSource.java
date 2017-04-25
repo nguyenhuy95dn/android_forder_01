@@ -15,8 +15,8 @@ import rx.functions.Func1;
 public class ProductRemoteDataSource extends BaseRemoteDataSource
         implements ProductDataSource.RemoteDataSource {
 
-    public ProductRemoteDataSource(FOrderApi FOrderApi) {
-        super(FOrderApi);
+    public ProductRemoteDataSource(FOrderApi api) {
+        super(api);
     }
 
     @Override

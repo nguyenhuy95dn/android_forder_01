@@ -2,6 +2,10 @@ apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
 apply from: '../autodimension.gradle'
 
+/**
+ * start config and check ci*/
+apply from: '../checkci.gradle'
+
 def APP_ID = "com.framgia.forder";
 
 android {
@@ -19,6 +23,10 @@ android {
 
   dataBinding {
     enabled = true
+  }
+
+  lintOptions {
+    abortOnError false
   }
 
   signingConfigs {

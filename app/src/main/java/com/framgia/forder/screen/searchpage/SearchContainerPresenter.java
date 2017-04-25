@@ -25,7 +25,7 @@ final class SearchContainerPresenter implements SearchContainerContract.Presente
     private SearchRepository mSearchRepository;
     private DomainRepository mDomainRepository;
 
-    public SearchContainerPresenter(SearchContainerContract.ViewModel viewModel,
+    SearchContainerPresenter(SearchContainerContract.ViewModel viewModel,
             SearchRepository repository, DomainRepository domainRepository) {
         mViewModel = viewModel;
         mSearchRepository = repository;

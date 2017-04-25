@@ -10,7 +10,7 @@ final class ProductSearchResultPresenter implements ProductSearchResultContract.
 
     private final ProductSearchResultContract.ViewModel mViewModel;
 
-    public ProductSearchResultPresenter(ProductSearchResultContract.ViewModel viewModel) {
+    ProductSearchResultPresenter(ProductSearchResultContract.ViewModel viewModel) {
         mViewModel = viewModel;
     }
 

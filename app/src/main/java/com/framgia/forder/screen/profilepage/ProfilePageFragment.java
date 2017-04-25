@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
-import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.local.UserLocalDataSource;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;

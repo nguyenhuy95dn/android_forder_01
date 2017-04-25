@@ -22,7 +22,7 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
     private final ShoppingCartContract.ViewModel mViewModel;
     private ProductRepository mProductRepository;
 
-    public ShoppingCartPresenter(ShoppingCartContract.ViewModel viewModel,
+    ShoppingCartPresenter(ShoppingCartContract.ViewModel viewModel,
             ProductRepository productRepository) {
         mViewModel = viewModel;
         mProductRepository = productRepository;

@@ -2,7 +2,7 @@ package com.framgia.forder.data.source;
 
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
-import com.framgia.forder.data.source.remote.api.response.UpdateProfileRespone;
+import com.framgia.forder.data.source.remote.api.response.UpdateProfileResponse;
 import rx.Observable;
 
 /**
@@ -23,7 +23,7 @@ public class UserRepository {
         return mUserRemoteDataSource.login(userName, passWord);
     }
 
-    public Observable<UpdateProfileRespone> updateProfile(
+    public Observable<UpdateProfileResponse> updateProfile(
             UpdateProfileRequest updateProfileRequest) {
         return mUserRemoteDataSource.updateProfile(updateProfileRequest);
     }

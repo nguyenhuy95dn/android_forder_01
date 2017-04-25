@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.databinding.FragmentProductSearchResultBinding;
-import com.framgia.forder.screen.mainpage.product.ProductAdapter;
 import java.util.ArrayList;
 import java.util.List;
 

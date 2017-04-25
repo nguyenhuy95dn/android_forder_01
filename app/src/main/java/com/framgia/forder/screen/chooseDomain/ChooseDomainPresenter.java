@@ -22,7 +22,7 @@ final class ChooseDomainPresenter implements ChooseDomainContract.Presenter {
     private CompositeSubscription mCompositeSubscription;
     private DomainRepository mDomainRepository;
 
-    public ChooseDomainPresenter(ChooseDomainContract.ViewModel viewModel,
+    ChooseDomainPresenter(ChooseDomainContract.ViewModel viewModel,
             DomainRepository domainRepository) {
         mViewModel = viewModel;
         mDomainRepository = domainRepository;

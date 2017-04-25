@@ -23,7 +23,7 @@ final class ListProductPresenter implements ListProductContract.Presenter {
     private final CompositeSubscription mCompositeSubscription;
     private ProductRepository mProductRepository;
 
-    public ListProductPresenter(ListProductContract.ViewModel viewModel,
+    ListProductPresenter(ListProductContract.ViewModel viewModel,
             ProductRepository productRepository) {
         mViewModel = viewModel;
         mProductRepository = productRepository;

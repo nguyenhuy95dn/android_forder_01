@@ -13,8 +13,7 @@ final class ProfilePagePresenter implements ProfilePageContract.Presenter {
     private final ProfilePageContract.ViewModel mViewModel;
     private UserRepository mUserRepository;
 
-    public ProfilePagePresenter(ProfilePageContract.ViewModel viewModel,
-            UserRepository userRepository) {
+    ProfilePagePresenter(ProfilePageContract.ViewModel viewModel, UserRepository userRepository) {
         mViewModel = viewModel;
         mUserRepository = userRepository;
     }

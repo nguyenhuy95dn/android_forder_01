@@ -98,7 +98,9 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
             viewGroup = (ViewGroup) view.getParent();
             ((ViewGroup) viewGroup.getParent()).getChildAt(1).setSelected(false);
         }
-        if (viewGroup == null) return;
+        if (viewGroup == null) {
+            return;
+        }
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View tab = viewGroup.getChildAt(i);
             tab.setSelected(tab == view);

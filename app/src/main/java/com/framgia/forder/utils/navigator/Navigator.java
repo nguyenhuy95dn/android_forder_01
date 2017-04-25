@@ -100,10 +100,14 @@ public class Navigator {
      */
     public void goNextChildFragment(@IdRes int containerViewId, Fragment fragment,
             boolean addToBackStack, int animation, String tag) {
-        if (mFragment == null) return;
+        if (mFragment == null) {
+            return;
+        }
         FragmentTransaction transaction = mFragment.getChildFragmentManager().beginTransaction();
         setFragmentTransactionAnimation(transaction, animation);
-        if (addToBackStack) transaction.addToBackStack(fragment.getClass().getSimpleName());
+        if (addToBackStack) {
+            transaction.addToBackStack(fragment.getClass().getSimpleName());
+        }
         transaction.replace(containerViewId, fragment, tag);
         transaction.commitAllowingStateLoss();
         mFragment.getChildFragmentManager().executePendingTransactions();

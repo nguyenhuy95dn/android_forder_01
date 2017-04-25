@@ -21,7 +21,7 @@ final class MainPresenter implements MainContract.Presenter {
     private final MainContract.ViewModel mViewModel;
     protected DomainRepository mDomainRepository;
 
-    public MainPresenter(MainContract.ViewModel viewModel, DomainRepository domainRepository) {
+    MainPresenter(MainContract.ViewModel viewModel, DomainRepository domainRepository) {
         mViewModel = viewModel;
         mDomainRepository = domainRepository;
         mCompositeSubscription = new CompositeSubscription();
