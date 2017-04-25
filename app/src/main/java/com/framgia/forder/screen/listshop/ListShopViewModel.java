@@ -54,7 +54,7 @@ public class ListShopViewModel extends Observable implements ListShopContract.Vi
 
     @Override
     public void onItemRecyclerViewClick(Object item) {
-        mNavigator.goNextChildFragment(R.id.layout_content, ShopDetailFragment.newInstance(), true,
+        mNavigator.goNextChildFragment(R.id.layout_content, ShopDetailFragment.newInstance(item), true,
                 Navigator.RIGHT_LEFT, "ShopDetailFragment");
     }
 
