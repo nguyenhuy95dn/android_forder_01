@@ -9,7 +9,7 @@ final class ShopDetailPresenter implements ShopDetailContract.Presenter {
 
     private final ShopDetailContract.ViewModel mViewModel;
 
-    public ShopDetailPresenter(ShopDetailContract.ViewModel viewModel) {
+    ShopDetailPresenter(ShopDetailContract.ViewModel viewModel) {
         mViewModel = viewModel;
     }
 

@@ -2,7 +2,6 @@ package com.framgia.forder.screen.profilepage.profiledetail;
 
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.User;
-import com.framgia.forder.screen.profilepage.ProfilePageFragment;
 import com.framgia.forder.screen.profilepage.updateprofile.UpdateProfileFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 

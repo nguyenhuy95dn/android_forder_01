@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by ASUS on 19-04-2017.
  */
 
-public class UpdateProfileRespone implements Parcelable {
+public class UpdateProfileResponse implements Parcelable {
     @Expose
     @SerializedName("content")
     private UpdateProfileRequest mUpdateProfileRequest;
@@ -21,22 +21,22 @@ public class UpdateProfileRespone implements Parcelable {
     @SerializedName("message")
     private String mMessage;
 
-    protected UpdateProfileRespone(Parcel in) {
+    protected UpdateProfileResponse(Parcel in) {
         mUpdateProfileRequest = in.readParcelable(UpdateProfileRequest.class.getClassLoader());
         mStatus = in.readInt();
         mMessage = in.readString();
     }
 
-    public static final Creator<UpdateProfileRespone> CREATOR =
-            new Creator<UpdateProfileRespone>() {
+    public static final Creator<UpdateProfileResponse> CREATOR =
+            new Creator<UpdateProfileResponse>() {
                 @Override
-                public UpdateProfileRespone createFromParcel(Parcel in) {
-                    return new UpdateProfileRespone(in);
+                public UpdateProfileResponse createFromParcel(Parcel in) {
+                    return new UpdateProfileResponse(in);
                 }
 
                 @Override
-                public UpdateProfileRespone[] newArray(int size) {
-                    return new UpdateProfileRespone[size];
+                public UpdateProfileResponse[] newArray(int size) {
+                    return new UpdateProfileResponse[size];
                 }
             };
 

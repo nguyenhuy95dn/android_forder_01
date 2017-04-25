@@ -25,7 +25,7 @@ final class ListShopPresenter implements ListShopContract.Presenter {
     private ShopRepository mShopRepository;
     private DomainRepository mDomainRepository;
 
-    public ListShopPresenter(ListShopContract.ViewModel viewModel, ShopRepository shopRepository,
+    ListShopPresenter(ListShopContract.ViewModel viewModel, ShopRepository shopRepository,
             DomainRepository domainRepository) {
         mViewModel = viewModel;
         mShopRepository = shopRepository;

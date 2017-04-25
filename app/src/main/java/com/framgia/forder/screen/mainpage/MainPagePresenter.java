@@ -25,7 +25,7 @@ final class MainPagePresenter implements MainPageContract.Presenter {
     private static final int START_SUB_LIST = 0;
     private static final int END_SUB_LIST = 6;
 
-    public MainPagePresenter(MainPageContract.ViewModel viewModel,
+    MainPagePresenter(MainPageContract.ViewModel viewModel,
             ProductRepository productRepository, DomainRepository domainRepository,
             ShopRepository shopRepository) {
         mViewModel = viewModel;

@@ -5,7 +5,7 @@ import com.framgia.forder.data.source.remote.api.response.DomainResponse;
 import com.framgia.forder.data.source.remote.api.response.NotificationResponse;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
 import com.framgia.forder.data.source.remote.api.response.SearchResponse;
-import com.framgia.forder.data.source.remote.api.response.UpdateProfileRespone;
+import com.framgia.forder.data.source.remote.api.response.UpdateProfileResponse;
 import com.framgia.forder.data.source.remote.api.response.UserResponse;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -40,7 +40,7 @@ public interface FOrderApi {
 
     // TODO edit later: There is no api profile link yet
     @POST("v1/profile")
-    Observable<UpdateProfileRespone> updateUserInformation(
+    Observable<UpdateProfileResponse> updateUserInformation(
             @Body UpdateProfileRequest updateProfileRequest);
 
     @GET("v1/search")

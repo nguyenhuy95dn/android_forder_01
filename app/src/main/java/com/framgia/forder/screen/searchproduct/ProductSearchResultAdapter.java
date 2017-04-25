@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.databinding.ItemListProductBinding;
-import com.framgia.forder.databinding.ItemProductBinding;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.mainpage.product.ItemProductViewModel;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
-import com.framgia.forder.screen.mainpage.product.ProductAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +19,8 @@ import java.util.List;
  * Created by Age on 4/21/2017.
  */
 
-public class ProductSearchResultAdapter extends
-        BaseRecyclerViewAdapter<ProductSearchResultAdapter.ItemViewHolder> {
+public class ProductSearchResultAdapter
+        extends BaseRecyclerViewAdapter<ProductSearchResultAdapter.ItemViewHolder> {
 
     private static OrderListener mOrderListener;
     private List<Product> mProducts;
@@ -38,7 +36,8 @@ public class ProductSearchResultAdapter extends
     }
 
     @Override
-    public ProductSearchResultAdapter.ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ProductSearchResultAdapter.ItemViewHolder onCreateViewHolder(ViewGroup parent,
+            int viewType) {
         ItemListProductBinding binding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                         R.layout.item_list_product, parent, false);

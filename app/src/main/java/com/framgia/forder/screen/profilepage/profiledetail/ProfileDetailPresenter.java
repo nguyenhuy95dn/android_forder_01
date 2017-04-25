@@ -13,7 +13,7 @@ final class ProfileDetailPresenter implements ProfileDetailContract.Presenter {
     private final ProfileDetailContract.ViewModel mViewModel;
     private UserRepository mUserRepository;
 
-    public ProfileDetailPresenter(ProfileDetailContract.ViewModel viewModel,
+    ProfileDetailPresenter(ProfileDetailContract.ViewModel viewModel,
             UserRepository userRepository) {
         mViewModel = viewModel;
         mUserRepository = userRepository;

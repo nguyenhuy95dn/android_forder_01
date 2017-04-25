@@ -4,7 +4,7 @@ import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
-import com.framgia.forder.data.source.remote.api.response.UpdateProfileRespone;
+import com.framgia.forder.data.source.remote.api.response.UpdateProfileResponse;
 import java.util.Objects;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -24,7 +24,7 @@ final class UpdateProfilePresenter implements UpdateProfileContract.Presenter {
     private CompositeSubscription mCompositeSubscription;
     private UserRepository mUserRepository;
 
-    public UpdateProfilePresenter(UpdateProfileContract.ViewModel viewModel,
+    UpdateProfilePresenter(UpdateProfileContract.ViewModel viewModel,
             UserRepository userRepository) {
         mViewModel = viewModel;
         mUserRepository = userRepository;
@@ -46,9 +46,9 @@ final class UpdateProfilePresenter implements UpdateProfileContract.Presenter {
         Subscription subscription = mUserRepository.updateProfile(updateProfileRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<UpdateProfileRespone>() {
+                .subscribe(new Action1<UpdateProfileResponse>() {
                     @Override
-                    public void call(UpdateProfileRespone updateProfileRespone) {
+                    public void call(UpdateProfileResponse updateProfileRespone) {
                         mUserRepository.clearData();
                         mUserRepository.saveUser(
                                 updateProfileRespone.getUpdateProfileRequest().getUser());

@@ -4,7 +4,6 @@ import com.framgia.forder.data.model.Notification;
 import com.framgia.forder.data.source.NotificationDataSource;
 import com.framgia.forder.data.source.remote.api.response.NotificationResponse;
 import com.framgia.forder.data.source.remote.api.service.FOrderApi;
-import java.util.ArrayList;
 import java.util.List;
 import rx.Observable;
 import rx.functions.Func1;

@@ -22,7 +22,7 @@ final class LoginPresenter implements LoginContract.Presenter {
     private CompositeSubscription mCompositeSubscription;
     private UserRepository mUserRepository;
 
-    public LoginPresenter(LoginContract.ViewModel viewModel, UserRepository repository) {
+    LoginPresenter(LoginContract.ViewModel viewModel, UserRepository repository) {
         mViewModel = viewModel;
         mUserRepository = repository;
         mCompositeSubscription = new CompositeSubscription();

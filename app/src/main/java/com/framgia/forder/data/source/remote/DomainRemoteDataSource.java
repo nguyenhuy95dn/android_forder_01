@@ -16,8 +16,8 @@ import rx.functions.Func1;
 public class DomainRemoteDataSource implements DomainDataSource.RemoteDataSource {
     private FOrderApi mFOrderApi;
 
-    public DomainRemoteDataSource(FOrderApi FOrderApi) {
-        mFOrderApi = FOrderApi;
+    public DomainRemoteDataSource(FOrderApi api) {
+        mFOrderApi = api;
     }
 
     @Override

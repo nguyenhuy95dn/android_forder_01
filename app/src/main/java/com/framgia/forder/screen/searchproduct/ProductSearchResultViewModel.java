@@ -4,7 +4,6 @@ import android.databinding.BaseObservable;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
-import com.framgia.forder.screen.mainpage.product.ProductAdapter;
 import java.util.List;
 
 /**
@@ -17,7 +16,7 @@ public class ProductSearchResultViewModel extends BaseObservable
     private ProductSearchResultContract.Presenter mPresenter;
     private ProductSearchResultAdapter mAdapter;
 
-    public ProductSearchResultViewModel(ProductSearchResultAdapter adapter) {
+    ProductSearchResultViewModel(ProductSearchResultAdapter adapter) {
         mAdapter = adapter;
         mAdapter.setOrderListener(this);
         mAdapter.setItemClickListener(this);

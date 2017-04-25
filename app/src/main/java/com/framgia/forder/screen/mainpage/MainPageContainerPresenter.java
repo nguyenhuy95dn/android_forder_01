@@ -11,7 +11,7 @@ final class MainPageContainerPresenter implements MainPageContainerContract.Pres
 
     private final MainPageContainerContract.ViewModel mViewModel;
 
-    public MainPageContainerPresenter(MainPageContainerContract.ViewModel viewModel) {
+    MainPageContainerPresenter(MainPageContainerContract.ViewModel viewModel) {
         mViewModel = viewModel;
     }
 

@@ -40,17 +40,18 @@ public class NotificationResponse implements Parcelable {
         return 0;
     }
 
-    public static final Creator<NotificationResponse> CREATOR = new Creator<NotificationResponse>() {
-        @Override
-        public NotificationResponse createFromParcel(Parcel in) {
-            return new NotificationResponse(in);
-        }
+    public static final Creator<NotificationResponse> CREATOR =
+            new Creator<NotificationResponse>() {
+                @Override
+                public NotificationResponse createFromParcel(Parcel in) {
+                    return new NotificationResponse(in);
+                }
 
-        @Override
-        public NotificationResponse[] newArray(int size) {
-            return new NotificationResponse[size];
-        }
-    };
+                @Override
+                public NotificationResponse[] newArray(int size) {
+                    return new NotificationResponse[size];
+                }
+            };
 
     public List<Notification> getNotifications() {
         return mNotifications;

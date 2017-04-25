@@ -10,7 +10,7 @@ final class ProductDetailPresenter implements ProductDetailContract.Presenter {
 
     private final ProductDetailContract.ViewModel mViewModel;
 
-    public ProductDetailPresenter(ProductDetailContract.ViewModel viewModel) {
+    ProductDetailPresenter(ProductDetailContract.ViewModel viewModel) {
         mViewModel = viewModel;
     }
 
