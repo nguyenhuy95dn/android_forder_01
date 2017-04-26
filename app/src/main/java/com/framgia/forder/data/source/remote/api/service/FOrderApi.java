@@ -38,6 +38,10 @@ public interface FOrderApi {
     @GET("v1/products")
     Observable<ProductResponse> getListShop(@Query("domain_id") int id);
 
+    // TODO edit later
+    @GET("v1/products")
+    Observable<ProductResponse> getRelativeShops(@Query("domain_id") int id);
+
     // TODO edit later: There is no api profile link yet
     @POST("v1/profile")
     Observable<UpdateProfileResponse> updateUserInformation(

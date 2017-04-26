@@ -11,5 +11,7 @@ import rx.Observable;
 public interface ShopDataSource {
     interface RemoteDataSource {
         Observable<List<Shop>> getListShop(int domainId);
+
+        Observable<List<Shop>> getRelativeShops(int domainId);
     }
 }

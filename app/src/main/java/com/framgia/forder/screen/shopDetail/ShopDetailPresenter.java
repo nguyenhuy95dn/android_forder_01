@@ -48,7 +48,7 @@ final class ShopDetailPresenter implements ShopDetailContract.Presenter {
         if (domain == null) {
             return;
         }
-        Subscription subscription = mShopRepository.getListShop(domain.getId())
+        Subscription subscription = mShopRepository.getRelativeShops(domain.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Shop>>() {
