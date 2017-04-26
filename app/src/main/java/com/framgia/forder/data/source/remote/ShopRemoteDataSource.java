@@ -44,4 +44,27 @@ public class ShopRemoteDataSource extends BaseRemoteDataSource
                     }
                 });
     }
+
+    @Override
+    public Observable<List<Shop>> getRelativeShops(int domainId) {
+        // todo edit later
+        return mFOrderApi.getRelativeShops(domainId)
+                .flatMap(new Func1<ProductResponse, Observable<List<Shop>>>() {
+                    @Override
+                    public Observable<List<Shop>> call(ProductResponse productResponse) {
+                        if (productResponse != null) {
+                            List<Shop> shops = new ArrayList<>();
+                            for (Product product : productResponse.getListProduct()) {
+                                //TODO remove when server update API
+                                product.getShop()
+                                        .setUser(new User(1, "Trần Đức Quốc",
+                                                "tran.duc.quoc@framgia.com"));
+                                shops.add(product.getShop());
+                            }
+                            return Observable.just(shops);
+                        }
+                        return Observable.error(new NullPointerException());
+                    }
+                });
+    }
 }
