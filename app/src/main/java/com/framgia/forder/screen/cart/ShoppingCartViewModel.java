@@ -18,10 +18,11 @@ import static com.framgia.forder.utils.Constant.UNIT_MONEY;
 
 public class ShoppingCartViewModel extends BaseObservable
         implements ShoppingCartContract.ViewModel, OrderItemListener {
+    private static final String TAG = "ShoppingCartFragment";
     private ShoppingCartAdapter mShoppingCartAdapter;
     private ShoppingCartContract.Presenter mPresenter;
-    private static final String TAG = "ShoppingCartFragment";
     private double mTotalPrice;
+    private List<Cart> mCartList;
 
     public ShoppingCartViewModel(ShoppingCartAdapter shoppingCartAdapter) {
         mShoppingCartAdapter = shoppingCartAdapter;
@@ -48,14 +49,15 @@ public class ShoppingCartViewModel extends BaseObservable
     @Override
     public void onGetListCartSuccess(List<Cart> cartList) {
         mShoppingCartAdapter.updateData(cartList);
+        mCartList = cartList;
     }
 
     @Override
-    public void onOrderItem(Cart cart) {
+    public void onOrderOneShop(Cart cart) {
         if (cart == null) {
             return;
         }
-        mPresenter.orderItem(cart);
+        mPresenter.orderOneShop(cart);
     }
 
     @Override
@@ -137,6 +139,31 @@ public class ShoppingCartViewModel extends BaseObservable
     @Override
     public void onGetTotalPriceError(Throwable throwable) {
         Log.e(TAG, "onGetTotalPriceError", throwable);
+    }
+
+    @Override
+    public void onOrderAllShop() {
+        mPresenter.orderAllShop(mCartList);
+    }
+
+    @Override
+    public void onOrderAllShopError(BaseException exception) {
+        Log.e(TAG, "onOrderAllShopError", exception);
+    }
+
+    @Override
+    public void onOrderAllShopSuccess() {
+        reloadData();
+    }
+
+    @Override
+    public void onOrderOneShopError(BaseException exception) {
+        Log.e(TAG, "onOrderOneShopError", exception);
+    }
+
+    @Override
+    public void onOrderOneShopSuccess() {
+        reloadData();
     }
 
     @Bindable

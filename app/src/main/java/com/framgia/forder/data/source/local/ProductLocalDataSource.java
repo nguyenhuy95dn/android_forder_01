@@ -64,8 +64,8 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                     cart.setShopName(product.getShop().getName());
                     cart.setProductName(product.getName());
                     cart.setProductImage(product.getCollectionImage().getImage().getUrl());
-                    cart.setStartHour(product.getStartHour());
-                    cart.setEndHour(product.getEndHour());
+                    cart.setStartHour(product.getFormatStartHour());
+                    cart.setEndHour(product.getFormatEndHour());
                     cart.setTotal(cart.getTotal());
                     try {
                         realm.insertOrUpdate(cart);
@@ -133,11 +133,7 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                         .equalTo("mDomainId", domainId)
                         .findFirst();
                 if (cart.getQuantity() == DEFAULT_QUANTITY) {
-                    try {
-                        cart.deleteFromRealm();
-                    } catch (IllegalStateException e) {
-                        subscriber.onError(e);
-                    }
+                    deleteShoppingCard(productId, domainId).subscribe();
                 } else {
                     try {
                         cart.setQuantity(cart.getQuantity() - 1);
@@ -230,6 +226,40 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                 try {
                     subscriber.onNext(cartList);
                     subscriber.onCompleted();
+                } catch (IllegalStateException e) {
+                    subscriber.onError(e);
+                }
+            }
+        }).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Void> removeAllOrder(@NonNull final int domainId) {
+        return mRealmApi.realmTransactionAsync(new Action2<Subscriber<? super Void>, Realm>() {
+            @Override
+            public void call(Subscriber<? super Void> subscriber, Realm realm) {
+                RealmResults<ShoppingCart> cart =
+                        realm.where(ShoppingCart.class).equalTo("mDomainId", domainId).findAll();
+                try {
+                    cart.deleteAllFromRealm();
+                } catch (IllegalStateException e) {
+                    subscriber.onError(e);
+                }
+            }
+        }).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Void> removeOrderOneShop(@NonNull final int shopId, @NonNull final int domainId) {
+        return mRealmApi.realmTransactionAsync(new Action2<Subscriber<? super Void>, Realm>() {
+            @Override
+            public void call(Subscriber<? super Void> subscriber, Realm realm) {
+                RealmResults<ShoppingCart> cart = realm.where(ShoppingCart.class)
+                        .equalTo("mDomainId", domainId)
+                        .equalTo("mShopId", shopId)
+                        .findAll();
+                try {
+                    cart.deleteAllFromRealm();
                 } catch (IllegalStateException e) {
                     subscriber.onError(e);
                 }
