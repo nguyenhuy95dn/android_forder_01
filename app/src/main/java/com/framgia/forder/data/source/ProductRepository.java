@@ -4,8 +4,10 @@ import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.local.ProductLocalDataSource;
 import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import java.util.List;
 import rx.Observable;
+import rx.functions.Func1;
 
 public class ProductRepository {
     private ProductDataSource.RemoteDataSource mRemoteDataSource;
@@ -23,6 +25,26 @@ public class ProductRepository {
 
     public Observable<List<Product>> getListProduct() {
         return mRemoteDataSource.getListProduct(mCurrentDomainId);
+    }
+
+    public Observable<Void> orderOneShop(OrderRequest orderRequest, final int shopId) {
+        return mRemoteDataSource.orderProduct(orderRequest)
+                .flatMap(new Func1<Void, Observable<Void>>() {
+                    @Override
+                    public Observable<Void> call(Void aVoid) {
+                        return removeOrderOneShop(shopId);
+                    }
+                });
+    }
+
+    public Observable<Void> orderAllShop(OrderRequest orderRequest) {
+        return mRemoteDataSource.orderProduct(orderRequest)
+                .flatMap(new Func1<Void, Observable<Void>>() {
+                    @Override
+                    public Observable<Void> call(Void aVoid) {
+                        return removeAllOrder();
+                    }
+                });
     }
 
     public Observable<Void> addToCart(Product product) {

@@ -133,7 +133,11 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                         .equalTo("mDomainId", domainId)
                         .findFirst();
                 if (cart.getQuantity() == DEFAULT_QUANTITY) {
-                    deleteShoppingCard(productId, domainId).subscribe();
+                    try {
+                        cart.deleteFromRealm();
+                    } catch (IllegalStateException e) {
+                        subscriber.onError(e);
+                    }
                 } else {
                     try {
                         cart.setQuantity(cart.getQuantity() - 1);
@@ -199,11 +203,11 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
 
                 for (ShoppingCart shoppingCart : shops) {
                     Cart cart = new Cart(shoppingCart.getDomainId(), shoppingCart.getShopId(),
-                            shoppingCart.getShopName(), shoppingCart.getTotal());
+                            shoppingCart.getShopName());
                     cartList.add(cart);
                 }
                 for (Cart cart : cartList) {
-                    double chargeForOrderInShop = 0;
+                    int chargeForOrderInShop = 0;
                     RealmResults<ShoppingCart> orderInShops = realm.where(ShoppingCart.class)
                             .equalTo("mShopId", cart.getShopId())
                             .equalTo("mDomainId", domainId)

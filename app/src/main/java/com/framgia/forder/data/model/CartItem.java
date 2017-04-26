@@ -1,5 +1,8 @@
 package com.framgia.forder.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import static com.framgia.forder.utils.Constant.FORMAT_PRICE;
 import static com.framgia.forder.utils.Constant.UNIT_MONEY;
 
@@ -8,10 +11,21 @@ import static com.framgia.forder.utils.Constant.UNIT_MONEY;
  */
 
 public class CartItem {
+
+    @SerializedName("status")
+    @Expose
+    private int mStatus;
+    @SerializedName("product_id")
+    @Expose
+    private int mProductId;
+    @SerializedName("user_id")
+    @Expose
+    private int mUserId;
+    @SerializedName("quantity")
+    @Expose
+    private int mQuantity;
     private int mDomainId;
     private int mShopId;
-    private int mQuantity;
-    private int mProductId;
     private String mProductName;
     private String mProductImage;
     private double mPrice;
@@ -118,5 +132,21 @@ public class CartItem {
 
     public void setTotal(Double total) {
         mTotal = total;
+    }
+
+    public int getStatus() {
+        return mStatus;
+    }
+
+    public void setStatus(int status) {
+        mStatus = status;
+    }
+
+    public int getUserId() {
+        return mUserId;
+    }
+
+    public void setUserId(int userId) {
+        mUserId = userId;
     }
 }

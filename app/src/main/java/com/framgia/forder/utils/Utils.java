@@ -3,6 +3,7 @@ package com.framgia.forder.utils;
 import android.text.TextUtils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -27,6 +28,23 @@ public class Utils {
                 return newSdf.format(sdf.parse(time));
             } catch (ParseException e) {
                 return null;
+            }
+        }
+
+        public static boolean isProductTimeOut(String start, String end) {
+            SimpleDateFormat parser = new SimpleDateFormat(Constant.FORMAT_TIME);
+            Date currentHour = convertStringToDate(parser.format(new Date()));
+            Date startHour = convertStringToDate(start);
+            Date endHour = convertStringToDate(end);
+            return currentHour.before(startHour) && currentHour.after(endHour);
+        }
+
+        private static Date convertStringToDate(String date) {
+            SimpleDateFormat parser = new SimpleDateFormat(Constant.FORMAT_TIME);
+            try {
+                return parser.parse(date);
+            } catch (java.text.ParseException e) {
+                return new Date();
             }
         }
     }
