@@ -59,8 +59,10 @@ public class MainPageViewModel extends Observable implements MainPageContract.Vi
     @Override
     public void onItemRecyclerViewClick(Object item) {
         if (item instanceof Product) {
-            mNavigator.goNextChildFragment(R.id.layout_content, ProductDetailFragment.newInstance(),
-                    true, Navigator.RIGHT_LEFT, "ProductDetailFragment");
+            Product product = (Product) item;
+            mNavigator.goNextChildFragment(R.id.layout_content,
+                    ProductDetailFragment.newInstance(product), true, Navigator.RIGHT_LEFT,
+                    "ProductDetailFragment");
         }
         if (item instanceof Shop) {
             Shop shop = (Shop) item;

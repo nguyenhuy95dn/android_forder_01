@@ -31,5 +31,7 @@ public interface ProductDataSource {
 
     interface RemoteDataSource {
         Observable<List<Product>> getListProduct(int domainId);
+
+        Observable<List<Product>> getListProductInShop(int shopId, int domainId);
     }
 }

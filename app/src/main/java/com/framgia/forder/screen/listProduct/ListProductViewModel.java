@@ -1,6 +1,5 @@
 package com.framgia.forder.screen.listProduct;
 
-import android.content.Context;
 import android.util.Log;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
@@ -21,15 +20,12 @@ public class ListProductViewModel extends Observable implements ListProductContr
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener {
     private static final String TAG = "ListProductFragment";
 
-    private Context mContext;
     private Navigator mNavigator;
     private ListProductContract.Presenter mPresenter;
     private ListProductAdapter mListProductAdapter;
 
-    public ListProductViewModel(Context context, ListProductAdapter listProductAdapter,
-            Navigator navigator) {
+    public ListProductViewModel(ListProductAdapter listProductAdapter, Navigator navigator) {
 
-        mContext = context;
         mListProductAdapter = listProductAdapter;
         mNavigator = navigator;
         mListProductAdapter.setItemClickListener(this);
@@ -69,7 +65,7 @@ public class ListProductViewModel extends Observable implements ListProductContr
 
     @Override
     public void onAddToCartSuccess() {
-        // Todo show dialog message
+        //TODO update order quantity of product in here
     }
 
     @Override
@@ -82,8 +78,12 @@ public class ListProductViewModel extends Observable implements ListProductContr
 
     @Override
     public void onItemRecyclerViewClick(Object item) {
-        mNavigator.goNextChildFragment(R.id.layout_content, ProductDetailFragment.newInstance(),
-                true, Navigator.RIGHT_LEFT, "ProductDetailFragment");
+        if (item instanceof Product) {
+            Product product = (Product) item;
+            mNavigator.goNextChildFragment(R.id.layout_content,
+                    ProductDetailFragment.newInstance(product), true, Navigator.RIGHT_LEFT,
+                    "ProductDetailFragment");
+        }
     }
 
     public ListProductAdapter getListProductAdapter() {

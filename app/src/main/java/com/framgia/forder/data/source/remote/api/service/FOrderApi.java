@@ -52,4 +52,8 @@ public interface FOrderApi {
 
     @GET("v1/notifications")
     Observable<NotificationResponse> getListNotification();
+
+    @GET("v1/products")
+    Observable<ProductResponse> getListProductShop(@Query("shop_id") int shopId,
+            @Query("domain_id") int id);
 }
