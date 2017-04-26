@@ -2,6 +2,7 @@ package com.framgia.forder.data.source.remote;
 
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
+import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.ShopDataSource;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
 import com.framgia.forder.data.source.remote.api.service.FOrderApi;
@@ -31,6 +32,10 @@ public class ShopRemoteDataSource extends BaseRemoteDataSource
                     public Observable<List<Shop>> call(ProductResponse productResponse) {
                         if (productResponse != null) {
                             for (Product product : productResponse.getListProduct()) {
+                                //TODO remove when server update API
+                                product.getShop()
+                                        .setUser(new User(1, "Trần Đức Quốc",
+                                                "tran.duc.quoc@framgia.com"));
                                 shops.add(product.getShop());
                             }
                             return Observable.just(shops);

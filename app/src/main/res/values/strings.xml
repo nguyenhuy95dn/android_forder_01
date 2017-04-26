@@ -79,4 +79,5 @@
     <string name="step_one_check_order">Step 1: Check orders</string>
     <string name="step_two_close_order">Step 2: Close orders</string>
     <string name="continue_check">Continue</string>
+    <string name="shop_related">Shop Related</string>
 </resources>
