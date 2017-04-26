@@ -27,7 +27,7 @@ public class ItemShoppingCartViewModel extends BaseObservable {
         if (mOrderItemListener == null) {
             return;
         }
-        mOrderItemListener.onOrderItem(mCart);
+        mOrderItemListener.onOrderOneShop(mCart);
     }
 
     public void upQuantity() {

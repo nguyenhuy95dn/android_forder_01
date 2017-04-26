@@ -8,7 +8,7 @@ import com.framgia.forder.data.model.CartItem;
  */
 
 public interface OrderItemListener {
-    void onOrderItem(Cart cart);
+    void onOrderOneShop(Cart cart);
 
     void onUpQuantity(CartItem cartItem);
 

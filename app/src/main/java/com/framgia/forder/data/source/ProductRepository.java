@@ -53,6 +53,14 @@ public class ProductRepository {
         return mLocalProductDataSource.getAllShoppingCart(mCurrentDomainId);
     }
 
+    private Observable<Void> removeOrderOneShop(int shopId) {
+        return mLocalProductDataSource.removeOrderOneShop(shopId, mCurrentDomainId);
+    }
+
+    private Observable<Void> removeAllOrder() {
+        return mLocalProductDataSource.removeAllOrder(mCurrentDomainId);
+    }
+
     public void openTransaction() {
         mLocalProductDataSource.openTransaction();
     }

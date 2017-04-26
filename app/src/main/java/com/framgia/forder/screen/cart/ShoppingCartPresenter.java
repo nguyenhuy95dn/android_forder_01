@@ -58,11 +58,19 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
     }
 
     @Override
-    public void orderItem(Cart cart) {
+    public void orderOneShop(final Cart cart) {
         if (cart == null) {
             return;
         }
-        //TODO order item in cart
+        // TODO request order to server
+    }
+
+    @Override
+    public void orderAllShop(final List<Cart> list) {
+        if (list == null) {
+            return;
+        }
+        // TODO request order to server
     }
 
     @Override

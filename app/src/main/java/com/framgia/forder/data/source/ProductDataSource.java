@@ -23,6 +23,10 @@ public interface ProductDataSource {
         Observable<Double> getTotalPrice(@NonNull int domainId);
 
         Observable<List<Cart>> getAllShoppingCart(int domainId);
+
+        Observable<Void> removeAllOrder(@NonNull int domainId);
+
+        Observable<Void> removeOrderOneShop(@NonNull int shopId, @NonNull int domainId);
     }
 
     interface RemoteDataSource {

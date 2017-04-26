@@ -36,13 +36,25 @@ interface ShoppingCartContract {
         void onGetTotalPriceSuccess(double totalPrice);
 
         void onGetTotalPriceError(Throwable throwable);
+
+        void onOrderAllShop();
+
+        void onOrderAllShopError(BaseException exception);
+
+        void onOrderAllShopSuccess();
+
+        void onOrderOneShopError(BaseException exception);
+
+        void onOrderOneShopSuccess();
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
-        void orderItem(Cart cart);
+        void orderOneShop(Cart cart);
+
+        void orderAllShop(List<Cart> list);
 
         void getListCart();
 
