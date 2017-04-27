@@ -104,6 +104,7 @@ dependencies {
   compile dependencies.retrofitGson
   compile dependencies.loggingInterceptor
   compile dependencies.glide
+  compile dependencies.floatingsearchview
 
   testCompile dependencies.junit
   testCompile dependencies.mockito

@@ -45,4 +45,16 @@ public class ProductSearchResultFragment extends Fragment {
     public void setProducts(List<Product> products) {
         mViewModel.onSearchSuccess(products);
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mViewModel.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        mViewModel.onStop();
+        super.onStop();
+    }
 }

@@ -1,6 +1,8 @@
 package com.framgia.forder.screen.searchpage;
 
+import android.databinding.BaseObservable;
 import android.support.v4.app.Fragment;
+import com.arlib.floatingsearchview.FloatingSearchView;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
@@ -12,7 +14,8 @@ import java.util.List;
  * Exposes the data to be used in the FragmentSearchContainer screen.
  */
 
-public class SearchContainerViewModel implements SearchContainerContract.ViewModel {
+public class SearchContainerViewModel extends BaseObservable
+        implements SearchContainerContract.ViewModel {
 
     private SearchContainerContract.Presenter mPresenter;
     private SearchContainerAdapter mAdapter;
@@ -70,5 +73,15 @@ public class SearchContainerViewModel implements SearchContainerContract.ViewMod
     @Override
     public void onClickSearch(String keyWord) {
         mPresenter.search(keyWord);
+    }
+
+    public FloatingSearchView.OnQueryChangeListener getQueryTextListener() {
+        return new FloatingSearchView.OnQueryChangeListener() {
+
+            @Override
+            public void onSearchTextChanged(String oldQuery, String newQuery) {
+                onClickSearch(newQuery);
+            }
+        };
     }
 }

@@ -29,7 +29,7 @@
                 app:tabIndicatorColor="@android:color/white"
                 app:tabSelectedTextColor="@android:color/white"
                 app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                app:tabTextColor="@color/color_gray_white"
+                app:tabTextColor="@color/black"
                 bind:pager="@{viewpager}"
                 />
         </android.support.design.widget.AppBarLayout>
