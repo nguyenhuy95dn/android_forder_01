@@ -22,7 +22,7 @@ public class User implements Parcelable {
     private String mEmail;
     @SerializedName("avatar")
     @Expose
-    private Image mAvatar;
+    private CollectionAvatar mAvatar;
     @SerializedName("authentication_token")
     @Expose
     private String mToken;
@@ -111,11 +111,11 @@ public class User implements Parcelable {
         mEmail = email;
     }
 
-    public Image getAvatar() {
+    public CollectionAvatar getAvatar() {
         return mAvatar;
     }
 
-    public void setAvatar(Image avatar) {
+    public void setAvatar(CollectionAvatar avatar) {
         mAvatar = avatar;
     }
 
