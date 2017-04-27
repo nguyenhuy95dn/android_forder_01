@@ -51,6 +51,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/title_shop"
+                        android:textColor="@color/color_dark_slate_gray"
                         android:textSize="@dimen/sp_15"
                         android:textStyle="bold"
                         />
@@ -59,6 +60,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_5"
                         android:text="@{viewModel.shopName}"
+                        android:textColor="@color/color_dark_slate_gray"
                         android:textSize="@dimen/sp_15"
                         />
                 </LinearLayout>
@@ -72,6 +74,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/title_total"
+                        android:textColor="@color/color_dark_slate_gray"
                         android:textSize="@dimen/sp_15"
                         android:textStyle="bold"
                         />
@@ -81,21 +84,38 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_5"
                         android:text="@{viewModel.total}"
+                        android:textColor="@color/color_dark_slate_gray"
                         android:textSize="@dimen/sp_15"
                         />
                 </LinearLayout>
             </LinearLayout>
-            <ImageButton
-                android:id="@+id/button_order_shop"
+            <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_10"
                 android:background="@color/color_yellow_white"
                 android:onClick="@{()-> viewModel.orderOneShop()}"
-                app:srcCompat="@drawable/ic_cart_shop"
-                />
+                >
+                <ImageView
+                    android:id="@+id/button_order_shop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_yellow_white"
+                    app:srcCompat="@drawable/ic_cart_shop"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:background="@drawable/circle_number_of_product"
+                    android:gravity="center"
+                    android:text="@{viewModel.numberOfProduct}"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp_10"
+                    />
+            </FrameLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

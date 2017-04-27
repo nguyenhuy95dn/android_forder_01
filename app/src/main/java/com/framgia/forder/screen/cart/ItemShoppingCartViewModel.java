@@ -74,4 +74,8 @@ public class ItemShoppingCartViewModel extends BaseObservable {
     public String getTotal() {
         return mCart.getFormatTotal();
     }
+
+    public String getNumberOfProduct() {
+        return Integer.toString(mCart.getNumberOfProduct());
+    }
 }

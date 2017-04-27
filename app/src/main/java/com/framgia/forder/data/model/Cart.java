@@ -30,6 +30,7 @@ public class Cart {
     @Expose
     private List<CartItem> mCartItemList;
     private String mShopName;
+    private int mNumberOfProduct;
 
     public Cart() {
     }
@@ -98,5 +99,13 @@ public class Cart {
 
     public void setStatus(int status) {
         mStatus = status;
+    }
+
+    public int getNumberOfProduct() {
+        return mNumberOfProduct;
+    }
+
+    public void setNumberOfProduct(int numberOfProduct) {
+        mNumberOfProduct = numberOfProduct;
     }
 }

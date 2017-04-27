@@ -38,50 +38,60 @@
             android:background="@color/color_yellow_white"
             >
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
                 >
-                <TextView
-                    android:id="@+id/text_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_total"
-                    android:textSize="@dimen/sp_15"
-                    android:textStyle="bold"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.totalPrice}"
-                    android:textSize="@dimen/sp_15"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dp_20"
-                android:background="@color/color_yellow_white"
-                android:gravity="center"
-                android:onClick="@{()-> viewModel.onOrderAllShop()}"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:id="@+id/button_order"
-                    android:layout_width="@dimen/dp_25"
-                    android:layout_height="@dimen/dp_25"
-                    app:srcCompat="@drawable/ic_order_all"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/action_order_all"
-                    android:textColor="@color/color_orange"
-                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/color_green_blue"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/text_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_30"
+                        android:layout_weight="0.05"
+                        android:text="@string/title_total"
+                        android:textColor="@color/color_dark_slate_gray"
+                        android:textSize="@dimen/sp_15"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{viewModel.totalPrice}"
+                        android:textColor="@color/color_dark_slate_gray"
+                        android:textSize="@dimen/sp_15"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/color_orange"
+                    android:gravity="center"
+                    android:onClick="@{()-> viewModel.onOrderAllShop()}"
+                    android:orientation="vertical"
+                    >
+                    <ImageView
+                        android:id="@+id/button_order"
+                        android:layout_width="@dimen/dp_25"
+                        android:layout_height="@dimen/dp_25"
+                        app:srcCompat="@drawable/ic_order_all"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/action_order_all"
+                        android:textColor="@color/color_white"
+                        />
+                </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
