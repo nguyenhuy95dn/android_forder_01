@@ -82,4 +82,8 @@
     <string name="shop_related">Shop Related</string>
     <string name="add_a_comment">Add a comment</string>
     <string name="quantity">Quantity</string>
+    <string name="start_date">Start date </string>
+    <string name="end_date">End date </string>
+    <string name="filter">Filter</string>
+    <string name="your_order_history">Your order history</string>
 </resources>

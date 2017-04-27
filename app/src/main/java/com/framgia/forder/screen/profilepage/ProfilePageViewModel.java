@@ -3,6 +3,7 @@ package com.framgia.forder.screen.profilepage;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.screen.login.LoginActivity;
+import com.framgia.forder.screen.orderhistory.OrderHistoryFragment;
 import com.framgia.forder.screen.profilepage.profiledetail.ProfileDetailFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 
@@ -58,7 +59,8 @@ public class ProfilePageViewModel implements ProfilePageContract.ViewModel {
     }
 
     public void onClickHistoryOrder() {
-        //TODO: open History Order
+        mNavigator.goNextChildFragment(R.id.layout_content, OrderHistoryFragment.newInstance(),
+                true, Navigator.RIGHT_LEFT, TAG);
     }
 
     public void onClickYourOrder() {
