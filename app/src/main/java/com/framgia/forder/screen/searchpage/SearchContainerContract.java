@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.searchpage;
 
+import com.framgia.forder.data.model.DataSuggest;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
@@ -24,6 +25,12 @@ interface SearchContainerContract {
         void onClickSearch(String keyWord);
 
         void onSearchShopsError(BaseException error);
+
+        void onGetDataSuggest(List<DataSuggest> dataSuggests);
+
+        void onGetDataSuggestError(Throwable e);
+
+        void reloadData();
     }
 
     /**
@@ -31,5 +38,7 @@ interface SearchContainerContract {
      */
     interface Presenter extends BasePresenter {
         void search(String keyWord);
+
+        void getDataSuggest();
     }
 }

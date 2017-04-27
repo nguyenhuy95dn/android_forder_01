@@ -9,8 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import com.arlib.floatingsearchview.FloatingSearchView;
 import com.bumptech.glide.Glide;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.DataSuggest;
+import java.util.List;
 
 /**
  * Created by le.quang.dao on 20/03/2017.
@@ -60,6 +63,12 @@ public final class BindingUtils {
     public static void setAdapterForSpinner(AppCompatSpinner spinner,
             ArrayAdapter<String> adapter) {
         spinner.setAdapter(adapter);
+    }
+
+    @BindingAdapter({ "floatingSearchView" })
+    public static void getFloatingSearchView(FloatingSearchView floatingSearchView,
+            List<DataSuggest> suggests) {
+        floatingSearchView.swapSuggestions(suggests);
     }
 
     @BindingAdapter("layoutManager")

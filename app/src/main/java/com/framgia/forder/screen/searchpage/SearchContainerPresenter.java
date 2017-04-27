@@ -35,6 +35,7 @@ final class SearchContainerPresenter implements SearchContainerContract.Presente
 
     @Override
     public void onStart() {
+        getDataSuggest();
     }
 
     @Override
@@ -67,5 +68,9 @@ final class SearchContainerPresenter implements SearchContainerContract.Presente
                     }
                 });
         mCompositeSubscriptions.add(subscription);
+    }
+
+    @Override
+    public void getDataSuggest() {
     }
 }
