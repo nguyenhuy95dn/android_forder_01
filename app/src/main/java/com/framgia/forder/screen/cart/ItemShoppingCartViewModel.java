@@ -23,7 +23,7 @@ public class ItemShoppingCartViewModel extends BaseObservable {
         mOrderItemListener = orderItemListener;
     }
 
-    public void orderItem() {
+    public void orderOneShop() {
         if (mOrderItemListener == null) {
             return;
         }

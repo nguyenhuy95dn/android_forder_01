@@ -93,6 +93,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_10"
                 android:background="@color/color_yellow_white"
+                android:onClick="@{()-> viewModel.orderOneShop()}"
                 app:srcCompat="@drawable/ic_cart_shop"
                 />
         </RelativeLayout>

@@ -67,6 +67,7 @@
                 android:layout_marginRight="@dimen/dp_20"
                 android:background="@color/color_yellow_white"
                 android:gravity="center"
+                android:onClick="@{()-> viewModel.onOrderAllShop()}"
                 android:orientation="vertical"
                 >
                 <ImageView

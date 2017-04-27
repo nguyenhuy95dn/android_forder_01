@@ -1,12 +1,15 @@
 package com.framgia.forder.screen.cart;
 
+import android.content.DialogInterface;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.util.Log;
 import com.framgia.forder.BR;
+import com.framgia.forder.R;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.List;
 
 import static com.framgia.forder.utils.Constant.FORMAT_PRICE;
@@ -23,10 +26,13 @@ public class ShoppingCartViewModel extends BaseObservable
     private ShoppingCartContract.Presenter mPresenter;
     private double mTotalPrice;
     private List<Cart> mCartList;
+    private DialogManager mDialogManager;
 
-    public ShoppingCartViewModel(ShoppingCartAdapter shoppingCartAdapter) {
+    public ShoppingCartViewModel(ShoppingCartAdapter shoppingCartAdapter,
+            DialogManager dialogManager) {
         mShoppingCartAdapter = shoppingCartAdapter;
         shoppingCartAdapter.setOrderItemListener(this);
+        mDialogManager = dialogManager;
     }
 
     @Override
@@ -53,11 +59,18 @@ public class ShoppingCartViewModel extends BaseObservable
     }
 
     @Override
-    public void onOrderOneShop(Cart cart) {
+    public void onOrderOneShop(final Cart cart) {
         if (cart == null) {
             return;
         }
-        mPresenter.orderOneShop(cart);
+        mDialogManager.dialogwithNoTitleTwoButton(R.string.mgs_this_order,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.orderOneShop(cart);
+                    }
+                });
+        mDialogManager.show();
     }
 
     @Override
@@ -77,11 +90,18 @@ public class ShoppingCartViewModel extends BaseObservable
     }
 
     @Override
-    public void onDeleteProduct(CartItem cartItem) {
+    public void onDeleteProduct(final CartItem cartItem) {
         if (cartItem == null) {
             return;
         }
-        mPresenter.deleteProduct(cartItem);
+        mDialogManager.dialogwithNoTitleTwoButton(R.string.mgs_delete_product,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.deleteProduct(cartItem);
+                    }
+                });
+        mDialogManager.show();
     }
 
     public ShoppingCartAdapter getShoppingCartAdapter() {
@@ -143,7 +163,14 @@ public class ShoppingCartViewModel extends BaseObservable
 
     @Override
     public void onOrderAllShop() {
-        mPresenter.orderAllShop(mCartList);
+        mDialogManager.dialogwithNoTitleTwoButton(R.string.mgs_order_all,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.orderAllShop(mCartList);
+                    }
+                });
+        mDialogManager.show();
     }
 
     @Override
