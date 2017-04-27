@@ -65,8 +65,8 @@ public class CheckOrderAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
             ViewGroup parent) {
         if (convertView == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) mContext.
-                    getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater layoutInflater =
+                    (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.item_parent_check_order, null);
         }
         ViewDataBinding mBinding = DataBindingUtil.bind(convertView);

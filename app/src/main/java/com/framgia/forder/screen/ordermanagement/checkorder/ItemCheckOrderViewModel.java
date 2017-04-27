@@ -51,7 +51,7 @@ public class ItemCheckOrderViewModel extends BaseObservable {
         return mOrderDetail.getStatus() == REJECT_CODE;
     }
 
-    public boolean isChecked(){
+    public boolean isChecked() {
         return mOrderDetail.isCheckBoxStatus();
     }
 }
