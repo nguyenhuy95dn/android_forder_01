@@ -17,13 +17,10 @@ import java.util.List;
 public class CheckOrderAdapter extends BaseExpandableListAdapter {
     private Context mContext;
     private List<Order> mOrders = new ArrayList<>();
-    private CheckOrderContract.Presenter mListener;
 
-    public CheckOrderAdapter(Context context, List<Order> orders,
-            CheckOrderContract.Presenter presenter) {
+    public CheckOrderAdapter(Context context, List<Order> orders) {
         mContext = context;
         mOrders = orders;
-        mListener = presenter;
     }
 
     @Override
@@ -94,5 +91,14 @@ public class CheckOrderAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
+    }
+
+    public void updateData(List<Order> orders) {
+        if (orders == null) {
+            return;
+        }
+        mOrders.clear();
+        mOrders.addAll(orders);
+        notifyDataSetChanged();
     }
 }
