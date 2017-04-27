@@ -4,6 +4,7 @@ import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
 import com.framgia.forder.data.source.remote.api.response.NotificationResponse;
+import com.framgia.forder.data.source.remote.api.response.OrderManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderResponse;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
 import com.framgia.forder.data.source.remote.api.response.SearchResponse;
@@ -61,4 +62,7 @@ public interface FOrderApi {
 
     @POST("v1/orders/")
     Observable<OrderResponse> orderRequest(@Body OrderRequest orderRequest);
+
+    @GET("order_managers")
+    Observable<OrderManagementResponse> getOrderManagement();
 }
