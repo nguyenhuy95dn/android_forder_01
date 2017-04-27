@@ -5,6 +5,9 @@ import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.source.ProductRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
+import com.framgia.forder.data.source.remote.api.request.OrderRequest;
+import com.framgia.forder.utils.Utils;
+import java.util.ArrayList;
 import java.util.List;
 import rx.Subscriber;
 import rx.Subscription;
@@ -62,15 +65,42 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
         if (cart == null) {
             return;
         }
-        // TODO request order to server
+        List<Cart> cartList = new ArrayList<>();
+        cartList.add(cart);
+        Subscription subscription =
+                mProductRepository.orderOneShop(getOrderRequest(cartList), cart.getShopId())
+                        .subscribe(new Action1<Void>() {
+                            @Override
+                            public void call(Void aVoid) {
+                                mViewModel.onOrderOneShopSuccess();
+                            }
+                        }, new SafetyError() {
+                            @Override
+                            public void onSafetyError(BaseException error) {
+                                mViewModel.onOrderOneShopError(error);
+                            }
+                        });
+        mCompositeSubscription.add(subscription);
     }
 
     @Override
-    public void orderAllShop(final List<Cart> list) {
-        if (list == null) {
+    public void orderAllShop(final List<Cart> carts) {
+        if (carts == null) {
             return;
         }
-        // TODO request order to server
+        Subscription subscription = mProductRepository.orderAllShop(getOrderRequest(carts))
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        mViewModel.onOrderAllShopSuccess();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onOrderAllShopError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
     }
 
     @Override
@@ -163,5 +193,22 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
                     }
                 });
         mCompositeSubscription.add(subscriptions);
+    }
+
+    public OrderRequest getOrderRequest(List<Cart> carts) {
+        OrderRequest orderRequest = new OrderRequest();
+        List<Cart> cartList = new ArrayList<>();
+        for (Cart cart : carts) {
+            List<CartItem> cartItemList = new ArrayList<>();
+            for (CartItem cartItem : cart.getCartItemList()) {
+                if (!Utils.DateTimeUntils.isProductTimeOut(cartItem.getStartHour(),
+                        cartItem.getEndHour())) {
+                    cartItemList.add(cartItem);
+                }
+            }
+            cartList.add(cart);
+        }
+        orderRequest.setCartList(cartList);
+        return orderRequest;
     }
 }

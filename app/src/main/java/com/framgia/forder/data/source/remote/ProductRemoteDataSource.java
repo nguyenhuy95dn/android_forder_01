@@ -2,6 +2,8 @@ package com.framgia.forder.data.source.remote;
 
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.ProductDataSource;
+import com.framgia.forder.data.source.remote.api.request.OrderRequest;
+import com.framgia.forder.data.source.remote.api.response.OrderResponse;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
 import com.framgia.forder.data.source.remote.api.service.FOrderApi;
 import java.util.List;
@@ -41,6 +43,20 @@ public class ProductRemoteDataSource extends BaseRemoteDataSource
                     public Observable<List<Product>> call(ProductResponse productResponse) {
                         if (productResponse != null) {
                             return Observable.just(productResponse.getListProduct());
+                        }
+                        return Observable.error(new NullPointerException());
+                    }
+                });
+    }
+
+    @Override
+    public Observable<Void> orderProduct(OrderRequest orderRequest) {
+        return mFOrderApi.orderRequest(orderRequest)
+                .flatMap(new Func1<OrderResponse, Observable<Void>>() {
+                    @Override
+                    public Observable<Void> call(OrderResponse orderResponse) {
+                        if (orderResponse != null) {
+                            return Observable.just(null);
                         }
                         return Observable.error(new NullPointerException());
                     }

@@ -1,8 +1,9 @@
 package com.framgia.forder.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
-import static com.framgia.forder.utils.Constant.FORMAT_PRICE;
 import static com.framgia.forder.utils.Constant.UNIT_MONEY;
 
 /**
@@ -10,20 +11,33 @@ import static com.framgia.forder.utils.Constant.UNIT_MONEY;
  */
 
 public class Cart {
+    @SerializedName("domain_id")
+    @Expose
     private int mDomainId;
+    @SerializedName("total_pay")
+    @Expose
+    private int mTotal;
+    @SerializedName("shop_id")
+    @Expose
     private int mShopId;
-    private String mShopName;
-    private double mTotal;
+    @SerializedName("user_id")
+    @Expose
+    private int mUserId;
+    @SerializedName("mStatus")
+    @Expose
+    private int mStatus;
+    @SerializedName("orders")
+    @Expose
     private List<CartItem> mCartItemList;
+    private String mShopName;
 
     public Cart() {
     }
 
-    public Cart(int domainId, int shopId, String shopName, double total) {
+    public Cart(int domainId, int shopId, String shopName) {
         mDomainId = domainId;
         mShopId = shopId;
         mShopName = shopName;
-        mTotal = total;
     }
 
     public int getDomainId() {
@@ -50,11 +64,11 @@ public class Cart {
         mShopName = shopName;
     }
 
-    public double getTotal() {
+    public int getTotal() {
         return mTotal;
     }
 
-    public void setTotal(double total) {
+    public void setTotal(int total) {
         mTotal = total;
     }
 
@@ -67,6 +81,22 @@ public class Cart {
     }
 
     public String getFormatTotal() {
-        return String.format(FORMAT_PRICE, mTotal) + UNIT_MONEY;
+        return String.valueOf(mTotal) + UNIT_MONEY;
+    }
+
+    public int getUserId() {
+        return mUserId;
+    }
+
+    public void setUserId(int userId) {
+        mUserId = userId;
+    }
+
+    public int getStatus() {
+        return mStatus;
+    }
+
+    public void setStatus(int status) {
+        mStatus = status;
     }
 }

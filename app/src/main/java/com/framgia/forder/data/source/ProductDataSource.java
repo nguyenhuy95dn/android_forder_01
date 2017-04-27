@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.local.realm.BaseLocalDataSource;
+import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import java.util.List;
 import rx.Observable;
 
@@ -33,5 +34,7 @@ public interface ProductDataSource {
         Observable<List<Product>> getListProduct(int domainId);
 
         Observable<List<Product>> getListProductInShop(int shopId, int domainId);
+
+        Observable<Void> orderProduct(OrderRequest orderRequest);
     }
 }

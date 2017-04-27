@@ -1,8 +1,10 @@
 package com.framgia.forder.data.source.remote.api.service;
 
+import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
 import com.framgia.forder.data.source.remote.api.response.NotificationResponse;
+import com.framgia.forder.data.source.remote.api.response.OrderResponse;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
 import com.framgia.forder.data.source.remote.api.response.SearchResponse;
 import com.framgia.forder.data.source.remote.api.response.UpdateProfileResponse;
@@ -56,4 +58,7 @@ public interface FOrderApi {
     @GET("v1/products")
     Observable<ProductResponse> getListProductShop(@Query("shop_id") int shopId,
             @Query("domain_id") int id);
+
+    @POST("v1/orders/")
+    Observable<OrderResponse> orderRequest(@Body OrderRequest orderRequest);
 }
