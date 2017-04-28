@@ -9,6 +9,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -28,10 +29,10 @@ public class Navigator {
     public static final int LEFT_RIGHT = 4;
 
     @NonNull
-    private Activity mActivity;
+    private FragmentActivity mActivity;
     private Fragment mFragment;
 
-    public Navigator(@NonNull Activity activity) {
+    public Navigator(@NonNull FragmentActivity activity) {
         mActivity = activity;
     }
 
@@ -161,6 +162,18 @@ public class Navigator {
 
     public void goBackFragmentByTag(String tag, int flags) {
         mFragment.getChildFragmentManager().popBackStackImmediate(tag, flags);
+    }
+
+    public void setFragment(@IdRes int containerViewId, Fragment fragment, boolean addToBackStack,
+            int animation, String tag) {
+        FragmentTransaction transaction = mActivity.getSupportFragmentManager().beginTransaction();
+        setFragmentTransactionAnimation(transaction, animation);
+        if (addToBackStack) {
+            transaction.addToBackStack(fragment.getClass().getSimpleName());
+        }
+        transaction.replace(containerViewId, fragment, tag);
+        transaction.commitAllowingStateLoss();
+        mActivity.getSupportFragmentManager().executePendingTransactions();
     }
 
     @IntDef({ RIGHT_LEFT, BOTTOM_UP, FADED, NONE, LEFT_RIGHT })
