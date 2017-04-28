@@ -47,5 +47,11 @@ public class Utils {
                 return new Date();
             }
         }
+
+        public static String convertDateToString(Date date) {
+            SimpleDateFormat simpleDateFormat =
+                    new SimpleDateFormat(Constant.FORMAT_DATE, Locale.getDefault());
+            return simpleDateFormat.format(date);
+        }
     }
 }

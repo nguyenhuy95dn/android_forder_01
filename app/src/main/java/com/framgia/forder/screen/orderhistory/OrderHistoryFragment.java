@@ -11,6 +11,7 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.Order;
 import com.framgia.forder.databinding.FragmentOrderHistoryBinding;
 import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,10 +35,12 @@ public class OrderHistoryFragment extends Fragment {
                 DataBindingUtil.inflate(inflater, R.layout.fragment_order_history, container,
                         false);
         List<Order> orderHistories = new ArrayList<>();
+        DialogManager dialogManager = new DialogManager(getActivity());
         OrderHistoryAdapter orderHistoryAdapter =
                 new OrderHistoryAdapter(getActivity(), orderHistories);
         Navigator navigator = new Navigator(getParentFragment());
-        mViewModel = new OrderHistoryViewModel(orderHistoryAdapter, navigator);
+        mViewModel = new OrderHistoryViewModel(getActivity().getWindow().getContext(),
+                orderHistoryAdapter, navigator, dialogManager);
         OrderHistoryContract.Presenter presenter = new OrderHistoryPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
         binding.setViewModel((OrderHistoryViewModel) mViewModel);

@@ -1,5 +1,6 @@
 package com.framgia.forder.data.model;
 
+import com.framgia.forder.utils.OrderStatusCode;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
@@ -11,8 +12,7 @@ public class Order {
     @Expose
     @SerializedName("id")
     private int mId;
-    @Expose
-    @SerializedName("status")
+    @OrderStatusCode
     private int mStatus;
     @Expose
     @SerializedName("end_date")
@@ -38,6 +38,7 @@ public class Order {
         mId = id;
     }
 
+    @OrderStatusCode
     public int getStatus() {
         return mStatus;
     }

@@ -1,9 +1,11 @@
 package com.framgia.forder.widgets.dialog;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import com.framgia.forder.R;
+import java.util.Calendar;
 
 /**
  * Created by tri on 27/04/2017.
@@ -12,9 +14,12 @@ import com.framgia.forder.R;
 public class DialogManager {
     private Context mContext;
     private AlertDialog mDialog;
+    private DatePickerDialog mDatePickerDialog;
+    private Calendar mCalendar;
 
     public DialogManager(Context context) {
         mContext = context;
+        mCalendar = Calendar.getInstance();
     }
 
     public DialogManager dialogwithNoTitleTwoButton(int message,
@@ -32,9 +37,23 @@ public class DialogManager {
         return this;
     }
 
+    public DialogManager dialogDatePicker(DatePickerDialog.OnDateSetListener onDateSetListener) {
+        mDatePickerDialog =
+                new DatePickerDialog(mContext, onDateSetListener, mCalendar.get(Calendar.YEAR),
+                        mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
+        return this;
+    }
+
+    public void showDatePickerDialog() {
+        if (mDatePickerDialog == null) {
+            return;
+        }
+        mDatePickerDialog.show();
+    }
+
     public void show() {
-        if (mDialog != null) {
-            mDialog.show();
+        if (mDialog == null) {
+            return;
         }
         mDialog.show();
     }
