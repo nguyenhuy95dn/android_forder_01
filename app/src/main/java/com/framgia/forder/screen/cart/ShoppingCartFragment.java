@@ -21,6 +21,7 @@ import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
 import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentShoppingcartBinding;
+import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +41,9 @@ public class ShoppingCartFragment extends Fragment {
 
         List<Cart> cartList = new ArrayList<>();
         ShoppingCartAdapter adapter = new ShoppingCartAdapter(getActivity(), cartList);
+        DialogManager dialogManager = new DialogManager(getActivity());
 
-        mViewModel = new ShoppingCartViewModel(adapter);
+        mViewModel = new ShoppingCartViewModel(adapter, dialogManager);
 
         RealmApi realmApi = new RealmApi();
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());

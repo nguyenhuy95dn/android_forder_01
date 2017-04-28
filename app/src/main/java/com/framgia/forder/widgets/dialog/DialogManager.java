@@ -1,23 +1,48 @@
 package com.framgia.forder.widgets.dialog;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import com.framgia.forder.R;
 
 /**
- * Created by le.quang.dao on 14/03/2017.
+ * Created by tri on 27/04/2017.
  */
 
-public interface DialogManager {
+public class DialogManager {
+    private Context mContext;
+    private AlertDialog mDialog;
 
-    MainAlertDialog getDialog();
+    public DialogManager(Context context) {
+        mContext = context;
+    }
 
-    boolean isShowing();
+    public DialogManager dialogwithNoTitleTwoButton(int message,
+            DialogInterface.OnClickListener positiveButtonListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setMessage(message)
+                .setPositiveButton(R.string.action_yes, positiveButtonListener)
+                .setNegativeButton(R.string.action_no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        mDialog = builder.create();
+        return this;
+    }
 
-    void dismiss();
+    public void show() {
+        if (mDialog != null) {
+            mDialog.show();
+        }
+        mDialog.show();
+    }
 
-    /**
-     * <h1>Common Dialog show message from API with positive button click listener</h1>
-     * <a href="http://imgur.com/RbODnvE"><img src="http://i.imgur.com/RbODnvE.png" title="source:
-     * imgur.com" /></a>
-     */
-    void dialogMainStyle(String message, DialogInterface.OnClickListener positiveButtonListener);
+    public void dismiss() {
+        if (mDialog == null) {
+            return;
+        }
+        mDialog.dismiss();
+    }
 }

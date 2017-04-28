@@ -206,6 +206,7 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
                     cartItemList.add(cartItem);
                 }
             }
+            cart.setCartItemList(cartItemList);
             cartList.add(cart);
         }
         orderRequest.setCartList(cartList);
