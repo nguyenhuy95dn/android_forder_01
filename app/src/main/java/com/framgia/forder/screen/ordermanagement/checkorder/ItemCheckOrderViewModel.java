@@ -6,6 +6,7 @@ import com.framgia.forder.data.model.OrderDetail;
 import static com.framgia.forder.utils.Constant.StatusCode.ACCEPT_CODE;
 import static com.framgia.forder.utils.Constant.StatusCode.PENDING_CODE;
 import static com.framgia.forder.utils.Constant.StatusCode.REJECT_CODE;
+import static com.framgia.forder.utils.Constant.UNIT_MONEY;
 
 /**
  * Created by Duong on 4/25/2017.
@@ -23,7 +24,7 @@ public class ItemCheckOrderViewModel extends BaseObservable {
     }
 
     public String getProductPrice() {
-        return mOrderDetail.getProduct().getFormatPrice();
+        return mOrderDetail.getProduct().getFormatPrice() + UNIT_MONEY;
     }
 
     public String getQuantity() {

@@ -4,6 +4,7 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.screen.login.LoginActivity;
 import com.framgia.forder.screen.orderhistory.OrderHistoryFragment;
+import com.framgia.forder.screen.ordermanagement.OrderManagementActivity;
 import com.framgia.forder.screen.profilepage.profiledetail.ProfileDetailFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 
@@ -64,7 +65,7 @@ public class ProfilePageViewModel implements ProfilePageContract.ViewModel {
     }
 
     public void onClickYourOrder() {
-        //TODO: open Your Order
+        mNavigator.startActivity(OrderManagementActivity.class);
     }
 
     public void onClickShopManagement() {

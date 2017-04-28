@@ -86,7 +86,7 @@
     <string name="continue_check">Continue</string>
     <string name="shop_related">Shop Related</string>
     <string name="add_a_comment">Add a comment</string>
-    <string name="quantity">Quantity</string>
+    <string name="quantity">Quantity:\u0020</string>
     <string name="start_date">Start date </string>
     <string name="end_date">End date </string>
     <string name="filter">Filter</string>
