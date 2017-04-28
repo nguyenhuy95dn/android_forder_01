@@ -65,6 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/dp_5"
+            android:text="@{viewModel.formatOrderDate}"
             android:textColor="@android:color/holo_red_light"
             android:textSize="@dimen/sp_15"
             />
@@ -84,6 +85,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/dp_5"
             android:gravity="right"
+            android:text="@{viewModel.totalPrice}"
             android:textColor="@android:color/holo_red_light"
             />
 
