@@ -25,6 +25,4 @@ dependencies:
     - ./gradlew app:dependencies
 test:
   override:
-      - ./gradlew :app:check -PdisablePreDex
-
-      - cp -r app/build/outputs $CIRCLE_ARTIFACTS
+      - sh scripts/saddler.sh
