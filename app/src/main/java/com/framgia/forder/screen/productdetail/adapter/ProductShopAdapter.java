@@ -21,7 +21,7 @@ import java.util.List;
 
 public class ProductShopAdapter extends BaseRecyclerViewAdapter<ProductShopAdapter.ItemViewHolder> {
 
-    private List<Product> mProducts;
+    private final List<Product> mProducts;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
     private OrderListener mOrderListener;
 
@@ -52,10 +52,6 @@ public class ProductShopAdapter extends BaseRecyclerViewAdapter<ProductShopAdapt
         return mProducts.size();
     }
 
-    public void setOrderListener(OrderListener listener) {
-        mOrderListener = listener;
-    }
-
     public void setItemClickListener(OnRecyclerViewItemClickListener<Object> itemClickListener) {
         mItemClickListener = itemClickListener;
     }
@@ -71,8 +67,9 @@ public class ProductShopAdapter extends BaseRecyclerViewAdapter<ProductShopAdapt
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        private ItemProductShopBinding mBinding;
-        private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
+        private final ItemProductShopBinding mBinding;
+        private final BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>
+                mItemClickListener;
         private final OrderListener mOrderListener;
 
         ItemViewHolder(ItemProductShopBinding binding,

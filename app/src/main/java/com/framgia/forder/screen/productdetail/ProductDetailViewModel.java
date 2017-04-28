@@ -2,11 +2,15 @@ package com.framgia.forder.screen.productdetail;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.text.TextUtils;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.Comment;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.request.CommentRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.listProduct.ListProductFragment;
+import com.framgia.forder.screen.productdetail.adapter.CommentAdapter;
 import com.framgia.forder.screen.productdetail.adapter.ProductShopAdapter;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
@@ -19,18 +23,19 @@ public class ProductDetailViewModel extends BaseObservable
         implements ProductDetailContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
 
-    private static final String TAG = "ListProductFragment";
-
     private ProductDetailContract.Presenter mPresenter;
-    private Product mProduct;
-    private Navigator mNavigator;
-    private ProductShopAdapter mProductShopAdapter;
+    private final Product mProduct;
+    private final Navigator mNavigator;
+    private final ProductShopAdapter mProductShopAdapter;
+    private final CommentAdapter mCommentInProductAdapter;
+    private String mComment;
 
     public ProductDetailViewModel(Product product, ProductShopAdapter productShopAdapter,
-            Navigator navigator) {
+            CommentAdapter commentInProductAdapter, Navigator navigator) {
         mProduct = product;
         mNavigator = navigator;
         mProductShopAdapter = productShopAdapter;
+        mCommentInProductAdapter = commentInProductAdapter;
         mProductShopAdapter.setItemClickListener(this);
     }
 
@@ -38,6 +43,7 @@ public class ProductDetailViewModel extends BaseObservable
     public void onStart() {
         mPresenter.onStart();
         mPresenter.getListProductInShop(mProduct.getShopId());
+        mPresenter.getListCommentInProduct(mProduct.getId());
     }
 
     @Override
@@ -63,10 +69,6 @@ public class ProductDetailViewModel extends BaseObservable
     @Bindable
     public String getProductPrice() {
         return mProduct.getFormatPrice();
-    }
-
-    public String getStatus() {
-        return mProduct.getStatus();
     }
 
     @Bindable
@@ -137,6 +139,16 @@ public class ProductDetailViewModel extends BaseObservable
     }
 
     @Override
+    public void onGetListCommentInProductError(BaseException exception) {
+        // Todo show dialog message
+    }
+
+    @Override
+    public void onGetListCommentInProductSusscess(List<Comment> comments) {
+        mCommentInProductAdapter.updateData(comments);
+    }
+
+    @Override
     public void onAddToCartError(BaseException exception) {
         // Todo show dialog message
 
@@ -163,11 +175,40 @@ public class ProductDetailViewModel extends BaseObservable
         mPresenter.addToCart(mProduct);
     }
 
+    @Override
+    public void onCommentSuccess() {
+        // Todo show dialog message
+    }
+
+    @Override
+    public void onCommentError() {
+        // Todo show dialog message
+    }
+
     public void onClickSendComment() {
-        //Todo send Comment
+        if (TextUtils.isEmpty(mComment)) {
+            return;
+        }
+        CommentRequest commentRequest = new CommentRequest();
+        commentRequest.setComment(mComment);
+        mPresenter.sendComment(commentRequest);
+        mNavigator.showToast(R.string.ok);
     }
 
     public ProductShopAdapter getProductShopAdapter() {
         return mProductShopAdapter;
+    }
+
+    public CommentAdapter getCommentAdapter() {
+        return mCommentInProductAdapter;
+    }
+
+    @Bindable
+    public String getComment() {
+        return mComment;
+    }
+
+    public void setComment(String comment) {
+        mComment = comment;
     }
 }

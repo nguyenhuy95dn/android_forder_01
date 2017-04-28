@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.Comment;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ProductRepository;
@@ -22,6 +23,7 @@ import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
 import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentProductDetailBinding;
+import com.framgia.forder.screen.productdetail.adapter.CommentAdapter;
 import com.framgia.forder.screen.productdetail.adapter.ProductShopAdapter;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.ArrayList;
@@ -49,9 +51,12 @@ public class ProductDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Product product = (Product) getArguments().get(EXTRA_PRODUCT);
         List<Product> products = new ArrayList<>();
+        List<Comment> comments = new ArrayList<>();
         ProductShopAdapter productAdapter = new ProductShopAdapter(getActivity(), products);
+        CommentAdapter commentInProductAdapter = new CommentAdapter(getActivity(), comments);
         Navigator navigator = new Navigator(getParentFragment());
-        mViewModel = new ProductDetailViewModel(product, productAdapter, navigator);
+        mViewModel = new ProductDetailViewModel(product, productAdapter, commentInProductAdapter,
+                navigator);
 
         RealmApi realmApi = new RealmApi();
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());

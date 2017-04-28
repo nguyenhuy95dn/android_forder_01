@@ -1,10 +1,12 @@
 package com.framgia.forder.screen.productdetail;
 
+import com.framgia.forder.data.model.Comment;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ProductRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
+import com.framgia.forder.data.source.remote.api.request.CommentRequest;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -22,22 +24,17 @@ final class ProductDetailPresenter implements ProductDetailContract.Presenter {
 
     private final ProductDetailContract.ViewModel mViewModel;
     private final CompositeSubscription mCompositeSubscription;
-    private ProductRepository mProductRepository;
-    private DomainRepository mDomainRepository;
+    private final ProductRepository mProductRepository;
 
     ProductDetailPresenter(ProductDetailContract.ViewModel viewModel,
             ProductRepository productRepository, DomainRepository domainRepository) {
         mViewModel = viewModel;
         mProductRepository = productRepository;
         mCompositeSubscription = new CompositeSubscription();
-        mDomainRepository = domainRepository;
     }
 
     @Override
     public void addToCart(Product product) {
-        if (product == null) {
-            return;
-        }
         Subscription subscription =
                 mProductRepository.addToCart(product).subscribe(new Action1<Void>() {
                     @Override
@@ -67,6 +64,44 @@ final class ProductDetailPresenter implements ProductDetailContract.Presenter {
                     @Override
                     public void onSafetyError(BaseException error) {
                         mViewModel.onGetListProductShopError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void getListCommentInProduct(int productId) {
+        Subscription subscription = mProductRepository.getListCommentInProduct(productId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<List<Comment>>() {
+                    @Override
+                    public void call(List<Comment> comments) {
+                        mViewModel.onGetListCommentInProductSusscess(comments);
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onGetListCommentInProductError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void sendComment(CommentRequest request) {
+        Subscription subscription = mProductRepository.sendComment(request)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Comment>() {
+                    @Override
+                    public void call(Comment comment) {
+                        mViewModel.onCommentSuccess();
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        mViewModel.onCommentError();
                     }
                 });
         mCompositeSubscription.add(subscription);

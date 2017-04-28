@@ -1,9 +1,11 @@
 package com.framgia.forder.data.source;
 
 import com.framgia.forder.data.model.Cart;
+import com.framgia.forder.data.model.Comment;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.local.ProductLocalDataSource;
 import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.request.CommentRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import java.util.List;
 import rx.Observable;
@@ -93,5 +95,13 @@ public class ProductRepository {
 
     public Observable<List<Product>> getListProductInShop(int shopId) {
         return mRemoteDataSource.getListProductInShop(shopId, mCurrentDomainId);
+    }
+
+    public Observable<List<Comment>> getListCommentInProduct(int productId) {
+        return mRemoteDataSource.getListCommentInProduct(productId, mCurrentDomainId);
+    }
+
+    public Observable<Comment> sendComment(CommentRequest request) {
+        return mRemoteDataSource.sendComment(request);
     }
 }
