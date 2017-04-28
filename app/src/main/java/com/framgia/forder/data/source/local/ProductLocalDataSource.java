@@ -224,6 +224,7 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                                         shoppingCart.getTotal());
                         cartItemList.add(cartItem);
                     }
+                    cart.setNumberOfProduct(cartItemList.size());
                     cart.setCartItemList(cartItemList);
                     cart.setTotal(chargeForOrderInShop);
                 }
