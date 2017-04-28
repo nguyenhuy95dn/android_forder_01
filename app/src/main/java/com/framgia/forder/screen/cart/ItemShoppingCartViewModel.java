@@ -3,6 +3,7 @@ package com.framgia.forder.screen.cart;
 import android.databinding.BaseObservable;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
+import com.framgia.forder.utils.Utils;
 
 /**
  * Created by tri on 19/04/2017.
@@ -51,6 +52,13 @@ public class ItemShoppingCartViewModel extends BaseObservable {
         mOrderItemListener.onDeleteProduct(mCartItem);
     }
 
+    public void clickIconWarning() {
+        if (mOrderItemListener == null) {
+            return;
+        }
+        mOrderItemListener.onClickIconWarning();
+    }
+
     public String getProductImage() {
         return mCartItem.getProductImage();
     }
@@ -77,5 +85,14 @@ public class ItemShoppingCartViewModel extends BaseObservable {
 
     public String getNumberOfProduct() {
         return Integer.toString(mCart.getNumberOfProduct());
+    }
+
+    public String getOrderTime() {
+        return mCartItem.getStartHour() + "-" + mCartItem.getEndHour();
+    }
+
+    public boolean isProductTimeOut() {
+        return Utils.DateTimeUntils.isProductTimeOut(mCartItem.getStartHour(),
+                mCartItem.getEndHour());
     }
 }
