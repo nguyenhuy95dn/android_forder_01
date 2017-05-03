@@ -8,7 +8,7 @@ import com.framgia.forder.data.source.remote.api.response.OrderManagementRespons
 import com.framgia.forder.data.source.remote.api.response.OrderResponse;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
 import com.framgia.forder.data.source.remote.api.response.SearchResponse;
-import com.framgia.forder.data.source.remote.api.response.ShopResponse;
+import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.UpdateProfileResponse;
 import com.framgia.forder.data.source.remote.api.response.UserResponse;
 import retrofit2.http.Body;
@@ -75,6 +75,6 @@ public interface FOrderApi {
     Observable<OrderResponse> getListOrder(@Query("user_id") int userId,
             @Query("domain_id") int domainId);
 
-    @GET("v1/dashboard/shops?")
-    Observable<ShopResponse> getLitShopManagement(@Query("user_id") int userId);
+    @GET("v1/dashboard/shops")
+    Observable<ShopManagementResponse> getLitShopManagement(@Query("user_id") int userId);
 }

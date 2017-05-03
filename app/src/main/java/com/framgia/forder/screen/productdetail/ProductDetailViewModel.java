@@ -3,6 +3,7 @@ package com.framgia.forder.screen.productdetail;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.text.TextUtils;
+import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Comment;
 import com.framgia.forder.data.model.Product;
@@ -192,7 +193,8 @@ public class ProductDetailViewModel extends BaseObservable
         CommentRequest commentRequest = new CommentRequest();
         commentRequest.setComment(mComment);
         mPresenter.sendComment(commentRequest);
-        mNavigator.showToast(R.string.ok);
+        setComment("");
+        notifyPropertyChanged(BR.comment);
     }
 
     public ProductShopAdapter getProductShopAdapter() {
