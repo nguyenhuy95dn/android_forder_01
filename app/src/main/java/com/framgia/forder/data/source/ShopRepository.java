@@ -23,4 +23,8 @@ public class ShopRepository {
     public Observable<List<Shop>> getRelativeShops(int domainId) {
         return mRemoteDataSource.getRelativeShops(domainId);
     }
+
+    public Observable<List<Shop>> getListShopManagement(int userId) {
+        return mRemoteDataSource.getListShopManagement(userId);
+    }
 }
