@@ -6,6 +6,7 @@ import com.framgia.forder.screen.login.LoginActivity;
 import com.framgia.forder.screen.orderhistory.OrderHistoryFragment;
 import com.framgia.forder.screen.ordermanagement.OrderManagementActivity;
 import com.framgia.forder.screen.profilepage.profiledetail.ProfileDetailFragment;
+import com.framgia.forder.screen.shopmanagement.ShopManagementFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 
 /**
@@ -69,7 +70,8 @@ public class ProfilePageViewModel implements ProfilePageContract.ViewModel {
     }
 
     public void onClickShopManagement() {
-        //TODO: open Shop Management
+        mNavigator.goNextChildFragment(R.id.layout_content, ShopManagementFragment.newInstance(),
+                true, Navigator.RIGHT_LEFT, TAG);
     }
 
     public void onClickDomainManagement() {
