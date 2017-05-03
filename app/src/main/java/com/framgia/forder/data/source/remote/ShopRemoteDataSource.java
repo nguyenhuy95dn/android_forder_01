@@ -5,6 +5,7 @@ import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.ShopDataSource;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
+import com.framgia.forder.data.source.remote.api.response.ShopResponse;
 import com.framgia.forder.data.source.remote.api.service.FOrderApi;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,20 @@ public class ShopRemoteDataSource extends BaseRemoteDataSource
                                 shops.add(product.getShop());
                             }
                             return Observable.just(shops);
+                        }
+                        return Observable.error(new NullPointerException());
+                    }
+                });
+    }
+
+    @Override
+    public Observable<List<Shop>> getListShopManagement(int userId) {
+        return mFOrderApi.getLitShopManagement(userId)
+                .flatMap(new Func1<ShopResponse, Observable<List<Shop>>>() {
+                    @Override
+                    public Observable<List<Shop>> call(ShopResponse shopResponse) {
+                        if (shopResponse != null) {
+                            return Observable.just(shopResponse.getListShop());
                         }
                         return Observable.error(new NullPointerException());
                     }

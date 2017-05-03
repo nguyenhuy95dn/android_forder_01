@@ -13,5 +13,7 @@ public interface ShopDataSource {
         Observable<List<Shop>> getListShop(int domainId);
 
         Observable<List<Shop>> getRelativeShops(int domainId);
+
+        Observable<List<Shop>> getListShopManagement(int userId);
     }
 }
