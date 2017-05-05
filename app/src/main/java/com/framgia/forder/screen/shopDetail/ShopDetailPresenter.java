@@ -31,11 +31,11 @@ final class ShopDetailPresenter implements ShopDetailContract.Presenter {
         mDomainRepository = domainRepository;
         mShopRepository = shopRepository;
         mCompositeSubscriptions = new CompositeSubscription();
+        getRelativeShops();
     }
 
     @Override
     public void onStart() {
-        getRelativeShops();
     }
 
     @Override

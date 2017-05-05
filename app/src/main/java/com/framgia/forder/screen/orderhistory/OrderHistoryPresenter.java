@@ -1,6 +1,8 @@
 package com.framgia.forder.screen.orderhistory;
 
+import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.Order;
+import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.OrderRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
@@ -30,12 +32,11 @@ public class OrderHistoryPresenter implements OrderHistoryContract.Presenter {
         mCompositeSubscription = new CompositeSubscription();
         mOrderRepository = orderRepository;
         mDomainRepository = domainRepository;
+        getListOrderHistory();
     }
 
     @Override
     public void onStart() {
-        getListOrderHistory(mDomainRepository.getUser().getId(),
-                mDomainRepository.getCurrentDomain().getId());
     }
 
     @Override
@@ -43,21 +44,26 @@ public class OrderHistoryPresenter implements OrderHistoryContract.Presenter {
         mCompositeSubscription.clear();
     }
 
-    private void getListOrderHistory(int userId, int domainId) {
-        Subscription subscription = mOrderRepository.getOrderHistory(userId, domainId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<List<Order>>() {
-                    @Override
-                    public void call(List<Order> orders) {
-                        mViewModel.onGetListAllOrderHistorySuccess(orders);
-                    }
-                }, new SafetyError() {
-                    @Override
-                    public void onSafetyError(BaseException error) {
-                        mViewModel.onGetListAllOrderHistoryError(error);
-                    }
-                });
-        mCompositeSubscription.add(subscription);
+    private void getListOrderHistory() {
+        User user = mDomainRepository.getUser();
+        Domain domain = mDomainRepository.getCurrentDomain();
+        if (user != null && domain != null) {
+            Subscription subscription =
+                    mOrderRepository.getOrderHistory(user.getId(), domain.getId())
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Action1<List<Order>>() {
+                                @Override
+                                public void call(List<Order> orders) {
+                                    mViewModel.onGetListAllOrderHistorySuccess(orders);
+                                }
+                            }, new SafetyError() {
+                                @Override
+                                public void onSafetyError(BaseException error) {
+                                    mViewModel.onGetListAllOrderHistoryError(error);
+                                }
+                            });
+            mCompositeSubscription.add(subscription);
+        }
     }
 }

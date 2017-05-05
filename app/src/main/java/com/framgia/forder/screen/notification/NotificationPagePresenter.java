@@ -27,11 +27,11 @@ public class NotificationPagePresenter implements NotificationPageContract.Prese
         mViewModel = viewModel;
         mNotificationRepository = notificationRepository;
         mCompositeSubscription = new CompositeSubscription();
+        getListNotification();
     }
 
     @Override
     public void onStart() {
-        getListNotification();
     }
 
     @Override

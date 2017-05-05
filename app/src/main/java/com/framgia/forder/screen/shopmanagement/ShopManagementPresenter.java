@@ -44,7 +44,7 @@ final class ShopManagementPresenter implements ShopManagementContract.Presenter 
         mCompositeSubscription.clear();
     }
 
-    public void getListShopManagement() {
+    private void getListShopManagement() {
         User user = mUserRepository.getUser();
         if (user == null) {
             return;

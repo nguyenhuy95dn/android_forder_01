@@ -31,11 +31,11 @@ final class ListShopPresenter implements ListShopContract.Presenter {
         mShopRepository = shopRepository;
         mDomainRepository = domainRepository;
         mCompositeSubscription = new CompositeSubscription();
+        getListAllShop();
     }
 
     @Override
     public void onStart() {
-        getListAllShop();
     }
 
     @Override
