@@ -1,6 +1,7 @@
 package com.framgia.forder.data.source;
 
 import com.framgia.forder.data.model.Shop;
+import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
 import java.util.List;
 import rx.Observable;
@@ -10,7 +11,7 @@ import rx.Observable;
  */
 
 public class ShopRepository {
-    private ShopDataSource.RemoteDataSource mRemoteDataSource;
+    private final ShopDataSource.RemoteDataSource mRemoteDataSource;
 
     public ShopRepository(ShopRemoteDataSource remoteDataSource) {
         mRemoteDataSource = remoteDataSource;
@@ -24,7 +25,7 @@ public class ShopRepository {
         return mRemoteDataSource.getRelativeShops(domainId);
     }
 
-    public Observable<List<Shop>> getListShopManagement(int userId) {
+    public Observable<List<ShopManagement>> getListShopManagement(int userId) {
         return mRemoteDataSource.getListShopManagement(userId);
     }
 }

@@ -1,6 +1,7 @@
 package com.framgia.forder.data.source;
 
 import com.framgia.forder.data.model.Shop;
+import com.framgia.forder.data.model.ShopManagement;
 import java.util.List;
 import rx.Observable;
 
@@ -14,6 +15,6 @@ public interface ShopDataSource {
 
         Observable<List<Shop>> getRelativeShops(int domainId);
 
-        Observable<List<Shop>> getListShopManagement(int userId);
+        Observable<List<ShopManagement>> getListShopManagement(int userId);
     }
 }

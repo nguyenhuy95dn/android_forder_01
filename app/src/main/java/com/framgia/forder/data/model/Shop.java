@@ -52,6 +52,9 @@ public class Shop implements Parcelable {
     @Expose
     @SerializedName("time_auto_reject")
     private String mTimeAutoReject;
+    @Expose
+    @SerializedName("cover_image")
+    private Image mCoverImage;
 
     protected Shop(Parcel in) {
         mId = in.readInt();
@@ -65,6 +68,7 @@ public class Shop implements Parcelable {
         mOwnerId = in.readInt();
         mUser = in.readParcelable(User.class.getClassLoader());
         mTimeAutoReject = in.readString();
+        mCoverImage = in.readParcelable(Image.class.getClassLoader());
     }
 
     public Shop(int id, int domainId, int shopId, String name, String description, String status,
@@ -171,6 +175,14 @@ public class Shop implements Parcelable {
         mCollectionAvatar = collectionAvatar;
     }
 
+    public Image getCoverImage() {
+        return mCoverImage;
+    }
+
+    public void setCoverImage(Image coverImage) {
+        mCoverImage = coverImage;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -189,5 +201,6 @@ public class Shop implements Parcelable {
         dest.writeInt(mOwnerId);
         dest.writeParcelable(mUser, flags);
         dest.writeString(mTimeAutoReject);
+        dest.writeParcelable(mCoverImage, flags);
     }
 }

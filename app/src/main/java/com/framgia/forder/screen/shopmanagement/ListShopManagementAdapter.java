@@ -1,4 +1,4 @@
-package com.framgia.forder.screen.shopmanagement.adapter;
+package com.framgia.forder.screen.shopmanagement;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -7,10 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
-import com.framgia.forder.data.model.Shop;
+import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.databinding.ItemShopManagementBinding;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
-import com.framgia.forder.screen.mainpage.shop.ItemShopViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,16 +20,17 @@ import java.util.List;
 public class ListShopManagementAdapter
         extends BaseRecyclerViewAdapter<ListShopManagementAdapter.ItemViewHolder> {
 
-    private List<Shop> mShops;
+    private final List<ShopManagement> mShopManagements;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
-    public ListShopManagementAdapter(@NonNull Context context, List<Shop> shops) {
+    public ListShopManagementAdapter(@NonNull Context context,
+            List<ShopManagement> shopManagements) {
         super(context);
-        mShops = new ArrayList<>();
-        if (shops == null) {
+        mShopManagements = new ArrayList<>();
+        if (shopManagements == null) {
             return;
         }
-        mShops.addAll(shops);
+        mShopManagements.addAll(shopManagements);
     }
 
     @Override
@@ -44,31 +44,32 @@ public class ListShopManagementAdapter
 
     @Override
     public void onBindViewHolder(ListShopManagementAdapter.ItemViewHolder holder, int position) {
-        holder.bind(mShops.get(position));
+        holder.bind(mShopManagements.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mShops.size();
+        return mShopManagements.size();
     }
 
     public void setItemClickListener(OnRecyclerViewItemClickListener<Object> itemClickListener) {
         mItemClickListener = itemClickListener;
     }
 
-    public void updateData(List<Shop> shops) {
-        if (shops == null) {
+    public void updateData(List<ShopManagement> shopManagements) {
+        if (shopManagements == null) {
             return;
         }
-        mShops.clear();
-        mShops.addAll(shops);
+        mShopManagements.clear();
+        mShopManagements.addAll(shopManagements);
         notifyDataSetChanged();
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        private ItemShopManagementBinding mBinding;
-        private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
+        private final ItemShopManagementBinding mBinding;
+        private final BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>
+                mItemClickListener;
 
         ItemViewHolder(ItemShopManagementBinding binding,
                 BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> listener) {
@@ -77,8 +78,9 @@ public class ListShopManagementAdapter
             mItemClickListener = listener;
         }
 
-        void bind(Shop shop) {
-            mBinding.setViewModel(new ItemShopViewModel(shop, mItemClickListener));
+        void bind(ShopManagement shopManagements) {
+            mBinding.setViewModel(
+                    new ItemShopManagementViewModel(shopManagements, mItemClickListener));
             mBinding.executePendingBindings();
         }
     }

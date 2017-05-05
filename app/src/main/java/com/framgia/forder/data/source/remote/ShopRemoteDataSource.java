@@ -2,10 +2,11 @@ package com.framgia.forder.data.source.remote;
 
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
+import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.ShopDataSource;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
-import com.framgia.forder.data.source.remote.api.response.ShopResponse;
+import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
 import com.framgia.forder.data.source.remote.api.service.FOrderApi;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,13 +71,14 @@ public class ShopRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<List<Shop>> getListShopManagement(int userId) {
+    public Observable<List<ShopManagement>> getListShopManagement(int userId) {
         return mFOrderApi.getLitShopManagement(userId)
-                .flatMap(new Func1<ShopResponse, Observable<List<Shop>>>() {
+                .flatMap(new Func1<ShopManagementResponse, Observable<List<ShopManagement>>>() {
                     @Override
-                    public Observable<List<Shop>> call(ShopResponse shopResponse) {
+                    public Observable<List<ShopManagement>> call(
+                            ShopManagementResponse shopResponse) {
                         if (shopResponse != null) {
-                            return Observable.just(shopResponse.getListShop());
+                            return Observable.just(shopResponse.getListShopManagement());
                         }
                         return Observable.error(new NullPointerException());
                     }
