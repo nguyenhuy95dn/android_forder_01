@@ -105,6 +105,7 @@ dependencies {
   compile dependencies.loggingInterceptor
   compile dependencies.glide
   compile dependencies.floatingsearchview
+  compile dependencies.expandablerecyclerview
 
   testCompile dependencies.junit
   testCompile dependencies.mockito

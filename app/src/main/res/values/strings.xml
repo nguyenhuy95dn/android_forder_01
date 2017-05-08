@@ -95,4 +95,10 @@
     <string name="reject">Reject</string>
     <string name="select_all">Select all</string>
     <string name="see_more">See More..</string>
+    <string name="user">User :</string>
+    <string name="products">Product :</string>
+    <string name="shops">Shop :</string>
+    <string name="button_join_domain">button Join Domain</string>
+    <string name="image_shop_management">Image Shop Management</string>
+    <string name="domain_location">Domain Location</string>
 </resources>
