@@ -27,11 +27,11 @@ final class ChooseDomainPresenter implements ChooseDomainContract.Presenter {
         mViewModel = viewModel;
         mDomainRepository = domainRepository;
         mCompositeSubscription = new CompositeSubscription();
+        getListDomain();
     }
 
     @Override
     public void onStart() {
-        getListDomain();
     }
 
     @Override

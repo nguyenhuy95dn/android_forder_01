@@ -16,11 +16,11 @@ final class ProfilePagePresenter implements ProfilePageContract.Presenter {
     ProfilePagePresenter(ProfilePageContract.ViewModel viewModel, UserRepository userRepository) {
         mViewModel = viewModel;
         mUserRepository = userRepository;
+        mViewModel.onGetProfileUserSuccess(mUserRepository.getUser());
     }
 
     @Override
     public void onStart() {
-        mViewModel.onGetProfileUserSuccess(mUserRepository.getUser());
     }
 
     @Override

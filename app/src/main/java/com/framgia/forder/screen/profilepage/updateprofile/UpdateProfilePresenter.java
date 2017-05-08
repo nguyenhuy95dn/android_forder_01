@@ -29,11 +29,11 @@ final class UpdateProfilePresenter implements UpdateProfileContract.Presenter {
         mViewModel = viewModel;
         mUserRepository = userRepository;
         mCompositeSubscription = new CompositeSubscription();
+        getUserProfile();
     }
 
     @Override
     public void onStart() {
-        getUserProfile();
     }
 
     @Override
