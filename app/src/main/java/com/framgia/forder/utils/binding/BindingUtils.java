@@ -1,6 +1,8 @@
 package com.framgia.forder.utils.binding;
 
 import android.databinding.BindingAdapter;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -8,6 +10,7 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.framgia.forder.R;
@@ -71,5 +74,11 @@ public final class BindingUtils {
     @BindingAdapter("errorText")
     public static void setErrorText(EditText editText, String text) {
         editText.setError(text);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @BindingAdapter("imgSrc")
+    public static void setImgSrc(ImageButton view, int resId) {
+        view.setImageResource(resId);
     }
 }
