@@ -1,6 +1,5 @@
 package com.framgia.forder.data.model;
 
-import android.os.Parcel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -24,22 +23,18 @@ public class ShopInfo {
     @Expose
     @SerializedName("number_of_products")
     private int mNumberProduct;
+    @Expose
+    @SerializedName("domain")
+    private Domain mDomain;
 
-    protected ShopInfo(Parcel in) {
-        mDomainId = in.readInt();
-        mDomainName = in.readString();
-        mNumberUser = in.readInt();
-        mNumberShop = in.readInt();
-        mNumberProduct = in.readInt();
-    }
-
-    public ShopInfo(int mdDomainId, String domainName, int numberUser, int numberShop,
-            int numberProduct) {
-        this.mDomainId = mdDomainId;
+    public ShopInfo(int domainId, String domainName, int numberUser, int numberShop,
+            int numberProduct, Domain domain) {
+        mDomainId = domainId;
         mDomainName = domainName;
         mNumberUser = numberUser;
         mNumberShop = numberShop;
         mNumberProduct = numberProduct;
+        mDomain = domain;
     }
 
     public int getDomainId() {
@@ -80,5 +75,13 @@ public class ShopInfo {
 
     public void setNumberProduct(int numberProduct) {
         mNumberProduct = numberProduct;
+    }
+
+    public Domain getDomain() {
+        return mDomain;
+    }
+
+    public void setDomain(Domain domain) {
+        mDomain = domain;
     }
 }

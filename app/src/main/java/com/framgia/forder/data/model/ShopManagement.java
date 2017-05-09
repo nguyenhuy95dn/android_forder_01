@@ -19,7 +19,7 @@ public class ShopManagement {
     private List<Domain> mShopDomains;
     @Expose
     @SerializedName("shop_info")
-    private List<Shop> mShopInfos;
+    private List<ShopInfo> mShopInfos;
 
     private ShopManagement(Parcel in) {
         mShop = in.readParcelable(Shop.class.getClassLoader());
@@ -27,7 +27,7 @@ public class ShopManagement {
         mShopInfos = in.readParcelable(Shop.class.getClassLoader());
     }
 
-    public ShopManagement(Shop shop, List<Domain> shopDomain, List<Shop> shopInfo) {
+    public ShopManagement(Shop shop, List<Domain> shopDomain, List<ShopInfo> shopInfo) {
         mShop = shop;
         mShopDomains = shopDomain;
         mShopInfos = shopInfo;
@@ -49,11 +49,11 @@ public class ShopManagement {
         mShopDomains = shopDomains;
     }
 
-    public List<Shop> getShopInfos() {
+    public List<ShopInfo> getShopInfos() {
         return mShopInfos;
     }
 
-    public void setShopInfos(List<Shop> shopInfos) {
+    public void setShopInfos(List<ShopInfo> shopInfos) {
         mShopInfos = shopInfos;
     }
 }

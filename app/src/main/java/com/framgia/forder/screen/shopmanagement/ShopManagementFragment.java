@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
-import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.local.UserLocalDataSource;
@@ -18,8 +17,6 @@ import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentShopmanagementBinding;
 import com.framgia.forder.utils.navigator.Navigator;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * ShopManagement Screen.
@@ -37,9 +34,8 @@ public class ShopManagementFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        List<ShopManagement> shopManagements = new ArrayList<>();
         ListShopManagementAdapter listShopManagementAdapter =
-                new ListShopManagementAdapter(getActivity(), shopManagements);
+                new ListShopManagementAdapter(getActivity());
         Navigator navigator = new Navigator(getParentFragment());
         mViewModel = new ShopManagementViewModel(navigator, listShopManagementAdapter);
 
