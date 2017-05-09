@@ -1,7 +1,6 @@
 package com.framgia.forder.screen.shopmanagement;
 
 import com.framgia.forder.data.model.ShopManagement;
-import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 
 /**
  * Created by levutantuan on 5/3/17.
@@ -9,13 +8,9 @@ import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 
 public class ItemShopManagementViewModel {
     private final ShopManagement mShopManagement;
-    private final BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>
-            mItemClickListener;
 
-    public ItemShopManagementViewModel(ShopManagement shopManagements,
-            BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> listener) {
+    public ItemShopManagementViewModel(ShopManagement shopManagements) {
         mShopManagement = shopManagements;
-        mItemClickListener = listener;
     }
 
     public String getShopImage() {
@@ -39,12 +34,5 @@ public class ItemShopManagementViewModel {
             return mShopManagement.getShop().getDescription();
         }
         return "";
-    }
-
-    public void onItemClicked() {
-        if (mItemClickListener == null) {
-            return;
-        }
-        mItemClickListener.onItemRecyclerViewClick(mShopManagement);
     }
 }

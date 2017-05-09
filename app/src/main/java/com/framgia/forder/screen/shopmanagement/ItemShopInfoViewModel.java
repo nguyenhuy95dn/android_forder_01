@@ -1,5 +1,7 @@
 package com.framgia.forder.screen.shopmanagement;
 
+import android.content.Context;
+import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopInfo;
 
 /**
@@ -7,17 +9,19 @@ import com.framgia.forder.data.model.ShopInfo;
  */
 
 public class ItemShopInfoViewModel {
+    private final Context mContext;
     private final ShopInfo mShopInfo;
 
-    public ItemShopInfoViewModel(ShopInfo shopInfo) {
+    public ItemShopInfoViewModel(Context context, ShopInfo shopInfo) {
+        this.mContext = context;
         mShopInfo = shopInfo;
     }
 
-    public int getDomainId() {
+    public String getDomainId() {
         if (mShopInfo != null) {
-            return mShopInfo.getDomainId();
+            return String.valueOf(mShopInfo.getDomainId());
         }
-        return 0;
+        return "";
     }
 
     public String getDomainName() {
@@ -27,24 +31,32 @@ public class ItemShopInfoViewModel {
         return "";
     }
 
-    public int getNumberUser() {
+    public String getNumberUser() {
         if (mShopInfo != null) {
-            return mShopInfo.getNumberUser();
+            return mContext.getString(R.string.user_with_count, mShopInfo.getNumberUser());
         }
-        return 0;
+        return mContext.getString(R.string.user_with_count, 0);
     }
 
-    public int getNumberShop() {
+    public String getNumberShop() {
         if (mShopInfo != null) {
-            return mShopInfo.getNumberShop();
+            return mContext.getString(R.string.shop_with_count,
+                    Integer.parseInt(String.valueOf(mShopInfo.getNumberShop())));
         }
-        return 0;
+        return mContext.getString(R.string.shop_with_count, 0);
     }
 
-    public int getNumberProduct() {
+    public String getNumberProduct() {
         if (mShopInfo != null) {
-            return mShopInfo.getNumberProduct();
+            return mContext.getString(R.string.product_with_count, mShopInfo.getNumberProduct());
         }
-        return 0;
+        return mContext.getString(R.string.product_with_count, 0);
+    }
+
+    public String getStatus() {
+        if (mShopInfo != null && mShopInfo.getDomain() != null) {
+            return mContext.getString(R.string.status_domain, mShopInfo.getDomain().getStatus());
+        }
+        return mContext.getString(R.string.status_domain, "");
     }
 }

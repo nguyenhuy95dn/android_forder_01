@@ -22,7 +22,6 @@ public class ShopManagementViewModel implements ShopManagementContract.ViewModel
     public ShopManagementViewModel(Navigator navigator, ListShopManagementAdapter adapter) {
         mNavigator = navigator;
         mListShopManagementAdapter = adapter;
-        mListShopManagementAdapter.setItemClickListener(this);
     }
 
     @Override

@@ -75,7 +75,6 @@
     <string name="title_shop">Shop :\u0020 </string>
     <string name="shop_information">Shop Information</string>
     <string name="shop_owner_information">Shop owner information</string>
-    <string name="number_product">Number product:</string>
     <string name="time">Time:</string>
     <string name="pending">Pending</string>
     <string name="accepted">Accepted</string>
@@ -95,9 +94,10 @@
     <string name="reject">Reject</string>
     <string name="select_all">Select all</string>
     <string name="see_more">See More..</string>
-    <string name="user">User :</string>
-    <string name="products">Product :</string>
-    <string name="shops">Shop :</string>
+    <string name="user_with_count">User : %d</string>
+    <string name="product_with_count">Product : %d</string>
+    <string name="shop_with_count">Shop : %d</string>
+    <string name="status_domain">Status : %s</string>
     <string name="button_join_domain">button Join Domain</string>
     <string name="image_shop_management">Image Shop Management</string>
     <string name="domain_location">Domain Location</string>
