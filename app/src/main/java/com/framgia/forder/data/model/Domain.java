@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Domain implements Parcelable {
     @Expose
-    @SerializedName("id")
+    @SerializedName(value = "id", alternate = "domain_id")
     private Integer mId;
     @Expose
     @SerializedName("name")
@@ -27,13 +27,13 @@ public class Domain implements Parcelable {
     private String mSlug;
     @Expose
     @SerializedName("status")
-    private String mStatus;
+    private Status mStatus;
     @Expose
     @SerializedName("owner")
     private Integer mOwner;
 
     public Domain(Integer id, String name, String createdAt, String updatedAt, String slug,
-            String status, Integer owner) {
+            Status status, Integer owner) {
         mId = id;
         mName = name;
         mCreatedAt = createdAt;
@@ -43,12 +43,11 @@ public class Domain implements Parcelable {
         mOwner = owner;
     }
 
-    protected Domain(Parcel in) {
+    private Domain(Parcel in) {
         mName = in.readString();
         mCreatedAt = in.readString();
         mUpdatedAt = in.readString();
         mSlug = in.readString();
-        mStatus = in.readString();
     }
 
     public static final Creator<Domain> CREATOR = new Creator<Domain>() {
@@ -103,11 +102,11 @@ public class Domain implements Parcelable {
         mSlug = slug;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return mStatus;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         mStatus = status;
     }
 
@@ -130,6 +129,38 @@ public class Domain implements Parcelable {
         dest.writeString(mCreatedAt);
         dest.writeString(mUpdatedAt);
         dest.writeString(mSlug);
-        dest.writeString(mStatus);
+    }
+
+    public enum Status {
+        @Expose
+        @SerializedName("")
+        NONE(""),
+        @Expose
+        @SerializedName("pending")
+        PENDING("pending"),
+        @Expose
+        @SerializedName("approved")
+        APPROVED("approved");
+
+        private final String mValue;
+
+        Status(String value) {
+            mValue = value;
+        }
+
+        public String getValue() {
+            return mValue;
+        }
+
+        public static Status getStatus(String value) {
+            if (value.isEmpty()) {
+                return NONE;
+            } else if ("pending".equals(value)) {
+                return PENDING;
+            } else if ("approved".equals(value)) {
+                return APPROVED;
+            }
+            return NONE;
+        }
     }
 }

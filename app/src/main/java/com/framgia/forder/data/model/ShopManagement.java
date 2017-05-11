@@ -1,6 +1,5 @@
 package com.framgia.forder.data.model;
 
-import android.os.Parcel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
@@ -20,12 +19,6 @@ public class ShopManagement {
     @Expose
     @SerializedName("shop_info")
     private List<ShopInfo> mShopInfos;
-
-    private ShopManagement(Parcel in) {
-        mShop = in.readParcelable(Shop.class.getClassLoader());
-        mShopDomains = in.readParcelable(Domain.class.getClassLoader());
-        mShopInfos = in.readParcelable(Shop.class.getClassLoader());
-    }
 
     public ShopManagement(Shop shop, List<Domain> shopDomain, List<ShopInfo> shopInfo) {
         mShop = shop;

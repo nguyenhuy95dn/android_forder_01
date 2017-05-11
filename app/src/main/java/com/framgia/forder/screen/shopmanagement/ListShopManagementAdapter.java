@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import com.framgia.forder.R;
-import com.framgia.forder.data.model.ShopInfo;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.databinding.ItemJoinDomainBinding;
 import com.framgia.forder.databinding.ItemShopManagementBinding;
@@ -61,7 +60,7 @@ public class ListShopManagementAdapter extends BaseExpandableListAdapter {
     public Object getChild(int groupPosition, int childPosition) {
         if (mShopManagements.get(groupPosition) != null
                 && mShopManagements.get(groupPosition).getShopInfos() != null) {
-            return mShopManagements.get(groupPosition).getShopInfos().get(childPosition);
+            return mShopManagements.get(groupPosition);
         }
         return "";
     }
@@ -88,15 +87,6 @@ public class ListShopManagementAdapter extends BaseExpandableListAdapter {
         return 0;
     }
 
-    public Object getChildShopDomain(int groupPostion, int childPostion) {
-        if (mShopManagements.get(groupPostion) != null
-                && mShopManagements.get(groupPostion).getShopDomains() != null
-                && mShopManagements.get(groupPostion).getShopDomains().get(childPostion) != null) {
-            return mShopManagements.get(groupPostion).getShopDomains().get(childPostion).getName();
-        }
-        return "";
-    }
-
     @Override
     public boolean hasStableIds() {
         return false;
@@ -116,14 +106,14 @@ public class ListShopManagementAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
+    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild,
             View convertView, ViewGroup parent) {
         ItemJoinDomainBinding binding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                         R.layout.item_join_domain, parent, false);
-        ItemShopInfoViewModel viewModel =
-                new ItemShopInfoViewModel(mContext.getApplicationContext(),
-                        (ShopInfo) getChild(groupPosition, childPosition));
+        final ItemShopInfoViewModel viewModel =
+                new ItemShopInfoViewModel((ShopManagement) getChild(groupPosition, childPosition),
+                        childPosition);
         binding.setViewModel(viewModel);
         binding.executePendingBindings();
         return binding.getRoot();

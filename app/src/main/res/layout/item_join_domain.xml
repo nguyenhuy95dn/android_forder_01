@@ -26,110 +26,111 @@
             >
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/dp_5"
+                android:background="@drawable/border_comment"
                 android:orientation="vertical"
                 tools:ignore="UselessParent"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/border_comment"
                     android:orientation="horizontal"
+                    android:weightSum="7"
                     tools:ignore="UseCompoundDrawables"
                     >
                     <ImageView
-                        android:layout_width="@dimen/dp_40"
+                        android:layout_width="0dp"
                         android:layout_height="@dimen/dp_60"
+                        android:layout_weight="1"
                         android:contentDescription="@string/domain_location"
                         app:srcCompat="@drawable/ic_location"
                         tools:ignore="ContentDescription"
                         />
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/dp_8"
-                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginLeft="@dimen/dp_3"
+                        android:layout_marginStart="@dimen/dp_3"
+                        android:layout_weight="4"
+                        android:background="@drawable/border_comment"
                         android:text="@{viewModel.domainName}"
                         android:textColor="@color/color_blue"
                         android:textSize="@dimen/sp_18"
                         android:textStyle="bold"
                         />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/dp_3"
+                        android:layout_marginStart="@dimen/dp_3"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:text="@{viewModel.status}"
+                        android:textColor="@color/color_white"
+                        android:textStyle="bold"
+                        app:background="@{viewModel.textStatus}"
+                        />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_comment"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
-                    android:weightSum="5"
+                    android:weightSum="4"
                     >
-                    <LinearLayout
+                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:orientation="vertical"
-                        tools:ignore="Suspicious0dp"
-                        >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_4"
-                            android:layout_marginStart="@dimen/dp_4"
-                            android:text="@{viewModel.numberUser}"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/sp_15"
-                            android:textStyle="bold"
-                            />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_4"
-                            android:layout_marginStart="@dimen/dp_4"
-                            android:text="@{viewModel.numberProduct}"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/sp_15"
-                            android:textStyle="bold"
-                            />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:orientation="vertical"
-                        tools:ignore="Suspicious0dp"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_4"
-                            android:layout_marginStart="@dimen/dp_4"
-                            android:text="@{viewModel.numberShop}"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/sp_15"
-                            android:textStyle="bold"
-                            />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_4"
-                            android:layout_marginStart="@dimen/dp_4"
-                            android:padding="@dimen/dp_2"
-                            android:text="@{viewModel.status}"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/sp_15"
-                            android:textStyle="bold"
-                            />
-                    </LinearLayout>
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/dp_2"
                         android:layout_weight="1"
+                        android:drawableTop="@drawable/ic_people_24dp"
+                        android:gravity="center"
+                        android:text="@{viewModel.numberUser}"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_20"
+                        android:textStyle="bold"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/ic_local_dining_24dp"
+                        android:gravity="center"
+                        android:text="@{viewModel.numberProduct}"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_18"
+                        android:textStyle="bold"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/ic_store_24dp"
+                        android:gravity="center"
+                        android:text="@{viewModel.numberShop}"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_18"
+                        android:textStyle="bold"
+                        />
+
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_comment"
                         android:contentDescription="@string/button_join_domain"
+                        android:onClick="@{(v) -> viewModel.onRequestCancelJoinDomainClick()}"
+                        android:textColor="@color/color_white"
+                        app:background="@{viewModel.buttonJoinDomain}"
+                        app:text="@{viewModel.textButton}"
                         />
                 </LinearLayout>
             </LinearLayout>
