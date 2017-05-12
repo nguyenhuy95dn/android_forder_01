@@ -1,28 +1,69 @@
 package com.framgia.forder.screen.shopmanagement;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.databinding.ObservableInt;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Domain;
+import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.model.ShopInfo;
 import com.framgia.forder.data.model.ShopManagement;
+import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
+import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
+import com.framgia.forder.widgets.dialog.DialogManager;
 
 /**
  * Created by levutantuan on 5/8/17.
  */
 
 public class ItemShopInfoViewModel {
+    private final Context mContext;
     private final ShopInfo mShopInfo;
     private final Domain mDomain;
-    private final ObservableInt mButtonJoinDomain;
-    private final ObservableInt mTextButton;
-    private final ObservableInt mTextStatus;
+    private final Shop mShop;
+    private ObservableInt mButtonJoinDomain;
+    private ObservableInt mTextButton;
+    private ObservableInt mTextStatus;
+    private final DialogManager mDialogManager;
+    private final ListShopManagementAdapter.ShopDomainManagementListener
+            mShopDomainManagementListener;
 
-    ItemShopInfoViewModel(ShopManagement shopManagement, int position) {
+    ItemShopInfoViewModel(Context context, ShopManagement shopManagement, int position,
+            ListShopManagementAdapter.ShopDomainManagementListener shopDomainManagementListener,
+            DialogManager dialogManager) {
+        this.mContext = context;
         mShopInfo = shopManagement.getShopInfos().get(position);
         mDomain = shopManagement.getShopDomains().get(position);
+        mShop = shopManagement.getShop();
+
+        mDialogManager = dialogManager;
+        mShopDomainManagementListener = shopDomainManagementListener;
+        initValueStatus();
+    }
+
+    private void initValueStatus() {
         mButtonJoinDomain = new ObservableInt();
         mTextButton = new ObservableInt();
         mTextStatus = new ObservableInt();
+        switch (mDomain.getStatus()) {
+            case NONE:
+                mButtonJoinDomain.set(R.drawable.button_blue);
+                mTextButton.set(R.string.request);
+                mTextStatus.set(R.color.transparent);
+                break;
+            case PENDING:
+                mButtonJoinDomain.set(R.drawable.button_red);
+                mTextButton.set(R.string.cancel);
+                mTextStatus.set(R.drawable.border_pedding);
+                break;
+            case APPROVED:
+                mButtonJoinDomain.set(R.drawable.button_red);
+                mTextButton.set(R.string.cancel);
+                mTextStatus.set(R.drawable.border_status);
+                break;
+            default:
+                break;
+        }
     }
 
     public String getDomainId() {
@@ -62,44 +103,42 @@ public class ItemShopInfoViewModel {
 
     public String getStatus() {
         if (mDomain != null) {
-
-            switch (mDomain.getStatus()) {
-                case NONE:
-                    onRequest();
-                    mTextStatus.set(R.color.transparent);
-                    break;
-                case PENDING:
-                    onCancel();
-                    mTextStatus.set(R.drawable.border_pedding);
-                    break;
-                case APPROVED:
-                    onCancel();
-                    mTextStatus.set(R.drawable.border_status);
-                    break;
-                default:
-                    break;
-            }
             return String.valueOf(mDomain.getStatus());
         }
         return "";
     }
 
     public void onRequestCancelJoinDomainClick() {
-        if (mButtonJoinDomain.get() == R.drawable.button_blue) {
-            onCancel();
-        } else {
-            onRequest();
+
+        if (mDomain.getStatus() == Domain.Status.NONE) {
+            onRequestShopInDomain();
+        } else if (mDomain.getStatus() == Domain.Status.APPROVED
+                || mDomain.getStatus() == Domain.Status.PENDING) {
+            mDialogManager.dialogwithNoTitleTwoButton(R.string.are_you_sure_you_want_to_cancel,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            onCancelShopInDomain();
+                        }
+                    });
+            mDialogManager.show();
         }
     }
 
-    private void onRequest() {
-        mButtonJoinDomain.set(R.drawable.button_blue);
-        mTextButton.set(R.string.request);
+    private void onRequestShopInDomain() {
+        ApplyShopToDomainRequest applyShopToDomainRequest = new ApplyShopToDomainRequest();
+        applyShopToDomainRequest.setDomainId(mShopInfo.getDomainId());
+        applyShopToDomainRequest.setShopName(mShop.getName());
+        applyShopToDomainRequest.setNumberProduct(mShopInfo.getNumberProduct());
+        applyShopToDomainRequest.setDomainName(mShopInfo.getDomainName());
+        mShopDomainManagementListener.onRequestJoinDomain(applyShopToDomainRequest);
     }
 
-    private void onCancel() {
-        mButtonJoinDomain.set(R.drawable.button_red);
-        mTextButton.set(R.string.cancel);
+    private void onCancelShopInDomain() {
+        LeaveShopToDomainRequest leaveShopToDomainRequest = new LeaveShopToDomainRequest();
+        leaveShopToDomainRequest.setDomainId(mShopInfo.getDomainId());
+        leaveShopToDomainRequest.setShopId(mShop.getId());
+        mShopDomainManagementListener.onCancleJoinDomain(leaveShopToDomainRequest);
     }
 
     public ObservableInt getButtonJoinDomain() {

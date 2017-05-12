@@ -1,5 +1,7 @@
 package com.framgia.forder.data.source.remote.api.service;
 
+import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
+import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
@@ -77,4 +79,12 @@ public interface FOrderApi {
 
     @GET("v1/dashboard/shops")
     Observable<ShopManagementResponse> getLitShopManagement(@Query("user_id") int userId);
+
+    @POST("v1/dashboard/shops")
+    Observable<ShopManagementResponse> requestApplyShopToDomain(
+            @Body ApplyShopToDomainRequest requestApplyShopToDomain);
+
+    @POST("v1/dashboard/shops")
+    Observable<ShopManagementResponse> requestLeaveShopFromDomain(
+            @Body LeaveShopToDomainRequest requestLeaveShopFromDomain);
 }

@@ -9,8 +9,11 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
+import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
+import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.databinding.ItemJoinDomainBinding;
 import com.framgia.forder.databinding.ItemShopManagementBinding;
+import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +25,18 @@ public class ListShopManagementAdapter extends BaseExpandableListAdapter {
 
     private final Context mContext;
     private final List<ShopManagement> mShopManagements;
+    private ShopDomainManagementListener mShopDomainManagementListener;
+    private final DialogManager mDialogManager;
 
     ListShopManagementAdapter(@NonNull Context context) {
         this.mContext = context;
         mShopManagements = new ArrayList<>();
+        mDialogManager = new DialogManager(context);
+    }
+
+    public void setShopDomainManagementListener(
+            ShopDomainManagementListener shopDomainManagementListener) {
+        mShopDomainManagementListener = shopDomainManagementListener;
     }
 
     public void updateData(List<ShopManagement> shopManagements) {
@@ -111,9 +122,9 @@ public class ListShopManagementAdapter extends BaseExpandableListAdapter {
         ItemJoinDomainBinding binding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                         R.layout.item_join_domain, parent, false);
-        final ItemShopInfoViewModel viewModel =
-                new ItemShopInfoViewModel((ShopManagement) getChild(groupPosition, childPosition),
-                        childPosition);
+        final ItemShopInfoViewModel viewModel = new ItemShopInfoViewModel(mContext,
+                (ShopManagement) getChild(groupPosition, childPosition), childPosition,
+                mShopDomainManagementListener, mDialogManager);
         binding.setViewModel(viewModel);
         binding.executePendingBindings();
         return binding.getRoot();
@@ -122,5 +133,11 @@ public class ListShopManagementAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
+    }
+
+    public interface ShopDomainManagementListener {
+        void onRequestJoinDomain(ApplyShopToDomainRequest applyShopToDomainRequest);
+
+        void onCancleJoinDomain(LeaveShopToDomainRequest leaveShopToDomainRequest);
     }
 }
