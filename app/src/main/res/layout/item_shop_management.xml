@@ -67,6 +67,7 @@
                 android:layout_marginLeft="@dimen/dp_4"
                 android:layout_marginStart="@dimen/dp_4"
                 android:contentDescription="@string/shop_management"
+                android:onClick="@{() -> viewModel.onClickShopInformation()}"
                 app:srcCompat="@drawable/ic_next_fragment"
                 />
         </LinearLayout>

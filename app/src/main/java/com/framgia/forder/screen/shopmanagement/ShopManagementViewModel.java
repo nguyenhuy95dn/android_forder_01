@@ -16,8 +16,6 @@ public class ShopManagementViewModel implements ShopManagementContract.ViewModel
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>,
         ListShopManagementAdapter.ShopDomainManagementListener {
 
-    private static final String TAG = "ShopManagemantFragment";
-
     private final Navigator mNavigator;
     private final ListShopManagementAdapter mListShopManagementAdapter;
     private ShopManagementContract.Presenter mPresenter;
