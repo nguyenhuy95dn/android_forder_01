@@ -13,6 +13,7 @@ import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainReques
 import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.databinding.ItemJoinDomainBinding;
 import com.framgia.forder.databinding.ItemShopManagementBinding;
+import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +25,14 @@ import java.util.List;
 public class ListShopManagementAdapter extends BaseExpandableListAdapter {
 
     private final Context mContext;
+    private final Navigator mNavigator;
     private final List<ShopManagement> mShopManagements;
     private ShopDomainManagementListener mShopDomainManagementListener;
     private final DialogManager mDialogManager;
 
-    ListShopManagementAdapter(@NonNull Context context) {
+    ListShopManagementAdapter(@NonNull Context context, Navigator navigator) {
         this.mContext = context;
+        mNavigator = navigator;
         mShopManagements = new ArrayList<>();
         mDialogManager = new DialogManager(context);
     }
@@ -109,8 +112,8 @@ public class ListShopManagementAdapter extends BaseExpandableListAdapter {
         ItemShopManagementBinding binding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                         R.layout.item_shop_management, parent, false);
-        ItemShopManagementViewModel viewModel =
-                new ItemShopManagementViewModel((ShopManagement) getGroup(groupPosition));
+        ItemShopManagementViewModel viewModel = new ItemShopManagementViewModel(mNavigator,
+                (ShopManagement) getGroup(groupPosition));
         binding.setViewModel(viewModel);
         binding.executePendingBindings();
         return binding.getRoot();

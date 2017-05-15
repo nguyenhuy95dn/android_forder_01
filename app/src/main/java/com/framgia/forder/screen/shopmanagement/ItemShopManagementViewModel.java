@@ -1,15 +1,21 @@
 package com.framgia.forder.screen.shopmanagement;
 
+import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
+import com.framgia.forder.screen.shopinfo.ShopInformationPageContainerFragment;
+import com.framgia.forder.utils.navigator.Navigator;
 
 /**
  * Created by levutantuan on 5/3/17.
  */
 
 public class ItemShopManagementViewModel {
+    private final Navigator mNavigator;
     private final ShopManagement mShopManagement;
+    private static final String TAG = "ShopManagemantFragment";
 
-    public ItemShopManagementViewModel(ShopManagement shopManagements) {
+    public ItemShopManagementViewModel(Navigator navigator, ShopManagement shopManagements) {
+        mNavigator = navigator;
         mShopManagement = shopManagements;
     }
 
@@ -34,5 +40,11 @@ public class ItemShopManagementViewModel {
             return mShopManagement.getShop().getDescription();
         }
         return "";
+    }
+
+    public void onClickShopInformation() {
+        mNavigator.showToast("Click");
+        mNavigator.goNextChildFragment(R.id.layout_content,
+                ShopInformationPageContainerFragment.newInstance(), true, Navigator.BOTTOM_UP, TAG);
     }
 }

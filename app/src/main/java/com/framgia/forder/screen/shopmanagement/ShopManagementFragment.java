@@ -34,9 +34,9 @@ public class ShopManagementFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ListShopManagementAdapter listShopManagementAdapter =
-                new ListShopManagementAdapter(getActivity());
         Navigator navigator = new Navigator(getParentFragment());
+        ListShopManagementAdapter listShopManagementAdapter =
+                new ListShopManagementAdapter(getActivity(), navigator);
         mViewModel = new ShopManagementViewModel(navigator, listShopManagementAdapter);
 
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity().getApplicationContext());
