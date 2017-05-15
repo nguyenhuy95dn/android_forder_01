@@ -6,6 +6,9 @@ import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
+import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
+import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
+import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -24,14 +27,14 @@ final class ShopManagementPresenter implements ShopManagementContract.Presenter 
     private final ShopManagementContract.ViewModel mViewModel;
     private final CompositeSubscription mCompositeSubscription;
     private final ShopRepository mShopRepository;
-    private final UserRepository mUserRepository;
+    private final User user;
 
     ShopManagementPresenter(ShopManagementContract.ViewModel viewModel,
             UserRepository userRepository, ShopRepository shopRepository) {
         mViewModel = viewModel;
         mShopRepository = shopRepository;
-        mUserRepository = userRepository;
         mCompositeSubscription = new CompositeSubscription();
+        user = userRepository.getUser();
         getListShopManagement();
     }
 
@@ -44,8 +47,8 @@ final class ShopManagementPresenter implements ShopManagementContract.Presenter 
         mCompositeSubscription.clear();
     }
 
-    private void getListShopManagement() {
-        User user = mUserRepository.getUser();
+    @Override
+    public void getListShopManagement() {
         if (user == null) {
             return;
         }
@@ -63,6 +66,47 @@ final class ShopManagementPresenter implements ShopManagementContract.Presenter 
                         mViewModel.onGetListShopManagementError(error);
                     }
                 });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void onRequestJoinDomain(ApplyShopToDomainRequest applyShopToDomainRequest) {
+        applyShopToDomainRequest.setUserName(user.getName());
+        Subscription subscription =
+                mShopRepository.requestApplyShopToDomain(applyShopToDomainRequest)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Action1<ShopManagementResponse>() {
+                            @Override
+                            public void call(ShopManagementResponse response) {
+                                mViewModel.onRequestShopInDomainSuccess();
+                            }
+                        }, new SafetyError() {
+                            @Override
+                            public void onSafetyError(BaseException error) {
+                                mViewModel.onRequestShopInDomainError(error);
+                            }
+                        });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void onCancelJoinDomain(LeaveShopToDomainRequest leaveShopToDomainRequest) {
+        Subscription subscription =
+                mShopRepository.requestLeaveShopFromDomain(leaveShopToDomainRequest)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Action1<ShopManagementResponse>() {
+                            @Override
+                            public void call(ShopManagementResponse response) {
+                                mViewModel.onCancelJoinDomainSuccess();
+                            }
+                        }, new SafetyError() {
+                            @Override
+                            public void onSafetyError(BaseException error) {
+                                mViewModel.onCancelJoinDomainError(error);
+                            }
+                        });
         mCompositeSubscription.add(subscription);
     }
 }
