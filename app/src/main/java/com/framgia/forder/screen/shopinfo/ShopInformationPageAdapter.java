@@ -6,8 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import com.framgia.forder.R;
-import com.framgia.forder.screen.searchproduct.ProductSearchResultFragment;
-import com.framgia.forder.screen.searchshop.ShopSearchResultFragment;
+import com.framgia.forder.screen.listProduct.ListProductFragment;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,13 +31,14 @@ public class ShopInformationPageAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case ShopInformationPageAdapter.ShopInformationPageResultsTab.TAB_SHOP:
-                fragment = ProductSearchResultFragment.newInstance();
+                fragment = ShopinfoFragment.newInstance();
                 mFragments.add(ShopInformationPageAdapter.ShopInformationPageResultsTab.TAB_SHOP,
                         fragment);
                 return fragment;
             case ShopInformationPageAdapter.ShopInformationPageResultsTab.TAB_PRODUCT:
-                fragment = ShopSearchResultFragment.newInstance();
-                mFragments.add(ShopInformationPageAdapter.ShopInformationPageResultsTab.TAB_PRODUCT,
+                //TODO Fragment Product In Shop
+                fragment = ListProductFragment.newInstance();
+                mFragments.add(ShopInformationPageAdapter.ShopInformationPageResultsTab.TAB_SHOP,
                         fragment);
                 return fragment;
             default:
