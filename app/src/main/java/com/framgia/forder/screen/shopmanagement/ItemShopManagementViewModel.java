@@ -43,7 +43,6 @@ public class ItemShopManagementViewModel {
     }
 
     public void onClickShopInformation() {
-        mNavigator.showToast("Click");
         mNavigator.goNextChildFragment(R.id.layout_content,
                 ShopInformationPageContainerFragment.newInstance(), true, Navigator.BOTTOM_UP, TAG);
     }
