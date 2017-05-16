@@ -17,12 +17,11 @@
         android:id="@+id/coordinator_Layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
         >
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_250"
+            android:layout_height="@dimen/dp_200"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             >
 
@@ -31,14 +30,16 @@
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/color_black"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
                 >
-                <!--Image Shop-->
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitXY"
+                    app:imageUrl="@{viewModel.shopImage}"
                     app:layout_collapseMode="parallax"
                     tools:ignore="ContentDescription"
                     />
@@ -48,62 +49,102 @@
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="parallax"
                     />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     >
-                    <!--Name Shop-->
-                    <TextView
-                        android:id="@id/text_shop_name"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/dp_120"
                         android:layout_alignParentBottom="true"
-                        android:background="@color/color_white_transparent"
-                        android:gravity="center"
-                        android:textColor="@color/color_orange_mos"
-                        android:textSize="@dimen/sp_30"
-                        android:textStyle="bold"
-                        />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_above="@id/text_shop_name"
-                        android:background="@color/color_black_transparent"
                         android:orientation="vertical"
+                        tools:ignore="UselessParent"
                         >
 
-                        <RatingBar
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:progressTint="@color/color_yellow_mos"
-                            android:rating="3.5"
-                            tools:targetApi="lollipop"
-                            style="?android:attr/ratingBarStyleSmall"
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_50"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/color_white_transparent"
+                            tools:ignore="ContentDescription,UselessParent"
                             />
-                    </LinearLayout>
+                        <ImageView
+                            android:id="@+id/image_shop"
+                            android:layout_width="@dimen/dp_120"
+                            android:layout_height="@dimen/dp_120"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/border_comment"
+                            android:contentDescription="@string/avatar_shop"
+                            android:scaleType="fitXY"
+                            app:imageUrl="@{viewModel.shopAvatar}"
+                            />
+                    </RelativeLayout>
                 </RelativeLayout>
-
             </android.support.design.widget.CollapsingToolbarLayout>
 
         </android.support.design.widget.AppBarLayout>
+
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_10"
                 android:orientation="vertical"
-
                 >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:id="@id/text_shop_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center"
+                        android:text="@{viewModel.shopName}"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp_30"
+                        android:textStyle="bold"
+                        tools:ignore="ObsoleteLayoutParam"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_black_transparent"
+                        android:orientation="vertical"
+                        >
+
+                        <RatingBar
+                            android:id="@+id/ratingBar2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:progressTint="@color/color_yellow_mos"
+                            android:rating="@{viewModel.rating}"
+                            tools:targetApi="lollipop"
+                            style="?android:attr/ratingBarStyleSmall"
+                            />
+
+                    </LinearLayout>
+                </LinearLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_40"
+                    android:layout_marginTop="@dimen/dp_10"
                     >
                     <TextView
                         android:layout_width="match_parent"
@@ -122,39 +163,43 @@
                         android:contentDescription="@string/edit"
                         />
                 </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
                     android:background="@drawable/border_item"
                     android:orientation="horizontal"
-                    android:weightSum="5"
+                    android:weightSum="4"
                     >
-                    <!--Shop Name-->
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:drawableTop="@drawable/ic_store_24dp"
-                        android:gravity="center"
-                        android:textSize="@dimen/sp_17"
-                        />
-                    <!--Number Product-->
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawableTop="@drawable/ic_local_dining_24dp"
                         android:gravity="center"
+                        android:text="@{viewModel.numberProduct}"
                         android:textSize="@dimen/sp_17"
                         />
-                    <!--Time Order-->
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
+                        android:drawableTop="@drawable/ic_store_24dp"
+                        android:gravity="center"
+                        android:text="@{viewModel.shopName}"
+                        android:textSize="@dimen/sp_17"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:drawableTop="@drawable/ic_time"
                         android:gravity="center"
+                        android:text="@{viewModel.timeOpenShop}"
                         android:textSize="@dimen/sp_17"
                         />
                 </LinearLayout>
@@ -188,7 +233,7 @@
                         android:textStyle="bold"
                         />
                 </LinearLayout>
-                <!--List Admin Of Shop-->
+                <!--List Manager Of Shop-->
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

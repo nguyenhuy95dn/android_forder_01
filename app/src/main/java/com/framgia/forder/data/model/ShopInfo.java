@@ -1,5 +1,7 @@
 package com.framgia.forder.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by levutantuan on 5/8/17.
  */
 
-public class ShopInfo {
+public class ShopInfo implements Parcelable {
     @Expose
     @SerializedName("domain_id")
     private int mDomainId;
@@ -36,6 +38,30 @@ public class ShopInfo {
         mNumberProduct = numberProduct;
         mDomain = domain;
     }
+
+    public ShopInfo() {
+    }
+
+    protected ShopInfo(Parcel in) {
+        mDomainId = in.readInt();
+        mDomainName = in.readString();
+        mNumberUser = in.readInt();
+        mNumberShop = in.readInt();
+        mNumberProduct = in.readInt();
+        mDomain = in.readParcelable(Domain.class.getClassLoader());
+    }
+
+    public static final Creator<ShopInfo> CREATOR = new Creator<ShopInfo>() {
+        @Override
+        public ShopInfo createFromParcel(Parcel in) {
+            return new ShopInfo(in);
+        }
+
+        @Override
+        public ShopInfo[] newArray(int size) {
+            return new ShopInfo[size];
+        }
+    };
 
     public int getDomainId() {
         return mDomainId;
@@ -83,5 +109,20 @@ public class ShopInfo {
 
     public void setDomain(Domain domain) {
         mDomain = domain;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mDomainId);
+        dest.writeString(mDomainName);
+        dest.writeInt(mNumberUser);
+        dest.writeInt(mNumberShop);
+        dest.writeInt(mNumberProduct);
+        dest.writeParcelable(mDomain, flags);
     }
 }

@@ -8,32 +8,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.databinding.FragmentShopinfoBinding;
+import com.framgia.forder.utils.navigator.Navigator;
 
 /**
  * Shopinfo Screen.
  */
 public class ShopinfoFragment extends Fragment {
 
+    private static final String EXTRA_SHOP = "EXTRA_SHOP";
     private ShopinfoContract.ViewModel mViewModel;
 
-    public static ShopinfoFragment newInstance() {
-        return new ShopinfoFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mViewModel = new ShopinfoViewModel();
-
-        ShopinfoContract.Presenter presenter = new ShopinfoPresenter(mViewModel);
-        mViewModel.setPresenter(presenter);
+    public static ShopinfoFragment newInstance(ShopManagement shopManagement) {
+        ShopinfoFragment shopinfoFragment = new ShopinfoFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(EXTRA_SHOP, shopManagement);
+        shopinfoFragment.setArguments(bundle);
+        return shopinfoFragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Navigator navigator = new Navigator(getParentFragment());
+        ShopManagement shopManagement = (ShopManagement) getArguments().get(EXTRA_SHOP);
+        mViewModel = new ShopinfoViewModel(navigator, shopManagement);
+        ShopinfoContract.Presenter presenter = new ShopinfoPresenter(mViewModel);
+        mViewModel.setPresenter(presenter);
 
         FragmentShopinfoBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_shopinfo, container, false);

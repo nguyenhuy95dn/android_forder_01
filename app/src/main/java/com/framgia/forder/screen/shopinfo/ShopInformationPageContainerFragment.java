@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.databinding.FragmentShopInfomationPageContainerBinding;
 
 /**
@@ -15,17 +16,25 @@ import com.framgia.forder.databinding.FragmentShopInfomationPageContainerBinding
  */
 public class ShopInformationPageContainerFragment extends Fragment {
 
+    private static final String EXTRA_SHOP = "EXTRA_SHOP";
     private ShopInformationPageContainerContract.ViewModel mViewModel;
 
-    public static ShopInformationPageContainerFragment newInstance() {
-        return new ShopInformationPageContainerFragment();
+    public static ShopInformationPageContainerFragment newInstance(ShopManagement shopManagement) {
+        ShopInformationPageContainerFragment shopinfoFragment =
+                new ShopInformationPageContainerFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(EXTRA_SHOP, shopManagement);
+        shopinfoFragment.setArguments(bundle);
+        return shopinfoFragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ShopManagement shopManagement = (ShopManagement) getArguments().get(EXTRA_SHOP);
         ShopInformationPageAdapter adapter =
-                new ShopInformationPageAdapter(getActivity(), getChildFragmentManager());
+                new ShopInformationPageAdapter(getActivity(), getChildFragmentManager(),
+                        shopManagement);
         mViewModel = new ShopInformationPageContainerViewModel(adapter);
 
         ShopInformationPageContainerContract.Presenter presenter =

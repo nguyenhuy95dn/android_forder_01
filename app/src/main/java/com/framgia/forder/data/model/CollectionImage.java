@@ -19,14 +19,14 @@ public class CollectionImage implements Parcelable {
     };
 
     @Expose
-    @SerializedName("image")
+    @SerializedName(value = "image", alternate = { "standard" })
     private Image mImage;
 
     public CollectionImage(Image image) {
         mImage = image;
     }
 
-    protected CollectionImage(Parcel in) {
+    private CollectionImage(Parcel in) {
         mImage = in.readParcelable(Image.class.getClassLoader());
     }
 
