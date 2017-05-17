@@ -1,10 +1,12 @@
 package com.framgia.forder.screen.shopmanagement;
 
+import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
+import com.framgia.forder.screen.createshop.CreateshopFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
 
@@ -42,7 +44,8 @@ public class ShopManagementViewModel implements ShopManagementContract.ViewModel
     }
 
     public void onClickShopManagement() {
-        //Todo Open Fragment Register Shop
+        mNavigator.goNextChildFragment(R.id.layout_content, CreateshopFragment.newInstance(),
+                true, Navigator.RIGHT_LEFT, "CreateshopFragment");
     }
 
     @Override
