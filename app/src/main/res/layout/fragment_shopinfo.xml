@@ -161,6 +161,7 @@
                         android:layout_alignParentRight="true"
                         android:background="@drawable/ic_edits"
                         android:contentDescription="@string/edit"
+                        android:onClick="@{() -> viewModel.onClickEditShop()}"
                         />
                 </RelativeLayout>
 

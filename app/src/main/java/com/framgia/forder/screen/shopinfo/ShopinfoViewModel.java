@@ -1,7 +1,9 @@
 package com.framgia.forder.screen.shopinfo;
 
+import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopInfo;
 import com.framgia.forder.data.model.ShopManagement;
+import com.framgia.forder.screen.shopupdate.ShopUpdateFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 
 /**
@@ -10,6 +12,7 @@ import com.framgia.forder.utils.navigator.Navigator;
 
 public class ShopinfoViewModel implements ShopinfoContract.ViewModel {
 
+    private static final String TAG = "ShopUpdateFragment";
     private final Navigator mNavigator;
     private ShopinfoContract.Presenter mPresenter;
     private final ShopManagement mShopManagement;
@@ -80,5 +83,10 @@ public class ShopinfoViewModel implements ShopinfoContract.ViewModel {
             return mShopManagement.getShop().getCollectionAvatar().getImage().getUrl();
         }
         return "";
+    }
+
+    public void onClickEditShop() {
+        mNavigator.goNextChildFragment(R.id.layout_content, ShopUpdateFragment.newInstance(), true,
+                Navigator.BOTTOM_UP, TAG);
     }
 }

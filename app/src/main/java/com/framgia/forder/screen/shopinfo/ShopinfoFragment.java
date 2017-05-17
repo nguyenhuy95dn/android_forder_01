@@ -33,7 +33,7 @@ public class ShopinfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Navigator navigator = new Navigator(getParentFragment());
+        Navigator navigator = new Navigator(getParentFragment().getParentFragment());
         ShopManagement shopManagement = (ShopManagement) getArguments().get(EXTRA_SHOP);
         mViewModel = new ShopinfoViewModel(navigator, shopManagement);
         ShopinfoContract.Presenter presenter = new ShopinfoPresenter(mViewModel);
