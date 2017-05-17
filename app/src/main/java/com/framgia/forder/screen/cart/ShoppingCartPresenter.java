@@ -69,15 +69,20 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
         cartList.add(cart);
         Subscription subscription =
                 mProductRepository.orderOneShop(getOrderRequest(cartList), cart.getShopId())
-                        .subscribe(new Action1<Void>() {
+                        .subscribe(new Subscriber<Void>() {
                             @Override
-                            public void call(Void aVoid) {
+                            public void onCompleted() {
                                 mViewModel.onOrderOneShopSuccess();
                             }
-                        }, new SafetyError() {
+
                             @Override
-                            public void onSafetyError(BaseException error) {
-                                mViewModel.onOrderOneShopError(error);
+                            public void onError(Throwable e) {
+                                mViewModel.onOrderOneShopError(e);
+                            }
+
+                            @Override
+                            public void onNext(Void aVoid) {
+                                // No-Op
                             }
                         });
         mCompositeSubscription.add(subscription);
@@ -89,15 +94,20 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
             return;
         }
         Subscription subscription = mProductRepository.orderAllShop(getOrderRequest(carts))
-                .subscribe(new Action1<Void>() {
+                .subscribe(new Subscriber<Void>() {
                     @Override
-                    public void call(Void aVoid) {
+                    public void onCompleted() {
                         mViewModel.onOrderAllShopSuccess();
                     }
-                }, new SafetyError() {
+
                     @Override
-                    public void onSafetyError(BaseException error) {
-                        mViewModel.onOrderAllShopError(error);
+                    public void onError(Throwable e) {
+                        mViewModel.onOrderAllShopError(e);
+                    }
+
+                    @Override
+                    public void onNext(Void aVoid) {
+                        // No-Op
                     }
                 });
         mCompositeSubscription.add(subscription);
@@ -195,7 +205,7 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
         mCompositeSubscription.add(subscriptions);
     }
 
-    public OrderRequest getOrderRequest(List<Cart> carts) {
+    private OrderRequest getOrderRequest(List<Cart> carts) {
         OrderRequest orderRequest = new OrderRequest();
         List<Cart> cartList = new ArrayList<>();
         for (Cart cart : carts) {

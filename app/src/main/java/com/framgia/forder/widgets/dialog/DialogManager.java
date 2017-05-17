@@ -51,6 +51,19 @@ public class DialogManager {
         mDatePickerDialog.show();
     }
 
+    public DialogManager dialogWarning(int message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setMessage(message)
+                .setNegativeButton(R.string.OK, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        mDialog = builder.create();
+        return this;
+    }
+
     public void show() {
         if (mDialog == null) {
             return;

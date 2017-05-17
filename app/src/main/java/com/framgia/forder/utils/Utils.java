@@ -32,15 +32,18 @@ public class Utils {
         }
 
         public static boolean isProductTimeOut(String start, String end) {
-            SimpleDateFormat parser = new SimpleDateFormat(Constant.FORMAT_TIME);
+            SimpleDateFormat parser =
+                    new SimpleDateFormat(Constant.FORMAT_TIME, Locale.getDefault());
             Date currentHour = convertStringToDate(parser.format(new Date()));
             Date startHour = convertStringToDate(start);
             Date endHour = convertStringToDate(end);
-            return currentHour.before(startHour) && currentHour.after(endHour);
+            return !(currentHour.getTime() >= startHour.getTime()
+                    && currentHour.getTime() <= endHour.getTime());
         }
 
         private static Date convertStringToDate(String date) {
-            SimpleDateFormat parser = new SimpleDateFormat(Constant.FORMAT_TIME);
+            SimpleDateFormat parser =
+                    new SimpleDateFormat(Constant.FORMAT_TIME, Locale.getDefault());
             try {
                 return parser.parse(date);
             } catch (java.text.ParseException e) {

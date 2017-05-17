@@ -39,11 +39,11 @@ interface ShoppingCartContract {
 
         void onOrderAllShop();
 
-        void onOrderAllShopError(BaseException exception);
+        void onOrderAllShopError(Throwable throwable);
 
         void onOrderAllShopSuccess();
 
-        void onOrderOneShopError(BaseException exception);
+        void onOrderOneShopError(Throwable throwable);
 
         void onOrderOneShopSuccess();
     }

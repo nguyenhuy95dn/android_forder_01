@@ -15,4 +15,6 @@ public interface OrderItemListener {
     void onDownQuantity(CartItem cartItem);
 
     void onDeleteProduct(CartItem cartItem);
+
+    void onClickIconWarning();
 }

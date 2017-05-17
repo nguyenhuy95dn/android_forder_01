@@ -174,8 +174,8 @@ public class ShoppingCartViewModel extends BaseObservable
     }
 
     @Override
-    public void onOrderAllShopError(BaseException exception) {
-        Log.e(TAG, "onOrderAllShopError", exception);
+    public void onOrderAllShopError(Throwable throwable) {
+        Log.e(TAG, "onOrderAllShopError", throwable);
     }
 
     @Override
@@ -184,13 +184,19 @@ public class ShoppingCartViewModel extends BaseObservable
     }
 
     @Override
-    public void onOrderOneShopError(BaseException exception) {
-        Log.e(TAG, "onOrderOneShopError", exception);
+    public void onOrderOneShopError(Throwable throwable) {
+        Log.e(TAG, "onOrderOneShopError", throwable);
     }
 
     @Override
     public void onOrderOneShopSuccess() {
         reloadData();
+    }
+
+    @Override
+    public void onClickIconWarning() {
+        mDialogManager.dialogWarning((R.string.mgs_product_time_out));
+        mDialogManager.show();
     }
 
     @Bindable
