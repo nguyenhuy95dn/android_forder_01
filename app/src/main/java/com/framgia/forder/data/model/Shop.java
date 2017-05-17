@@ -2,22 +2,11 @@ package com.framgia.forder.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.framgia.forder.utils.Utils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Shop implements Parcelable {
-
-    public static final Creator<Shop> CREATOR = new Creator<Shop>() {
-        @Override
-        public Shop createFromParcel(Parcel in) {
-            return new Shop(in);
-        }
-
-        @Override
-        public Shop[] newArray(int size) {
-            return new Shop[size];
-        }
-    };
 
     @Expose
     @SerializedName("id")
@@ -54,21 +43,24 @@ public class Shop implements Parcelable {
     private String mTimeAutoReject;
     @Expose
     @SerializedName("cover_image")
-    private Image mCoverImage;
+    private CollectionImage mCoverImage;
+    @Expose
+    @SerializedName("created_at")
+    private String mCreateTime;
+    @Expose
+    @SerializedName("updated_at")
+    private String mUpdateTime;
+    @Expose
+    @SerializedName("slug")
+    private String mSlug;
+    @Expose
+    @SerializedName("status_on_off")
+    private String mStatusShop;
+    @Expose
+    @SerializedName("openforever")
+    private boolean mOpenForever;
 
-    protected Shop(Parcel in) {
-        mId = in.readInt();
-        mDomainId = in.readInt();
-        mShopId = in.readInt();
-        mName = in.readString();
-        mDescription = in.readString();
-        mStatus = in.readString();
-        mCollectionAvatar = in.readParcelable(CollectionAvatar.class.getClassLoader());
-        mAverageRating = in.readFloat();
-        mOwnerId = in.readInt();
-        mUser = in.readParcelable(User.class.getClassLoader());
-        mTimeAutoReject = in.readString();
-        mCoverImage = in.readParcelable(Image.class.getClassLoader());
+    public Shop() {
     }
 
     public Shop(int id, int domainId, int shopId, String name, String description, String status,
@@ -86,6 +78,38 @@ public class Shop implements Parcelable {
         mUser = user;
         mTimeAutoReject = timeAutoReject;
     }
+
+    private Shop(Parcel in) {
+        mId = in.readInt();
+        mDomainId = in.readInt();
+        mShopId = in.readInt();
+        mName = in.readString();
+        mDescription = in.readString();
+        mStatus = in.readString();
+        mCollectionAvatar = in.readParcelable(CollectionAvatar.class.getClassLoader());
+        mAverageRating = in.readFloat();
+        mOwnerId = in.readInt();
+        mUser = in.readParcelable(User.class.getClassLoader());
+        mTimeAutoReject = in.readString();
+        mCoverImage = in.readParcelable(Image.class.getClassLoader());
+        mCreateTime = in.readString();
+        mUpdateTime = in.readString();
+        mSlug = in.readString();
+        mStatusShop = in.readString();
+        mOpenForever = in.readByte() != 0;
+    }
+
+    public static final Creator<Shop> CREATOR = new Creator<Shop>() {
+        @Override
+        public Shop createFromParcel(Parcel in) {
+            return new Shop(in);
+        }
+
+        @Override
+        public Shop[] newArray(int size) {
+            return new Shop[size];
+        }
+    };
 
     public int getDomainId() {
         return mDomainId;
@@ -175,12 +199,49 @@ public class Shop implements Parcelable {
         mCollectionAvatar = collectionAvatar;
     }
 
-    public Image getCoverImage() {
+    public CollectionImage getCoverImage() {
         return mCoverImage;
     }
 
-    public void setCoverImage(Image coverImage) {
+    public void setCoverImage(CollectionImage coverImage) {
         mCoverImage = coverImage;
+    }
+
+    public String getTimeOpenShop() {
+        return Utils.DateTimeUntils.convertUiFormatToDataFormat(mTimeAutoReject,
+                Utils.INPUT_TIME_FORMAT, Utils.OUTPUT_TIME_FORMAT);
+    }
+
+    public String getCreateTime() {
+        return mCreateTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        mCreateTime = createTime;
+    }
+
+    public String getUpdateTime() {
+        return mUpdateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        mUpdateTime = updateTime;
+    }
+
+    public String getSlug() {
+        return mSlug;
+    }
+
+    public void setSlug(String slug) {
+        mSlug = slug;
+    }
+
+    public String getStatusShop() {
+        return mStatusShop;
+    }
+
+    public void setStatusShop(String statusShop) {
+        mStatusShop = statusShop;
     }
 
     @Override
@@ -202,5 +263,10 @@ public class Shop implements Parcelable {
         dest.writeParcelable(mUser, flags);
         dest.writeString(mTimeAutoReject);
         dest.writeParcelable(mCoverImage, flags);
+        dest.writeString(mCreateTime);
+        dest.writeString(mUpdateTime);
+        dest.writeString(mSlug);
+        dest.writeString(mStatusShop);
+        dest.writeByte((byte) (mOpenForever ? 1 : 0));
     }
 }

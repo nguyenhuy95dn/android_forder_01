@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.screen.listProduct.ListProductFragment;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +20,14 @@ public class ShopInformationPageAdapter extends FragmentPagerAdapter {
     private static final int TAB_NUMBER = 2;
     private final Context mContext;
     private final List<Fragment> mFragments;
+    private final ShopManagement mShopManagement;
 
-    public ShopInformationPageAdapter(Context context, FragmentManager fragmentManager) {
+    public ShopInformationPageAdapter(Context context, FragmentManager fragmentManager,
+            ShopManagement shopManagement) {
         super(fragmentManager);
         mContext = context;
         mFragments = new ArrayList<>();
+        mShopManagement = shopManagement;
     }
 
     @Override
@@ -31,14 +35,14 @@ public class ShopInformationPageAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position) {
             case ShopInformationPageAdapter.ShopInformationPageResultsTab.TAB_SHOP:
-                fragment = ShopinfoFragment.newInstance();
+                fragment = ShopinfoFragment.newInstance(mShopManagement);
                 mFragments.add(ShopInformationPageAdapter.ShopInformationPageResultsTab.TAB_SHOP,
                         fragment);
                 return fragment;
             case ShopInformationPageAdapter.ShopInformationPageResultsTab.TAB_PRODUCT:
                 //TODO Fragment Product In Shop
                 fragment = ListProductFragment.newInstance();
-                mFragments.add(ShopInformationPageAdapter.ShopInformationPageResultsTab.TAB_SHOP,
+                mFragments.add(ShopInformationPageAdapter.ShopInformationPageResultsTab.TAB_PRODUCT,
                         fragment);
                 return fragment;
             default:

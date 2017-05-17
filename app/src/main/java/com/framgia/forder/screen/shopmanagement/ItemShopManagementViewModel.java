@@ -21,9 +21,9 @@ public class ItemShopManagementViewModel {
 
     public String getShopImage() {
         if (mShopManagement.getShop() != null
-                && mShopManagement.getShop().getCoverImage() != null
-                && mShopManagement.getShop().getCoverImage().getUrl() != null) {
-            return mShopManagement.getShop().getCoverImage().getUrl();
+                && mShopManagement.getShop().getCollectionAvatar() != null
+                && mShopManagement.getShop().getCollectionAvatar().getImage() != null) {
+            return mShopManagement.getShop().getCollectionAvatar().getImage().getUrl();
         }
         return "";
     }
@@ -44,6 +44,7 @@ public class ItemShopManagementViewModel {
 
     public void onClickShopInformation() {
         mNavigator.goNextChildFragment(R.id.layout_content,
-                ShopInformationPageContainerFragment.newInstance(), true, Navigator.BOTTOM_UP, TAG);
+                ShopInformationPageContainerFragment.newInstance(this.mShopManagement), true,
+                Navigator.BOTTOM_UP, TAG);
     }
 }

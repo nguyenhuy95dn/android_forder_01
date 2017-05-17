@@ -28,10 +28,10 @@ public class CollectionAvatar implements Parcelable {
     }
 
     @Expose
-    @SerializedName("avatar")
+    @SerializedName(value = "avatar", alternate = { "standard" })
     private Image mImage;
 
-    protected CollectionAvatar(Parcel in) {
+    private CollectionAvatar(Parcel in) {
         mImage = in.readParcelable(Image.class.getClassLoader());
     }
 

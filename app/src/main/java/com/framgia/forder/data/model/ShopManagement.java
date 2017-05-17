@@ -1,5 +1,7 @@
 package com.framgia.forder.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.List;
  * Created by levutantuan on 5/4/17.
  */
 
-public class ShopManagement {
+public class ShopManagement implements Parcelable {
 
     @Expose
     @SerializedName("shop")
@@ -25,6 +27,27 @@ public class ShopManagement {
         mShopDomains = shopDomain;
         mShopInfos = shopInfo;
     }
+
+    public ShopManagement() {
+    }
+
+    protected ShopManagement(Parcel in) {
+        mShop = in.readParcelable(Shop.class.getClassLoader());
+        mShopDomains = in.createTypedArrayList(Domain.CREATOR);
+        mShopInfos = in.createTypedArrayList(ShopInfo.CREATOR);
+    }
+
+    public static final Creator<ShopManagement> CREATOR = new Creator<ShopManagement>() {
+        @Override
+        public ShopManagement createFromParcel(Parcel in) {
+            return new ShopManagement(in);
+        }
+
+        @Override
+        public ShopManagement[] newArray(int size) {
+            return new ShopManagement[size];
+        }
+    };
 
     public Shop getShop() {
         return mShop;
@@ -48,5 +71,17 @@ public class ShopManagement {
 
     public void setShopInfos(List<ShopInfo> shopInfos) {
         mShopInfos = shopInfos;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(mShop, flags);
+        dest.writeTypedList(mShopDomains);
+        dest.writeTypedList(mShopInfos);
     }
 }
