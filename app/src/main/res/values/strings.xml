@@ -105,12 +105,19 @@
     <string name="edit">edit</string>
     <string name="avatar_shop">avatar_Shop</string>
     <string name="create_new_shop">Create New Shop</string>
-    <string name="open_time">Open Time:</string>
     <string name="open_forever">Open daily:</string>
     <string name="auto_reject_time">Auto-reject time:</string>
     <string name="cover_image">Cover image</string>
-    <string name="avatar">Avatar</string>
     <string name="two_dot">:</string>
     <string name="choose_image">Choose Image</string>
     <string name="create">Create</string>
+    <string name="open_time">Open Time :</string>
+    <string name="open_daily">Open daily :</string>
+    <string name="avatar">Avatar : </string>
+    <string name="time_automatically_refused_order">Time automatically refused order :</string>
+    <string name="choose_file">Choose file</string>
+    <string name="edit_shop">Edit Shop</string>
+    <string name="choose_time">Choose Time</string>
+    <string name="time_auto_close">Time auto Close :</string>
+    <string name="save">Save</string>
 </resources>
