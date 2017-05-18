@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.databinding.FragmentCreateShopBinding;
+import com.framgia.forder.widgets.dialog.DialogManager;
 
 /**
  * Createshop Screen.
@@ -24,7 +25,8 @@ public class CreateshopFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new CreateshopViewModel();
+        DialogManager dialogManager = new DialogManager(getActivity());
+        mViewModel = new CreateshopViewModel(getActivity(), dialogManager);
         CreateshopContract.Presenter presenter = new CreateshopPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
 

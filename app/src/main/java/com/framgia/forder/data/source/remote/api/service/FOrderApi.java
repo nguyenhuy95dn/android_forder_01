@@ -3,12 +3,14 @@ package com.framgia.forder.data.source.remote.api.service;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
+import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
 import com.framgia.forder.data.source.remote.api.response.NotificationResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderResponse;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
+import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
 import com.framgia.forder.data.source.remote.api.response.SearchResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.UpdateProfileResponse;
@@ -87,4 +89,8 @@ public interface FOrderApi {
     @POST("v1/dashboard/shops")
     Observable<ShopManagementResponse> requestLeaveShopFromDomain(
             @Body LeaveShopToDomainRequest requestLeaveShopFromDomain);
+
+    @POST("v1/dashboard/shops")
+    Observable<RegisterShopResponse> requestRegisterShop(
+            @Body RegisterShopRequest registerShopRequest);
 }

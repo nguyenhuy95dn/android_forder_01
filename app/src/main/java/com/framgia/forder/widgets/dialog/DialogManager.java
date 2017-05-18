@@ -2,6 +2,7 @@ package com.framgia.forder.widgets.dialog;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import com.framgia.forder.R;
@@ -15,6 +16,7 @@ public class DialogManager {
     private Context mContext;
     private AlertDialog mDialog;
     private DatePickerDialog mDatePickerDialog;
+    private TimePickerDialog mTimePickerDialog;
     private Calendar mCalendar;
 
     public DialogManager(Context context) {
@@ -42,6 +44,19 @@ public class DialogManager {
                 new DatePickerDialog(mContext, onDateSetListener, mCalendar.get(Calendar.YEAR),
                         mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
         return this;
+    }
+
+    public DialogManager dialogTimePicker(TimePickerDialog.OnTimeSetListener onTimeSetListener) {
+        mTimePickerDialog = new TimePickerDialog(mContext, onTimeSetListener,
+                mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), true);
+        return this;
+    }
+
+    public void showTimePickerDialog() {
+        if (mTimePickerDialog == null) {
+            return;
+        }
+        mTimePickerDialog.show();
     }
 
     public void showDatePickerDialog() {

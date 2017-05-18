@@ -4,6 +4,8 @@ import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
+import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
+import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
 import java.util.List;
 import rx.Observable;
@@ -25,5 +27,8 @@ public interface ShopDataSource {
 
         Observable<ShopManagementResponse> requestLeaveShopFromDomain(
                 LeaveShopToDomainRequest leaveShopToDomainRequest);
+
+        Observable<RegisterShopResponse> requestRegisterShop(
+                RegisterShopRequest registerShopRequest);
     }
 }
