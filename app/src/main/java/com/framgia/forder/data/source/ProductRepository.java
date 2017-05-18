@@ -11,8 +11,8 @@ import java.util.List;
 import rx.Observable;
 
 public class ProductRepository {
-    private ProductDataSource.RemoteDataSource mRemoteDataSource;
-    private ProductDataSource.LocalDataSource mLocalProductDataSource;
+    private final ProductDataSource.RemoteDataSource mRemoteDataSource;
+    private final ProductDataSource.LocalDataSource mLocalProductDataSource;
     private int mCurrentDomainId;
 
     public ProductRepository(ProductRemoteDataSource remoteDataSource,
@@ -20,6 +20,12 @@ public class ProductRepository {
         mRemoteDataSource = remoteDataSource;
         mLocalProductDataSource = productLocalDataSource;
         mCurrentDomainId = domainRepository.getCurrentDomain().getId();
+    }
+
+    public ProductRepository(ProductRemoteDataSource productRemoteDataSource,
+            ProductLocalDataSource productLocalDataSource) {
+        mRemoteDataSource = productRemoteDataSource;
+        mLocalProductDataSource = productLocalDataSource;
     }
 
     public Observable<List<Product>> getListProduct() {
@@ -104,5 +110,9 @@ public class ProductRepository {
 
     public Observable<Comment> sendComment(CommentRequest request) {
         return mRemoteDataSource.sendComment(request);
+    }
+
+    public Observable<List<Product>> getListProductInShopInformation(int shopId) {
+        return mRemoteDataSource.getListProductInShopInformation(shopId);
     }
 }
