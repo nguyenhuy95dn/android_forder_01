@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
-import com.framgia.forder.screen.listProduct.ListProductFragment;
+import com.framgia.forder.screen.shopinfo.productshopinfo.ProductShopInfoFragment;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +40,7 @@ public class ShopInformationPageAdapter extends FragmentPagerAdapter {
                         fragment);
                 return fragment;
             case ShopInformationPageAdapter.ShopInformationPageResultsTab.TAB_PRODUCT:
-                //TODO Fragment Product In Shop
-                fragment = ListProductFragment.newInstance();
+                fragment = ProductShopInfoFragment.newInstance();
                 mFragments.add(ShopInformationPageAdapter.ShopInformationPageResultsTab.TAB_PRODUCT,
                         fragment);
                 return fragment;
