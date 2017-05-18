@@ -8,6 +8,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class Shop implements Parcelable {
 
+    public static final Creator<Shop> CREATOR = new Creator<Shop>() {
+        @Override
+        public Shop createFromParcel(Parcel in) {
+            return new Shop(in);
+        }
+
+        @Override
+        public Shop[] newArray(int size) {
+            return new Shop[size];
+        }
+    };
     @Expose
     @SerializedName("id")
     private int mId;
@@ -59,6 +70,9 @@ public class Shop implements Parcelable {
     @Expose
     @SerializedName("openforever")
     private boolean mOpenForever;
+    @Expose
+    @SerializedName("time_auto_close")
+    private String mTimeAutoClose;
 
     public Shop() {
     }
@@ -79,6 +93,18 @@ public class Shop implements Parcelable {
         mTimeAutoReject = timeAutoReject;
     }
 
+    public Shop(String name, String description, CollectionAvatar collectionAvatar,
+            String timeAutoReject, CollectionImage coverImage, boolean openForever,
+            String timeAutoClose) {
+        mName = name;
+        mDescription = description;
+        mCollectionAvatar = collectionAvatar;
+        mTimeAutoReject = timeAutoReject;
+        mCoverImage = coverImage;
+        mOpenForever = openForever;
+        mTimeAutoClose = timeAutoClose;
+    }
+
     private Shop(Parcel in) {
         mId = in.readInt();
         mDomainId = in.readInt();
@@ -97,19 +123,8 @@ public class Shop implements Parcelable {
         mSlug = in.readString();
         mStatusShop = in.readString();
         mOpenForever = in.readByte() != 0;
+        mTimeAutoClose = in.readString();
     }
-
-    public static final Creator<Shop> CREATOR = new Creator<Shop>() {
-        @Override
-        public Shop createFromParcel(Parcel in) {
-            return new Shop(in);
-        }
-
-        @Override
-        public Shop[] newArray(int size) {
-            return new Shop[size];
-        }
-    };
 
     public int getDomainId() {
         return mDomainId;
@@ -244,6 +259,22 @@ public class Shop implements Parcelable {
         mStatusShop = statusShop;
     }
 
+    public boolean isOpenForever() {
+        return mOpenForever;
+    }
+
+    public void setOpenForever(boolean openForever) {
+        mOpenForever = openForever;
+    }
+
+    public String getTimeAutoClose() {
+        return mTimeAutoClose;
+    }
+
+    public void setTimeAutoClose(String timeAutoClose) {
+        mTimeAutoClose = timeAutoClose;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -268,5 +299,6 @@ public class Shop implements Parcelable {
         dest.writeString(mSlug);
         dest.writeString(mStatusShop);
         dest.writeByte((byte) (mOpenForever ? 1 : 0));
+        dest.writeString(mTimeAutoClose);
     }
 }
