@@ -1,26 +1,33 @@
 package com.framgia.forder.screen.shopinfo;
 
+import android.databinding.BaseObservable;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopInfo;
 import com.framgia.forder.data.model.ShopManagement;
+import com.framgia.forder.data.model.User;
+import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.shopupdate.ShopUpdateFragment;
 import com.framgia.forder.utils.navigator.Navigator;
+import java.util.List;
 
 /**
  * Exposes the data to be used in the Shopinfo screen.
  */
 
-public class ShopinfoViewModel implements ShopinfoContract.ViewModel {
+public class ShopinfoViewModel extends BaseObservable implements ShopinfoContract.ViewModel {
 
     private static final String TAG = "ShopUpdateFragment";
     private final Navigator mNavigator;
     private ShopinfoContract.Presenter mPresenter;
     private final ShopManagement mShopManagement;
     private final ShopInfo mShopInfo;
+    private final ManagerShopInfoAdapter mAdapter;
 
-    ShopinfoViewModel(Navigator navigator, ShopManagement shopManagement) {
+    ShopinfoViewModel(Navigator navigator, ShopManagement shopManagement,
+            ManagerShopInfoAdapter adapter) {
         mNavigator = navigator;
         mShopManagement = shopManagement;
+        mAdapter = adapter;
         mShopInfo = mShopManagement.getShopInfos().get(1);
     }
 
@@ -37,6 +44,7 @@ public class ShopinfoViewModel implements ShopinfoContract.ViewModel {
     @Override
     public void setPresenter(ShopinfoContract.Presenter presenter) {
         mPresenter = presenter;
+        mPresenter.getListManagerOfShop(mShopManagement.getShop().getId());
     }
 
     public String getShopImage() {
@@ -86,7 +94,21 @@ public class ShopinfoViewModel implements ShopinfoContract.ViewModel {
     }
 
     public void onClickEditShop() {
-        mNavigator.goNextChildFragment(R.id.layout_content, ShopUpdateFragment.newInstance(), true,
-                Navigator.BOTTOM_UP, TAG);
+        mNavigator.goNextChildFragment(R.id.layout_content,
+                ShopUpdateFragment.newInstance(mShopManagement), true, Navigator.BOTTOM_UP, TAG);
+    }
+
+    @Override
+    public void onGetListManagerOfShopSuccess(List<User> users) {
+        mAdapter.updateData(users);
+    }
+
+    @Override
+    public void onGetListManagerOfShopError(BaseException exception) {
+        mNavigator.showToast(exception.getMessage());
+    }
+
+    public ManagerShopInfoAdapter getAdapter() {
+        return mAdapter;
     }
 }
