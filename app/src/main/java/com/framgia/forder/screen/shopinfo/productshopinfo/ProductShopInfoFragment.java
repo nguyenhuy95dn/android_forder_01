@@ -8,25 +8,46 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.ShopManagement;
+import com.framgia.forder.data.source.ProductRepository;
+import com.framgia.forder.data.source.local.ProductLocalDataSource;
+import com.framgia.forder.data.source.local.realm.RealmApi;
+import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentProductShopInfoBinding;
+import com.framgia.forder.utils.navigator.Navigator;
 
 /**
  * ProductShopInfo Screen.
  */
 public class ProductShopInfoFragment extends Fragment {
+    private static final String EXTRA_SHOPMANAGEMENT = "EXTRA_SHOPMANAGEMENT";
 
     private ProductShopInfoContract.ViewModel mViewModel;
 
-    public static ProductShopInfoFragment newInstance() {
-        return new ProductShopInfoFragment();
+    public static ProductShopInfoFragment newInstance(ShopManagement shopManagement) {
+        ProductShopInfoFragment productShopInfoFragment = new ProductShopInfoFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(EXTRA_SHOPMANAGEMENT, shopManagement);
+        productShopInfoFragment.setArguments(bundle);
+        return productShopInfoFragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new ProductShopInfoViewModel();
+        Navigator navigator = new Navigator(getParentFragment());
+        ShopManagement shopManagement = (ShopManagement) getArguments().get(EXTRA_SHOPMANAGEMENT);
+        ProductShopInformationAdapter adapter = new ProductShopInformationAdapter(getActivity());
+        mViewModel = new ProductShopInfoViewModel(navigator, adapter, shopManagement);
 
-        ProductShopInfoContract.Presenter presenter = new ProductShopInfoPresenter(mViewModel);
+        RealmApi realmApi = new RealmApi();
+        ProductRepository productRepository = new ProductRepository(
+                new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
+                new ProductLocalDataSource(realmApi));
+
+        ProductShopInfoContract.Presenter presenter =
+                new ProductShopInfoPresenter(mViewModel, productRepository);
         mViewModel.setPresenter(presenter);
     }
 

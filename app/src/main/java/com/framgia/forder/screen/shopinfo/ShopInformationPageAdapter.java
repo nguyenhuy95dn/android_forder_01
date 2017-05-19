@@ -40,7 +40,7 @@ public class ShopInformationPageAdapter extends FragmentPagerAdapter {
                         fragment);
                 return fragment;
             case ShopInformationPageAdapter.ShopInformationPageResultsTab.TAB_PRODUCT:
-                fragment = ProductShopInfoFragment.newInstance();
+                fragment = ProductShopInfoFragment.newInstance(mShopManagement);
                 mFragments.add(ShopInformationPageAdapter.ShopInformationPageResultsTab.TAB_PRODUCT,
                         fragment);
                 return fragment;

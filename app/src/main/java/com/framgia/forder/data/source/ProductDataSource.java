@@ -42,5 +42,7 @@ public interface ProductDataSource {
         Observable<List<Comment>> getListCommentInProduct(int productId, int domainId);
 
         Observable<Comment> sendComment(CommentRequest request);
+
+        Observable<List<Product>> getListProductInShopInformation(int shopId);
     }
 }

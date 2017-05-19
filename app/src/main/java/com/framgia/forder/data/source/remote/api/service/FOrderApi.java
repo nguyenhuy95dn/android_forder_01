@@ -93,4 +93,7 @@ public interface FOrderApi {
     @POST("v1/dashboard/shops")
     Observable<RegisterShopResponse> requestRegisterShop(
             @Body RegisterShopRequest registerShopRequest);
+
+    @GET("v1/products")
+    Observable<ProductResponse> getListProductShopInformation(@Query("shop_id") int shopId);
 }

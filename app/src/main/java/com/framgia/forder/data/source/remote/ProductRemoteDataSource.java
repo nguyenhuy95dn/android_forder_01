@@ -87,4 +87,18 @@ public class ProductRemoteDataSource extends BaseRemoteDataSource
                 new Comment(request.getProductId(), request.getUserId(), request.getComment());
         return Observable.just(comment);
     }
+
+    @Override
+    public Observable<List<Product>> getListProductInShopInformation(int shopId) {
+        return mFOrderApi.getListProductShopInformation(shopId)
+                .flatMap(new Func1<ProductResponse, Observable<List<Product>>>() {
+                    @Override
+                    public Observable<List<Product>> call(ProductResponse productResponse) {
+                        if (productResponse != null) {
+                            return Observable.just(productResponse.getListProduct());
+                        }
+                        return Observable.error(new NullPointerException());
+                    }
+                });
+    }
 }
