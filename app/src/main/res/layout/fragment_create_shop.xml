@@ -42,38 +42,25 @@
                 android:padding="@dimen/dp_10"
 
                 >
-                <android.support.design.widget.TextInputLayout
+                <EditText
+                    android:id="@+id/text_title_device"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/dp_10"
-                    android:textColorHint="@color/color_black"
-                    app:hintTextAppearance="@color/color_black"
-                    >
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/text_title_device"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/shop_name"
-                        android:textSize="@dimen/sp_14"
-                        />
-                </android.support.design.widget.TextInputLayout>
+                    android:hint="@string/shop_name"
+                    android:text="@={viewModel.name}"
+                    android:textSize="@dimen/sp_14"
+                    app:errorText="@{viewModel.nameError}"
+                    />
+                <EditText
+                    android:id="@+id/text_description_device"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/description"
+                    android:text="@={viewModel.description}"
+                    android:textSize="@dimen/sp_14"
+                    app:errorText="@{viewModel.descriptionError}"
+                    />
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:paddingTop="@dimen/dp_10"
-                    android:textColorHint="@color/color_black"
-                    app:hintTextAppearance="@color/color_black"
-                    >
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/text_description_device"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/description"
-                        android:textSize="@dimen/sp_14"
-                        />
-                </android.support.design.widget.TextInputLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,6 +71,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/dp_10"
                         android:paddingTop="@dimen/dp_10"
+                        android:text="@{viewModel.openTime}"
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -101,8 +89,8 @@
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:contentDescription="@string/open_time"
                         android:background="@null"
+                        android:contentDescription="@string/open_time"
                         android:onClick="@{()-> viewModel.onClickChooseOpenTime()}"
                         app:srcCompat="@drawable/ic_time"
                         />
@@ -128,6 +116,7 @@
                         android:layout_marginLeft="@dimen/dp_50"
                         android:layout_marginStart="@dimen/dp_50"
                         android:layout_marginTop="@dimen/dp_5"
+                        android:onCheckedChanged="@{() -> viewModel.checked()}"
                         />
                 </LinearLayout>
                 <RelativeLayout
@@ -150,6 +139,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/dp_10"
                         android:paddingTop="@dimen/dp_10"
+                        android:text="@{viewModel.autoRejectTime}"
                         />
                     <ImageButton
                         android:layout_width="@dimen/dp_30"
@@ -191,12 +181,14 @@
                             android:scaleType="centerCrop"
                             />
                         <Button
+                            android:id="@+id/button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginLeft="@dimen/dp_10"
                             android:layout_marginStart="@dimen/dp_10"
                             android:background="@drawable/border_button_choose_image"
+                            android:onClick="@{()-> viewModel.onClickChooseCoverImage()}"
                             android:text="@string/choose_image"
                             />
                     </LinearLayout>
@@ -236,6 +228,7 @@
                             android:layout_marginStart="@dimen/dp_110"
                             android:background="@drawable/border_button_choose_image"
                             android:contentDescription="@string/avatar"
+                            android:onClick="@{()-> viewModel.onClickChooseAvatar()}"
                             android:text="@string/choose_image"
                             />
                     </LinearLayout>
@@ -248,6 +241,7 @@
                 android:layout_marginBottom="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_10"
                 android:background="@drawable/border_button_next"
+                android:onClick="@{()-> viewModel.onClickCreateShop()}"
                 android:text="@string/create"
                 android:textColor="@color/color_orange_mos"
                 />

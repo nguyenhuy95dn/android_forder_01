@@ -1,5 +1,19 @@
 package com.framgia.forder.screen.createshop;
 
+import android.text.TextUtils;
+import com.framgia.forder.data.model.User;
+import com.framgia.forder.data.source.ShopRepository;
+import com.framgia.forder.data.source.UserRepository;
+import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.error.SafetyError;
+import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
+import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
+
 /**
  * Listens to user actions from the UI ({@link CreateshopFragment}), retrieves the data and updates
  * the UI as required.
@@ -8,9 +22,16 @@ final class CreateshopPresenter implements CreateshopContract.Presenter {
     private static final String TAG = CreateshopPresenter.class.getName();
 
     private final CreateshopContract.ViewModel mViewModel;
+    private final CompositeSubscription mCompositeSubscription;
+    private final ShopRepository mShopRepository;
+    private final UserRepository mUserRepository;
 
-    CreateshopPresenter(CreateshopContract.ViewModel viewModel) {
+    CreateshopPresenter(CreateshopContract.ViewModel viewModel, UserRepository userRepository,
+            ShopRepository shopRepository) {
         mViewModel = viewModel;
+        mUserRepository = userRepository;
+        mShopRepository = shopRepository;
+        mCompositeSubscription = new CompositeSubscription();
     }
 
     @Override
@@ -19,5 +40,41 @@ final class CreateshopPresenter implements CreateshopContract.Presenter {
 
     @Override
     public void onStop() {
+    }
+
+    @Override
+    public boolean validateDataInput(String name, String description) {
+        boolean isValid = true;
+        if (TextUtils.isEmpty(name)) {
+            isValid = false;
+            mViewModel.onInputNameError();
+        }
+        if (TextUtils.isEmpty(description)) {
+            isValid = false;
+            mViewModel.onInputDescriptionError();
+        }
+        return isValid;
+    }
+
+    @Override
+    public void onRequestRegisterShop(RegisterShopRequest registerShopRequest) {
+        User user = mUserRepository.getUser();
+        registerShopRequest.setUserEmail(user.getEmail());
+        registerShopRequest.setUserToken(user.getToken());
+        Subscription subscription = mShopRepository.requestRegisterShop(registerShopRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<RegisterShopResponse>() {
+                    @Override
+                    public void call(RegisterShopResponse response) {
+                        mViewModel.onRequestRegisterShopSuccess();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onRequestRegisterShopError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
     }
 }

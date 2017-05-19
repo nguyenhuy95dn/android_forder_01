@@ -12,7 +12,7 @@ public class RegisterShopRequest extends BaseRequest {
 
     @Expose
     @SerializedName("user_email")
-    private int mUserEmail;
+    private String mUserEmail;
     @Expose
     @SerializedName("user_token")
     private String mUserToken;
@@ -23,11 +23,11 @@ public class RegisterShopRequest extends BaseRequest {
     public RegisterShopRequest() {
     }
 
-    public int getUserEmail() {
+    public String getUserEmail() {
         return mUserEmail;
     }
 
-    public void setUserEmail(int userEmail) {
+    public void setUserEmail(String userEmail) {
         mUserEmail = userEmail;
     }
 

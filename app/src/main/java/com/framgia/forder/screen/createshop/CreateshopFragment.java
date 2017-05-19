@@ -1,6 +1,9 @@
 package com.framgia.forder.screen.createshop;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,7 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.source.ShopRepository;
+import com.framgia.forder.data.source.UserRepository;
+import com.framgia.forder.data.source.local.UserLocalDataSource;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
+import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentCreateShopBinding;
+import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 
 /**
@@ -26,8 +37,14 @@ public class CreateshopFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DialogManager dialogManager = new DialogManager(getActivity());
-        mViewModel = new CreateshopViewModel(getActivity(), dialogManager);
-        CreateshopContract.Presenter presenter = new CreateshopPresenter(mViewModel);
+        Navigator navigator = new Navigator(getParentFragment());
+        mViewModel = new CreateshopViewModel(getActivity(), dialogManager, navigator);
+        SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity().getApplicationContext());
+        UserRepository userRepository = new UserRepository(null, new UserLocalDataSource(prefsApi));
+        ShopRepository shopRepository =
+                new ShopRepository(new ShopRemoteDataSource(FOrderServiceClient.getInstance()));
+        CreateshopContract.Presenter presenter =
+                new CreateshopPresenter(mViewModel, userRepository, shopRepository);
         mViewModel.setPresenter(presenter);
 
         FragmentCreateShopBinding binding =
@@ -46,5 +63,14 @@ public class CreateshopFragment extends Fragment {
     public void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
+            Uri u = data.getData();
+            //Todo dev later
+        }
     }
 }
