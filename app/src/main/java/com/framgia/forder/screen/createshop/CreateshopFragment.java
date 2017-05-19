@@ -26,7 +26,9 @@ import com.framgia.forder.widgets.dialog.DialogManager;
  * Createshop Screen.
  */
 public class CreateshopFragment extends Fragment {
-
+    public static final int REQUEST_SELECT_COVER_IMAGE = 100;
+    public static final int REQUEST_SELECT_AVATAR = 101;
+    private static final String TAG = "CreateshopFragment";
     private CreateshopContract.ViewModel mViewModel;
 
     public static CreateshopFragment newInstance() {
@@ -37,8 +39,11 @@ public class CreateshopFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DialogManager dialogManager = new DialogManager(getActivity());
+        Navigator mNavigatorForStartGallery = new Navigator(this);
         Navigator navigator = new Navigator(getParentFragment());
-        mViewModel = new CreateshopViewModel(getActivity(), dialogManager, navigator);
+        mViewModel =
+                new CreateshopViewModel(getActivity(), dialogManager, mNavigatorForStartGallery,
+                        navigator);
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity().getApplicationContext());
         UserRepository userRepository = new UserRepository(null, new UserLocalDataSource(prefsApi));
         ShopRepository shopRepository =
@@ -68,9 +73,15 @@ public class CreateshopFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
-            Uri u = data.getData();
-            //Todo dev later
+        if (resultCode == Activity.RESULT_CANCELED) {
+            return;
+        }
+        if (requestCode == REQUEST_SELECT_COVER_IMAGE) {
+            Uri selectedImage = data.getData();
+            mViewModel.setImageCover(selectedImage);
+        } else if (requestCode == REQUEST_SELECT_AVATAR) {
+            Uri selectedImage = data.getData();
+            mViewModel.setImageAvatar(selectedImage);
         }
     }
 }

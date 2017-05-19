@@ -5,14 +5,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.net.Uri;
+import android.util.Log;
 import android.widget.TimePicker;
 import com.framgia.forder.BR;
 import com.framgia.forder.R;
-import com.framgia.forder.data.model.Shop;
+import com.framgia.forder.data.model.RegisterShopInfo;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
+import java.io.FileNotFoundException;
+
+import static com.framgia.forder.screen.createshop.CreateshopFragment.REQUEST_SELECT_AVATAR;
+import static com.framgia.forder.screen.createshop.CreateshopFragment.REQUEST_SELECT_COVER_IMAGE;
 
 /**
  * Exposes the data to be used in the Createshop screen.
@@ -23,10 +29,11 @@ public class CreateshopViewModel extends BaseObservable
     private static final String TAG = "CreateshopViewModel";
     private static final int FLAG_OPEN_TIME = 1;
     private static final int FLAG_REJECT_TIME = 2;
-
-    private CreateshopContract.Presenter mPresenter;
     private final Context mContext;
     private final DialogManager mDialogManager;
+    private final Navigator mNavigatorForStartGallery;
+    private final Navigator mNavigator;
+    private CreateshopContract.Presenter mPresenter;
     private boolean isChecked;
     private String mNameError;
     private String mDescriptionError;
@@ -36,11 +43,14 @@ public class CreateshopViewModel extends BaseObservable
     private String mAutoRejectTime;
     private boolean isOpenDaily;
     private int mFlag;
-    private final Navigator mNavigator;
+    private Uri mUriImageCover;
+    private Uri mUriImageAvatar;
 
-    public CreateshopViewModel(Context context, DialogManager dialogManager, Navigator navigator) {
+    CreateshopViewModel(Context context, DialogManager dialogManager,
+            Navigator navigatorForStartGallery, Navigator navigator) {
         mContext = context;
         mDialogManager = dialogManager.dialogTimePicker(this);
+        mNavigatorForStartGallery = navigatorForStartGallery;
         mNavigator = navigator;
         isChecked = true;
     }
@@ -98,30 +108,38 @@ public class CreateshopViewModel extends BaseObservable
     public void onClickChooseAvatar() {
         Intent i = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        mNavigator.startActivityForResult(Intent.createChooser(i, ""), 0);
+        mNavigatorForStartGallery.startActivityForResultFromFragment(i, REQUEST_SELECT_AVATAR);
     }
 
     public void onClickChooseCoverImage() {
         Intent i = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        mNavigator.startActivityForResult(Intent.createChooser(i, ""), 0);
+        mNavigatorForStartGallery.startActivityForResultFromFragment(i, REQUEST_SELECT_COVER_IMAGE);
     }
 
     public void onClickCreateShop() {
         if (!mPresenter.validateDataInput(mName, mDescription)) {
             return;
         }
-        RegisterShopRequest request = new RegisterShopRequest();
-        Shop shop = new Shop();
-        shop.setName(mName);
-        shop.setDescription(mDescription);
-        shop.setTimeAutoClose(mOpenTime);
-        shop.setOpenForever(isOpenDaily);
-        shop.setTimeAutoReject(mAutoRejectTime);
-        shop.setCoverImage(null);
-        shop.setCollectionAvatar(null);
-        request.setShop(shop);
-        mPresenter.onRequestRegisterShop(request);
+        try {
+            if (mUriImageCover == null || mUriImageAvatar == null) {
+                mNavigator.showToast(R.string.you_should_choose_image);
+                return;
+            }
+            RegisterShopRequest request = new RegisterShopRequest();
+            request.setImageCover(mContext.getContentResolver().openInputStream(mUriImageCover));
+            request.setImageAvatar(mContext.getContentResolver().openInputStream(mUriImageAvatar));
+            RegisterShopInfo registerShopInfo = new RegisterShopInfo();
+            registerShopInfo.setName(mName);
+            registerShopInfo.setDescription(mDescription);
+            registerShopInfo.setTimeAutoClose(mOpenTime);
+            registerShopInfo.setOpenForever(isOpenDaily);
+            registerShopInfo.setTimeAutoReject(mAutoRejectTime);
+            request.setShop(registerShopInfo);
+            mPresenter.onRequestRegisterShop(request);
+        } catch (FileNotFoundException e) {
+            Log.e(TAG, "", e);
+        }
     }
 
     @Bindable
@@ -129,13 +147,13 @@ public class CreateshopViewModel extends BaseObservable
         return mDescription;
     }
 
+    public void setName(String name) {
+        mName = name;
+    }
+
     @Bindable
     public String getDescription() {
         return mName;
-    }
-
-    public void setName(String name) {
-        mName = name;
     }
 
     public void setDescription(String description) {
@@ -156,12 +174,13 @@ public class CreateshopViewModel extends BaseObservable
 
     @Override
     public void onRequestRegisterShopSuccess() {
-        // Todo show dialog message
+        mNavigator.showToast(R.string.create_shop_successful);
+        mNavigator.goBackChildFragment();
     }
 
     @Override
     public void onRequestRegisterShopError(BaseException error) {
-        // Todo show dialog message
+        mNavigator.showToast(error.getMessage());
     }
 
     @Bindable
@@ -190,5 +209,27 @@ public class CreateshopViewModel extends BaseObservable
     @Bindable
     public String getAutoRejectTime() {
         return mAutoRejectTime;
+    }
+
+    @Bindable
+    public Uri getImageCover() {
+        return mUriImageCover;
+    }
+
+    @Override
+    public void setImageCover(Uri imageCover) {
+        mUriImageCover = imageCover;
+        notifyPropertyChanged(BR.imageCover);
+    }
+
+    @Bindable
+    public Uri getImageAvatar() {
+        return mUriImageAvatar;
+    }
+
+    @Override
+    public void setImageAvatar(Uri imageAvatar) {
+        mUriImageAvatar = imageAvatar;
+        notifyPropertyChanged(BR.imageAvatar);
     }
 }

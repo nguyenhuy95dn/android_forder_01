@@ -74,6 +74,10 @@ public class Navigator {
         mActivity.startActivityForResult(intent, requestCode);
     }
 
+    public void startActivityForResultFromFragment(@NonNull Intent intent, int requestCode) {
+        mFragment.startActivityForResult(intent, requestCode);
+    }
+
     public void startActivityForResult(@NonNull Class<? extends Activity> clazz, Bundle args,
             int requestCode) {
         Intent intent = new Intent(mActivity, clazz);
