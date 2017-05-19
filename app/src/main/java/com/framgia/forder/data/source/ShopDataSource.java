@@ -2,6 +2,7 @@ package com.framgia.forder.data.source;
 
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.model.ShopManagement;
+import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
@@ -30,5 +31,7 @@ public interface ShopDataSource {
 
         Observable<RegisterShopResponse> requestRegisterShop(
                 RegisterShopRequest registerShopRequest);
+
+        Observable<List<User>> getListManagerOfShop(int shopId);
     }
 }

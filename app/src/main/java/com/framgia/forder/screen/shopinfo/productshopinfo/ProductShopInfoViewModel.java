@@ -16,7 +16,7 @@ public class ProductShopInfoViewModel extends BaseObservable
 
     private final Navigator mNavigator;
     private ProductShopInfoContract.Presenter mPresenter;
-    private ProductShopInformationAdapter mAdapter;
+    private final ProductShopInformationAdapter mAdapter;
     private final ShopManagement mShopManagement;
 
     ProductShopInfoViewModel(Navigator navigator, ProductShopInformationAdapter adapter,
@@ -24,7 +24,6 @@ public class ProductShopInfoViewModel extends BaseObservable
         mNavigator = navigator;
         mAdapter = adapter;
         mShopManagement = shopManagement;
-        mPresenter.getListAllProductShopInformation(mShopManagement.getShop().getId());
     }
 
     @Override
@@ -40,6 +39,7 @@ public class ProductShopInfoViewModel extends BaseObservable
     @Override
     public void setPresenter(ProductShopInfoContract.Presenter presenter) {
         mPresenter = presenter;
+        mPresenter.getListAllProductShopInformation(mShopManagement.getShop().getId());
     }
 
     @Override

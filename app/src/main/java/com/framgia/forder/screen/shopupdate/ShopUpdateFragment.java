@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.databinding.FragmentShopUpdateBinding;
 import com.framgia.forder.utils.navigator.Navigator;
 
@@ -16,10 +17,15 @@ import com.framgia.forder.utils.navigator.Navigator;
  */
 public class ShopUpdateFragment extends Fragment {
 
+    private static final String EXTRA_SHOP_UPDATE = "EXTRA_SHOP_UPDATE";
     private ShopUpdateContract.ViewModel mViewModel;
 
-    public static ShopUpdateFragment newInstance() {
-        return new ShopUpdateFragment();
+    public static ShopUpdateFragment newInstance(ShopManagement shopManagement) {
+        ShopUpdateFragment shopUpdateFragment = new ShopUpdateFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(EXTRA_SHOP_UPDATE, shopManagement);
+        shopUpdateFragment.setArguments(bundle);
+        return shopUpdateFragment;
     }
 
     @Nullable

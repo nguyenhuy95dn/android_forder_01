@@ -40,6 +40,12 @@ public class User implements Parcelable {
     @SerializedName("description")
     @Expose
     private String mDescription;
+    @Expose
+    @SerializedName("role")
+    private String mRole;
+    @Expose
+    @SerializedName("status")
+    private int mStatus;
 
     protected User(Parcel in) {
         mName = in.readString();
@@ -50,6 +56,8 @@ public class User implements Parcelable {
         mUpdatedAt = in.readString();
         mChatworkId = in.readString();
         mDescription = in.readString();
+        mRole = in.readString();
+        mStatus = in.readInt();
     }
 
     public User(Integer id, String name, String email) {
@@ -68,6 +76,8 @@ public class User implements Parcelable {
         dest.writeString(mUpdatedAt);
         dest.writeString(mChatworkId);
         dest.writeString(mDescription);
+        dest.writeString(mRole);
+        dest.writeInt(mStatus);
     }
 
     @Override
@@ -157,6 +167,22 @@ public class User implements Parcelable {
 
     public void setDescription(String description) {
         mDescription = description;
+    }
+
+    public String getRole() {
+        return mRole;
+    }
+
+    public int getStatus() {
+        return mStatus;
+    }
+
+    public void setStatus(int status) {
+        mStatus = status;
+    }
+
+    public void setRole(String role) {
+        mRole = role;
     }
 
     public String getFormatDate() {

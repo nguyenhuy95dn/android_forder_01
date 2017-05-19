@@ -234,10 +234,12 @@
                         android:textStyle="bold"
                         />
                 </LinearLayout>
-                <!--List Manager Of Shop-->
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    app:layoutManager="LinearLayoutManager"
+                    app:recyclerAdapter="@{viewModel.adapter}"
                     />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

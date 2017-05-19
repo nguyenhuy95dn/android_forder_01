@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
+import com.framgia.forder.data.source.ShopRepository;
+import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentShopinfoBinding;
 import com.framgia.forder.utils.navigator.Navigator;
 
@@ -34,9 +37,14 @@ public class ShopinfoFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Navigator navigator = new Navigator(getParentFragment().getParentFragment());
+
+        ManagerShopInfoAdapter adapter = new ManagerShopInfoAdapter(getActivity());
         ShopManagement shopManagement = (ShopManagement) getArguments().get(EXTRA_SHOP);
-        mViewModel = new ShopinfoViewModel(navigator, shopManagement);
-        ShopinfoContract.Presenter presenter = new ShopinfoPresenter(mViewModel);
+        mViewModel = new ShopinfoViewModel(navigator, shopManagement, adapter);
+
+        ShopRepository shopRepository =
+                new ShopRepository(new ShopRemoteDataSource(FOrderServiceClient.getInstance()));
+        ShopinfoContract.Presenter presenter = new ShopinfoPresenter(mViewModel, shopRepository);
         mViewModel.setPresenter(presenter);
 
         FragmentShopinfoBinding binding =
