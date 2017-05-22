@@ -20,7 +20,8 @@ import java.util.List;
 public class ManagerShopInfoAdapter
         extends BaseRecyclerViewAdapter<ManagerShopInfoAdapter.ItemViewHolder> {
 
-    private List<User> mUsers;
+    private final List<User> mUsers;
+    private OnRecyclerViewItemClickListener<User> mItemClickListener;
 
     ManagerShopInfoAdapter(@NonNull Context context) {
         super(context);
@@ -33,7 +34,11 @@ public class ManagerShopInfoAdapter
         ItemManagerBinding binding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                         R.layout.item_manager, parent, false);
-        return new ManagerShopInfoAdapter.ItemViewHolder(binding);
+        return new ManagerShopInfoAdapter.ItemViewHolder(binding, mItemClickListener);
+    }
+
+    public void setItemClickListener(OnRecyclerViewItemClickListener<User> itemClickListener) {
+        mItemClickListener = itemClickListener;
     }
 
     @Override
@@ -58,15 +63,19 @@ public class ManagerShopInfoAdapter
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemManagerBinding mBinding;
+        private final OnRecyclerViewItemClickListener<User> mItemClickListener;
 
-        ItemViewHolder(ItemManagerBinding binding) {
+        ItemViewHolder(ItemManagerBinding binding,
+                BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<User> listener) {
             super(binding.getRoot());
             mBinding = binding;
+            mItemClickListener = listener;
         }
 
         void bind(User users) {
-            mBinding.setViewModel(new ItemManagerShopInfoViewModel(users));
+            mBinding.setViewModel(new ItemManagerShopInfoViewModel(users, mItemClickListener));
             mBinding.executePendingBindings();
         }
     }
 }
+

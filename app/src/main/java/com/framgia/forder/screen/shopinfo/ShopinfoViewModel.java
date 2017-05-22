@@ -6,6 +6,8 @@ import com.framgia.forder.data.model.ShopInfo;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.screen.BaseRecyclerViewAdapter;
+import com.framgia.forder.screen.managerdetail.ManagerDetailFragment;
 import com.framgia.forder.screen.shopupdate.ShopUpdateFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
@@ -14,7 +16,8 @@ import java.util.List;
  * Exposes the data to be used in the Shopinfo screen.
  */
 
-public class ShopinfoViewModel extends BaseObservable implements ShopinfoContract.ViewModel {
+public class ShopinfoViewModel extends BaseObservable implements ShopinfoContract.ViewModel,
+        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<User> {
 
     private static final String TAG = "ShopUpdateFragment";
     private final Navigator mNavigator;
@@ -28,6 +31,7 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
         mNavigator = navigator;
         mShopManagement = shopManagement;
         mAdapter = adapter;
+        mAdapter.setItemClickListener(this);
         mShopInfo = mShopManagement.getShopInfos().get(1);
     }
 
@@ -110,5 +114,11 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
 
     public ManagerShopInfoAdapter getAdapter() {
         return mAdapter;
+    }
+
+    @Override
+    public void onItemRecyclerViewClick(User user) {
+        mNavigator.goNextChildFragment(R.id.layout_content, ManagerDetailFragment.newInstance(user),
+                true, Navigator.BOTTOM_UP, "ProductDetailFragment");
     }
 }
