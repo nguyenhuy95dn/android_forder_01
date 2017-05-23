@@ -10,85 +10,174 @@
             name="viewModel"
             type="com.framgia.forder.screen.managerdetail.ManagerDetailViewModel"
             />
+        <import type="android.view.View"/>
 
     </data>
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:ignore="UselessLeaf"
         >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_250"
-            android:background="@drawable/background_item"
-            >
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:gravity="center"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/sp_24"
-                android:textStyle="bold"
-                />
-            <ImageView
-                android:id="@+id/image_user_profile_photo"
-                android:layout_width="@dimen/dp_100"
-                android:layout_height="@dimen/dp_100"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/ic_username"
-                tools:ignore="ContentDescription,ContentDescription"
-                />
-        </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/border_layout"
             android:orientation="vertical"
-            android:paddingEnd="@dimen/dp_10"
-            android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10"
-            android:paddingStart="@dimen/dp_10"
-            android:paddingTop="@dimen/dp_20"
+            tools:ignore="ScrollViewSize,UselessLeaf"
             >
-            <!--email-->
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/email"
-                />
-            <!--chatwork id-->
-            <TextView
+                android:layout_height="@dimen/dp_250"
+                android:background="@drawable/background_item"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/layout_role"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:gravity="center"
+                    android:text="@{viewModel.userName}"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/sp_24"
+                    android:textStyle="bold"
+                    />
+                <LinearLayout
+                    android:id="@+id/layout_role"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/image_user_profile_photo"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/border_pedding"
+                        android:gravity="center"
+                        android:paddingEnd="@dimen/dp_7"
+                        android:paddingLeft="@dimen/dp_7"
+                        android:paddingRight="@dimen/dp_7"
+                        android:paddingStart="@dimen/dp_7"
+                        android:text="@{viewModel.role}"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/sp_18"
+                        />
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/image_user_profile_photo"
+                    android:layout_width="@dimen/dp_100"
+                    android:layout_height="@dimen/dp_100"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/ic_username"
+                    tools:ignore="ContentDescription,ContentDescription"
+                    />
+            </RelativeLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="@string/chatwork_id"
-                />
-            <!--join date-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="@string/accept"
-                />
-            <!--status-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="@string/status"
-                />
-            <!--description-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="@string/description"
-                />
+                android:layout_height="match_parent"
+                android:background="@drawable/border_layout"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_10"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email"
+                    android:textColor="@color/color_blue"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.email}"
+                    style="@style/Widget.AppCompat.EditText"
+                    />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="@string/chatwork_id"
+                    android:textColor="@color/color_blue"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.chatWorkId}"
+                    style="@style/Widget.AppCompat.EditText"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="@string/join_date"
+                    android:textColor="@color/color_blue"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.joinDate}"
+                    style="@style/Widget.AppCompat.EditText"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="@string/status"
+                    android:textColor="@color/color_blue"
+                    android:textStyle="bold"
+                    />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wait"
+                        android:textColor="@color/color_yellow_dark"
+                        android:visibility="@{viewModel.waitStatus ? View.VISIBLE : View.GONE}"
+                        style="@style/Widget.AppCompat.EditText"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/active"
+                        android:textColor="@color/color_green"
+                        android:visibility="@{viewModel.activeStatus ? View.VISIBLE : View.GONE}"
+                        style="@style/Widget.AppCompat.EditText"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/blocked"
+                        android:textColor="@color/color_red_mos"
+                        android:visibility="@{viewModel.blockedStatus ? View.VISIBLE : View.GONE}"
+                        style="@style/Widget.AppCompat.EditText"
+                        />
+
+                </FrameLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="@string/description"
+                    android:textColor="@color/color_blue"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.description}"
+                    style="@style/Widget.AppCompat.EditText"
+                    />
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
+    </ScrollView>
 </layout>
