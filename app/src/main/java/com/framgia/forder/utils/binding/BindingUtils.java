@@ -1,6 +1,7 @@
 package com.framgia.forder.utils.binding;
 
 import android.databinding.BindingAdapter;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -83,5 +84,12 @@ public final class BindingUtils {
     @BindingAdapter("text")
     public static void setText(TextView view, int resId) {
         view.setText(resId);
+    }
+
+    @BindingAdapter({ "src" })
+    public static void setImageViewResource(ImageView imageView, Uri uri) {
+        Glide.with(imageView.getContext())
+                .load(uri)
+                .into(imageView);
     }
 }
