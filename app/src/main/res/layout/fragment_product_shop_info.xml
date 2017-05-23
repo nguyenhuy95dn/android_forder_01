@@ -34,6 +34,7 @@
             android:layout_marginLeft="@dimen/dp_2"
             android:layout_marginRight="@dimen/dp_10"
             android:layout_marginStart="@dimen/dp_2"
+            android:onClick="@{()-> viewModel.onClickCreateProduct()}"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_add"
             />

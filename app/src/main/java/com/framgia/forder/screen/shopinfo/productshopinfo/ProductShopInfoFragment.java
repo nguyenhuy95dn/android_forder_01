@@ -36,7 +36,7 @@ public class ProductShopInfoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Navigator navigator = new Navigator(getParentFragment());
+        Navigator navigator = new Navigator(getParentFragment().getParentFragment());
         ShopManagement shopManagement = (ShopManagement) getArguments().get(EXTRA_SHOPMANAGEMENT);
         ProductShopInformationAdapter adapter = new ProductShopInformationAdapter(getActivity());
         mViewModel = new ProductShopInfoViewModel(navigator, adapter, shopManagement);

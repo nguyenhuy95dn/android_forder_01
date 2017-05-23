@@ -1,9 +1,11 @@
 package com.framgia.forder.screen.shopinfo.productshopinfo;
 
 import android.databinding.BaseObservable;
+import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.screen.createProduct.CreateProductFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
 
@@ -15,9 +17,9 @@ public class ProductShopInfoViewModel extends BaseObservable
         implements ProductShopInfoContract.ViewModel {
 
     private final Navigator mNavigator;
-    private ProductShopInfoContract.Presenter mPresenter;
     private final ProductShopInformationAdapter mAdapter;
     private final ShopManagement mShopManagement;
+    private ProductShopInfoContract.Presenter mPresenter;
 
     ProductShopInfoViewModel(Navigator navigator, ProductShopInformationAdapter adapter,
             ShopManagement shopManagement) {
@@ -54,5 +56,10 @@ public class ProductShopInfoViewModel extends BaseObservable
 
     public ProductShopInformationAdapter getAdapter() {
         return mAdapter;
+    }
+
+    public void onClickCreateProduct() {
+        mNavigator.goNextChildFragment(R.id.layout_content, CreateProductFragment.newInstance(),
+                true, Navigator.RIGHT_LEFT, "CreateProductFragment");
     }
 }
