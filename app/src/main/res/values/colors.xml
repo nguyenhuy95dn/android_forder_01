@@ -25,4 +25,6 @@
     <color name="color_dark_slate_gray">#2f4f4f</color>
     <color name="color_green_blue">#66ff99</color>
     <color name="color_yellow_dark">#FFAA16</color>
+    <color name="color_orange_light_white">#FFB185</color>
+    <color name="color_orange_light_transparent">#FFE3D7</color>
 </resources>

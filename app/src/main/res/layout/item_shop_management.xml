@@ -2,6 +2,7 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     >
 
     <data>
@@ -45,11 +46,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
+                    android:ellipsize="marquee"
                     android:ems="10"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
                     android:text="@{viewModel.shopName}"
                     android:textColor="@color/color_orange_mos"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="bold"
+                    tools:ignore="Deprecated"
                     />
                 <TextView
                     android:layout_width="match_parent"
