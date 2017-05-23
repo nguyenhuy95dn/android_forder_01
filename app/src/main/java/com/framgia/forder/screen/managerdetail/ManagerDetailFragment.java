@@ -30,7 +30,8 @@ public class ManagerDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new ManagerDetailViewModel();
+        User user = (User) getArguments().get(EXTRA_MANAGER);
+        mViewModel = new ManagerDetailViewModel(user);
 
         ManagerDetailContract.Presenter presenter = new ManagerDetailPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
