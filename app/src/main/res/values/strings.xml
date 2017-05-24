@@ -128,6 +128,13 @@
     <string name="loading">Loading…</string>
     <string name="you_should_choose_image">You should choose image!</string>
     <string name="blocked">Blocked</string>
-    <string name="active">Active</string>
     <string name="wait">Wait</string>
+    <string name="active">active</string>
+    <string name="inactive">inactive</string>
+    <string name="create_new_product">Create New Product</string>
+    <string name="product_name">Product name:</string>
+    <string name="category">Category:</string>
+    <string name="start_hour">Start hour:</string>
+    <string name="end_hour">End hour:</string>
+    <string name="price">Price:</string>
 </resources>
