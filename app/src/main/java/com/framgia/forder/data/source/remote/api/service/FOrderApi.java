@@ -3,14 +3,17 @@ package com.framgia.forder.data.source.remote.api.service;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
+import com.framgia.forder.data.source.remote.api.request.RegisterProductRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
+import com.framgia.forder.data.source.remote.api.response.CategoryResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
 import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
 import com.framgia.forder.data.source.remote.api.response.NotificationResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderResponse;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
+import com.framgia.forder.data.source.remote.api.response.RegisterProductResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
 import com.framgia.forder.data.source.remote.api.response.SearchResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
@@ -100,4 +103,11 @@ public interface FOrderApi {
 
     @GET("v1/shop_managers")
     Observable<ManagerResponse> getListManagerOfShop(@Query("shop_id") int shopId);
+
+    @POST("v1/dashboard/products")
+    Observable<RegisterProductResponse> requestRegisterProduct(
+            @Body RegisterProductRequest registerProductRequest);
+
+    @GET("v1/categories")
+    Observable<CategoryResponse> getCategories(@Query("domain_id") int domainId);
 }

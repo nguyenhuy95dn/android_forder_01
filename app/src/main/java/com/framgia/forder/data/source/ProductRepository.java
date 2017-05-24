@@ -7,6 +7,8 @@ import com.framgia.forder.data.source.local.ProductLocalDataSource;
 import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.request.CommentRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
+import com.framgia.forder.data.source.remote.api.request.RegisterProductRequest;
+import com.framgia.forder.data.source.remote.api.response.RegisterProductResponse;
 import java.util.List;
 import rx.Observable;
 
@@ -114,5 +116,10 @@ public class ProductRepository {
 
     public Observable<List<Product>> getListProductInShopInformation(int shopId) {
         return mRemoteDataSource.getListProductInShopInformation(shopId);
+    }
+
+    public Observable<RegisterProductResponse> requestRegisterProduct(
+            RegisterProductRequest registerProductRequest) {
+        return mRemoteDataSource.requestRegisterProduct(registerProductRequest);
     }
 }
