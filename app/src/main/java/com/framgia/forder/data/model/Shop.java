@@ -199,7 +199,8 @@ public class Shop implements Parcelable {
     }
 
     public String getTimeAutoReject() {
-        return mTimeAutoReject;
+        return Utils.DateTimeUntils.convertUiFormatToDataFormat(mTimeAutoReject,
+                Utils.INPUT_TIME_FORMAT, Utils.OUTPUT_TIME_FORMAT);
     }
 
     public void setTimeAutoReject(String timeAutoReject) {
@@ -223,7 +224,7 @@ public class Shop implements Parcelable {
     }
 
     public String getTimeOpenShop() {
-        return Utils.DateTimeUntils.convertUiFormatToDataFormat(mTimeAutoReject,
+        return Utils.DateTimeUntils.convertUiFormatToDataFormat(mTimeAutoClose,
                 Utils.INPUT_TIME_FORMAT, Utils.OUTPUT_TIME_FORMAT);
     }
 
@@ -268,7 +269,8 @@ public class Shop implements Parcelable {
     }
 
     public String getTimeAutoClose() {
-        return mTimeAutoClose;
+        return Utils.DateTimeUntils.convertUiFormatToDataFormat(mTimeAutoClose,
+                Utils.INPUT_TIME_FORMAT, Utils.OUTPUT_TIME_FORMAT);
     }
 
     public void setTimeAutoClose(String timeAutoClose) {

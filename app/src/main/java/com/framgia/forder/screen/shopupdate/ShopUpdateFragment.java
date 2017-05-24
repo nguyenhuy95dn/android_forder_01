@@ -9,8 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
+import com.framgia.forder.data.source.ShopRepository;
+import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentShopUpdateBinding;
 import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
 
 /**
  * ShopUpdate Screen.
@@ -34,9 +38,15 @@ public class ShopUpdateFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Navigator navigator = new Navigator(getParentFragment());
-        mViewModel = new ShopUpdateViewModel(navigator);
+        DialogManager dialogManager = new DialogManager(getActivity());
+        ShopManagement shopManagement = (ShopManagement) getArguments().get(EXTRA_SHOP_UPDATE);
+        mViewModel =
+                new ShopUpdateViewModel(getActivity(), dialogManager, navigator, shopManagement);
 
-        ShopUpdateContract.Presenter presenter = new ShopUpdatePresenter(mViewModel);
+        ShopRepository shopRepository =
+                new ShopRepository(new ShopRemoteDataSource(FOrderServiceClient.getInstance()));
+        ShopUpdateContract.Presenter presenter =
+                new ShopUpdatePresenter(mViewModel, shopRepository);
         mViewModel.setPresenter(presenter);
         FragmentShopUpdateBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_shop_update, container, false);
