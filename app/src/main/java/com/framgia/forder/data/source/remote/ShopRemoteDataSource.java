@@ -8,10 +8,12 @@ import com.framgia.forder.data.source.ShopDataSource;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
+import com.framgia.forder.data.source.remote.api.request.UpdateShopRequest;
 import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
+import com.framgia.forder.data.source.remote.api.response.ShopResponse;
 import com.framgia.forder.data.source.remote.api.service.FOrderApi;
 import java.util.ArrayList;
 import java.util.List;
@@ -120,5 +122,10 @@ public class ShopRemoteDataSource extends BaseRemoteDataSource
                         return Observable.error(new NullPointerException());
                     }
                 });
+    }
+
+    @Override
+    public Observable<ShopResponse> updateShop(UpdateShopRequest updateShopRequest) {
+        return mFOrderApi.updateShop(updateShopRequest);
     }
 }

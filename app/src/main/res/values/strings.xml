@@ -137,4 +137,5 @@
     <string name="start_hour">Start hour:</string>
     <string name="end_hour">End hour:</string>
     <string name="price">Price:</string>
+    <string name="update_success">Update Success</string>
 </resources>

@@ -7,8 +7,10 @@ import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
+import com.framgia.forder.data.source.remote.api.request.UpdateShopRequest;
 import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
+import com.framgia.forder.data.source.remote.api.response.ShopResponse;
 import java.util.List;
 import rx.Observable;
 
@@ -52,5 +54,9 @@ public class ShopRepository {
 
     public Observable<List<User>> getListManagerOfShop(int shopId) {
         return mRemoteDataSource.getListManagerOfShop(shopId);
+    }
+
+    public Observable<ShopResponse> updateShop(UpdateShopRequest updateShopRequest) {
+        return mRemoteDataSource.updateShop(updateShopRequest);
     }
 }
