@@ -38,12 +38,14 @@ public class CreateshopFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         DialogManager dialogManager = new DialogManager(getActivity());
         Navigator mNavigatorForStartGallery = new Navigator(this);
         Navigator navigator = new Navigator(getParentFragment());
         mViewModel =
                 new CreateshopViewModel(getActivity(), dialogManager, mNavigatorForStartGallery,
                         navigator);
+
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity().getApplicationContext());
         UserRepository userRepository = new UserRepository(null, new UserLocalDataSource(prefsApi));
         ShopRepository shopRepository =
@@ -78,10 +80,10 @@ public class CreateshopFragment extends Fragment {
         }
         if (requestCode == REQUEST_SELECT_COVER_IMAGE) {
             Uri selectedImage = data.getData();
-            mViewModel.setImageCover(selectedImage);
+            mViewModel.setImageCover(selectedImage.toString());
         } else if (requestCode == REQUEST_SELECT_AVATAR) {
             Uri selectedImage = data.getData();
-            mViewModel.setImageAvatar(selectedImage);
+            mViewModel.setImageAvatar(selectedImage.toString());
         }
     }
 }

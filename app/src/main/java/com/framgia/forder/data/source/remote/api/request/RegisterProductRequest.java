@@ -1,5 +1,6 @@
 package com.framgia.forder.data.source.remote.api.request;
 
+import com.framgia.forder.data.model.Category;
 import com.framgia.forder.data.model.RegisterProductInfo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -20,6 +21,7 @@ public class RegisterProductRequest {
     @SerializedName("product")
     private RegisterProductInfo mProduct;
     private InputStream mImage;
+    private Category mCategory;
 
     public String getUserEmail() {
         return mUserEmail;
@@ -51,5 +53,13 @@ public class RegisterProductRequest {
 
     public void setImage(InputStream image) {
         mImage = image;
+    }
+
+    public Category getCategory() {
+        return mCategory;
+    }
+
+    public void setCategory(Category category) {
+        mCategory = category;
     }
 }

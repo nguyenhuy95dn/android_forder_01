@@ -43,8 +43,8 @@ public class CreateshopViewModel extends BaseObservable
     private String mAutoRejectTime;
     private boolean isOpenDaily;
     private int mFlag;
-    private Uri mUriImageCover;
-    private Uri mUriImageAvatar;
+    private String mImageCover;
+    private String mImageAvatar;
 
     CreateshopViewModel(Context context, DialogManager dialogManager,
             Navigator navigatorForStartGallery, Navigator navigator) {
@@ -70,14 +70,39 @@ public class CreateshopViewModel extends BaseObservable
         mPresenter = presenter;
     }
 
-    public void onClickChooseOpenTime() {
-        mFlag = FLAG_OPEN_TIME;
-        mDialogManager.showTimePickerDialog();
+    @Override
+    public void onInputNameError() {
+        mNameError = mContext.getString(R.string.name_is_empty);
+        notifyPropertyChanged(BR.nameError);
     }
 
-    public void onClickChooseAutoRejectTime() {
-        mFlag = FLAG_REJECT_TIME;
-        mDialogManager.showTimePickerDialog();
+    @Override
+    public void onInputDescriptionError() {
+        mDescriptionError = mContext.getString(R.string.description_is_empty);
+        notifyPropertyChanged(BR.descriptionError);
+    }
+
+    @Override
+    public void onRequestRegisterShopSuccess() {
+        mNavigator.showToast(R.string.create_shop_successful);
+        mNavigator.goBackChildFragment();
+    }
+
+    @Override
+    public void onRequestRegisterShopError(BaseException error) {
+        mNavigator.showToast(error.getMessage());
+    }
+
+    @Override
+    public void setImageCover(String imageCover) {
+        mImageCover = imageCover;
+        notifyPropertyChanged(BR.imageCover);
+    }
+
+    @Override
+    public void setImageAvatar(String imageAvatar) {
+        mImageAvatar = imageAvatar;
+        notifyPropertyChanged(BR.imageAvatar);
     }
 
     @Override
@@ -95,7 +120,17 @@ public class CreateshopViewModel extends BaseObservable
         }
     }
 
-    public void checked() {
+    public void onClickChooseOpenTime() {
+        mFlag = FLAG_OPEN_TIME;
+        mDialogManager.showTimePickerDialog();
+    }
+
+    public void onClickChooseAutoRejectTime() {
+        mFlag = FLAG_REJECT_TIME;
+        mDialogManager.showTimePickerDialog();
+    }
+
+    public void onChecked() {
         if (isChecked) {
             isChecked = false;
             isOpenDaily = true;
@@ -112,9 +147,10 @@ public class CreateshopViewModel extends BaseObservable
     }
 
     public void onClickChooseCoverImage() {
-        Intent i = new Intent(Intent.ACTION_PICK,
+        Intent intent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        mNavigatorForStartGallery.startActivityForResultFromFragment(i, REQUEST_SELECT_COVER_IMAGE);
+        mNavigatorForStartGallery.startActivityForResultFromFragment(intent,
+                REQUEST_SELECT_COVER_IMAGE);
     }
 
     public void onClickCreateShop() {
@@ -122,13 +158,15 @@ public class CreateshopViewModel extends BaseObservable
             return;
         }
         try {
-            if (mUriImageCover == null || mUriImageAvatar == null) {
-                mNavigator.showToast(R.string.you_should_choose_image);
+            if (mImageCover == null || mImageAvatar == null) {
+                mNavigator.showToast(R.string.you_must_choose_image);
                 return;
             }
             RegisterShopRequest request = new RegisterShopRequest();
-            request.setImageCover(mContext.getContentResolver().openInputStream(mUriImageCover));
-            request.setImageAvatar(mContext.getContentResolver().openInputStream(mUriImageAvatar));
+            request.setImageCover(
+                    mContext.getContentResolver().openInputStream(Uri.parse(mImageCover)));
+            request.setImageAvatar(
+                    mContext.getContentResolver().openInputStream(Uri.parse(mImageAvatar)));
             RegisterShopInfo registerShopInfo = new RegisterShopInfo();
             registerShopInfo.setName(mName);
             registerShopInfo.setDescription(mDescription);
@@ -160,29 +198,6 @@ public class CreateshopViewModel extends BaseObservable
         mDescription = description;
     }
 
-    @Override
-    public void onInputNameError() {
-        mNameError = mContext.getString(R.string.name_is_empty);
-        notifyPropertyChanged(BR.nameError);
-    }
-
-    @Override
-    public void onInputDescriptionError() {
-        mDescriptionError = mContext.getString(R.string.description_is_empty);
-        notifyPropertyChanged(BR.descriptionError);
-    }
-
-    @Override
-    public void onRequestRegisterShopSuccess() {
-        mNavigator.showToast(R.string.create_shop_successful);
-        mNavigator.goBackChildFragment();
-    }
-
-    @Override
-    public void onRequestRegisterShopError(BaseException error) {
-        mNavigator.showToast(error.getMessage());
-    }
-
     @Bindable
     public String getNameError() {
         return mNameError;
@@ -212,24 +227,12 @@ public class CreateshopViewModel extends BaseObservable
     }
 
     @Bindable
-    public Uri getImageCover() {
-        return mUriImageCover;
-    }
-
-    @Override
-    public void setImageCover(Uri imageCover) {
-        mUriImageCover = imageCover;
-        notifyPropertyChanged(BR.imageCover);
+    public String getImageCover() {
+        return mImageCover;
     }
 
     @Bindable
-    public Uri getImageAvatar() {
-        return mUriImageAvatar;
-    }
-
-    @Override
-    public void setImageAvatar(Uri imageAvatar) {
-        mUriImageAvatar = imageAvatar;
-        notifyPropertyChanged(BR.imageAvatar);
+    public String getImageAvatar() {
+        return mImageAvatar;
     }
 }

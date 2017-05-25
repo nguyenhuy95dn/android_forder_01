@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -53,8 +54,11 @@ public final class BindingUtils {
 
     @BindingAdapter("imageUrl")
     public static void loadImage(ImageView imageView, String url) {
-        Glide.with(imageView.getContext())
-                .load(url)
+        if (TextUtils.isEmpty(url)) {
+            url = "";
+        }
+        Uri uri = Uri.parse(url);
+        Glide.with(imageView.getContext()).load(uri)
                 .placeholder(R.drawable.ic_placeholder)
                 .into(imageView);
     }
@@ -84,12 +88,5 @@ public final class BindingUtils {
     @BindingAdapter("text")
     public static void setText(TextView view, int resId) {
         view.setText(resId);
-    }
-
-    @BindingAdapter({ "src" })
-    public static void setImageViewResource(ImageView imageView, Uri uri) {
-        Glide.with(imageView.getContext())
-                .load(uri)
-                .into(imageView);
     }
 }

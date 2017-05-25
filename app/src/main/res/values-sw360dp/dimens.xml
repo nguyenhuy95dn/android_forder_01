@@ -51,4 +51,5 @@
     <dimen name="dp_0">0dp</dimen>
     <dimen name="dp_110">110dp</dimen>
     <dimen name="sp_14">14sp</dimen>
+    <dimen name="dp_11">11dp</dimen>
 </resources>

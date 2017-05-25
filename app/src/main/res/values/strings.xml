@@ -126,7 +126,7 @@
     <string name="create_shop_successful">Create shop successful!</string>
     <string name="please_wait">Please Wait..</string>
     <string name="loading">Loading…</string>
-    <string name="you_should_choose_image">You should choose image!</string>
+    <string name="you_must_choose_image">You must choose image!</string>
     <string name="blocked">Blocked</string>
     <string name="wait">Wait</string>
     <string name="active">active</string>
@@ -141,4 +141,5 @@
     <string name="top_shop">Top Shop</string>
     <string name="categories">Categories</string>
     <string name="top_product">Top Product</string>
+    <string name="create_product_successful">Create Product Successful!</string>
 </resources>
