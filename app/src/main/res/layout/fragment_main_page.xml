@@ -2,6 +2,7 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     >
     <data>
         <variable
@@ -16,67 +17,219 @@
         <import type="com.framgia.forder.utils.binding.LayoutManagers"/>
         <import type="android.support.v7.widget.LinearLayoutManager"/>
     </data>
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:background="@android:color/white"
         >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_5"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_featured_shop"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/sp_15"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:onClick="@{() -> viewModel.onSeeMoreShopClick()}"
-                android:text="@string/action_see_more"
-                android:textColor="@android:color/holo_blue_dark"
-                android:textSize="@dimen/sp_15"
-                />
-        </RelativeLayout>
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="@{LayoutManagers.linear(LinearLayoutManager.HORIZONTAL)}"
-            app:recyclerAdapter="@{viewModel.shopAdapter}"
-            />
 
-        <RelativeLayout
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_5"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_featured_product"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/sp_15"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:onClick="@{() -> viewModel.onSeeMoreProductClick()}"
-                android:text="@string/action_see_more"
-                android:textColor="@android:color/holo_blue_dark"
-                android:textSize="@dimen/sp_15"
-                />
-        </RelativeLayout>
-        <android.support.v7.widget.RecyclerView
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_white"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color_white"
+                            >
+
+                            <TextView
+                                android:layout_width="@dimen/dp_250"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp_30"
+                                android:layout_marginRight="@dimen/dp_30"
+                                android:drawableLeft="@drawable/ic_store_24dp"
+                                android:drawablePadding="@dimen/dp_5"
+                                android:drawableStart="@drawable/ic_store_24dp"
+                                android:fontFamily="@string/font_serif"
+                                android:gravity="center_vertical"
+                                android:padding="@dimen/dp_5"
+                                android:text="@string/top_shop"
+                                android:textColor="@color/color_orange_mos"
+                                android:textSize="@dimen/sp_17"
+                                android:textStyle="bold"
+                                tools:ignore="UnusedAttribute"
+                                />
+                            <ImageButton
+                                android:layout_width="@dimen/dp_35"
+                                android:layout_height="@dimen/dp_35"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:background="@color/transparent"
+                                android:drawableEnd="@drawable/ic_next_fragment"
+                                android:drawableRight="@drawable/ic_next_fragment"
+                                android:onClick="@{() -> viewModel.onSeeMoreShopClick()}"
+                                app:srcCompat="@drawable/ic_next_fragment"
+                                tools:ignore="ContentDescription"
+                                />
+                        </RelativeLayout>
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="270dp"
+                            app:layoutManager="@{LayoutManagers.linear(LinearLayoutManager.HORIZONTAL)}"
+                            app:recyclerAdapter="@{viewModel.shopAdapter}"
+                            />
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_10"
+                        app:srcCompat="@drawable/ic_skip_next"
+                        tools:ignore="ContentDescription"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
+                        app:srcCompat="@drawable/ic_skip_previous"
+                        tools:ignore="ContentDescription"
+                        />
+                    <!--progressbar load list shop-->
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        style="?android:attr/progressBarPadding"
+                        />
+                </RelativeLayout>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="@{LayoutManagers.grid(mainPage.getResources.getInteger(R.integer.item_col))}"
-            app:recyclerAdapter="@{viewModel.productAdapter}"
-            />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:id="@+id/text_categories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_layout"
+                    android:drawableLeft="@drawable/ic_label"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:drawableStart="@drawable/ic_label"
+                    android:fontFamily="@string/font_serif"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp_5"
+                    android:text="@string/categories"
+                    android:textColor="@color/color_orange_mos"
+                    android:textSize="@dimen/sp_17"
+                    android:textStyle="bold"
+                    tools:ignore="UnusedAttribute"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/text_categories"
+                    android:layout_marginBottom="@dimen/dp_5"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        >
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_150"
+                            app:layoutManager="@{LayoutManagers.linear(LinearLayoutManager.HORIZONTAL)}"
+                            />
+                    </LinearLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="@drawable/border_layout"
+                        >
+                        <TextView
+                            android:layout_width="@dimen/dp_250"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dp_30"
+                            android:layout_marginRight="@dimen/dp_30"
+                            android:drawableLeft="@drawable/ic_local_dining_24dp"
+                            android:drawablePadding="@dimen/dp_5"
+                            android:drawableStart="@drawable/ic_local_dining_24dp"
+                            android:fontFamily="@string/font_serif"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/dp_5"
+                            android:text="@string/top_product"
+                            android:textColor="@color/color_orange_mos"
+                            android:textSize="@dimen/sp_17"
+                            android:textStyle="bold"
+                            tools:ignore="UnusedAttribute"
+                            />
+                        <ImageButton
+                            android:layout_width="@dimen/dp_35"
+                            android:layout_height="@dimen/dp_35"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@color/transparent"
+                            android:drawableEnd="@drawable/ic_next_fragment"
+                            android:drawableRight="@drawable/ic_next_fragment"
+                            android:onClick="@{() -> viewModel.onSeeMoreProductClick()}"
+                            app:srcCompat="@drawable/ic_next_fragment"
+                            tools:ignore="ContentDescription"
+                            />
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+                        <!--progressbar load list product-->
+                        <ProgressBar
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            style="?android:attr/progressBarStyleSmall"
+                            />
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            app:layoutManager="LinearLayoutManager"
+                            app:recyclerAdapter="@{viewModel.productAdapter}"
+                            />
+                    </RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
 </layout>

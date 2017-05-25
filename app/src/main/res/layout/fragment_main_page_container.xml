@@ -26,10 +26,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_30"
                 android:background="@color/colorAccent"
-                app:tabIndicatorColor="@android:color/white"
+                app:tabIndicatorColor="@color/color_white"
                 app:tabSelectedTextColor="@android:color/white"
                 app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                app:tabTextColor="@color/black"
+                app:tabTextColor="@color/light_gray"
                 bind:pager="@{viewpager}"
                 />
         </android.support.design.widget.AppBarLayout>
@@ -38,8 +38,8 @@
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            bind:adapter="@{viewModel.adapter}"
             app:offscreenPageLimit="@{viewModel.pageLimit}"
+            bind:adapter="@{viewModel.adapter}"
             />
     </LinearLayout>
 
