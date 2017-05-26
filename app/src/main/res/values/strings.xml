@@ -138,4 +138,7 @@
     <string name="end_hour">End hour:</string>
     <string name="price">Price:</string>
     <string name="update_success">Update Success</string>
+    <string name="top_shop">Top Shop</string>
+    <string name="categories">Categories</string>
+    <string name="top_product">Top Product</string>
 </resources>
