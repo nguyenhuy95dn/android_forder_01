@@ -1,10 +1,17 @@
 package com.framgia.forder.utils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
+import android.util.Base64;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import static com.framgia.forder.utils.Constant.NUMBER_COMPRESS;
 
 /**
  * Created by Duong on 4/14/2017.
@@ -55,6 +62,21 @@ public class Utils {
             SimpleDateFormat simpleDateFormat =
                     new SimpleDateFormat(Constant.FORMAT_DATE, Locale.getDefault());
             return simpleDateFormat.format(date);
+        }
+    }
+
+    public static class ImageUtils {
+        public static String convertImagetoBase64(InputStream imageStream) {
+            final Bitmap image = BitmapFactory.decodeStream(imageStream);
+            String encodedImage = encodeImage(image);
+            return encodedImage;
+        }
+
+        private static String encodeImage(Bitmap bm) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.JPEG, NUMBER_COMPRESS, baos);
+            byte[] b = baos.toByteArray();
+            return Base64.encodeToString(b, Base64.DEFAULT);
         }
     }
 }

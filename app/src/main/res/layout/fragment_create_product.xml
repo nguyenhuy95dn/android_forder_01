@@ -46,18 +46,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/product_name"
+                    android:text="@={viewModel.name}"
                     android:textSize="@dimen/sp_14"
+                    app:errorText="@{viewModel.nameError}"
                     />
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/description"
+                    android:text="@={viewModel.description}"
                     android:textSize="@dimen/sp_14"
+                    app:errorText="@{viewModel.descriptionError}"
                     />
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/price"
+                    android:inputType="numberDecimal"
+                    android:text="@={viewModel.price}"
                     android:textSize="@dimen/sp_14"
                     />
                 <LinearLayout
@@ -76,14 +82,16 @@
                         android:textColor="@color/color_black"
                         />
                     <android.support.v7.widget.AppCompatSpinner
-                        android:id="@+id/spinner"
-                        android:layout_width="@dimen/dp_250"
+                        android:layout_width="@dimen/dp_200"
                         android:layout_height="@dimen/dp_30"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/dp_30"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:layout_marginLeft="@dimen/dp_40"
                         android:layout_marginRight="@dimen/dp_10"
-                        android:layout_marginTop="@dimen/dp_5"
+                        android:layout_marginStart="@dimen/dp_40"
+                        android:layout_marginTop="@dimen/dp_11"
+                        android:selectedItemPosition="@={viewModel.selectedTypePosition}"
                         android:spinnerMode="dropdown"
+                        app:spinnerAdapter="@{viewModel.adapterCategory}"
                         />
                 </LinearLayout>
                 <RelativeLayout
@@ -96,6 +104,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/dp_10"
                         android:paddingTop="@dimen/dp_10"
+                        android:text="@{viewModel.startHour}"
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -114,7 +123,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:background="@null"
-                        android:contentDescription="@string/open_time"
+                        android:contentDescription="@string/start_hour"
+                        android:onClick="@{()-> viewModel.onClickChooseStartHour()}"
                         app:srcCompat="@drawable/ic_time"
                         />
                 </RelativeLayout>
@@ -138,6 +148,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/dp_10"
                         android:paddingTop="@dimen/dp_10"
+                        android:text="@{viewModel.endHour}"
                         />
                     <ImageButton
                         android:layout_width="@dimen/dp_30"
@@ -146,13 +157,15 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:background="@null"
-                        android:contentDescription="@string/auto_reject_time"
+                        android:contentDescription="@string/end_hour"
+                        android:onClick="@{()-> viewModel.onClickChooseEndHour()}"
                         app:srcCompat="@drawable/ic_time"
                         />
                 </RelativeLayout>
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     >
                     <TextView
                         android:layout_width="wrap_content"
@@ -167,17 +180,18 @@
                     <android.support.v7.widget.SwitchCompat
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="@dimen/dp_60"
+                        android:layout_marginStart="@dimen/dp_60"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:onCheckedChanged="@{() -> viewModel.onSwitchChange()}"
                         />
-                </RelativeLayout>
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     >
                     <TextView
-                        android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_2"
@@ -196,9 +210,11 @@
                             android:layout_width="@dimen/dp_100"
                             android:layout_height="@dimen/dp_100"
                             android:layout_marginLeft="@dimen/dp_100"
+                            android:layout_marginStart="@dimen/dp_100"
                             android:layout_marginTop="@dimen/dp_10"
                             android:background="@drawable/border_comment"
                             android:scaleType="centerCrop"
+                            app:imageUrl="@{viewModel.image}"
                             tools:ignore="ContentDescription"
                             />
                         <ImageButton
@@ -209,6 +225,7 @@
                             android:layout_marginStart="@dimen/dp_10"
                             android:background="@drawable/border_layout"
                             android:contentDescription="@string/choose_file"
+                            android:onClick="@{()-> viewModel.onClickChooseImage()}"
                             android:padding="@dimen/dp_5"
                             android:paddingEnd="@dimen/dp_20"
                             android:paddingLeft="@dimen/dp_20"
@@ -226,6 +243,7 @@
                 android:layout_marginBottom="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_10"
                 android:background="@drawable/border_button_next"
+                android:onClick="@{()-> viewModel.onClickCreateProduct()}"
                 android:text="@string/create"
                 android:textColor="@color/color_orange_mos"
                 />

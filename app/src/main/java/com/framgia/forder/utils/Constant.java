@@ -20,6 +20,8 @@ public final class Constant {
 
     public static final int DEFAULT_QUANTITY = 1;
 
+    public static final int NUMBER_COMPRESS = 100;
+
     private Constant() {
         // No-op
     }

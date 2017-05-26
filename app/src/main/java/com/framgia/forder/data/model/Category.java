@@ -11,6 +11,7 @@ public class Category {
     @Expose
     @SerializedName("id")
     private int mId;
+    @Expose
     @SerializedName("name")
     private String mName;
 

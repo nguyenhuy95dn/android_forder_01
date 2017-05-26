@@ -1,6 +1,5 @@
 package com.framgia.forder.screen.createshop;
 
-import android.net.Uri;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
 import com.framgia.forder.screen.BasePresenter;
@@ -22,9 +21,9 @@ interface CreateshopContract {
 
         void onRequestRegisterShopError(BaseException error);
 
-        void setImageCover(Uri imageCover);
+        void setImageCover(String imageCover);
 
-        void setImageAvatar(Uri selectedImage);
+        void setImageAvatar(String imageAvatar);
     }
 
     /**

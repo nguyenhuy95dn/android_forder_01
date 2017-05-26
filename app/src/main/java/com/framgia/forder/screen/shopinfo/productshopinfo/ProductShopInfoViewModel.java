@@ -31,6 +31,7 @@ public class ProductShopInfoViewModel extends BaseObservable
     @Override
     public void onStart() {
         mPresenter.onStart();
+        mPresenter.getListAllProductShopInformation(mShopManagement.getShop().getId());
     }
 
     @Override
@@ -59,7 +60,8 @@ public class ProductShopInfoViewModel extends BaseObservable
     }
 
     public void onClickCreateProduct() {
-        mNavigator.goNextChildFragment(R.id.layout_content, CreateProductFragment.newInstance(),
-                true, Navigator.RIGHT_LEFT, "CreateProductFragment");
+        mNavigator.goNextChildFragment(R.id.layout_content,
+                CreateProductFragment.newInstance(mShopManagement), true, Navigator.RIGHT_LEFT,
+                "CreateProductFragment");
     }
 }
