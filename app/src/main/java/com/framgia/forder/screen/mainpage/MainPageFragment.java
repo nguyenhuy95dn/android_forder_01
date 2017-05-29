@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.Category;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
+import com.framgia.forder.data.source.CategoryRepository;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ProductRepository;
 import com.framgia.forder.data.source.ShopRepository;
@@ -19,11 +21,13 @@ import com.framgia.forder.data.source.local.UserLocalDataSource;
 import com.framgia.forder.data.source.local.realm.RealmApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
+import com.framgia.forder.data.source.remote.CategoryRemoteDataSource;
 import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
 import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
 import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentMainPageBinding;
+import com.framgia.forder.screen.mainpage.category.CategoryAdapter;
 import com.framgia.forder.screen.mainpage.product.ProductAdapter;
 import com.framgia.forder.screen.mainpage.shop.ShopAdapter;
 import com.framgia.forder.utils.navigator.Navigator;
@@ -48,9 +52,11 @@ public class MainPageFragment extends Fragment {
         List<Shop> shops = new ArrayList<>();
         ProductAdapter productAdapter = new ProductAdapter(getActivity(), products);
         ShopAdapter shopAdapter = new ShopAdapter(getActivity(), shops);
+        List<Category> categories = new ArrayList<>();
+        CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), categories);
         Navigator navigator = new Navigator(getParentFragment().getParentFragment());
 
-        mViewModel = new MainPageViewModel(productAdapter, shopAdapter, navigator);
+        mViewModel = new MainPageViewModel(productAdapter, shopAdapter, navigator, categoryAdapter);
 
         RealmApi realmApi = new RealmApi();
 
@@ -63,9 +69,11 @@ public class MainPageFragment extends Fragment {
                 new ProductLocalDataSource(realmApi), domainRepository);
         ShopRepository shopRepository =
                 new ShopRepository(new ShopRemoteDataSource(FOrderServiceClient.getInstance()));
+        CategoryRepository categoryRepository = new CategoryRepository(
+                new CategoryRemoteDataSource(FOrderServiceClient.getInstance()));
         MainPageContract.Presenter presenter =
                 new MainPagePresenter(mViewModel, productRepository, domainRepository,
-                        shopRepository);
+                        shopRepository, categoryRepository);
         mViewModel.setPresenter(presenter);
 
         FragmentMainPageBinding binding =
