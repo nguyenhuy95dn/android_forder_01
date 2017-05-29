@@ -6,6 +6,7 @@ import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.createProduct.CreateProductFragment;
+import com.framgia.forder.screen.updateProduct.UpdateProductFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  */
 
 public class ProductShopInfoViewModel extends BaseObservable
-        implements ProductShopInfoContract.ViewModel {
+        implements ProductShopInfoContract.ViewModel, UpdateProductListener {
 
     private final Navigator mNavigator;
     private final ProductShopInformationAdapter mAdapter;
@@ -26,6 +27,7 @@ public class ProductShopInfoViewModel extends BaseObservable
         mNavigator = navigator;
         mAdapter = adapter;
         mShopManagement = shopManagement;
+        mAdapter.setUpdateProductListener(this);
     }
 
     @Override
@@ -63,5 +65,12 @@ public class ProductShopInfoViewModel extends BaseObservable
         mNavigator.goNextChildFragment(R.id.layout_content,
                 CreateProductFragment.newInstance(mShopManagement), true, Navigator.RIGHT_LEFT,
                 "CreateProductFragment");
+    }
+
+    @Override
+    public void onUpdateProduct(Product product) {
+        mNavigator.goNextChildFragment(R.id.layout_content,
+                UpdateProductFragment.newInstance(product), true, Navigator.RIGHT_LEFT,
+                "UpdateProductFragment");
     }
 }
