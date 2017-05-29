@@ -30,6 +30,9 @@ public class CollectionAvatar implements Parcelable {
     @Expose
     @SerializedName(value = "avatar", alternate = { "standard" })
     private Image mImage;
+    @Expose
+    @SerializedName("url")
+    private String mUrl;
 
     private CollectionAvatar(Parcel in) {
         mImage = in.readParcelable(Image.class.getClassLoader());
@@ -51,5 +54,13 @@ public class CollectionAvatar implements Parcelable {
 
     public void setImage(Image image) {
         mImage = image;
+    }
+
+    public String getUrl() {
+        return mUrl;
+    }
+
+    public void setUrl(String url) {
+        mUrl = url;
     }
 }

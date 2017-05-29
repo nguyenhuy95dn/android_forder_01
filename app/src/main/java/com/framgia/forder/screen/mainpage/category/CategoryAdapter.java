@@ -10,6 +10,7 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.Category;
 import com.framgia.forder.databinding.ItemCategoryBinding;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
+import com.framgia.forder.widgets.animation.AnimationManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +22,12 @@ public class CategoryAdapter extends BaseRecyclerViewAdapter<CategoryAdapter.Ite
 
     private final List<Category> mCategories;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
+    private final AnimationManager mAnimationManager;
 
     public CategoryAdapter(@NonNull Context context, List<Category> categories) {
         super(context);
         mCategories = new ArrayList<>();
+        mAnimationManager = new AnimationManager(getContext());
         if (categories == null) {
             return;
         }
@@ -42,6 +45,7 @@ public class CategoryAdapter extends BaseRecyclerViewAdapter<CategoryAdapter.Ite
     @Override
     public void onBindViewHolder(CategoryAdapter.ItemViewHolder holder, int position) {
         holder.bind(mCategories.get(position));
+        mAnimationManager.animationSlideInLeft(holder.itemView, position);
     }
 
     @Override
