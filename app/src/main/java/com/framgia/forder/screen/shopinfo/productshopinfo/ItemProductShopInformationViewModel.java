@@ -10,9 +10,12 @@ import com.framgia.forder.data.model.Product;
 public class ItemProductShopInformationViewModel extends BaseObservable {
 
     private final Product mProduct;
+    private final UpdateProductListener mUpdateProductListener;
 
-    ItemProductShopInformationViewModel(Product product) {
+    ItemProductShopInformationViewModel(Product product,
+            UpdateProductListener updateProductListener) {
         mProduct = product;
+        mUpdateProductListener = updateProductListener;
     }
 
     public String getProductImage() {
@@ -42,5 +45,12 @@ public class ItemProductShopInformationViewModel extends BaseObservable {
 
     public String getStatus() {
         return mProduct.getStatus();
+    }
+
+    public void onClickUpdateProduct() {
+        if (mUpdateProductListener == null) {
+            return;
+        }
+        mUpdateProductListener.onUpdateProduct(mProduct);
     }
 }

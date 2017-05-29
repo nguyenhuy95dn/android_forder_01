@@ -92,10 +92,12 @@
                         />
                     <!--button edit product-->
                     <ImageButton
+                        android:id="@+id/imageButton"
                         android:layout_width="@dimen/dp_35"
                         android:layout_height="@dimen/dp_35"
                         android:background="@drawable/ic_edits"
                         android:contentDescription="@string/edit"
+                        android:onClick="@{()-> viewModel.onClickUpdateProduct()}"
                         />
                     <!--button delete product-->
                     <ImageButton

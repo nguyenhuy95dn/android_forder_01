@@ -21,6 +21,7 @@ public class ProductShopInformationAdapter
         extends BaseRecyclerViewAdapter<ProductShopInformationAdapter.ItemViewHolder> {
 
     private final List<Product> mProducts;
+    private UpdateProductListener mUpdateProductListener;
 
     ProductShopInformationAdapter(@NonNull Context context) {
         super(context);
@@ -33,7 +34,7 @@ public class ProductShopInformationAdapter
         ItemProductShopInfoBinding binding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                         R.layout.item_product_shop_info, parent, false);
-        return new ProductShopInformationAdapter.ItemViewHolder(binding);
+        return new ProductShopInformationAdapter.ItemViewHolder(binding, mUpdateProductListener);
     }
 
     @Override
@@ -56,17 +57,25 @@ public class ProductShopInformationAdapter
         notifyDataSetChanged();
     }
 
+    public void setUpdateProductListener(UpdateProductListener listener) {
+        mUpdateProductListener = listener;
+    }
+
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemProductShopInfoBinding mBinding;
+        private final UpdateProductListener mUpdateProductListener;
 
-        ItemViewHolder(ItemProductShopInfoBinding binding) {
+        ItemViewHolder(ItemProductShopInfoBinding binding,
+                UpdateProductListener updateProductListener) {
             super(binding.getRoot());
             mBinding = binding;
+            mUpdateProductListener = updateProductListener;
         }
 
         void bind(Product products) {
-            mBinding.setViewModel(new ItemProductShopInformationViewModel(products));
+            mBinding.setViewModel(
+                    new ItemProductShopInformationViewModel(products, mUpdateProductListener));
             mBinding.executePendingBindings();
         }
     }
