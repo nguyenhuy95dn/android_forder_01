@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.mainpage;
 
+import com.framgia.forder.data.model.Category;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
@@ -26,6 +27,22 @@ interface MainPageContract {
         void onAddToCartError(BaseException exception);
 
         void onAddToCartSuccess();
+
+        void onGetListCategorySuccess(List<Category> categories);
+
+        void onGetListCategoryError(BaseException exception);
+
+        void onShowProgressbarProduct();
+
+        void onHideProgressbarProduct();
+
+        void onShowProgressbarShop();
+
+        void onHideProgressbarShop();
+
+        void onShowProgressbarCategory();
+
+        void onHideProgressbarCategory();
     }
 
     /**
@@ -37,5 +54,7 @@ interface MainPageContract {
         void getListProduct();
 
         void getListShop();
+
+        void getListCategory();
     }
 }

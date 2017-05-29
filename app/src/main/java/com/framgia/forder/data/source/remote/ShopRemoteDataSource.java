@@ -33,21 +33,12 @@ public class ShopRemoteDataSource extends BaseRemoteDataSource
 
     @Override
     public Observable<List<Shop>> getListShop(int domainId) {
-        final List<Shop> shops = new ArrayList<>();
-        // todo edit later
         return mFOrderApi.getListShop(domainId)
-                .flatMap(new Func1<ProductResponse, Observable<List<Shop>>>() {
+                .flatMap(new Func1<ShopResponse, Observable<List<Shop>>>() {
                     @Override
-                    public Observable<List<Shop>> call(ProductResponse productResponse) {
-                        if (productResponse != null) {
-                            for (Product product : productResponse.getListProduct()) {
-                                //TODO remove when server update API
-                                product.getShop()
-                                        .setUser(new User(1, "Trần Đức Quốc",
-                                                "tran.duc.quoc@framgia.com"));
-                                shops.add(product.getShop());
-                            }
-                            return Observable.just(shops);
+                    public Observable<List<Shop>> call(ShopResponse shopResponse) {
+                        if (shopResponse != null) {
+                            return Observable.just(shopResponse.getListShop());
                         }
                         return Observable.error(new NullPointerException());
                     }
