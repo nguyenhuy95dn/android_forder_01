@@ -10,17 +10,20 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.databinding.ItemShopBinding;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
+import com.framgia.forder.widgets.animation.AnimationManager;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShopAdapter extends BaseRecyclerViewAdapter<ShopAdapter.ItemViewHolder> {
 
-    private List<Shop> mShops;
+    private final List<Shop> mShops;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
+    private final AnimationManager mAnimationManager;
 
     public ShopAdapter(@NonNull Context context, List<Shop> shops) {
         super(context);
         mShops = new ArrayList<>();
+        mAnimationManager = new AnimationManager(getContext());
         if (shops == null) {
             return;
         }
@@ -37,6 +40,7 @@ public class ShopAdapter extends BaseRecyclerViewAdapter<ShopAdapter.ItemViewHol
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         holder.bind(mShops.get(position));
+        mAnimationManager.animationSlideTopIn(holder.itemView, position);
     }
 
     @Override
@@ -59,8 +63,9 @@ public class ShopAdapter extends BaseRecyclerViewAdapter<ShopAdapter.ItemViewHol
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        private ItemShopBinding mBinding;
-        private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
+        private final ItemShopBinding mBinding;
+        private final BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>
+                mItemClickListener;
 
         ItemViewHolder(ItemShopBinding binding,
                 BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> listener) {

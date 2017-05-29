@@ -9,8 +9,9 @@ import com.framgia.forder.screen.BaseRecyclerViewAdapter;
  */
 
 public class ItemShopViewModel extends BaseObservable {
-    private Shop mShop;
-    private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
+    private final Shop mShop;
+    private final BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>
+            mItemClickListener;
 
     public ItemShopViewModel(Shop shop,
             BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> listener) {
@@ -19,10 +20,8 @@ public class ItemShopViewModel extends BaseObservable {
     }
 
     public String getShopImage() {
-        if (mShop != null
-                && mShop.getCollectionAvatar() != null
-                && mShop.getCollectionAvatar().getImage() != null) {
-            return mShop.getCollectionAvatar().getImage().getUrl();
+        if (mShop != null && mShop.getCollectionAvatar() != null) {
+            return mShop.getCollectionAvatar().getUrl();
         }
         return "";
     }
