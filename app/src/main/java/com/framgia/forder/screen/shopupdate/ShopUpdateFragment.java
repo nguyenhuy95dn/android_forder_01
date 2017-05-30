@@ -1,6 +1,9 @@
 package com.framgia.forder.screen.shopupdate;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +25,8 @@ import com.framgia.forder.widgets.dialog.DialogManager;
 public class ShopUpdateFragment extends Fragment {
 
     private static final String EXTRA_SHOP_UPDATE = "EXTRA_SHOP_UPDATE";
+    public static final int UPDATE_SELECT_COVER_IMAGE = 100;
+    public static final int UPDATE_SELECT_AVATAR = 101;
     private ShopUpdateContract.ViewModel mViewModel;
 
     public static ShopUpdateFragment newInstance(ShopManagement shopManagement) {
@@ -38,10 +43,12 @@ public class ShopUpdateFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Navigator navigator = new Navigator(getParentFragment());
+        Navigator navigatorForStartGallery = new Navigator(this);
         DialogManager dialogManager = new DialogManager(getActivity());
         ShopManagement shopManagement = (ShopManagement) getArguments().get(EXTRA_SHOP_UPDATE);
         mViewModel =
-                new ShopUpdateViewModel(getActivity(), dialogManager, navigator, shopManagement);
+                new ShopUpdateViewModel(getActivity(), dialogManager, navigator, shopManagement,
+                        navigatorForStartGallery);
 
         ShopRepository shopRepository =
                 new ShopRepository(new ShopRemoteDataSource(FOrderServiceClient.getInstance()));
@@ -64,5 +71,20 @@ public class ShopUpdateFragment extends Fragment {
     public void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_CANCELED) {
+            return;
+        }
+        if (requestCode == UPDATE_SELECT_COVER_IMAGE) {
+            Uri selectedImage = data.getData();
+            mViewModel.setImageCover(selectedImage.toString());
+        } else if (requestCode == UPDATE_SELECT_AVATAR) {
+            Uri selectedImage = data.getData();
+            mViewModel.setImageAvatar(selectedImage.toString());
+        }
     }
 }

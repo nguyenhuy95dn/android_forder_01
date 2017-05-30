@@ -143,7 +143,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_40"
                         >
-                        <!--Time Shop Open-->
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -164,6 +163,121 @@
                             />
                     </RelativeLayout>
                 </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@drawable/border_layout"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_10"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    >
+                    <TextView
+                        android:id="@+id/text_avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_2"
+                        android:layout_marginStart="@dimen/dp_2"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:drawableLeft="@drawable/ic_image_photo"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableStart="@drawable/ic_image_photo"
+                        android:gravity="center_vertical"
+                        android:text="@string/avatar"
+                        android:textColor="@color/color_black"
+                        android:textStyle="bold"
+                        />
+                    <ImageView
+                        android:id="@+id/image_avatar"
+                        android:layout_width="@dimen/dp_100"
+                        android:layout_height="@dimen/dp_100"
+                        android:layout_below="@id/text_avatar"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="@drawable/border_layout"
+                        android:backgroundTint="@color/color_gray_white"
+                        android:padding="@dimen/dp_5"
+                        android:scaleType="centerCrop"
+                        app:imageUrl="@{viewModel.imageAvatar}"
+                        tools:ignore="ContentDescription,UnusedAttribute"
+                        />
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:layout_marginStart="@dimen/dp_20"
+                        android:layout_toEndOf="@+id/image_avatar"
+                        android:layout_toRightOf="@+id/image_avatar"
+                        android:contentDescription="@string/avatar"
+                        android:onClick="@{()-> viewModel.onClickChooseAvatar()}"
+                        app:srcCompat="@drawable/ic_add_image"
+                        />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:gravity="center"
+                    >
+                    <TextView
+                        android:id="@+id/text_image_cover"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_2"
+                        android:layout_marginStart="@dimen/dp_2"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:drawableLeft="@drawable/ic_image_photo"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableStart="@drawable/ic_image_photo"
+                        android:gravity="center_vertical"
+                        android:text="@string/cover_image"
+                        android:textColor="@color/color_black"
+                        android:textStyle="bold"
+                        />
+                    <ImageView
+                        android:id="@+id/image_cover"
+                        android:layout_width="@dimen/dp_250"
+                        android:layout_height="@dimen/dp_150"
+                        android:layout_below="@+id/text_image_cover"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="@drawable/border_layout"
+                        android:backgroundTint="@color/color_gray_white"
+                        android:contentDescription="@string/cover_image"
+                        android:padding="@dimen/dp_5"
+                        android:paddingEnd="@dimen/dp_5"
+                        android:paddingLeft="@dimen/dp_2"
+                        android:paddingRight="@dimen/dp_5"
+                        android:paddingStart="@dimen/dp_2"
+                        android:paddingTop="@dimen/dp_5"
+                        android:scaleType="centerCrop"
+                        app:imageUrl="@{viewModel.imageCover}"
+                        tools:ignore="UnusedAttribute"
+                        />
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_toEndOf="@+id/image_cover"
+                        android:layout_toRightOf="@+id/image_cover"
+                        android:onClick="@{()-> viewModel.onClickChooseCoverImage()}"
+                        app:srcCompat="@drawable/ic_add_image"
+                        tools:ignore="ContentDescription,RelativeOverlap"
+                        />
+                </RelativeLayout>
             </LinearLayout>
 
             <Button
