@@ -4,12 +4,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by Duong on 4/17/2017.
  */
 
-public class CollectionAvatar implements Parcelable {
+public class CollectionAvatar extends InputStream implements Parcelable {
 
     public static final Creator<CollectionAvatar> CREATOR = new Creator<CollectionAvatar>() {
         @Override
@@ -62,5 +64,10 @@ public class CollectionAvatar implements Parcelable {
 
     public void setUrl(String url) {
         mUrl = url;
+    }
+
+    @Override
+    public int read() throws IOException {
+        return 0;
     }
 }
