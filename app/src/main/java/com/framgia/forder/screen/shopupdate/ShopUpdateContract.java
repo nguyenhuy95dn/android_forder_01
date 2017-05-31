@@ -20,6 +20,10 @@ interface ShopUpdateContract {
         void onUpdateShopSuccess();
 
         void onUpdateShopError(BaseException error);
+
+        void setImageCover(String imageCover);
+
+        void setImageAvatar(String imageAvatar);
     }
 
     /**

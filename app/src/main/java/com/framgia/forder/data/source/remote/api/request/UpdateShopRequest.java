@@ -2,6 +2,7 @@ package com.framgia.forder.data.source.remote.api.request;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.io.InputStream;
 
 /**
  * Created by levutantuan on 5/24/17.
@@ -27,6 +28,8 @@ public class UpdateShopRequest extends BaseRequest {
     @Expose
     @SerializedName("time_auto_close")
     private String mTimeAutoClose;
+    private InputStream mImageCover;
+    private InputStream mImageAvatar;
 
     public int getShopId() {
         return mShopId;
@@ -74,5 +77,21 @@ public class UpdateShopRequest extends BaseRequest {
 
     public void setTimeAutoClose(String timeAutoClose) {
         mTimeAutoClose = timeAutoClose;
+    }
+
+    public void setImageCover(InputStream imageCover) {
+        mImageCover = imageCover;
+    }
+
+    public void setImageAvatar(InputStream imageAvatar) {
+        mImageAvatar = imageAvatar;
+    }
+
+    public InputStream getImageCover() {
+        return mImageCover;
+    }
+
+    public InputStream getImageAvatar() {
+        return mImageAvatar;
     }
 }

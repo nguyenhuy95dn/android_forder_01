@@ -2,17 +2,26 @@ package com.framgia.forder.screen.shopupdate;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.net.Uri;
+import android.util.Log;
 import android.widget.TimePicker;
 import com.framgia.forder.BR;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.CollectionImage;
+import com.framgia.forder.data.model.Image;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.UpdateShopRequest;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
+import java.io.FileNotFoundException;
+
+import static com.framgia.forder.screen.shopupdate.ShopUpdateFragment.UPDATE_SELECT_AVATAR;
+import static com.framgia.forder.screen.shopupdate.ShopUpdateFragment.UPDATE_SELECT_COVER_IMAGE;
 
 /**
  * Exposes the data to be used in the ShopUpdate screen.
@@ -38,9 +47,14 @@ public class ShopUpdateViewModel extends BaseObservable
     private String mDescriptionError;
     private int mFlag;
     private final Shop mShop;
+    private String mImageCover;
+    private String mImageAvatar;
+    private boolean mIsClickImageAvatar;
+    private boolean mIsClickImageCover;
+    private final Navigator mNavigatorForStartGallery;
 
     ShopUpdateViewModel(Context context, DialogManager dialogManager, Navigator navigator,
-            ShopManagement shopManagement) {
+            ShopManagement shopManagement, Navigator navigatorForStartGallery) {
         this.mContext = context;
         mNavigator = navigator;
         mDialogManager = dialogManager.dialogTimePicker(this);
@@ -50,6 +64,11 @@ public class ShopUpdateViewModel extends BaseObservable
         mOpenTime = mShop.getTimeOpenShop();
         mOpenForever = mShop.isOpenForever();
         mTimeAutoReject = mShop.getTimeAutoReject();
+        mNavigatorForStartGallery = navigatorForStartGallery;
+        mImageAvatar = mShop.getCollectionAvatar().getImage().getUrl();
+        mImageCover = mShop.getCoverImage().getImage().getUrl();
+        mIsClickImageAvatar = true;
+        mIsClickImageCover = true;
     }
 
     @Override
@@ -105,6 +124,20 @@ public class ShopUpdateViewModel extends BaseObservable
         mNavigator.showToast(error.getMessage());
     }
 
+    @Override
+    public void setImageCover(String imageCover) {
+        mImageCover = imageCover;
+        notifyPropertyChanged(BR.imageCover);
+        mIsClickImageCover = false;
+    }
+
+    @Override
+    public void setImageAvatar(String imageAvatar) {
+        mImageAvatar = imageAvatar;
+        notifyPropertyChanged(BR.imageAvatar);
+        mIsClickImageAvatar = false;
+    }
+
     @Bindable
     public String getNameError() {
         return mNameError;
@@ -145,6 +178,16 @@ public class ShopUpdateViewModel extends BaseObservable
         return mDescription;
     }
 
+    @Bindable
+    public String getImageCover() {
+        return mImageCover;
+    }
+
+    @Bindable
+    public String getImageAvatar() {
+        return mImageAvatar;
+    }
+
     public void setName(String name) {
         mName = name;
         notifyPropertyChanged(BR.name);
@@ -164,17 +207,49 @@ public class ShopUpdateViewModel extends BaseObservable
         mOpenForever = !mOpenForever;
     }
 
+    public void onClickChooseAvatar() {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        mNavigatorForStartGallery.startActivityForResultFromFragment(intent, UPDATE_SELECT_AVATAR);
+        mIsClickImageAvatar = false;
+    }
+
+    public void onClickChooseCoverImage() {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        mNavigatorForStartGallery.startActivityForResultFromFragment(intent,
+                UPDATE_SELECT_COVER_IMAGE);
+    }
+
     public void onClickUpdateShop() {
         if (!mPresenter.validateDataInput(mName, mDescription)) {
             return;
         }
-        UpdateShopRequest updateShopRequest = new UpdateShopRequest();
-        updateShopRequest.setShopId(mShop.getId());
-        updateShopRequest.setName(mName);
-        updateShopRequest.setDescription(mDescription);
-        updateShopRequest.setTimeAutoClose(mOpenTime);
-        updateShopRequest.setOpenForever(mOpenForever);
-        updateShopRequest.setTimeAutoReject(mTimeAutoReject);
-        mPresenter.onUpdateShop(updateShopRequest);
+        try {
+            UpdateShopRequest updateShopRequest = new UpdateShopRequest();
+            if (mIsClickImageAvatar) {
+                updateShopRequest.setImageAvatar(new CollectionImage(new Image(mImageAvatar)));
+            } else {
+                updateShopRequest.setImageAvatar(
+                        mContext.getContentResolver().openInputStream(Uri.parse(mImageAvatar)));
+            }
+            if (mIsClickImageCover) {
+                updateShopRequest.setImageCover(new CollectionImage(new Image(mImageCover)));
+            } else {
+                updateShopRequest.setImageCover(
+                        mContext.getContentResolver().openInputStream(Uri.parse(mImageCover)));
+            }
+            updateShopRequest.setShopId(mShop.getId());
+            updateShopRequest.setName(mName);
+            updateShopRequest.setDescription(mDescription);
+            updateShopRequest.setTimeAutoClose(mOpenTime);
+            updateShopRequest.setOpenForever(mOpenForever);
+            updateShopRequest.setTimeAutoReject(mTimeAutoReject);
+            mPresenter.onUpdateShop(updateShopRequest);
+            mIsClickImageAvatar = true;
+            mIsClickImageCover = true;
+        } catch (FileNotFoundException e) {
+            Log.e(TAG, "", e);
+        }
     }
 }

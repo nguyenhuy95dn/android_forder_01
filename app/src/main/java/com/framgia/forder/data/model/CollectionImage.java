@@ -4,8 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.io.IOException;
+import java.io.InputStream;
 
-public class CollectionImage implements Parcelable {
+public class CollectionImage extends InputStream implements Parcelable {
     public static final Creator<CollectionImage> CREATOR = new Creator<CollectionImage>() {
         @Override
         public CollectionImage createFromParcel(Parcel in) {
@@ -46,5 +48,10 @@ public class CollectionImage implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(mImage, flags);
+    }
+
+    @Override
+    public int read() throws IOException {
+        return 0;
     }
 }
