@@ -22,6 +22,12 @@ public final class Constant {
 
     public static final int NUMBER_COMPRESS = 100;
 
+    public static final int FLAG_OPEN_HOUR = 1;
+
+    public static final int FLAG_END_HOUR = 2;
+
+    public static final int REQUEST_SELECT_IMAGE = 100;
+
     private Constant() {
         // No-op
     }
