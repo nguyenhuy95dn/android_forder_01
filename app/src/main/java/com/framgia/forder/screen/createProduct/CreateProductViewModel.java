@@ -228,7 +228,7 @@ public class CreateProductViewModel extends BaseObservable
             RegisterProductInfo registerProductInfo = new RegisterProductInfo();
             registerProductInfo.setName(mName);
             registerProductInfo.setDescription(mDescription);
-            registerProductInfo.setPrice(mPrice);
+            registerProductInfo.setPrice(Double.parseDouble(mPrice));
             registerProductInfo.setStatus(mStatus);
             registerProductInfo.setStartHour(mStartHour);
             registerProductInfo.setEndHour(mEndHour);

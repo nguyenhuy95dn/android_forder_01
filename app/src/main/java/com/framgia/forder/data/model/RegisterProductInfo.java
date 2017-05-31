@@ -19,7 +19,7 @@ public class RegisterProductInfo {
     private String mDescription;
     @Expose
     @SerializedName("price")
-    private String mPrice;
+    private double mPrice;
     @Expose
     @SerializedName("image")
     private CollectionImage mImage;
@@ -63,11 +63,11 @@ public class RegisterProductInfo {
         mDescription = description;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return mPrice;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         mPrice = price;
     }
 

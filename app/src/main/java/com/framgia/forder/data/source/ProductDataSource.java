@@ -8,7 +8,9 @@ import com.framgia.forder.data.source.local.realm.BaseLocalDataSource;
 import com.framgia.forder.data.source.remote.api.request.CommentRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterProductRequest;
+import com.framgia.forder.data.source.remote.api.request.UpdateProductRequest;
 import com.framgia.forder.data.source.remote.api.response.RegisterProductResponse;
+import com.framgia.forder.data.source.remote.api.response.UpdateProductResponse;
 import java.util.List;
 import rx.Observable;
 
@@ -49,5 +51,8 @@ public interface ProductDataSource {
 
         Observable<RegisterProductResponse> requestRegisterProduct(
                 RegisterProductRequest registerProductRequest);
+
+        Observable<UpdateProductResponse> requestUpdateProduct(int productId,
+                UpdateProductRequest updateProductRequest);
     }
 }

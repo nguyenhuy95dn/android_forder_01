@@ -5,6 +5,7 @@ import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainReques
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterProductRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
+import com.framgia.forder.data.source.remote.api.request.UpdateProductRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateShopRequest;
 import com.framgia.forder.data.source.remote.api.response.CategoryResponse;
@@ -19,11 +20,14 @@ import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
 import com.framgia.forder.data.source.remote.api.response.SearchResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopResponse;
+import com.framgia.forder.data.source.remote.api.response.UpdateProductResponse;
 import com.framgia.forder.data.source.remote.api.response.UpdateProfileResponse;
 import com.framgia.forder.data.source.remote.api.response.UserResponse;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -114,4 +118,8 @@ public interface FOrderApi {
 
     @GET("v1/categories")
     Observable<CategoryResponse> getCategories(@Query("domain_id") int domainId);
+
+    @PUT("v1/dashboard/products/{id}")
+    Observable<UpdateProductResponse> requestUpdateProduct(@Path("id") int productId,
+            @Body UpdateProductRequest updateProductRequest);
 }
