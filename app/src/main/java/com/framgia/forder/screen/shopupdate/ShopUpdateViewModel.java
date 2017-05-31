@@ -10,8 +10,10 @@ import android.util.Log;
 import android.widget.TimePicker;
 import com.framgia.forder.BR;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.CollectionAvatar;
 import com.framgia.forder.data.model.CollectionImage;
 import com.framgia.forder.data.model.Image;
+import com.framgia.forder.data.model.RegisterShopInfo;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
@@ -148,11 +150,6 @@ public class ShopUpdateViewModel extends BaseObservable
         return mDescriptionError;
     }
 
-    public void onClickChooseOpenTime() {
-        mFlag = FLAG_OPEN_TIME;
-        mDialogManager.showTimePickerDialog();
-    }
-
     @Bindable
     public String getName() {
         return mName;
@@ -203,6 +200,11 @@ public class ShopUpdateViewModel extends BaseObservable
         mDialogManager.showTimePickerDialog();
     }
 
+    public void onClickChooseOpenTime() {
+        mFlag = FLAG_OPEN_TIME;
+        mDialogManager.showTimePickerDialog();
+    }
+
     public void checked() {
         mOpenForever = !mOpenForever;
     }
@@ -211,7 +213,6 @@ public class ShopUpdateViewModel extends BaseObservable
         Intent intent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         mNavigatorForStartGallery.startActivityForResultFromFragment(intent, UPDATE_SELECT_AVATAR);
-        mIsClickImageAvatar = false;
     }
 
     public void onClickChooseCoverImage() {
@@ -227,24 +228,27 @@ public class ShopUpdateViewModel extends BaseObservable
         }
         try {
             UpdateShopRequest updateShopRequest = new UpdateShopRequest();
+            RegisterShopInfo updateShop = new RegisterShopInfo();
             if (mIsClickImageAvatar) {
-                updateShopRequest.setImageAvatar(new CollectionImage(new Image(mImageAvatar)));
+                updateShop.setCollectionAvatar(new CollectionAvatar(new Image(mImageAvatar)));
             } else {
                 updateShopRequest.setImageAvatar(
                         mContext.getContentResolver().openInputStream(Uri.parse(mImageAvatar)));
             }
             if (mIsClickImageCover) {
-                updateShopRequest.setImageCover(new CollectionImage(new Image(mImageCover)));
+                updateShop.setCoverImage(new CollectionImage(new Image(mImageCover)));
             } else {
                 updateShopRequest.setImageCover(
                         mContext.getContentResolver().openInputStream(Uri.parse(mImageCover)));
             }
             updateShopRequest.setShopId(mShop.getId());
-            updateShopRequest.setName(mName);
-            updateShopRequest.setDescription(mDescription);
-            updateShopRequest.setTimeAutoClose(mOpenTime);
-            updateShopRequest.setOpenForever(mOpenForever);
-            updateShopRequest.setTimeAutoReject(mTimeAutoReject);
+
+            updateShop.setName(mName);
+            updateShop.setDescription(mDescription);
+            updateShop.setTimeAutoClose(mOpenTime);
+            updateShop.setOpenForever(mOpenForever);
+            updateShop.setTimeAutoReject(mTimeAutoReject);
+            updateShopRequest.setShop(updateShop);
             mPresenter.onUpdateShop(updateShopRequest);
             mIsClickImageAvatar = true;
             mIsClickImageCover = true;
