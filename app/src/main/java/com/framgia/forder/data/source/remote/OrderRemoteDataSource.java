@@ -49,4 +49,19 @@ public class OrderRemoteDataSource extends BaseRemoteDataSource
                     }
                 });
     }
+
+    @Override
+    public Observable<List<Order>> getListOrderManagementShop(int shopId) {
+        return mFOrderApi.getListOrderManagementShop(shopId)
+                .flatMap(new Func1<OrderManagementResponse, Observable<List<Order>>>() {
+                    @Override
+                    public Observable<List<Order>> call(
+                            OrderManagementResponse orderManagementResponse) {
+                        if (orderManagementResponse != null) {
+                            return Observable.just(orderManagementResponse.getOrders());
+                        }
+                        return Observable.error(new NullPointerException());
+                    }
+                });
+    }
 }

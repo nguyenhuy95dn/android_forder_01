@@ -123,4 +123,7 @@ public interface FOrderApi {
     @PUT("v1/dashboard/products/{id}")
     Observable<UpdateProductResponse> requestUpdateProduct(@Path("id") int productId,
             @Body UpdateProductRequest updateProductRequest);
+
+    @GET("v1/dashboard/orders")
+    Observable<OrderManagementResponse> getListOrderManagementShop(@Query("shop_id") int shopId);
 }
