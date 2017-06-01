@@ -109,8 +109,9 @@ public interface FOrderApi {
     @GET("v1/shop_managers")
     Observable<ManagerResponse> getListManagerOfShop(@Query("shop_id") int shopId);
 
-    @POST("v1/dashboard/shops")
-    Observable<ShopResponse> updateShop(@Body UpdateShopRequest updateShop);
+    @PUT("v1/dashboard/shops/{shop_id}")
+    Observable<RegisterShopResponse> updateShop(@Path("shop_id") int shopId,
+            @Body UpdateShopRequest updateShop);
 
     @POST("v1/dashboard/products")
     Observable<RegisterProductResponse> requestRegisterProduct(

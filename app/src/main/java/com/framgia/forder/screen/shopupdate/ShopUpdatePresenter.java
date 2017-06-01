@@ -1,13 +1,20 @@
 package com.framgia.forder.screen.shopupdate;
 
 import android.text.TextUtils;
+import com.framgia.forder.data.model.CollectionAvatar;
+import com.framgia.forder.data.model.CollectionImage;
+import com.framgia.forder.data.model.Image;
 import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import com.framgia.forder.data.source.remote.api.request.UpdateShopRequest;
-import com.framgia.forder.data.source.remote.api.response.ShopResponse;
+import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
+import com.framgia.forder.utils.Utils;
+import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
@@ -52,19 +59,41 @@ final class ShopUpdatePresenter implements ShopUpdateContract.Presenter {
     }
 
     @Override
-    public void onUpdateShop(UpdateShopRequest updateShopRequest) {
-        Subscription subscription = mShopRepository.updateShop(updateShopRequest)
+    public void onUpdateShop(final UpdateShopRequest updateShopRequest) {
+        Subscription subscription = Observable.just(updateShopRequest)
+                .flatMap(new Func1<UpdateShopRequest, Observable<RegisterShopResponse>>() {
+
+                    @Override
+                    public Observable<RegisterShopResponse> call(
+                            UpdateShopRequest updateShopRequest) {
+                        if (updateShopRequest.getImageAvatar() != null) {
+                            String imageBase64 = Utils.ImageUtils.convertImagetoBase64(
+                                    updateShopRequest.getImageAvatar());
+                            updateShopRequest.getShop()
+                                    .setCollectionAvatar(
+                                            new CollectionAvatar(new Image(imageBase64)));
+                        }
+                        if (updateShopRequest.getImageCover() != null) {
+                            String imageBase64 = Utils.ImageUtils.convertImagetoBase64(
+                                    updateShopRequest.getImageCover());
+                            updateShopRequest.getShop()
+                                    .setCoverImage(new CollectionImage(new Image(imageBase64)));
+                        }
+                        return mShopRepository.updateShop(updateShopRequest.getShopId(),
+                                updateShopRequest);
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<ShopResponse>() {
+                .subscribe(new Action1<RegisterShopResponse>() {
                     @Override
-                    public void call(ShopResponse shopResponse) {
+                    public void call(RegisterShopResponse response) {
                         mViewModel.onUpdateShopSuccess();
                     }
-                }, new Action1<Throwable>() {
+                }, new SafetyError() {
                     @Override
-                    public void call(Throwable throwable) {
-                        mViewModel.onUpdateShopError((BaseException) throwable);
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onUpdateShopError(error);
                     }
                 });
         mCompositeSubscription.add(subscription);

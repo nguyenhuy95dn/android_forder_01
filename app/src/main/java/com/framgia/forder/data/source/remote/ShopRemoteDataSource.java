@@ -116,7 +116,8 @@ public class ShopRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<ShopResponse> updateShop(UpdateShopRequest updateShopRequest) {
-        return mFOrderApi.updateShop(updateShopRequest);
+    public Observable<RegisterShopResponse> updateShop(int shopId,
+            UpdateShopRequest updateShopRequest) {
+        return mFOrderApi.updateShop(shopId, updateShopRequest);
     }
 }
