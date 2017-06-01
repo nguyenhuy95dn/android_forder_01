@@ -8,6 +8,7 @@ import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.managerdetail.ManagerDetailFragment;
+import com.framgia.forder.screen.ordershop.OrderShopFragment;
 import com.framgia.forder.screen.shopupdate.ShopUpdateFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 public class ShopinfoViewModel extends BaseObservable implements ShopinfoContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<User> {
 
-    private static final String TAG = "ShopUpdateFragment";
+    private static final String TAG = "ShopinfoFragment";
     private final Navigator mNavigator;
     private ShopinfoContract.Presenter mPresenter;
     private final ShopManagement mShopManagement;
@@ -119,6 +120,11 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
     @Override
     public void onItemRecyclerViewClick(User user) {
         mNavigator.goNextChildFragment(R.id.layout_content, ManagerDetailFragment.newInstance(user),
-                true, Navigator.BOTTOM_UP, "ProductDetailFragment");
+                true, Navigator.BOTTOM_UP, TAG);
+    }
+
+    public void onClickListOrderShop() {
+        mNavigator.goNextChildFragment(R.id.layout_content, OrderShopFragment.newInstance(), true,
+                Navigator.BOTTOM_UP, TAG);
     }
 }
