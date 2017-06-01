@@ -13,5 +13,7 @@ public interface OrderDataSource {
         Observable<List<Order>> getOrderManagement();
 
         Observable<List<Order>> getOrderHistory(int userId, int domainId);
+
+        Observable<List<Order>> getListOrderManagementShop(int shopId);
     }
 }

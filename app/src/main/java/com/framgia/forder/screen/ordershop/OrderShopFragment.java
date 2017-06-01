@@ -8,17 +8,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.databinding.FragmentOrdershopBinding;
 
 /**
  * OrderShop Screen.
  */
 public class OrderShopFragment extends Fragment {
+    private static final String EXTRA_ORDER_SHOP = "EXTRA_ORDER_SHOP";
 
     private OrderShopContract.ViewModel mViewModel;
 
-    public static OrderShopFragment newInstance() {
-        return new OrderShopFragment();
+    public static OrderShopFragment newInstance(ShopManagement shopManagement) {
+        OrderShopFragment orderShopFragment = new OrderShopFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(EXTRA_ORDER_SHOP, shopManagement);
+        orderShopFragment.setArguments(bundle);
+        return orderShopFragment;
     }
 
     @Override

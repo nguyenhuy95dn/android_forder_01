@@ -124,7 +124,8 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
     }
 
     public void onClickListOrderShop() {
-        mNavigator.goNextChildFragment(R.id.layout_content, OrderShopFragment.newInstance(), true,
+        mNavigator.goNextChildFragment(R.id.layout_content,
+                OrderShopFragment.newInstance(this.mShopManagement), true,
                 Navigator.BOTTOM_UP, TAG);
     }
 }

@@ -16,12 +16,13 @@ import rx.Observable;
  */
 
 public class OrderRepository {
-    private OrderDataSource.RemoteDataSource mRemoteDataSource;
+    private final OrderDataSource.RemoteDataSource mRemoteDataSource;
 
     public OrderRepository(OrderRemoteDataSource orderRemoteDataSource) {
         mRemoteDataSource = orderRemoteDataSource;
     }
 
+    //Todo edit later
     public Observable<List<Order>> getOrderManagement() {
         // todo edit later
         List<Order> orders = new ArrayList<>();
@@ -52,6 +53,7 @@ public class OrderRepository {
         return Observable.just(orders);
     }
 
+    //Todo edit later
     public Observable<List<Order>> getOrderHistory(int userId, int domainId) {
         // TODO: Fake data, remove late
         String productImage = "http://www.papawestray.co.uk/images/shop-interior.jpg";
@@ -78,5 +80,9 @@ public class OrderRepository {
             orders.add(order);
         }
         return Observable.just(orders);
+    }
+
+    public Observable<List<Order>> getListOrderManagementShop(int shopId) {
+        return mRemoteDataSource.getListOrderManagementShop(shopId);
     }
 }

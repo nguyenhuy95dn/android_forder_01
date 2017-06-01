@@ -15,6 +15,9 @@ public class Order {
     @OrderStatusCode
     private int mStatus;
     @Expose
+    @SerializedName("status")
+    private String mStatusOrder;
+    @Expose
     @SerializedName("end_date")
     private String mEndDate;
     @Expose
@@ -81,6 +84,14 @@ public class Order {
 
     public List<OrderDetail> getOrderDetails() {
         return mOrderDetails;
+    }
+
+    public String getStatusOrder() {
+        return mStatusOrder;
+    }
+
+    public void setStatusOrder(String statusOrder) {
+        mStatusOrder = statusOrder;
     }
 
     public void setOrderDetails(List<OrderDetail> orderDetails) {

@@ -3,9 +3,6 @@ package com.framgia.forder.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import static com.framgia.forder.utils.Constant.FORMAT_PRICE;
-import static com.framgia.forder.utils.Constant.UNIT_MONEY;
-
 public class OrderDetail {
     @Expose
     @SerializedName("id")
@@ -17,8 +14,23 @@ public class OrderDetail {
     @SerializedName("quantity")
     private int mQuantity;
     @Expose
+    @SerializedName("price")
+    private int mPrice;
+    @Expose
+    @SerializedName("notes")
+    private String mNotes;
+    @Expose
+    @SerializedName("user_id")
+    private int mUserId;
+    @Expose
+    @SerializedName("product_id")
+    private int mProductId;
+    @Expose
     @SerializedName("status")
+    private String mStatusOrder;
+    //Todo edit later
     private int mStatus;
+    //Todo edit later
     private boolean mCheckBoxStatus;
 
     public int getId() {
@@ -45,23 +57,58 @@ public class OrderDetail {
         mProduct = product;
     }
 
+    //Todo edit later
     public int getStatus() {
         return mStatus;
     }
 
+    //Todo edit later
     public void setStatus(int status) {
         mStatus = status;
     }
 
+    public String getStatusOrder() {
+        return mStatusOrder;
+    }
+
+    public void setStatusOrder(String statusOrder) {
+        mStatusOrder = statusOrder;
+    }
+
+    public int getPrice() {
+        return mPrice;
+    }
+
+    public void setPrice(int price) {
+        mPrice = price;
+    }
+
+    public String getNotes() {
+        return mNotes;
+    }
+
+    public void setNotes(String notes) {
+        mNotes = notes;
+    }
+
+    public int getUserId() {
+        return mUserId;
+    }
+
+    public void setUserId(int userId) {
+        mUserId = userId;
+    }
+
+    public int getProductId() {
+        return mProductId;
+    }
+
+    public void setProductId(int productId) {
+        mProductId = productId;
+    }
+
+    //Todo edit later
     public boolean isCheckBoxStatus() {
         return mCheckBoxStatus;
-    }
-
-    public void setCheckBoxStatus(boolean checkBoxStatus) {
-        mCheckBoxStatus = checkBoxStatus;
-    }
-
-    public String getTotalPriceFormat() {
-        return String.format(FORMAT_PRICE, mProduct.getPrice() * mQuantity) + UNIT_MONEY;
     }
 }
