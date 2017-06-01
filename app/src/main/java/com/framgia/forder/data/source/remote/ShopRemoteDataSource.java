@@ -38,7 +38,14 @@ public class ShopRemoteDataSource extends BaseRemoteDataSource
                     @Override
                     public Observable<List<Shop>> call(ShopResponse shopResponse) {
                         if (shopResponse != null) {
-                            return Observable.just(shopResponse.getListShop());
+                            List<Shop> shops = new ArrayList<>();
+                            for (Shop shop : shopResponse.getListShop()) {
+                                //TODO remove when server update API
+                                shop.setUser(
+                                        new User(1, "Trần Đức Quốc", "tran.duc.quoc@framgia.com"));
+                                shops.add(shop);
+                            }
+                            return Observable.just(shops);
                         }
                         return Observable.error(new NullPointerException());
                     }
