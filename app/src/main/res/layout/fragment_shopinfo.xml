@@ -221,6 +221,7 @@
                         android:textColor="@color/color_green"
                         android:textSize="@dimen/sp_20"
                         android:textStyle="bold"
+                        android:onClick="@{() -> viewModel.onClickListOrderShop()}"
                         />
                     <TextView
                         android:layout_width="0dp"
