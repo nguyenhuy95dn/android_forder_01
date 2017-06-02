@@ -3,10 +3,16 @@ package com.framgia.forder.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import static com.framgia.forder.utils.Constant.FORMAT_PRICE;
+import static com.framgia.forder.utils.Constant.UNIT_MONEY;
+
 public class OrderDetail {
     @Expose
     @SerializedName("id")
     private int mId;
+    @Expose
+    @SerializedName("shop_id")
+    private int mShopId;
     @Expose
     @SerializedName("product")
     private Product mProduct;
@@ -15,7 +21,7 @@ public class OrderDetail {
     private int mQuantity;
     @Expose
     @SerializedName("price")
-    private int mPrice;
+    private double mPrice;
     @Expose
     @SerializedName("notes")
     private String mNotes;
@@ -25,6 +31,12 @@ public class OrderDetail {
     @Expose
     @SerializedName("product_id")
     private int mProductId;
+    @Expose
+    @SerializedName("product_name")
+    private String mProductName;
+    @Expose
+    @SerializedName("created_at")
+    private String mTimeCreateOrder;
     @Expose
     @SerializedName("status")
     private String mStatusOrder;
@@ -75,11 +87,11 @@ public class OrderDetail {
         mStatusOrder = statusOrder;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return mPrice;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         mPrice = price;
     }
 
@@ -99,6 +111,30 @@ public class OrderDetail {
         mUserId = userId;
     }
 
+    public String getTimeCreateOrder() {
+        return mTimeCreateOrder;
+    }
+
+    public String getProductName() {
+        return mProductName;
+    }
+
+    public void setProductName(String productName) {
+        mProductName = productName;
+    }
+
+    public int getShopId() {
+        return mShopId;
+    }
+
+    public void setShopId(int shopId) {
+        mShopId = shopId;
+    }
+
+    public void setTimeCreateOrder(String timeCreateOrder) {
+        mTimeCreateOrder = timeCreateOrder;
+    }
+
     public int getProductId() {
         return mProductId;
     }
@@ -110,5 +146,9 @@ public class OrderDetail {
     //Todo edit later
     public boolean isCheckBoxStatus() {
         return mCheckBoxStatus;
+    }
+
+    public String getFormatTotalPrice() {
+        return String.format(FORMAT_PRICE, mPrice) + UNIT_MONEY;
     }
 }

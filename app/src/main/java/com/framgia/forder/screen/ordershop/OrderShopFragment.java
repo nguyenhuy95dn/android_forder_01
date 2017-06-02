@@ -9,7 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
+import com.framgia.forder.data.source.OrderRepository;
+import com.framgia.forder.data.source.remote.OrderRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentOrdershopBinding;
+import com.framgia.forder.utils.navigator.Navigator;
 
 /**
  * OrderShop Screen.
@@ -27,20 +31,19 @@ public class OrderShopFragment extends Fragment {
         return orderShopFragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mViewModel = new OrderShopViewModel();
-
-        OrderShopContract.Presenter presenter = new OrderShopPresenter(mViewModel);
-        mViewModel.setPresenter(presenter);
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
+        Navigator navigator = new Navigator(getParentFragment());
+        ShopManagement shopManagement = (ShopManagement) getArguments().get(EXTRA_ORDER_SHOP);
+        OrderShopAdapter adapter = new OrderShopAdapter(getActivity());
+        mViewModel = new OrderShopViewModel(navigator, adapter, shopManagement);
 
+        OrderRepository orderRepository =
+                new OrderRepository(new OrderRemoteDataSource(FOrderServiceClient.getInstance()));
+        OrderShopContract.Presenter presenter = new OrderShopPresenter(mViewModel, orderRepository);
+        mViewModel.setPresenter(presenter);
         FragmentOrdershopBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_ordershop, container, false);
         binding.setViewModel((OrderShopViewModel) mViewModel);
