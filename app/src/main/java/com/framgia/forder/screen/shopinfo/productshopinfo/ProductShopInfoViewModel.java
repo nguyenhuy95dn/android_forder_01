@@ -6,6 +6,7 @@ import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.createProduct.CreateProductFragment;
+import com.framgia.forder.screen.productdetail.ProductDetailFragment;
 import com.framgia.forder.screen.updateProduct.UpdateProductFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
@@ -72,5 +73,12 @@ public class ProductShopInfoViewModel extends BaseObservable
         mNavigator.goNextChildFragment(R.id.layout_content,
                 UpdateProductFragment.newInstance(product), true, Navigator.RIGHT_LEFT,
                 "UpdateProductFragment");
+    }
+
+    @Override
+    public void onItemRecyclerViewClick(Product product) {
+        mNavigator.goNextChildFragment(R.id.layout_content,
+                ProductDetailFragment.newInstance(product), true, Navigator.RIGHT_LEFT,
+                "ProductDetailFragment");
     }
 }
