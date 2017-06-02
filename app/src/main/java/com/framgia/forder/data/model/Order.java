@@ -12,6 +12,18 @@ public class Order {
     @Expose
     @SerializedName("id")
     private int mId;
+    @Expose
+    @SerializedName("user_name")
+    private String mUserName;
+    @Expose
+    @SerializedName("domain_id")
+    private int mDomainId;
+    @Expose
+    @SerializedName("user_id")
+    private int mUserId;
+    @Expose
+    @SerializedName("shop_id")
+    private int mShopId;
     @OrderStatusCode
     private int mStatus;
     @Expose
@@ -24,13 +36,16 @@ public class Order {
     @SerializedName("total_pay")
     private double mTotalPay;
     @Expose
+    @SerializedName("created_at")
+    private String mTimeCreateOrder;
+    @Expose
     @SerializedName("user")
     private User mUser;
     @Expose
     @SerializedName("shop")
     private Shop mShop;
     @Expose
-    @SerializedName("order_detail")
+    @SerializedName("order_products")
     private List<OrderDetail> mOrderDetails;
 
     public int getId() {
@@ -66,6 +81,14 @@ public class Order {
         mTotalPay = totalPay;
     }
 
+    public String getUserName() {
+        return mUserName;
+    }
+
+    public void setUserName(String userName) {
+        mUserName = userName;
+    }
+
     public User getUser() {
         return mUser;
     }
@@ -74,8 +97,40 @@ public class Order {
         mUser = user;
     }
 
+    public String getTimeCreateOrder() {
+        return mTimeCreateOrder;
+    }
+
+    public void setTimeCreateOrder(String timeCreateOrder) {
+        mTimeCreateOrder = timeCreateOrder;
+    }
+
+    public int getUserId() {
+        return mUserId;
+    }
+
+    public void setUserId(int userId) {
+        mUserId = userId;
+    }
+
+    public int getShopId() {
+        return mShopId;
+    }
+
+    public void setShopId(int shopId) {
+        mShopId = shopId;
+    }
+
     public Shop getShop() {
         return mShop;
+    }
+
+    public int getDomainId() {
+        return mDomainId;
+    }
+
+    public void setDomainId(int domainId) {
+        mDomainId = domainId;
     }
 
     public void setShop(Shop shop) {
