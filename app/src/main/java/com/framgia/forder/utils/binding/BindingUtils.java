@@ -89,4 +89,9 @@ public final class BindingUtils {
     public static void setText(TextView view, int resId) {
         view.setText(resId);
     }
+
+    @BindingAdapter("selected")
+    public static void setPosition(AppCompatSpinner compatSpinner, int position) {
+        compatSpinner.setSelection(position);
+    }
 }

@@ -223,7 +223,6 @@ public class CreateProductViewModel extends BaseObservable
                 return;
             }
             RegisterProductRequest request = new RegisterProductRequest();
-            request.setCategory(getCategory());
             request.setImage(mContext.getContentResolver().openInputStream(Uri.parse(mImage)));
             RegisterProductInfo registerProductInfo = new RegisterProductInfo();
             registerProductInfo.setName(mName);
@@ -232,6 +231,7 @@ public class CreateProductViewModel extends BaseObservable
             registerProductInfo.setStatus(mStatus);
             registerProductInfo.setStartHour(mStartHour);
             registerProductInfo.setEndHour(mEndHour);
+            registerProductInfo.setCategoryId(String.valueOf(getCategory().getId()));
             registerProductInfo.setShopId(String.valueOf(mShopManagement.getShop().getId()));
             request.setProduct(registerProductInfo);
             mPresenter.registerProduct(request);

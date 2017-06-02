@@ -49,6 +49,9 @@ public class Product implements Parcelable {
     @Expose
     @SerializedName("shop_id")
     private int mShopId;
+    @Expose
+    @SerializedName("category_id")
+    private int mCategoryId;
 
     public Product(int id, String name, double price, String description,
             CollectionImage collectionImage, String startHour, String endHour, String status,
@@ -74,6 +77,7 @@ public class Product implements Parcelable {
         mEndHour = in.readString();
         mStatus = in.readString();
         mShopId = in.readInt();
+        mCategoryId = in.readInt();
     }
 
     public int getShopId() {
@@ -156,6 +160,14 @@ public class Product implements Parcelable {
         mStatus = status;
     }
 
+    public int getCategoryId() {
+        return mCategoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        mCategoryId = categoryId;
+    }
+
     public String getFormatStartHour() {
         return Utils.DateTimeUntils.convertUiFormatToDataFormat(mStartHour, Utils.INPUT_TIME_FORMAT,
                 Utils.OUTPUT_TIME_FORMAT);
@@ -185,5 +197,6 @@ public class Product implements Parcelable {
         dest.writeString(mEndHour);
         dest.writeString(mStatus);
         dest.writeInt(mShopId);
+        dest.writeInt(mCategoryId);
     }
 }
