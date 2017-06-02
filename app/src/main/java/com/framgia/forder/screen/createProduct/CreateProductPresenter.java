@@ -108,9 +108,6 @@ final class CreateProductPresenter implements CreateProductContract.Presenter {
                                 registerProductRequest.getImage());
                         registerProductRequest.getProduct()
                                 .setImage(new CollectionImage(new Image(imageBase64)));
-                        registerProductRequest.getProduct()
-                                .setCategoryId(String.valueOf(
-                                        registerProductRequest.getCategory().getId()));
                         return mProductRepository.requestRegisterProduct(registerProductRequest);
                     }
                 })

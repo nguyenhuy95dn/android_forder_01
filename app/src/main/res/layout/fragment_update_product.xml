@@ -92,6 +92,7 @@
                         android:layout_marginTop="@dimen/dp_11"
                         android:selectedItemPosition="@={viewModel.selectedTypePosition}"
                         android:spinnerMode="dropdown"
+                        app:selected="@{viewModel.position}"
                         app:spinnerAdapter="@{viewModel.adapterCategory}"
                         />
                 </LinearLayout>
@@ -184,6 +185,7 @@
                         android:layout_marginLeft="@dimen/dp_60"
                         android:layout_marginStart="@dimen/dp_60"
                         android:layout_marginTop="@dimen/dp_10"
+                        android:checked="@{viewModel.onChangeSwitch}"
                         android:onCheckedChanged="@{() -> viewModel.onSwitchChange()}"
                         />
                 </LinearLayout>

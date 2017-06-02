@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class RegisterProductInfo {
     @Expose
-    @SerializedName("categorie_id")
+    @SerializedName("category_id")
     private String mCategoryId;
     @Expose
     @SerializedName("name")

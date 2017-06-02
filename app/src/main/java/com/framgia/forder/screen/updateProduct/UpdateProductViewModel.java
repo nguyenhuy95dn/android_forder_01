@@ -35,6 +35,7 @@ import static com.framgia.forder.utils.Constant.FLAG_OPEN_HOUR;
 public class UpdateProductViewModel extends BaseObservable
         implements UpdateProductContract.ViewModel, TimePickerDialog.OnTimeSetListener {
     private static final String TAG = "UpdateProductViewModel";
+    private static final int POSITION = 0;
 
     private UpdateProductContract.Presenter mPresenter;
     private final Context mContext;
@@ -59,6 +60,8 @@ public class UpdateProductViewModel extends BaseObservable
     private int mSelectedTypePosition;
     private int mFlag;
     private int mProductId;
+    private int mCategory;
+    private int mPosition;
 
     UpdateProductViewModel(Context context, Product product, DialogManager dialogManager,
             ArrayAdapter<String> adapter, Navigator navigatorForStartGallery, Navigator navigator) {
@@ -71,7 +74,7 @@ public class UpdateProductViewModel extends BaseObservable
         getDetailProduct(product);
         mCategories = new ArrayList<>();
         isClickChooseImage = true;
-        isSwitched = true;
+        mPosition = POSITION;
     }
 
     @Override
@@ -199,6 +202,7 @@ public class UpdateProductViewModel extends BaseObservable
             mAdapter.add(category.getName());
         }
         mAdapter.notifyDataSetChanged();
+        getSpinnerPosition();
     }
 
     @Override
@@ -243,6 +247,16 @@ public class UpdateProductViewModel extends BaseObservable
         Intent intent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         mNavigatorForStartGallery.startActivityForResultFromFragment(intent, REQUEST_SELECT_IMAGE);
+    }
+
+    public void getSpinnerPosition() {
+        for (int i = 0; i < mCategories.size(); i++) {
+            if (mCategory == mCategories.get(i).getId()) {
+                mPosition = i;
+                notifyPropertyChanged(BR.position);
+                break;
+            }
+        }
     }
 
     public void onClickUpdateProduct() {
@@ -296,11 +310,28 @@ public class UpdateProductViewModel extends BaseObservable
         mDescriptionError = descriptionError;
     }
 
+    @Bindable
+    public Boolean getOnChangeSwitch() {
+        return isSwitched;
+    }
+
+    @Bindable
+    public int getPosition() {
+        return mPosition;
+    }
+
+    public void setPosition(int position) {
+        mPosition = position;
+    }
+
     private void getDetailProduct(Product product) {
         if (product.getCollectionImage() != null
                 && product.getCollectionImage().getImage() != null
                 && product.getCollectionImage().getImage().getUrl() != null) {
             mImage = product.getCollectionImage().getImage().getUrl();
+        }
+        if (product.getStatus().equals(mContext.getString(R.string.active))) {
+            isSwitched = true;
         }
         mName = product.getName();
         mDescription = product.getDescription();
@@ -310,6 +341,7 @@ public class UpdateProductViewModel extends BaseObservable
         mStatus = product.getStatus();
         mShopId = product.getShopId();
         mProductId = product.getId();
+        mCategory = product.getCategoryId();
     }
 
     private Category getCategory() {
