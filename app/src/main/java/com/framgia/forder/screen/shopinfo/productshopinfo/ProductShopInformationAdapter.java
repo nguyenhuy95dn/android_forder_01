@@ -57,7 +57,7 @@ public class ProductShopInformationAdapter
         notifyDataSetChanged();
     }
 
-    public void setUpdateProductListener(UpdateProductListener listener) {
+    void setUpdateProductListener(UpdateProductListener listener) {
         mUpdateProductListener = listener;
     }
 
