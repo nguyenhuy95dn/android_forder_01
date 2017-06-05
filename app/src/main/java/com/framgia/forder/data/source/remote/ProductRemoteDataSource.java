@@ -7,7 +7,7 @@ import com.framgia.forder.data.source.remote.api.request.CommentRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterProductRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateProductRequest;
-import com.framgia.forder.data.source.remote.api.response.OrderResponse;
+import com.framgia.forder.data.source.remote.api.response.OrderCartResponse;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterProductResponse;
 import com.framgia.forder.data.source.remote.api.response.UpdateProductResponse;
@@ -57,17 +57,8 @@ public class ProductRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<Void> orderProduct(OrderRequest orderRequest) {
-        return mFOrderApi.orderRequest(orderRequest)
-                .flatMap(new Func1<OrderResponse, Observable<Void>>() {
-                    @Override
-                    public Observable<Void> call(OrderResponse orderResponse) {
-                        if (orderResponse != null) {
-                            return Observable.just(null);
-                        }
-                        return Observable.error(new NullPointerException());
-                    }
-                });
+    public Observable<OrderCartResponse> orderProduct(int domainId, OrderRequest orderRequest) {
+        return mFOrderApi.requestOrderProduct(domainId, orderRequest);
     }
 
     @Override

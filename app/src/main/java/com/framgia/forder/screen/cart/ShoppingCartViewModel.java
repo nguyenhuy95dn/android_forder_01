@@ -9,7 +9,10 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.request.OrderRequest;
+import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.framgia.forder.utils.Constant.FORMAT_PRICE;
@@ -22,17 +25,20 @@ import static com.framgia.forder.utils.Constant.UNIT_MONEY;
 public class ShoppingCartViewModel extends BaseObservable
         implements ShoppingCartContract.ViewModel, OrderItemListener {
     private static final String TAG = "ShoppingCartFragment";
-    private ShoppingCartAdapter mShoppingCartAdapter;
+    private final ShoppingCartAdapter mShoppingCartAdapter;
     private ShoppingCartContract.Presenter mPresenter;
     private double mTotalPrice;
     private List<Cart> mCartList;
-    private DialogManager mDialogManager;
+    private final DialogManager mDialogManager;
+    private final Navigator mNavigator;
+    private Cart mCart;
 
-    public ShoppingCartViewModel(ShoppingCartAdapter shoppingCartAdapter,
-            DialogManager dialogManager) {
+    ShoppingCartViewModel(ShoppingCartAdapter shoppingCartAdapter, DialogManager dialogManager,
+            Navigator navigator) {
         mShoppingCartAdapter = shoppingCartAdapter;
         shoppingCartAdapter.setOrderItemListener(this);
         mDialogManager = dialogManager;
+        mNavigator = navigator;
     }
 
     @Override
@@ -63,11 +69,16 @@ public class ShoppingCartViewModel extends BaseObservable
         if (cart == null) {
             return;
         }
+        mCart = cart;
+        List<Cart> carts = new ArrayList<>();
+        carts.add(cart);
+        final OrderRequest request = new OrderRequest();
+        request.setCartList(carts);
         mDialogManager.dialogwithNoTitleTwoButton(R.string.mgs_this_order,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mPresenter.orderOneShop(cart);
+                        mPresenter.orderOneShop(request);
                     }
                 });
         mDialogManager.show();
@@ -163,11 +174,13 @@ public class ShoppingCartViewModel extends BaseObservable
 
     @Override
     public void onOrderAllShop() {
+        final OrderRequest request = new OrderRequest();
+        request.setCartList(mCartList);
         mDialogManager.dialogwithNoTitleTwoButton(R.string.mgs_order_all,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mPresenter.orderAllShop(mCartList);
+                        mPresenter.orderAllShop(request);
                     }
                 });
         mDialogManager.show();
@@ -180,6 +193,8 @@ public class ShoppingCartViewModel extends BaseObservable
 
     @Override
     public void onOrderAllShopSuccess() {
+        mNavigator.showToast(R.string.order_successful);
+        mPresenter.removeAllShop();
         reloadData();
     }
 
@@ -190,7 +205,19 @@ public class ShoppingCartViewModel extends BaseObservable
 
     @Override
     public void onOrderOneShopSuccess() {
+        mNavigator.showToast(R.string.order_successful);
+        mPresenter.removeOneShop(mCart);
         reloadData();
+    }
+
+    @Override
+    public void onRemoveShopSuccessful() {
+        reloadData();
+    }
+
+    @Override
+    public void onRemoveShopError(Throwable e) {
+        Log.e(TAG, "onRemoveShopError: ", e);
     }
 
     @Override
@@ -202,5 +229,13 @@ public class ShoppingCartViewModel extends BaseObservable
     @Bindable
     public String getTotalPrice() {
         return String.format(FORMAT_PRICE, mTotalPrice) + UNIT_MONEY;
+    }
+
+    public Cart getCart() {
+        return mCart;
+    }
+
+    public void setCart(Cart cart) {
+        mCart = cart;
     }
 }
