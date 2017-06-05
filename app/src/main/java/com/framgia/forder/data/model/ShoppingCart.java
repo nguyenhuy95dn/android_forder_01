@@ -26,9 +26,7 @@ public class ShoppingCart extends RealmObject {
     private String mStartHour;
     private String mEndHour;
     private Double mTotal;
-
-    public ShoppingCart() {
-    }
+    private String mNotes;
 
     public int getShoppingCartId() {
         return mShoppingCartId;
@@ -132,5 +130,13 @@ public class ShoppingCart extends RealmObject {
 
     public void setTotal(Double total) {
         mTotal = total;
+    }
+
+    public String getNotes() {
+        return mNotes;
+    }
+
+    public void setNotes(String notes) {
+        mNotes = notes;
     }
 }

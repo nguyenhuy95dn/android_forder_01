@@ -12,32 +12,29 @@ import static com.framgia.forder.utils.Constant.UNIT_MONEY;
 
 public class CartItem {
 
-    @SerializedName("status")
-    @Expose
-    private int mStatus;
     @SerializedName("product_id")
     @Expose
     private int mProductId;
-    @SerializedName("user_id")
+    @SerializedName("price")
     @Expose
-    private int mUserId;
+    private double mPrice;
     @SerializedName("quantity")
     @Expose
     private int mQuantity;
+    @Expose
+    @SerializedName("notes")
+    private String mNotes;
     private int mDomainId;
     private int mShopId;
     private String mProductName;
     private String mProductImage;
-    private double mPrice;
     private String mStartHour;
     private String mEndHour;
     private Double mTotal;
 
-    public CartItem() {
-    }
-
     public CartItem(int domainId, int shopId, int quantity, int productId, String productName,
-            String productImage, double price, String startHour, String endHour, Double total) {
+            String productImage, double price, String startHour, String endHour, Double total,
+            String notes) {
         mDomainId = domainId;
         mShopId = shopId;
         mQuantity = quantity;
@@ -48,6 +45,7 @@ public class CartItem {
         mStartHour = startHour;
         mEndHour = endHour;
         mTotal = total;
+        mNotes = notes;
     }
 
     public int getDomainId() {
@@ -134,19 +132,11 @@ public class CartItem {
         mTotal = total;
     }
 
-    public int getStatus() {
-        return mStatus;
+    public String getNotes() {
+        return mNotes;
     }
 
-    public void setStatus(int status) {
-        mStatus = status;
-    }
-
-    public int getUserId() {
-        return mUserId;
-    }
-
-    public void setUserId(int userId) {
-        mUserId = userId;
+    public void setNotes(String notes) {
+        mNotes = notes;
     }
 }

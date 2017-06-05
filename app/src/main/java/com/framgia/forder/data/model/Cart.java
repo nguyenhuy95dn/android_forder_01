@@ -14,7 +14,7 @@ public class Cart {
     @SerializedName("domain_id")
     @Expose
     private int mDomainId;
-    @SerializedName("total_pay")
+    @SerializedName("total_price")
     @Expose
     private int mTotal;
     @SerializedName("shop_id")
@@ -23,10 +23,7 @@ public class Cart {
     @SerializedName("user_id")
     @Expose
     private int mUserId;
-    @SerializedName("mStatus")
-    @Expose
-    private int mStatus;
-    @SerializedName("orders")
+    @SerializedName("products")
     @Expose
     private List<CartItem> mCartItemList;
     private String mShopName;
@@ -91,14 +88,6 @@ public class Cart {
 
     public void setUserId(int userId) {
         mUserId = userId;
-    }
-
-    public int getStatus() {
-        return mStatus;
-    }
-
-    public void setStatus(int status) {
-        mStatus = status;
     }
 
     public int getNumberOfProduct() {
