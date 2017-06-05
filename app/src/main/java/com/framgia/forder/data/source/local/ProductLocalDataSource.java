@@ -1,6 +1,7 @@
 package com.framgia.forder.data.source.local;
 
 import android.support.annotation.NonNull;
+import com.framgia.forder.R;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.model.Product;
@@ -56,6 +57,8 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                                 realm.where(ShoppingCart.class).max("mShoppingCartId").intValue()
                                         + 1);
                     }
+                    //Todo fix notes later
+                    product.setNotes(String.valueOf(R.string.accept));
                     cart.setDomainId(domainId);
                     cart.setShopId(product.getShopId());
                     cart.setQuantity(DEFAULT_QUANTITY);
@@ -67,6 +70,7 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                     cart.setStartHour(product.getFormatStartHour());
                     cart.setEndHour(product.getFormatEndHour());
                     cart.setTotal(cart.getTotal());
+                    cart.setNotes(product.getNotes());
                     try {
                         realm.insertOrUpdate(cart);
                     } catch (IllegalStateException e) {
@@ -221,7 +225,7 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                                         shoppingCart.getProductName(),
                                         shoppingCart.getProductImage(), shoppingCart.getPrice(),
                                         shoppingCart.getStartHour(), shoppingCart.getEndHour(),
-                                        shoppingCart.getTotal());
+                                        shoppingCart.getTotal(), shoppingCart.getNotes());
                         cartItemList.add(cartItem);
                     }
                     cart.setNumberOfProduct(cartItemList.size());

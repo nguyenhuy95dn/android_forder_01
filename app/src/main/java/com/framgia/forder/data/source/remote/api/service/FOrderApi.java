@@ -12,6 +12,7 @@ import com.framgia.forder.data.source.remote.api.response.CategoryResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
 import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
 import com.framgia.forder.data.source.remote.api.response.NotificationResponse;
+import com.framgia.forder.data.source.remote.api.response.OrderCartResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderResponse;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
@@ -126,4 +127,8 @@ public interface FOrderApi {
 
     @GET("v1/dashboard/orders")
     Observable<OrderManagementResponse> getListOrderManagementShop(@Query("shop_id") int shopId);
+
+    @POST("v1/orders_product_all")
+    Observable<OrderCartResponse> requestOrderProduct(@Query("domain_id") int domainId,
+            @Body OrderRequest orderRequest);
 }
