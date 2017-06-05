@@ -18,6 +18,8 @@ public final class Constant {
 
     public static final String UNIT_MONEY = " VNĐ";
 
+    public static final String VERTICAL_COLUMN = " | ";
+
     public static final int DEFAULT_QUANTITY = 1;
 
     public static final int NUMBER_COMPRESS = 100;

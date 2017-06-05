@@ -1,10 +1,12 @@
 package com.framgia.forder.data.model;
 
+import com.framgia.forder.utils.Utils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import static com.framgia.forder.utils.Constant.FORMAT_PRICE;
 import static com.framgia.forder.utils.Constant.UNIT_MONEY;
+import static com.framgia.forder.utils.Constant.VERTICAL_COLUMN;
 
 public class OrderDetail {
     @Expose
@@ -20,7 +22,7 @@ public class OrderDetail {
     @SerializedName("quantity")
     private int mQuantity;
     @Expose
-    @SerializedName("price")
+    @SerializedName("product_price")
     private double mPrice;
     @Expose
     @SerializedName("notes")
@@ -39,7 +41,10 @@ public class OrderDetail {
     private String mTimeCreateOrder;
     @Expose
     @SerializedName("status")
-    private String mStatusOrder;
+    private StatusOders mStatusOrder;
+    @Expose
+    @SerializedName("product_image")
+    private Image mImageProduct;
     //Todo edit later
     private int mStatus;
     //Todo edit later
@@ -69,6 +74,14 @@ public class OrderDetail {
         mProduct = product;
     }
 
+    public Image getImageProduct() {
+        return mImageProduct;
+    }
+
+    public void setImageProduct(Image imageProduct) {
+        mImageProduct = imageProduct;
+    }
+
     //Todo edit later
     public int getStatus() {
         return mStatus;
@@ -79,11 +92,11 @@ public class OrderDetail {
         mStatus = status;
     }
 
-    public String getStatusOrder() {
+    public StatusOders getStatusOrder() {
         return mStatusOrder;
     }
 
-    public void setStatusOrder(String statusOrder) {
+    public void setStatusOrder(StatusOders statusOrder) {
         mStatusOrder = statusOrder;
     }
 
@@ -148,7 +161,46 @@ public class OrderDetail {
         return mCheckBoxStatus;
     }
 
-    public String getFormatTotalPrice() {
+    public String getTotalPriceFormat() {
         return String.format(FORMAT_PRICE, mPrice) + UNIT_MONEY;
+    }
+
+    public String getTimeOrderFormat() {
+        return Utils.DateTimeUntils.convertUiFormatToDataFormat(mTimeCreateOrder,
+                Utils.INPUT_TIME_FORMAT,
+                Utils.OUTPUT_TIME_FORMAT + VERTICAL_COLUMN + Utils.OUTPUT_DATE_FORMAT);
+    }
+
+    public enum StatusOders {
+        @Expose
+        @SerializedName("rejected")
+        Rejected("rejected"),
+        @Expose
+        @SerializedName("pending")
+        Pending("pending"),
+        @Expose
+        @SerializedName("accepted")
+        Accepted("accepted");
+
+        private final String mValue;
+
+        StatusOders(String value) {
+            mValue = value;
+        }
+
+        public String getValue() {
+            return mValue;
+        }
+
+        public static OrderDetail.StatusOders getStatusOrders(String value) {
+            if ("rejected".equals(value)) {
+                return Rejected;
+            } else if ("pending".equals(value)) {
+                return Pending;
+            } else if ("accepted".equals(value)) {
+                return Accepted;
+            }
+            return null;
+        }
     }
 }

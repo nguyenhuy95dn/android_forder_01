@@ -31,7 +31,7 @@ public class OrderShopAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getGroupCount() {
-        return mOrders == null ? 0 : mOrders.size();
+        return mOrders.size();
     }
 
     @Override
@@ -88,7 +88,7 @@ public class OrderShopAdapter extends BaseExpandableListAdapter {
         }
         ViewDataBinding mBinding = DataBindingUtil.bind(convertView);
         mBinding.setVariable(BR.viewModel,
-                new ItemChildOrderViewModel(getChild(groupPosition, childPosition)));
+                new ItemChildOrderViewModel(mContext, getChild(groupPosition, childPosition)));
         mBinding.executePendingBindings();
         return convertView;
     }
