@@ -4,11 +4,11 @@ import com.framgia.forder.data.model.CollectionImage;
 import com.framgia.forder.data.model.Image;
 import com.framgia.forder.data.model.Order;
 import com.framgia.forder.data.model.OrderDetail;
+import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.OrderRemoteDataSource;
-import com.framgia.forder.data.source.remote.api.request.OrderManagerRequest;
-import com.framgia.forder.data.source.remote.api.response.OrderResponse;
+import com.framgia.forder.data.source.remote.api.response.OrderManagerShopReponse;
 import java.util.ArrayList;
 import java.util.List;
 import rx.Observable;
@@ -88,8 +88,8 @@ public class OrderRepository {
         return mRemoteDataSource.getListOrderManagementShop(shopId);
     }
 
-    public Observable<OrderResponse> acceptAndRejectInOrder(int shopId,
-            OrderManagerRequest acceptProductInOrderRequest) {
+    public Observable<OrderManagerShopReponse> acceptAndRejectInOrder(int shopId,
+            OrderManagement acceptProductInOrderRequest) {
         return mRemoteDataSource.acceptAndRejectInOrder(shopId, acceptProductInOrderRequest);
     }
 

@@ -3,7 +3,9 @@ package com.framgia.forder.screen.ordershop;
 import android.content.Context;
 import android.databinding.ObservableInt;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.Order;
 import com.framgia.forder.data.model.OrderDetail;
+import com.framgia.forder.data.model.OrderManagement;
 
 /**
  * Created by levutantuan on 6/1/17.
@@ -11,13 +13,18 @@ import com.framgia.forder.data.model.OrderDetail;
 
 public class ItemChildOrderViewModel {
     private final OrderDetail mOrderDetail;
+    private final Order mOrder;
     private final Context mContext;
     private ObservableInt mTextStatus;
+    private final OrderShopAdapter.OrderManagementListener mOrderManagementListener;
 
-    ItemChildOrderViewModel(Context context, OrderDetail orderDetail) {
+    ItemChildOrderViewModel(Context context, Order order, OrderDetail orderDetail,
+            OrderShopAdapter.OrderManagementListener orderManagementListener) {
         mContext = context;
         mTextStatus = new ObservableInt();
+        mOrder = order;
         mOrderDetail = orderDetail;
+        mOrderManagementListener = orderManagementListener;
         initValueStatus();
     }
 
@@ -82,11 +89,19 @@ public class ItemChildOrderViewModel {
     }
 
     public void onClickAcceptProduct() {
-        //TODO Accept Product
+        OrderManagement orderManagement = new OrderManagement();
+        orderManagement.setShopId(mOrder.getShopId());
+        orderManagement.setStatus(mContext.getString(R.string.accepted_status));
+        orderManagement.setOrderProductId(mOrderDetail.getProductId());
+        mOrderManagementListener.onAcceptOrRejectOrderManager(orderManagement);
     }
 
     public void onClickRejectProduct() {
-        //TODO Reject Product
+        OrderManagement orderManagement = new OrderManagement();
+        orderManagement.setShopId(mOrder.getShopId());
+        orderManagement.setStatus(mContext.getString(R.string.rejected_status));
+        orderManagement.setOrderProductId(mOrderDetail.getProductId());
+        mOrderManagementListener.onAcceptOrRejectOrderManager(orderManagement);
     }
 
     public ObservableInt getTextStatus() {

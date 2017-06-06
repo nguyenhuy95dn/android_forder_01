@@ -1,8 +1,8 @@
 package com.framgia.forder.data.source;
 
 import com.framgia.forder.data.model.Order;
-import com.framgia.forder.data.source.remote.api.request.OrderManagerRequest;
-import com.framgia.forder.data.source.remote.api.response.OrderResponse;
+import com.framgia.forder.data.model.OrderManagement;
+import com.framgia.forder.data.source.remote.api.response.OrderManagerShopReponse;
 import java.util.List;
 import rx.Observable;
 
@@ -18,8 +18,8 @@ public interface OrderDataSource {
 
         Observable<List<Order>> getListOrderManagementShop(int shopId);
 
-        Observable<OrderResponse> acceptAndRejectInOrder(int shopId,
-                OrderManagerRequest acceptProductInOrderRequest);
+        Observable<OrderManagerShopReponse> acceptAndRejectInOrder(int shopId,
+                OrderManagement acceptProductInOrderRequest);
 
         Observable<List<Order>> notifyDoneOrderToServer(int shopId);
     }

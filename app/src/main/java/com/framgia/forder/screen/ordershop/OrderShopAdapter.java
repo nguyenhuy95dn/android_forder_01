@@ -12,6 +12,7 @@ import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Order;
 import com.framgia.forder.data.model.OrderDetail;
+import com.framgia.forder.data.model.OrderManagement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +24,15 @@ public class OrderShopAdapter extends BaseExpandableListAdapter {
 
     private final Context mContext;
     private final List<Order> mOrders;
+    private OrderManagementListener mOrderManagementListener;
 
     public OrderShopAdapter(@NonNull Context context) {
         mContext = context;
         mOrders = new ArrayList<>();
+    }
+
+    public void setOrderManagementListener(OrderManagementListener orderManagementListener) {
+        mOrderManagementListener = orderManagementListener;
     }
 
     @Override
@@ -88,7 +94,8 @@ public class OrderShopAdapter extends BaseExpandableListAdapter {
         }
         ViewDataBinding mBinding = DataBindingUtil.bind(convertView);
         mBinding.setVariable(BR.viewModel,
-                new ItemChildOrderViewModel(mContext, getChild(groupPosition, childPosition)));
+                new ItemChildOrderViewModel(mContext, getGroup(groupPosition),
+                        getChild(groupPosition, childPosition), mOrderManagementListener));
         mBinding.executePendingBindings();
         return convertView;
     }
@@ -105,5 +112,9 @@ public class OrderShopAdapter extends BaseExpandableListAdapter {
         mOrders.clear();
         mOrders.addAll(orders);
         notifyDataSetChanged();
+    }
+
+    public interface OrderManagementListener {
+        void onAcceptOrRejectOrderManager(OrderManagement acceptOrRejectOrdermanagementRequest);
     }
 }

@@ -1,6 +1,7 @@
 package com.framgia.forder.screen.ordershop;
 
 import com.framgia.forder.data.model.Order;
+import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BasePresenter;
 import com.framgia.forder.screen.BaseViewModel;
@@ -18,6 +19,14 @@ interface OrderShopContract {
         void onGetListOrderManagementShopSuccess(List<Order> orders);
 
         void onGetListOrderManagementShopError(BaseException exception);
+
+        void onAcceptOrRejectOrderManageSuccess();
+
+        void onAcceptOrRejectOrderManageError(Exception exception);
+
+        void onOrderSuccess(List<Order> orders);
+
+        void onOrderError(Exception exception);
     }
 
     /**
@@ -25,6 +34,11 @@ interface OrderShopContract {
      */
     interface Presenter extends BasePresenter {
 
-        void onGetListOrderManagementShop(int shopId);
+        void getListOrderManagementShop(int shopId);
+
+        void acceptAndRejectOrder(int shopId, OrderManagement acceptAndRejectInOrder);
+
+        void notifyDoneOrderToServer(int shopId);
+
     }
 }

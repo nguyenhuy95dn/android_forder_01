@@ -1,6 +1,8 @@
 package com.framgia.forder.screen.ordershop;
 
+import com.framgia.forder.R;
 import com.framgia.forder.data.model.Order;
+import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.utils.navigator.Navigator;
@@ -10,7 +12,8 @@ import java.util.List;
  * Exposes the data to be used in the OrderShop screen.
  */
 
-public class OrderShopViewModel implements OrderShopContract.ViewModel {
+public class OrderShopViewModel
+        implements OrderShopContract.ViewModel, OrderShopAdapter.OrderManagementListener {
 
     private final Navigator mNavigator;
     private OrderShopContract.Presenter mPresenter;
@@ -22,6 +25,7 @@ public class OrderShopViewModel implements OrderShopContract.ViewModel {
         mNavigator = navigator;
         mOrderShopAdapter = orderShopAdapter;
         mShopManagement = shopManagement;
+        mOrderShopAdapter.setOrderManagementListener(this);
     }
 
     @Override
@@ -37,7 +41,7 @@ public class OrderShopViewModel implements OrderShopContract.ViewModel {
     @Override
     public void setPresenter(OrderShopContract.Presenter presenter) {
         mPresenter = presenter;
-        mPresenter.onGetListOrderManagementShop(mShopManagement.getShop().getId());
+        mPresenter.getListOrderManagementShop(mShopManagement.getShop().getId());
     }
 
     @Override
@@ -50,7 +54,36 @@ public class OrderShopViewModel implements OrderShopContract.ViewModel {
         mNavigator.showToast(exception.getMessage());
     }
 
+    @Override
+    public void onAcceptOrRejectOrderManageSuccess() {
+        mNavigator.showToast(R.string.order_successful);
+        mOrderShopAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onAcceptOrRejectOrderManageError(Exception exception) {
+        mNavigator.showToast(exception.getMessage());
+    }
+
+    @Override
+    public void onOrderSuccess(List<Order> orders) {
+        mNavigator.showToast(R.string.order_successful);
+        mOrderShopAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onOrderError(Exception exception) {
+        mNavigator.showToast(exception.getMessage());
+    }
+
     public OrderShopAdapter getOrderShopAdapter() {
         return mOrderShopAdapter;
+    }
+
+    @Override
+    public void onAcceptOrRejectOrderManager(
+            OrderManagement acceptAndRejectOrdermanagementRequest) {
+        mPresenter.acceptAndRejectOrder(mShopManagement.getShop().getId(),
+                acceptAndRejectOrdermanagementRequest);
     }
 }
