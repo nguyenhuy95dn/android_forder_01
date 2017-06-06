@@ -7,6 +7,8 @@ import com.framgia.forder.data.model.OrderDetail;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.OrderRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.request.OrderManagerRequest;
+import com.framgia.forder.data.source.remote.api.response.OrderResponse;
 import java.util.ArrayList;
 import java.util.List;
 import rx.Observable;
@@ -85,4 +87,39 @@ public class OrderRepository {
     public Observable<List<Order>> getListOrderManagementShop(int shopId) {
         return mRemoteDataSource.getListOrderManagementShop(shopId);
     }
+
+    public Observable<OrderResponse> acceptProductInOrder(int shopId,
+            OrderManagerRequest acceptProductInOrderRequest) {
+        return mRemoteDataSource.acceptProductInOrder(shopId, acceptProductInOrderRequest);
+    }
+
+    public Observable<OrderResponse> rejectProductInOrder(int shopId,
+            OrderManagerRequest rejectProductInOrderRequest) {
+        return mRemoteDataSource.rejectProductInOrder(shopId, rejectProductInOrderRequest);
+    }
+
+    public Observable<OrderResponse> acceptAllProductInOrder(int shopId,
+            OrderManagerRequest acceptAllProductInOrderRequest) {
+        return mRemoteDataSource.acceptAllProductInOrder(shopId, acceptAllProductInOrderRequest);
+    }
+
+    public Observable<OrderResponse> rejectAllProductInOrder(int shopId,
+            OrderManagerRequest rejectAllProductInOrderRequest) {
+        return mRemoteDataSource.rejectAllProductInOrder(shopId, rejectAllProductInOrderRequest);
+    }
+
+    public Observable<OrderResponse> acceptAllOrder(int shopId,
+            OrderManagerRequest acceptAllOrderRequest) {
+        return mRemoteDataSource.acceptAllOrder(shopId, acceptAllOrderRequest);
+    }
+
+    public Observable<OrderResponse> rejectAllOrder(int shopId,
+            OrderManagerRequest rejectAllOrderRequest) {
+        return mRemoteDataSource.rejectAllOrder(shopId, rejectAllOrderRequest);
+    }
+
+    public Observable<List<Order>> notifyDoneOrderToServer(int shopId) {
+        return mRemoteDataSource.notifyDoneOrderToServer(shopId);
+    }
+
 }
