@@ -1,8 +1,8 @@
 package com.framgia.forder.data.source.remote.api.service;
 
+import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
-import com.framgia.forder.data.source.remote.api.request.OrderManagerRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterProductRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
@@ -15,6 +15,7 @@ import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
 import com.framgia.forder.data.source.remote.api.response.NotificationResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderCartResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderManagementResponse;
+import com.framgia.forder.data.source.remote.api.response.OrderManagerShopReponse;
 import com.framgia.forder.data.source.remote.api.response.OrderResponse;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterProductResponse;
@@ -134,8 +135,8 @@ public interface FOrderApi {
             @Body OrderRequest orderRequest);
 
     @PUT("v1/dashboard/order_products/0")
-    Observable<OrderResponse> acceptAndRejectInOrder(@Query("shop_id") int shopId,
-            @Body OrderManagerRequest acceptAndRejectInOrderRequest);
+    Observable<OrderManagerShopReponse> acceptAndRejectInOrder(@Query("shop_id") int shopId,
+            @Body OrderManagement acceptAndRejectInOrderRequest);
 
     @GET("v1/dashboard/order_products/0")
     Observable<OrderManagementResponse> notifyDoneOrderToServer(@Query("shop_id") int shopId);

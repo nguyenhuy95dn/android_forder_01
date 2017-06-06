@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
 public class OrderManagement {
     @Expose
     @SerializedName("shop_id")
-    private int mshopId;
+    private int mShopId;
     @Expose
     @SerializedName("order_id")
     private int mOrderId;
@@ -21,12 +21,12 @@ public class OrderManagement {
     @SerializedName("status")
     private String mStatus;
 
-    public int getMshopId() {
-        return mshopId;
+    public int getShopId() {
+        return mShopId;
     }
 
-    public void setMshopId(int mshopId) {
-        this.mshopId = mshopId;
+    public void setShopId(int shopId) {
+        mShopId = shopId;
     }
 
     public int getOrderId() {

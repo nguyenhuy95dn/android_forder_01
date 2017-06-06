@@ -1,9 +1,10 @@
 package com.framgia.forder.data.source.remote;
 
 import com.framgia.forder.data.model.Order;
+import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.source.OrderDataSource;
-import com.framgia.forder.data.source.remote.api.request.OrderManagerRequest;
 import com.framgia.forder.data.source.remote.api.response.OrderManagementResponse;
+import com.framgia.forder.data.source.remote.api.response.OrderManagerShopReponse;
 import com.framgia.forder.data.source.remote.api.response.OrderResponse;
 import com.framgia.forder.data.source.remote.api.service.FOrderApi;
 import java.util.List;
@@ -67,8 +68,8 @@ public class OrderRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<OrderResponse> acceptAndRejectInOrder(int shopId,
-            OrderManagerRequest acceptProductInOrderRequest) {
+    public Observable<OrderManagerShopReponse> acceptAndRejectInOrder(int shopId,
+            OrderManagement acceptProductInOrderRequest) {
         return mFOrderApi.acceptAndRejectInOrder(shopId, acceptProductInOrderRequest);
     }
 
