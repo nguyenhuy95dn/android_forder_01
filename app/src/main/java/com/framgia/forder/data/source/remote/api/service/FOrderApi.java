@@ -134,23 +134,8 @@ public interface FOrderApi {
             @Body OrderRequest orderRequest);
 
     @PUT("v1/dashboard/order_products/0")
-    Observable<OrderResponse> acceptProductInOrder(@Query("shop_id") int shopId,
-            @Body OrderManagerRequest acceptProductInOrderRequest);
-
-    Observable<OrderResponse> rejectProductInOrder(@Query("shop_id") int shopId,
-            @Body OrderManagerRequest rejectProductInOrderRequest);
-
-    Observable<OrderResponse> acceptAllProductInOrder(@Query("shop_id") int shopId,
-            @Body OrderManagerRequest acceptAllProductInOrderRequest);
-
-    Observable<OrderResponse> rejectAllProductInOrder(@Query("shop_id") int shopId,
-            @Body OrderManagerRequest rejectAllProductInOrderRequest);
-
-    Observable<OrderResponse> acceptAllOrder(@Query("shop_id") int shopId,
-            @Body OrderManagerRequest acceptAllOrderRequest);
-
-    Observable<OrderResponse> rejectAllOrder(@Query("shop_id") int shopId,
-            @Body OrderManagerRequest rejectAllOrderRequest);
+    Observable<OrderResponse> acceptAndRejectInOrder(@Query("shop_id") int shopId,
+            @Body OrderManagerRequest acceptAndRejectInOrderRequest);
 
     @GET("v1/dashboard/order_products/0")
     Observable<OrderManagementResponse> notifyDoneOrderToServer(@Query("shop_id") int shopId);
