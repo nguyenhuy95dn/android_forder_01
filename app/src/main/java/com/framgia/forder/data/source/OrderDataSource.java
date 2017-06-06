@@ -18,23 +18,8 @@ public interface OrderDataSource {
 
         Observable<List<Order>> getListOrderManagementShop(int shopId);
 
-        Observable<OrderResponse> acceptProductInOrder(int shopId,
+        Observable<OrderResponse> acceptAndRejectInOrder(int shopId,
                 OrderManagerRequest acceptProductInOrderRequest);
-
-        Observable<OrderResponse> rejectProductInOrder(int shopId,
-                OrderManagerRequest rejectProductInOrderRequest);
-
-        Observable<OrderResponse> acceptAllProductInOrder(int shopId,
-                OrderManagerRequest acceptAllProductInOrderRequest);
-
-        Observable<OrderResponse> rejectAllProductInOrder(int shopId,
-                OrderManagerRequest rejectAllProductInOrderRequest);
-
-        Observable<OrderResponse> acceptAllOrder(int shopId,
-                OrderManagerRequest acceptAllOrderRequest);
-
-        Observable<OrderResponse> rejectAllOrder(int shopId,
-                OrderManagerRequest rejectAllOrderRequest);
 
         Observable<List<Order>> notifyDoneOrderToServer(int shopId);
     }

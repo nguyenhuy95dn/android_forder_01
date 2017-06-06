@@ -67,39 +67,9 @@ public class OrderRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<OrderResponse> acceptProductInOrder(int shopId,
+    public Observable<OrderResponse> acceptAndRejectInOrder(int shopId,
             OrderManagerRequest acceptProductInOrderRequest) {
-        return mFOrderApi.acceptProductInOrder(shopId, acceptProductInOrderRequest);
-    }
-
-    @Override
-    public Observable<OrderResponse> rejectProductInOrder(int shopId,
-            OrderManagerRequest rejectProductInOrderRequest) {
-        return mFOrderApi.rejectProductInOrder(shopId, rejectProductInOrderRequest);
-    }
-
-    @Override
-    public Observable<OrderResponse> acceptAllProductInOrder(int shopId,
-            OrderManagerRequest acceptAllProductInOrderRequest) {
-        return mFOrderApi.acceptAllProductInOrder(shopId, acceptAllProductInOrderRequest);
-    }
-
-    @Override
-    public Observable<OrderResponse> rejectAllProductInOrder(int shopId,
-            OrderManagerRequest rejectAllProductInOrderRequest) {
-        return mFOrderApi.rejectAllProductInOrder(shopId, rejectAllProductInOrderRequest);
-    }
-
-    @Override
-    public Observable<OrderResponse> acceptAllOrder(int shopId,
-            OrderManagerRequest acceptAllOrderRequest) {
-        return mFOrderApi.acceptAllOrder(shopId, acceptAllOrderRequest);
-    }
-
-    @Override
-    public Observable<OrderResponse> rejectAllOrder(int shopId,
-            OrderManagerRequest rejectAllOrderRequest) {
-        return mFOrderApi.rejectAllOrder(shopId, rejectAllOrderRequest);
+        return mFOrderApi.acceptAndRejectInOrder(shopId, acceptProductInOrderRequest);
     }
 
     @Override
