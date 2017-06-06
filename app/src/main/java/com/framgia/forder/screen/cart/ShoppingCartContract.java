@@ -3,6 +3,7 @@ package com.framgia.forder.screen.cart;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BasePresenter;
 import com.framgia.forder.screen.BaseViewModel;
 import java.util.List;
@@ -46,17 +47,26 @@ interface ShoppingCartContract {
         void onOrderOneShopError(Throwable throwable);
 
         void onOrderOneShopSuccess();
+
+        void onRemoveShopSuccessful();
+
+        void onRemoveShopError(Throwable e);
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
-        void orderOneShop(Cart cart);
 
-        void orderAllShop(List<Cart> list);
+        void orderOneShop(OrderRequest orderRequest);
+
+        void orderAllShop(OrderRequest orderRequest);
 
         void getListCart();
+
+        void removeOneShop(Cart cart);
+
+        void removeAllShop();
 
         void upQuantity(CartItem cartItem);
 

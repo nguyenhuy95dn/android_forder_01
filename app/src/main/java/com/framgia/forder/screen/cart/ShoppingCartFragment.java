@@ -11,6 +11,7 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ProductRepository;
+import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.local.DomainLocalDataSource;
 import com.framgia.forder.data.source.local.ProductLocalDataSource;
 import com.framgia.forder.data.source.local.UserLocalDataSource;
@@ -19,8 +20,10 @@ import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
 import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
 import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
+import com.framgia.forder.data.source.remote.UserRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentShoppingcartBinding;
+import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +45,9 @@ public class ShoppingCartFragment extends Fragment {
         List<Cart> cartList = new ArrayList<>();
         ShoppingCartAdapter adapter = new ShoppingCartAdapter(getActivity(), cartList);
         DialogManager dialogManager = new DialogManager(getActivity());
+        Navigator navigator = new Navigator(getParentFragment());
 
-        mViewModel = new ShoppingCartViewModel(adapter, dialogManager);
+        mViewModel = new ShoppingCartViewModel(adapter, dialogManager, navigator);
 
         RealmApi realmApi = new RealmApi();
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
@@ -55,9 +59,11 @@ public class ShoppingCartFragment extends Fragment {
         ProductRepository productRepository = new ProductRepository(
                 new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
                 new ProductLocalDataSource(realmApi), domainRepository);
-
+        UserRepository userRepository =
+                new UserRepository(new UserRemoteDataSource(FOrderServiceClient.getInstance()),
+                        new UserLocalDataSource(prefsApi));
         ShoppingCartContract.Presenter presenter =
-                new ShoppingCartPresenter(mViewModel, productRepository);
+                new ShoppingCartPresenter(mViewModel, productRepository, userRepository);
         mViewModel.setPresenter(presenter);
     }
 

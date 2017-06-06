@@ -9,6 +9,7 @@ import com.framgia.forder.data.source.remote.api.request.CommentRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterProductRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateProductRequest;
+import com.framgia.forder.data.source.remote.api.response.OrderCartResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterProductResponse;
 import com.framgia.forder.data.source.remote.api.response.UpdateProductResponse;
 import java.util.List;
@@ -41,7 +42,7 @@ public interface ProductDataSource {
 
         Observable<List<Product>> getListProductInShop(int shopId, int domainId);
 
-        Observable<Void> orderProduct(OrderRequest orderRequest);
+        Observable<OrderCartResponse> orderProduct(int domainId, OrderRequest orderRequest);
 
         Observable<List<Comment>> getListCommentInProduct(int productId, int domainId);
 

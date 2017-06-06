@@ -3,15 +3,19 @@ package com.framgia.forder.screen.cart;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.source.ProductRepository;
+import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
+import com.framgia.forder.data.source.remote.api.response.OrderCartResponse;
 import com.framgia.forder.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 import rx.Subscriber;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -23,12 +27,14 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
     private static final String TAG = ShoppingCartPresenter.class.getName();
     private final CompositeSubscription mCompositeSubscription;
     private final ShoppingCartContract.ViewModel mViewModel;
-    private ProductRepository mProductRepository;
+    private final ProductRepository mProductRepository;
+    private final UserRepository mUserRepository;
 
     ShoppingCartPresenter(ShoppingCartContract.ViewModel viewModel,
-            ProductRepository productRepository) {
+            ProductRepository productRepository, UserRepository userRepository) {
         mViewModel = viewModel;
         mProductRepository = productRepository;
+        mUserRepository = userRepository;
         mCompositeSubscription = new CompositeSubscription();
     }
 
@@ -61,48 +67,83 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
     }
 
     @Override
-    public void orderOneShop(final Cart cart) {
-        if (cart == null) {
-            return;
+    public void orderOneShop(final OrderRequest orderRequest) {
+        for (Cart cart : orderRequest.getCartList()) {
+            cart.setUserId(mUserRepository.getUser().getId());
         }
-        List<Cart> cartList = new ArrayList<>();
-        cartList.add(cart);
-        Subscription subscription =
-                mProductRepository.orderOneShop(getOrderRequest(cartList), cart.getShopId())
-                        .subscribe(new Subscriber<Void>() {
-                            @Override
-                            public void onCompleted() {
-                                mViewModel.onOrderOneShopSuccess();
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                mViewModel.onOrderOneShopError(e);
-                            }
-
-                            @Override
-                            public void onNext(Void aVoid) {
-                                // No-Op
-                            }
-                        });
+        Subscription subscription = mProductRepository.orderCart(orderRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<OrderCartResponse>() {
+                    @Override
+                    public void call(OrderCartResponse orderCartResponse) {
+                        mViewModel.onOrderOneShopSuccess();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onOrderOneShopError(error);
+                    }
+                });
         mCompositeSubscription.add(subscription);
     }
 
     @Override
-    public void orderAllShop(final List<Cart> carts) {
-        if (carts == null) {
-            return;
+    public void orderAllShop(final OrderRequest orderRequest) {
+        for (Cart cart : orderRequest.getCartList()) {
+            cart.setUserId(mUserRepository.getUser().getId());
         }
-        Subscription subscription = mProductRepository.orderAllShop(getOrderRequest(carts))
+        Subscription subscription = mProductRepository.orderCart(orderRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<OrderCartResponse>() {
+                    @Override
+                    public void call(OrderCartResponse orderCartResponse) {
+                        mViewModel.onOrderAllShopSuccess();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onOrderAllShopError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void removeOneShop(Cart cart) {
+        Subscription subscription = mProductRepository.removeOrderOneShop(cart.getShopId())
                 .subscribe(new Subscriber<Void>() {
                     @Override
                     public void onCompleted() {
-                        mViewModel.onOrderAllShopSuccess();
+                        mViewModel.onRemoveShopSuccessful();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        mViewModel.onOrderAllShopError(e);
+                        mViewModel.onRemoveShopError(e);
+                    }
+
+                    @Override
+                    public void onNext(Void aVoid) {
+                        // No-Op
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void removeAllShop() {
+        Subscription subscription =
+                mProductRepository.removeAllOrder().subscribe(new Subscriber<Void>() {
+                    @Override
+                    public void onCompleted() {
+                        mViewModel.onRemoveShopSuccessful();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mViewModel.onRemoveShopError(e);
                     }
 
                     @Override

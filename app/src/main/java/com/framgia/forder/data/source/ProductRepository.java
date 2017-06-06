@@ -9,6 +9,7 @@ import com.framgia.forder.data.source.remote.api.request.CommentRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterProductRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateProductRequest;
+import com.framgia.forder.data.source.remote.api.response.OrderCartResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterProductResponse;
 import com.framgia.forder.data.source.remote.api.response.UpdateProductResponse;
 import java.util.List;
@@ -36,28 +37,8 @@ public class ProductRepository {
         return mRemoteDataSource.getListProduct(mCurrentDomainId);
     }
 
-    public Observable<Void> orderOneShop(OrderRequest orderRequest, final int shopId) {
-   /*     return mRemoteDataSource.orderProduct(orderRequest)
-                .flatMap(new Func1<Void, Observable<Void>>() {
-                    @Override
-                    public Observable<Void> call(Void aVoid) {
-                        return removeOrderOneShop(shopId);
-                    }
-                });*/
-        //TODO change later
-        return removeOrderOneShop(shopId);
-    }
-
-    public Observable<Void> orderAllShop(OrderRequest orderRequest) {
-      /*  return mRemoteDataSource.orderProduct(orderRequest)
-                .flatMap(new Func1<Void, Observable<Void>>() {
-                    @Override
-                    public Observable<Void> call(Void aVoid) {
-                        return removeAllOrder();
-                    }
-                });*/
-        //TODO change later
-        return removeAllOrder();
+    public Observable<OrderCartResponse> orderCart(OrderRequest orderRequest) {
+        return mRemoteDataSource.orderProduct(mCurrentDomainId, orderRequest);
     }
 
     public Observable<Void> addToCart(Product product) {
@@ -88,11 +69,11 @@ public class ProductRepository {
         return mLocalProductDataSource.getAllShoppingCart(mCurrentDomainId);
     }
 
-    private Observable<Void> removeOrderOneShop(int shopId) {
+    public Observable<Void> removeOrderOneShop(int shopId) {
         return mLocalProductDataSource.removeOrderOneShop(shopId, mCurrentDomainId);
     }
 
-    private Observable<Void> removeAllOrder() {
+    public Observable<Void> removeAllOrder() {
         return mLocalProductDataSource.removeAllOrder(mCurrentDomainId);
     }
 
