@@ -38,7 +38,9 @@ public class OrderShopFragment extends Fragment {
         Navigator navigator = new Navigator(getParentFragment());
         ShopManagement shopManagement = (ShopManagement) getArguments().get(EXTRA_ORDER_SHOP);
         OrderShopAdapter adapter = new OrderShopAdapter(getActivity());
-        mViewModel = new OrderShopViewModel(navigator, adapter, shopManagement);
+        mViewModel =
+                new OrderShopViewModel(getContext().getApplicationContext(), navigator, adapter,
+                        shopManagement);
 
         OrderRepository orderRepository =
                 new OrderRepository(new OrderRemoteDataSource(FOrderServiceClient.getInstance()));
@@ -60,5 +62,14 @@ public class OrderShopFragment extends Fragment {
     public void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!isAdded() || !isVisibleToUser) {
+            return;
+        }
+        mViewModel.onReLoadData();
     }
 }

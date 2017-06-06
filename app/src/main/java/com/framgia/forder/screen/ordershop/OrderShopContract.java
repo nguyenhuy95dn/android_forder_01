@@ -27,6 +27,12 @@ interface OrderShopContract {
         void onOrderSuccess(List<Order> orders);
 
         void onOrderError(Exception exception);
+
+        void onReLoadData();
+
+        void onShowProgressBarListOrder();
+
+        void onHideProgressBarListOrder();
     }
 
     /**

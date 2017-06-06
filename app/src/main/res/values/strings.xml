@@ -151,4 +151,6 @@
     <string name="rejected_status">rejected</string>
     <string name="input_your_note">Input your note</string>
     <string name="add_note">Add note</string>
+    <string name="reject_all">Reject All</string>
+    <string name="accept_all">Accept All</string>
 </resources>

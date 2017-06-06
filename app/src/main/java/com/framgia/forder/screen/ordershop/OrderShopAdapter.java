@@ -79,7 +79,9 @@ public class OrderShopAdapter extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.item_user_order, null);
         }
         ViewDataBinding mBinding = DataBindingUtil.bind(convertView);
-        mBinding.setVariable(BR.viewModel, new ItemGroupOrderViewModel(getGroup(groupPosition)));
+        mBinding.setVariable(BR.viewModel,
+                new ItemGroupOrderViewModel(mContext, getGroup(groupPosition),
+                        mOrderManagementListener));
         mBinding.executePendingBindings();
         return convertView;
     }
