@@ -1,12 +1,14 @@
 package com.framgia.forder.data.model;
 
 import com.framgia.forder.utils.OrderStatusCode;
+import com.framgia.forder.utils.Utils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 import static com.framgia.forder.utils.Constant.FORMAT_PRICE;
 import static com.framgia.forder.utils.Constant.UNIT_MONEY;
+import static com.framgia.forder.utils.Constant.VERTICAL_COLUMN;
 
 public class Order {
     @Expose
@@ -153,7 +155,13 @@ public class Order {
         mOrderDetails = orderDetails;
     }
 
-    public String getFormatTotalPrice() {
+    public String getTotalPriceFormat() {
         return String.format(FORMAT_PRICE, mTotalPay) + UNIT_MONEY;
+    }
+
+    public String getTimeOrderFormat() {
+        return Utils.DateTimeUntils.convertUiFormatToDataFormat(mTimeCreateOrder,
+                Utils.INPUT_TIME_FORMAT,
+                Utils.OUTPUT_TIME_FORMAT + VERTICAL_COLUMN + Utils.OUTPUT_DATE_FORMAT);
     }
 }

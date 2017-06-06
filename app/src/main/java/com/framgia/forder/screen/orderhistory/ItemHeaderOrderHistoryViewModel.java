@@ -25,7 +25,7 @@ public class ItemHeaderOrderHistoryViewModel extends BaseObservable {
     }
 
     public String getTotalPrice() {
-        return mOrder != null ? mOrder.getFormatTotalPrice() : "";
+        return mOrder != null ? mOrder.getTotalPriceFormat() : "";
     }
 
     public String getShopName() {

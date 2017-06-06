@@ -87,7 +87,8 @@
     <string name="continue_check">Continue</string>
     <string name="shop_related">Shop Related</string>
     <string name="add_a_comment">Add a comment</string>
-    <string name="quantity">Quantity:\u0020</string>
+    <string name="quantity">Quantity : %d</string>
+    <string name="prices">Price : %s</string>
     <string name="start_date">Start date </string>
     <string name="end_date">End date </string>
     <string name="filter">Filter</string>
@@ -144,5 +145,6 @@
     <string name="create_product_successful">Create Product Successful!</string>
     <string name="edit_product">Edit Product</string>
     <string name="update_successful">Update Successful</string>
+    <string name="note">Note :</string>
     <string name="order_successful">Order Successful!</string>
 </resources>

@@ -23,7 +23,7 @@ public class ItemParentCheckOrderViewModel extends BaseObservable {
     }
 
     public String getTotalPrice() {
-        return mOrder.getFormatTotalPrice();
+        return mOrder.getTotalPriceFormat();
     }
 
     public String getOrderDate() {

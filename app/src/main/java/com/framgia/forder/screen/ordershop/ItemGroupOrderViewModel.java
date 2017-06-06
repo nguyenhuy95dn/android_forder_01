@@ -20,10 +20,33 @@ public class ItemGroupOrderViewModel {
         return "";
     }
 
-    public String getTimeCreateOrder() {
+    public String getNameUser() {
         if (mOrder != null) {
-            return mOrder.getTimeCreateOrder();
+            return mOrder.getUserName();
         }
         return "";
     }
+
+    public String getTimeCreateOrder() {
+        if (mOrder != null) {
+            return mOrder.getTimeOrderFormat();
+        }
+        return "";
+    }
+
+    public String getPrice() {
+        if (mOrder != null) {
+            return mOrder.getTotalPriceFormat();
+        }
+        return "";
+    }
+
+    public void onClickAcceptOrder() {
+        //        Todo Accept Order
+    }
+
+    public void onClickRejectOrder() {
+        //     Todo Reject Order
+    }
+
 }
