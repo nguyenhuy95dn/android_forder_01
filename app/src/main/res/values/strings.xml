@@ -149,4 +149,6 @@
     <string name="order_successful">Order Successful!</string>
     <string name="accepted_status">accepted</string>
     <string name="rejected_status">rejected</string>
+    <string name="input_your_note">Input your note</string>
+    <string name="add_note">Add note</string>
 </resources>

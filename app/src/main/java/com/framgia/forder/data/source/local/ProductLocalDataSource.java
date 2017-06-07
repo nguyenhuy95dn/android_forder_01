@@ -1,7 +1,6 @@
 package com.framgia.forder.data.source.local;
 
 import android.support.annotation.NonNull;
-import com.framgia.forder.R;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.model.Product;
@@ -57,8 +56,6 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                                 realm.where(ShoppingCart.class).max("mShoppingCartId").intValue()
                                         + 1);
                     }
-                    //Todo fix notes later
-                    product.setNotes(String.valueOf(R.string.accept));
                     cart.setDomainId(domainId);
                     cart.setShopId(product.getShopId());
                     cart.setQuantity(DEFAULT_QUANTITY);
@@ -100,6 +97,26 @@ public class ProductLocalDataSource implements ProductDataSource.LocalDataSource
                         .findFirst();
                 try {
                     cart.deleteFromRealm();
+                } catch (IllegalStateException e) {
+                    subscriber.onError(e);
+                }
+            }
+        }).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Void> editNoteShoppingCart(@NonNull final int productId,
+            @NonNull final int domainId, final String note) {
+        return mRealmApi.realmTransactionAsync(new Action2<Subscriber<? super Void>, Realm>() {
+            @Override
+            public void call(Subscriber<? super Void> subscriber, Realm realm) {
+                ShoppingCart cart = realm.where(ShoppingCart.class)
+                        .equalTo("mDomainId", domainId)
+                        .equalTo("mProductId", productId)
+                        .findFirst();
+                try {
+                    cart.setNotes(note);
+                    realm.insertOrUpdate(cart);
                 } catch (IllegalStateException e) {
                     subscriber.onError(e);
                 }

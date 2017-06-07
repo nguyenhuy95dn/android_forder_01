@@ -1,5 +1,7 @@
 package com.framgia.forder.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,7 +12,18 @@ import static com.framgia.forder.utils.Constant.UNIT_MONEY;
  * Created by tri on 20/04/2017.
  */
 
-public class CartItem {
+public class CartItem implements Parcelable {
+    public static final Parcelable.Creator<CartItem> CREATOR = new Parcelable.Creator<CartItem>() {
+        @Override
+        public CartItem createFromParcel(Parcel in) {
+            return new CartItem(in);
+        }
+
+        @Override
+        public CartItem[] newArray(int size) {
+            return new CartItem[size];
+        }
+    };
 
     @SerializedName("product_id")
     @Expose
@@ -46,6 +59,20 @@ public class CartItem {
         mEndHour = endHour;
         mTotal = total;
         mNotes = notes;
+    }
+
+    private CartItem(Parcel in) {
+        mProductId = in.readInt();
+        mPrice = in.readDouble();
+        mQuantity = in.readInt();
+        mNotes = in.readString();
+        mDomainId = in.readInt();
+        mShopId = in.readInt();
+        mProductName = in.readString();
+        mProductImage = in.readString();
+        mStartHour = in.readString();
+        mEndHour = in.readString();
+        mTotal = in.readDouble();
     }
 
     public int getDomainId() {
@@ -138,5 +165,25 @@ public class CartItem {
 
     public void setNotes(String notes) {
         mNotes = notes;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mProductId);
+        dest.writeDouble(mPrice);
+        dest.writeDouble(mQuantity);
+        dest.writeString(mNotes);
+        dest.writeInt(mDomainId);
+        dest.writeInt(mShopId);
+        dest.writeString(mProductName);
+        dest.writeString(mProductImage);
+        dest.writeString(mStartHour);
+        dest.writeString(mEndHour);
+        dest.writeDouble(mTotal);
     }
 }
