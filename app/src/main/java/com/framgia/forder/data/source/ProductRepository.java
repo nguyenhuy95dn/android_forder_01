@@ -49,6 +49,10 @@ public class ProductRepository {
         return mLocalProductDataSource.deleteShoppingCard(productId, mCurrentDomainId);
     }
 
+    public Observable<Void> editNoteCart(int productId, String note) {
+        return mLocalProductDataSource.editNoteShoppingCart(productId, mCurrentDomainId, note);
+    }
+
     public Observable<Void> upQuantity(int productId) {
         return mLocalProductDataSource.upQuantity(productId, mCurrentDomainId);
     }

@@ -22,6 +22,9 @@ public interface ProductDataSource {
 
         Observable<Void> deleteShoppingCard(@NonNull int productId, @NonNull int domainId);
 
+        Observable<Void> editNoteShoppingCart(@NonNull int productId, @NonNull int domainId,
+                String note);
+
         Observable<Void> upQuantity(@NonNull int productId, @NonNull int domainId);
 
         Observable<Void> downQuantity(@NonNull int productId, @NonNull int domainId);
