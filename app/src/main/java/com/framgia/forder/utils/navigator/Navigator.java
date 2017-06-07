@@ -10,11 +10,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.Toast;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.CartItem;
+import com.framgia.forder.screen.cart.notecart.NoteCartFragment;
 
 /**
  * Created by le.quang.dao on 14/03/2017.
@@ -178,6 +181,11 @@ public class Navigator {
         transaction.replace(containerViewId, fragment, tag);
         transaction.commitAllowingStateLoss();
         mActivity.getSupportFragmentManager().executePendingTransactions();
+    }
+
+    public void showAddNoteDialog(CartItem cartItem, String tag) {
+        FragmentManager fragmentManager = mFragment.getFragmentManager();
+        NoteCartFragment.newInstance(cartItem).show(fragmentManager, tag);
     }
 
     @IntDef({ RIGHT_LEFT, BOTTOM_UP, FADED, NONE, LEFT_RIGHT })

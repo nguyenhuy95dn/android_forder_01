@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -22,6 +23,9 @@ public class Utils {
     public static final String OUTPUT_TIME_FORMAT = "HH:mm";
     public static final String OUTPUT_DATE_FORMAT = "dd-MM-yyyy";
     public static final String FORMAT_PRICE = "%1$,.0f";
+    public static final String TWO_DOT = ":";
+    public static final int WRONG_TIME = 11;
+    public static final int HOUR_OF_DAY = 24;
 
     public static class DateTimeUntils {
         public static String convertUiFormatToDataFormat(String time, String inputFormat,
@@ -39,13 +43,16 @@ public class Utils {
         }
 
         public static boolean isProductTimeOut(String start, String end) {
-            SimpleDateFormat parser =
-                    new SimpleDateFormat(Constant.FORMAT_TIME, Locale.getDefault());
-            Date currentHour = convertStringToDate(parser.format(new Date()));
+            Calendar now = Calendar.getInstance();
+            int hour = now.get(Calendar.HOUR_OF_DAY) + WRONG_TIME;
+            int minute = now.get(Calendar.MINUTE);
+            if (hour >= 24) {
+                hour = hour - HOUR_OF_DAY;
+            }
+            Date currentHour = convertStringToDate(hour + TWO_DOT + minute);
             Date startHour = convertStringToDate(start);
             Date endHour = convertStringToDate(end);
-            return !(currentHour.getTime() >= startHour.getTime()
-                    && currentHour.getTime() <= endHour.getTime());
+            return !(startHour.before(currentHour) && endHour.after(currentHour));
         }
 
         private static Date convertStringToDate(String date) {
