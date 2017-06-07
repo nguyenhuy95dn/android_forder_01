@@ -9,6 +9,7 @@ import com.framgia.forder.data.source.remote.api.response.OrderManagerShopRepons
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -43,6 +44,12 @@ final class OrderShopPresenter implements OrderShopContract.Presenter {
     public void getListOrderManagementShop(int shopId) {
         Subscription subscription = mOrderRepository.getListOrderManagementShop(shopId)
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressBarListOrder();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Order>>() {
                     @Override
@@ -53,6 +60,11 @@ final class OrderShopPresenter implements OrderShopContract.Presenter {
                     @Override
                     public void onSafetyError(BaseException error) {
                         mViewModel.onGetListOrderManagementShopError(error);
+                    }
+                }, new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressBarListOrder();
                     }
                 });
         mCompositeSubscription.add(subscription);

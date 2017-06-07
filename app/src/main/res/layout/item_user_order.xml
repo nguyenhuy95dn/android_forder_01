@@ -79,7 +79,7 @@
                         tools:ignore="RelativeOverlap"
                     />
                     <TextView
-                        android:onClick="@{() -> viewModel.onClickAcceptOrder()}"
+                        android:onClick="@{() -> viewModel.onClickRejectOrder()}"
                         android:id="@+id/text_reject"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                         tools:ignore="RelativeOverlap"
                         />
                     <TextView
-                        android:onClick="@{() -> viewModel.onClickRejectOrder()}"
+                        android:onClick="@{() -> viewModel.onClickAcceptOrder()}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"

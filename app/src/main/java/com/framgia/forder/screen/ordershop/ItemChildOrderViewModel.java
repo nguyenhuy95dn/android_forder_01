@@ -92,7 +92,7 @@ public class ItemChildOrderViewModel {
         OrderManagement orderManagement = new OrderManagement();
         orderManagement.setShopId(mOrder.getShopId());
         orderManagement.setStatus(mContext.getString(R.string.accepted_status));
-        orderManagement.setOrderProductId(mOrderDetail.getProductId());
+        orderManagement.setOrderProductId(mOrderDetail.getId());
         mOrderManagementListener.onAcceptOrRejectOrderManager(orderManagement);
     }
 
@@ -100,7 +100,7 @@ public class ItemChildOrderViewModel {
         OrderManagement orderManagement = new OrderManagement();
         orderManagement.setShopId(mOrder.getShopId());
         orderManagement.setStatus(mContext.getString(R.string.rejected_status));
-        orderManagement.setOrderProductId(mOrderDetail.getProductId());
+        orderManagement.setOrderProductId(mOrderDetail.getId());
         mOrderManagementListener.onAcceptOrRejectOrderManager(orderManagement);
     }
 
