@@ -24,7 +24,7 @@ interface OrderShopContract {
 
         void onAcceptOrRejectOrderManageError(Exception exception);
 
-        void onOrderSuccess(List<Order> orders);
+        void onOrderSuccess();
 
         void onOrderError(Exception exception);
 

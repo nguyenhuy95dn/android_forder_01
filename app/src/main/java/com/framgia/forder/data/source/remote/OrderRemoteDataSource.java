@@ -3,6 +3,7 @@ package com.framgia.forder.data.source.remote;
 import com.framgia.forder.data.model.Order;
 import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.source.OrderDataSource;
+import com.framgia.forder.data.source.remote.api.response.CloseOrderResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderManagerShopReponse;
 import com.framgia.forder.data.source.remote.api.response.OrderResponse;
@@ -74,16 +75,13 @@ public class OrderRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<List<Order>> notifyDoneOrderToServer(int shopId) {
+    public Observable<Void> notifyDoneOrderToServer(int shopId) {
         return mFOrderApi.notifyDoneOrderToServer(shopId)
-                .flatMap(new Func1<OrderManagementResponse, Observable<List<Order>>>() {
+                .flatMap(new Func1<CloseOrderResponse, Observable<Void>>() {
                     @Override
-                    public Observable<List<Order>> call(
-                            OrderManagementResponse orderManagementResponse) {
-                        if (orderManagementResponse != null) {
-                            return Observable.just(orderManagementResponse.getOrders());
-                        }
-                        return Observable.error(new NullPointerException());
+                    public Observable<Void> call(
+                            CloseOrderResponse closeOrderResponse) {
+                        return Observable.just(null);
                     }
                 });
     }

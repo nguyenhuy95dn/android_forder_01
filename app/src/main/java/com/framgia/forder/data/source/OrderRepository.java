@@ -93,7 +93,7 @@ public class OrderRepository {
         return mRemoteDataSource.acceptAndRejectInOrder(shopId, acceptProductInOrderRequest);
     }
 
-    public Observable<List<Order>> notifyDoneOrderToServer(int shopId) {
+    public Observable<Void> notifyDoneOrderToServer(int shopId) {
         return mRemoteDataSource.notifyDoneOrderToServer(shopId);
     }
 

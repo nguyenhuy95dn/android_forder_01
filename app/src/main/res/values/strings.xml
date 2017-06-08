@@ -153,4 +153,6 @@
     <string name="add_note">Add note</string>
     <string name="reject_all">Reject All</string>
     <string name="accept_all">Accept All</string>
+    <string name="close_order">Close Order</string>
+    <string name="close_order_success">Close Order Success</string>
 </resources>
