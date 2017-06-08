@@ -2,6 +2,7 @@ package com.framgia.forder.screen.profilepage;
 
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.User;
+import com.framgia.forder.screen.domainmanagement.DomainManagementFragment;
 import com.framgia.forder.screen.login.LoginActivity;
 import com.framgia.forder.screen.orderhistory.OrderHistoryFragment;
 import com.framgia.forder.screen.ordermanagement.OrderManagementActivity;
@@ -16,7 +17,7 @@ import com.framgia.forder.utils.navigator.Navigator;
 public class ProfilePageViewModel implements ProfilePageContract.ViewModel {
     private static final String TAG = "ProfileDetailFragment";
 
-    private Navigator mNavigator;
+    private final Navigator mNavigator;
     private ProfilePageContract.Presenter mPresenter;
     private User mUser;
 
@@ -75,7 +76,8 @@ public class ProfilePageViewModel implements ProfilePageContract.ViewModel {
     }
 
     public void onClickDomainManagement() {
-        //TODO: open Domain Management
+        mNavigator.goNextChildFragment(R.id.layout_content, DomainManagementFragment.newInstance(),
+                true, Navigator.RIGHT_LEFT, "DomainManagementFragment");
     }
 
     public void onLogoutClicked() {
