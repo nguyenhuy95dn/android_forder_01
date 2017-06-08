@@ -21,6 +21,6 @@ public interface OrderDataSource {
         Observable<OrderManagerShopReponse> acceptAndRejectInOrder(int shopId,
                 OrderManagement acceptProductInOrderRequest);
 
-        Observable<List<Order>> notifyDoneOrderToServer(int shopId);
+        Observable<Void> notifyDoneOrderToServer(int shopId);
     }
 }

@@ -10,6 +10,7 @@ import com.framgia.forder.data.source.remote.api.request.UpdateProductRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateShopRequest;
 import com.framgia.forder.data.source.remote.api.response.CategoryResponse;
+import com.framgia.forder.data.source.remote.api.response.CloseOrderResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
 import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
 import com.framgia.forder.data.source.remote.api.response.NotificationResponse;
@@ -138,6 +139,6 @@ public interface FOrderApi {
     Observable<OrderManagerShopReponse> acceptAndRejectInOrder(@Query("shop_id") int shopId,
             @Body OrderManagement acceptAndRejectInOrderRequest);
 
-    @GET("v1/dashboard/order_products/0")
-    Observable<OrderManagementResponse> notifyDoneOrderToServer(@Query("shop_id") int shopId);
+    @GET("v1/dashboard/order_products")
+    Observable<CloseOrderResponse> notifyDoneOrderToServer(@Query("shop_id") int shopId);
 }

@@ -95,10 +95,10 @@ final class OrderShopPresenter implements OrderShopContract.Presenter {
         Subscription subscription = mOrderRepository.notifyDoneOrderToServer(shopId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<List<Order>>() {
+                .subscribe(new Action1<Void>() {
                     @Override
-                    public void call(List<Order> orders) {
-                        mViewModel.onOrderSuccess(orders);
+                    public void call(Void aVoid) {
+                        mViewModel.onOrderSuccess();
                     }
                 }, new SafetyError() {
                     @Override

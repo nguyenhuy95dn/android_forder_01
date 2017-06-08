@@ -38,12 +38,18 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/dp_5"
                 >
-                <ImageButton
-                    android:layout_width="@dimen/dp_30"
-                    android:layout_height="@dimen/dp_30"
-                    android:background="@drawable/ic_list_order"
-                    android:onClick="@{() -> viewModel.onClickShowListOrderAccepted()}"
-                    tools:ignore="ContentDescription"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@drawable/ic_cart_shop"
+                    android:drawableStart="@drawable/ic_cart_shop"
+                    android:fontFamily="@string/font_serif"
+                    android:gravity="center_vertical"
+                    android:onClick="@{() -> viewModel.onClickCloseOrder()}"
+                    android:text="@string/close_order"
+                    android:textColor="@color/color_red_mos"
+                    android:textStyle="bold"
+                    tools:ignore="ContentDescription,UnusedAttribute"
                     />
                 <TextView
                     android:id="@+id/text_reject"

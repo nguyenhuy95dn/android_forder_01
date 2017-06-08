@@ -76,9 +76,9 @@ public class OrderShopViewModel
     }
 
     @Override
-    public void onOrderSuccess(List<Order> orders) {
-        mNavigator.showToast(R.string.order_successful);
-        mOrderShopAdapter.notifyDataSetChanged();
+    public void onOrderSuccess() {
+        mNavigator.showToast(R.string.close_order_success);
+        onReLoadData();
     }
 
     @Override
@@ -132,10 +132,6 @@ public class OrderShopViewModel
     public void onClickCloseOrder() {
         mPresenter.notifyDoneOrderToServer(mShopId);
         onReLoadData();
-    }
-
-    public void onClickShowListOrderAccepted() {
-        //        Todo show list Order Accepted
     }
 
     public ObservableField<Integer> getProgressBarVisibilityListOrder() {
