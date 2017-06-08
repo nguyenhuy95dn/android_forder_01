@@ -75,5 +75,7 @@ interface ShoppingCartContract {
         void deleteProduct(CartItem cartItem);
 
         void getTotalPrice();
+
+        OrderRequest getOrderRequest(List<Cart> carts);
     }
 }

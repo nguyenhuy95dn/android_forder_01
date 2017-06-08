@@ -246,19 +246,24 @@ final class ShoppingCartPresenter implements ShoppingCartContract.Presenter {
         mCompositeSubscription.add(subscriptions);
     }
 
-    private OrderRequest getOrderRequest(List<Cart> carts) {
+    @Override
+    public OrderRequest getOrderRequest(List<Cart> carts) {
         OrderRequest orderRequest = new OrderRequest();
         List<Cart> cartList = new ArrayList<>();
         for (Cart cart : carts) {
+            boolean isTimeOut = false;
             List<CartItem> cartItemList = new ArrayList<>();
             for (CartItem cartItem : cart.getCartItemList()) {
                 if (!Utils.DateTimeUntils.isProductTimeOut(cartItem.getStartHour(),
                         cartItem.getEndHour())) {
                     cartItemList.add(cartItem);
+                    isTimeOut = true;
                 }
             }
-            cart.setCartItemList(cartItemList);
-            cartList.add(cart);
+            if (isTimeOut) {
+                cart.setCartItemList(cartItemList);
+                cartList.add(cart);
+            }
         }
         orderRequest.setCartList(cartList);
         return orderRequest;

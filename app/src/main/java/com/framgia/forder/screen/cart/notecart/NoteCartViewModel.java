@@ -2,7 +2,6 @@ package com.framgia.forder.screen.cart.notecart;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.view.View;
 import com.framgia.forder.BR;
 import com.framgia.forder.data.model.CartItem;
 
@@ -45,5 +44,6 @@ public class NoteCartViewModel extends BaseObservable implements NoteCartContrac
     public void setNote(String note) {
         mNote = note;
         notifyPropertyChanged(BR.note);
+        mCartItem.setNotes(mNote);
     }
 }

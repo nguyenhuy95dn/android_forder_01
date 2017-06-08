@@ -59,6 +59,13 @@ public class ItemShoppingCartViewModel extends BaseObservable {
         mOrderItemListener.onClickIconWarning();
     }
 
+    public void clickAddNotes() {
+        if (mOrderItemListener == null) {
+            return;
+        }
+        mOrderItemListener.onClickAddNotes(mCartItem);
+    }
+
     public String getProductImage() {
         return mCartItem.getProductImage();
     }

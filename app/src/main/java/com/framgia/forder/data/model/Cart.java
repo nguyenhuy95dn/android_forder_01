@@ -14,7 +14,7 @@ public class Cart {
     @SerializedName("domain_id")
     @Expose
     private int mDomainId;
-    @SerializedName("total_price")
+    @SerializedName("total_pay")
     @Expose
     private int mTotal;
     @SerializedName("shop_id")

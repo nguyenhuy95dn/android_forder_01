@@ -9,7 +9,6 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
-import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
@@ -26,11 +25,11 @@ public class ShoppingCartViewModel extends BaseObservable
         implements ShoppingCartContract.ViewModel, OrderItemListener {
     private static final String TAG = "ShoppingCartFragment";
     private final ShoppingCartAdapter mShoppingCartAdapter;
+    private final DialogManager mDialogManager;
+    private final Navigator mNavigator;
     private ShoppingCartContract.Presenter mPresenter;
     private double mTotalPrice;
     private List<Cart> mCartList;
-    private final DialogManager mDialogManager;
-    private final Navigator mNavigator;
     private Cart mCart;
 
     ShoppingCartViewModel(ShoppingCartAdapter shoppingCartAdapter, DialogManager dialogManager,
@@ -70,15 +69,13 @@ public class ShoppingCartViewModel extends BaseObservable
             return;
         }
         mCart = cart;
-        List<Cart> carts = new ArrayList<>();
+        final List<Cart> carts = new ArrayList<>();
         carts.add(cart);
-        final OrderRequest request = new OrderRequest();
-        request.setCartList(carts);
         mDialogManager.dialogwithNoTitleTwoButton(R.string.mgs_this_order,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mPresenter.orderOneShop(request);
+                        mPresenter.orderOneShop(mPresenter.getOrderRequest(carts));
                     }
                 });
         mDialogManager.show();
@@ -174,13 +171,11 @@ public class ShoppingCartViewModel extends BaseObservable
 
     @Override
     public void onOrderAllShop() {
-        final OrderRequest request = new OrderRequest();
-        request.setCartList(mCartList);
         mDialogManager.dialogwithNoTitleTwoButton(R.string.mgs_order_all,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mPresenter.orderAllShop(request);
+                        mPresenter.orderAllShop(mPresenter.getOrderRequest(mCartList));
                     }
                 });
         mDialogManager.show();
@@ -224,6 +219,11 @@ public class ShoppingCartViewModel extends BaseObservable
     public void onClickIconWarning() {
         mDialogManager.dialogWarning((R.string.mgs_product_time_out));
         mDialogManager.show();
+    }
+
+    @Override
+    public void onClickAddNotes(CartItem cartItem) {
+        mNavigator.showAddNoteDialog(cartItem, "NoteCartFragment");
     }
 
     @Bindable
