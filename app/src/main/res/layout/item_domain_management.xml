@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
 
@@ -34,21 +35,16 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginRight="@dimen/dp_5"
+                android:layout_marginEnd="@dimen/dp_80"
+                android:layout_marginRight="@dimen/dp_80"
                 android:layout_marginTop="@dimen/dp_5"
-                android:layout_toLeftOf="@+id/layout_button_domain"
-                android:layout_toStartOf="@+id/layout_button_domain"
                 android:orientation="vertical"
                 >
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_lock"
-                    android:drawableStart="@drawable/ic_lock"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
-                    android:maxLines="1"
                     android:paddingEnd="@dimen/dp_5"
                     android:paddingLeft="@dimen/dp_5"
                     android:paddingRight="@dimen/dp_5"
@@ -56,6 +52,7 @@
                     android:text="@{viewModel.name}"
                     android:textColor="@color/color_orange_mos"
                     android:textStyle="bold"
+                    app:leftDrawableText="@{viewModel.imageStatus}"
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -69,12 +66,14 @@
                         android:layout_marginLeft="@dimen/dp_7"
                         android:layout_marginStart="@dimen/dp_7"
                         android:layout_weight="1"
+                        android:onClick="@{()-> viewModel.onClickShowListUserInDomain()}"
                         android:text="@{viewModel.totalUser}"
                         />
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:onClick="@{()-> viewModel.onClickShowListShopInDomain()}"
                         android:text="@{viewModel.totalShop}"
                         />
                     <TextView
@@ -102,9 +101,11 @@
                     android:layout_margin="@dimen/dp_5"
                     android:background="@drawable/button_red"
                     android:gravity="center"
+                    android:onClick="@{()-> viewModel.onClickLeaveDomain()}"
                     android:text="@string/leave"
                     android:textColor="@color/color_white"
                     android:textSize="@dimen/sp_10"
+                    android:visibility="@{viewModel.member ? View.VISIBLE : View.GONE}"
                     tools:ignore="SpUsage"
                     />
             </LinearLayout>

@@ -1,7 +1,9 @@
 package com.framgia.forder.data.source.remote;
 
 import com.framgia.forder.data.model.Domain;
+import com.framgia.forder.data.model.DomainManagement;
 import com.framgia.forder.data.source.DomainDataSource;
+import com.framgia.forder.data.source.remote.api.response.DomainManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
 import com.framgia.forder.data.source.remote.api.service.FOrderApi;
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ import rx.functions.Func1;
  */
 
 public class DomainRemoteDataSource implements DomainDataSource.RemoteDataSource {
-    private FOrderApi mFOrderApi;
+    private final FOrderApi mFOrderApi;
 
     public DomainRemoteDataSource(FOrderApi api) {
         mFOrderApi = api;
@@ -35,6 +37,22 @@ public class DomainRemoteDataSource implements DomainDataSource.RemoteDataSource
                             list.add(chooseDomain.getDomain());
                         }
                         return Observable.just(list);
+                    }
+                });
+    }
+
+    @Override
+    public Observable<List<DomainManagement>> getListDomainManagement() {
+        return mFOrderApi.getListDomainManagement()
+                .flatMap(new Func1<DomainManagementResponse, Observable<List<DomainManagement>>>() {
+                    @Override
+                    public Observable<List<DomainManagement>> call(
+                            DomainManagementResponse domainManagementResponse) {
+                        if (domainManagementResponse != null) {
+                            return Observable.just(
+                                    domainManagementResponse.getListDomainManagement());
+                        }
+                        return Observable.error(new NullPointerException());
                     }
                 });
     }
