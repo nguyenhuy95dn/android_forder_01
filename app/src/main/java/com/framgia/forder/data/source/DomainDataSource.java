@@ -1,6 +1,7 @@
 package com.framgia.forder.data.source;
 
 import com.framgia.forder.data.model.Domain;
+import com.framgia.forder.data.model.DomainManagement;
 import com.framgia.forder.data.model.User;
 import java.util.List;
 import rx.Observable;
@@ -20,5 +21,7 @@ public class DomainDataSource {
 
     public interface RemoteDataSource {
         Observable<List<Domain>> getListDomain(int userId, String userEmail, String userToken);
+
+        Observable<List<DomainManagement>> getListDomainManagement();
     }
 }

@@ -18,6 +18,12 @@ public final class Constant {
 
     public static final String UNIT_MONEY = " VNĐ";
 
+    public static final String FORMAT_USER = " User";
+
+    public static final String FORMAT_SHOP = " Shop";
+
+    public static final String FORMAT_PRODUCT = " Product";
+
     public static final String VERTICAL_COLUMN = " | ";
 
     public static final int DEFAULT_QUANTITY = 1;

@@ -94,4 +94,9 @@ public final class BindingUtils {
     public static void setPosition(AppCompatSpinner compatSpinner, int position) {
         compatSpinner.setSelection(position);
     }
+
+    @BindingAdapter("leftDrawableText")
+    public static void setLeftImageText(TextView view, int resId) {
+        view.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0);
+    }
 }

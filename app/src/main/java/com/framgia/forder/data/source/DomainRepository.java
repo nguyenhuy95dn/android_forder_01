@@ -1,6 +1,7 @@
 package com.framgia.forder.data.source;
 
 import com.framgia.forder.data.model.Domain;
+import com.framgia.forder.data.model.DomainManagement;
 import com.framgia.forder.data.model.User;
 import java.util.List;
 import rx.Observable;
@@ -11,8 +12,8 @@ import rx.Observable;
 
 public class DomainRepository {
 
-    private DomainDataSource.RemoteDataSource mRemoteDataSource;
-    private DomainDataSource.LocalDataSource mLocalDataSource;
+    private final DomainDataSource.RemoteDataSource mRemoteDataSource;
+    private final DomainDataSource.LocalDataSource mLocalDataSource;
 
     public DomainRepository(DomainDataSource.RemoteDataSource remoteDataSource,
             DomainDataSource.LocalDataSource localDataSource) {
@@ -38,5 +39,9 @@ public class DomainRepository {
 
     public User getUser() {
         return mLocalDataSource.getUser();
+    }
+
+    public Observable<List<DomainManagement>> getListDomainManagement() {
+        return mRemoteDataSource.getListDomainManagement();
     }
 }
