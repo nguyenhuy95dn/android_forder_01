@@ -8,24 +8,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.databinding.FragmentOrderHistoryShopBinding;
 
 /**
  * OrderHistoryShop Screen.
  */
 public class OrderHistoryShopFragment extends Fragment {
+    private static final String EXTRA_ORDER_HISTORY = "EXTRA_ORDER_HISTORY";
 
     private OrderHistoryShopContract.ViewModel mViewModel;
 
-    public static OrderHistoryShopFragment newInstance() {
-        return new OrderHistoryShopFragment();
+    public static OrderHistoryShopFragment newInstance(ShopManagement shopManagement) {
+        OrderHistoryShopFragment orderHistoryShopFragment = new OrderHistoryShopFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(EXTRA_ORDER_HISTORY, shopManagement);
+        orderHistoryShopFragment.setArguments(bundle);
+        return orderHistoryShopFragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ShopManagement shopManagement = (ShopManagement) getArguments().get(EXTRA_ORDER_HISTORY);
         OrderHistoryPageAdapter adapter =
-                new OrderHistoryPageAdapter(getActivity(), getChildFragmentManager());
+                new OrderHistoryPageAdapter(getActivity(), getChildFragmentManager(),
+                        shopManagement);
         mViewModel = new OrderHistoryShopViewModel(adapter);
 
         OrderHistoryShopContract.Presenter presenter = new OrderHistoryShopPresenter(mViewModel);

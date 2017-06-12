@@ -131,7 +131,8 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
     }
 
     public void onClickOrderHistory() {
-        mNavigator.goNextChildFragment(R.id.layout_content, OrderHistoryShopFragment.newInstance(),
+        mNavigator.goNextChildFragment(R.id.layout_content,
+                OrderHistoryShopFragment.newInstance(this.mShopManagement),
                 true,
                 Navigator.BOTTOM_UP, TAG);
     }
