@@ -156,4 +156,6 @@
     <string name="leave">Leave</string>
     <string name="close_order">Close Order</string>
     <string name="close_order_success">Close Order Success</string>
+    <string name="done_orders">Done Orders</string>
+    <string name="rejected_orders">Rejected Orders</string>
 </resources>

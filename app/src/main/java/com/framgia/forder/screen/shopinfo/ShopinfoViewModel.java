@@ -8,6 +8,7 @@ import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.managerdetail.ManagerDetailFragment;
+import com.framgia.forder.screen.orderhistoryshop.OrderHistoryShopFragment;
 import com.framgia.forder.screen.ordershop.OrderShopFragment;
 import com.framgia.forder.screen.shopupdate.ShopUpdateFragment;
 import com.framgia.forder.utils.navigator.Navigator;
@@ -125,7 +126,13 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
 
     public void onClickListOrderShop() {
         mNavigator.goNextChildFragment(R.id.layout_content,
-                OrderShopFragment.newInstance(this.mShopManagement), true,
+                OrderShopFragment.newInstance(this.mShopManagement), true, Navigator.BOTTOM_UP,
+                TAG);
+    }
+
+    public void onClickOrderHistory() {
+        mNavigator.goNextChildFragment(R.id.layout_content, OrderHistoryShopFragment.newInstance(),
+                true,
                 Navigator.BOTTOM_UP, TAG);
     }
 }
