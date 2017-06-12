@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.framgia.forder.screen.orderhistoryshop.listdoneorders.ListDoneOrdersViewModel"
+            />
+
+        <import type="android.view.View"/>
+
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_5"
+        app:cardCornerRadius="@dimen/dp_5"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_layout"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_5"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_5"
+                >
+                <TextView
+                    android:id="@+id/text_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@string/font_serif"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp_2"
+                    android:text="@{viewModel.timeCreateOrder}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_17"
+                    android:textStyle="bold"
+                    tools:ignore="UnusedAttribute"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="@dimen/dp_5"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_toLeftOf="@+id/text_date"
+                    android:layout_toStartOf="@+id/text_date"
+                    android:background="@drawable/border_price"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.price}"
+                    android:textColor="@color/black"
+                    tools:ignore="RelativeOverlap"
+                    />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/color_gray"
+                />
+            <TextView
+                android:id="@+id/text_product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@string/font_serif"
+                android:text="@{viewModel.nameProduct}"
+                android:textColor="@color/color_blue"
+                android:textSize="@dimen/sp_17"
+                tools:ignore="UnusedAttribute"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.quantity}"
+                />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</layout>

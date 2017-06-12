@@ -1,0 +1,58 @@
+package com.framgia.forder.screen.orderhistoryshop.listdoneorders;
+
+import android.databinding.DataBindingUtil;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import com.framgia.forder.R;
+import com.framgia.forder.data.model.OrderHistory;
+import com.framgia.forder.databinding.FragmentListDoneOrdersBinding;
+
+/**
+ * ListDoneOrders Screen.
+ */
+public class ListDoneOrdersFragment extends Fragment {
+
+    private ListDoneOrdersContract.ViewModel mViewModel;
+
+    public static ListDoneOrdersFragment newInstance() {
+        return new ListDoneOrdersFragment();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        OrderHistory orderHistory = new OrderHistory();
+        mViewModel = new ListDoneOrdersViewModel(orderHistory);
+
+        ListDoneOrdersContract.Presenter presenter = new ListDoneOrdersPresenter(mViewModel);
+        mViewModel.setPresenter(presenter);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
+
+        FragmentListDoneOrdersBinding binding =
+                DataBindingUtil.inflate(inflater, R.layout.fragment_list_done_orders, container,
+                        false);
+        binding.setViewModel((ListDoneOrdersViewModel) mViewModel);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mViewModel.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        mViewModel.onStop();
+        super.onStop();
+    }
+}
