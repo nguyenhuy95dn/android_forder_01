@@ -158,4 +158,8 @@
     <string name="close_order_success">Close Order Success</string>
     <string name="done_orders">Done Orders</string>
     <string name="rejected_orders">Rejected Orders</string>
+    <string name="name_domain">Name Domain</string>
+    <string name="secret">secret</string>
+    <string name="professed">professed</string>
+    <string name="add_domain">Add Domain</string>
 </resources>

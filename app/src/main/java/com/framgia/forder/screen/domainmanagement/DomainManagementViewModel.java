@@ -3,6 +3,8 @@ package com.framgia.forder.screen.domainmanagement;
 import android.databinding.BaseObservable;
 import com.framgia.forder.data.model.DomainManagement;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainFragment;
+import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainListener;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
 
@@ -11,18 +13,19 @@ import java.util.List;
  */
 
 public class DomainManagementViewModel extends BaseObservable
-        implements DomainManagementContract.ViewModel, DomainManagementListener {
+        implements DomainManagementContract.ViewModel, DomainManagementListener, AddDomainListener {
     private static final String TAG = "DomainManagementViewModel";
 
     private DomainManagementContract.Presenter mPresenter;
     private final DomainManagementAdapter mDomainManagementAdapter;
     private final Navigator mNavigator;
 
-    DomainManagementViewModel(DomainManagementAdapter domainManagementAdapter,
-            Navigator navigator) {
+    DomainManagementViewModel(DomainManagementAdapter domainManagementAdapter, Navigator navigator,
+            AddDomainFragment addDomainFragment) {
         mDomainManagementAdapter = domainManagementAdapter;
         mNavigator = navigator;
         domainManagementAdapter.setDomainManagementListener(this);
+        addDomainFragment.setAddDomainListener(this);
     }
 
     @Override
@@ -70,6 +73,11 @@ public class DomainManagementViewModel extends BaseObservable
     }
 
     public void onClickAddDomain() {
-        //Todo dev later
+        mNavigator.showAddDomainDialog("AddDomainFragment", this);
+    }
+
+    @Override
+    public void onUpdateData() {
+        mPresenter.getListDomainManagement();
     }
 }

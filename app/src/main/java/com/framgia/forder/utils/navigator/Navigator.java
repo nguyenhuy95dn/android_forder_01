@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.screen.cart.notecart.NoteCartFragment;
+import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainFragment;
+import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainListener;
 
 /**
  * Created by le.quang.dao on 14/03/2017.
@@ -186,6 +188,13 @@ public class Navigator {
     public void showAddNoteDialog(CartItem cartItem, String tag) {
         FragmentManager fragmentManager = mFragment.getFragmentManager();
         NoteCartFragment.newInstance(cartItem).show(fragmentManager, tag);
+    }
+
+    public void showAddDomainDialog(String tag, AddDomainListener listener) {
+        FragmentManager fragmentManager = mFragment.getFragmentManager();
+        AddDomainFragment fragment = AddDomainFragment.newInstance();
+        fragment.setAddDomainListener(listener);
+        fragment.show(fragmentManager, tag);
     }
 
     @IntDef({ RIGHT_LEFT, BOTTOM_UP, FADED, NONE, LEFT_RIGHT })
