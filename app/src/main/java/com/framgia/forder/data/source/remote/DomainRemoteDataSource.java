@@ -3,8 +3,10 @@ package com.framgia.forder.data.source.remote;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.DomainManagement;
 import com.framgia.forder.data.source.DomainDataSource;
+import com.framgia.forder.data.source.remote.api.request.RegisterDomainRequest;
 import com.framgia.forder.data.source.remote.api.response.DomainManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
+import com.framgia.forder.data.source.remote.api.response.RegisterDomainResponse;
 import com.framgia.forder.data.source.remote.api.service.FOrderApi;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,5 +57,11 @@ public class DomainRemoteDataSource implements DomainDataSource.RemoteDataSource
                         return Observable.error(new NullPointerException());
                     }
                 });
+    }
+
+    @Override
+    public Observable<RegisterDomainResponse> requestRegisterDomain(
+            RegisterDomainRequest registerDomainRequest) {
+        return mFOrderApi.requestRegisterDomain(registerDomainRequest);
     }
 }

@@ -3,6 +3,8 @@ package com.framgia.forder.data.source;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.DomainManagement;
 import com.framgia.forder.data.model.User;
+import com.framgia.forder.data.source.remote.api.request.RegisterDomainRequest;
+import com.framgia.forder.data.source.remote.api.response.RegisterDomainResponse;
 import java.util.List;
 import rx.Observable;
 
@@ -43,5 +45,10 @@ public class DomainRepository {
 
     public Observable<List<DomainManagement>> getListDomainManagement() {
         return mRemoteDataSource.getListDomainManagement();
+    }
+
+    public Observable<RegisterDomainResponse> requestRegisterDomain(
+            RegisterDomainRequest registerDomainRequest) {
+        return mRemoteDataSource.requestRegisterDomain(registerDomainRequest);
     }
 }
