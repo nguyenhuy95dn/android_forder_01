@@ -5,7 +5,6 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import com.framgia.forder.BR;
 import com.framgia.forder.R;
-import com.framgia.forder.utils.navigator.Navigator;
 
 /**
  * Exposes the data to be used in the Adddomain screen.
@@ -13,16 +12,16 @@ import com.framgia.forder.utils.navigator.Navigator;
 
 public class AddDomainViewModel extends BaseObservable implements AddDomainContract.ViewModel {
 
-    private final Context mContext;
-    private final Navigator mNavigator;
     private AddDomainContract.Presenter mPresenter;
+    private final Context mContext;
     private String mNameDomain;
     private String mStatus;
     private boolean isChecked;
+    private final AddDomainListener mAddDomainListener;
 
-    AddDomainViewModel(Context context, Navigator navigator) {
+    AddDomainViewModel(Context context, AddDomainListener addDomainListener) {
         mContext = context;
-        mNavigator = navigator;
+        mAddDomainListener = addDomainListener;
         isChecked = true;
     }
 
@@ -39,6 +38,11 @@ public class AddDomainViewModel extends BaseObservable implements AddDomainContr
     @Override
     public void setPresenter(AddDomainContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public void onRequestRegisterDomain() {
+        mAddDomainListener.onRequestRegisterDomain(mNameDomain, mStatus);
     }
 
     @Bindable

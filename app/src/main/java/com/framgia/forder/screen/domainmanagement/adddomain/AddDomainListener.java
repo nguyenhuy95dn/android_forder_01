@@ -5,5 +5,5 @@ package com.framgia.forder.screen.domainmanagement.adddomain;
  */
 
 public interface AddDomainListener {
-    void onUpdateData();
+    void onRequestRegisterDomain(String nameDomain, String status);
 }

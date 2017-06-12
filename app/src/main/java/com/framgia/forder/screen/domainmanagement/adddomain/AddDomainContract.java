@@ -11,6 +11,8 @@ interface AddDomainContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
+
+        void onRequestRegisterDomain();
     }
 
     /**

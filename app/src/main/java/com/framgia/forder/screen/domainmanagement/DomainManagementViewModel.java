@@ -1,8 +1,11 @@
 package com.framgia.forder.screen.domainmanagement;
 
 import android.databinding.BaseObservable;
+import com.framgia.forder.R;
 import com.framgia.forder.data.model.DomainManagement;
+import com.framgia.forder.data.model.RegisterDomain;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.request.RegisterDomainRequest;
 import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainFragment;
 import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainListener;
 import com.framgia.forder.utils.navigator.Navigator;
@@ -58,6 +61,17 @@ public class DomainManagementViewModel extends BaseObservable
     }
 
     @Override
+    public void onRegisterDomainSuccess() {
+        mNavigator.showToast(R.string.add_domain_success);
+        mPresenter.getListDomainManagement();
+    }
+
+    @Override
+    public void onRegisterDomainError(BaseException error) {
+        mNavigator.showToast(error.getMessage());
+    }
+
+    @Override
     public void onGetListUserInDomain(int domainId) {
         //Todo dev later
     }
@@ -77,7 +91,12 @@ public class DomainManagementViewModel extends BaseObservable
     }
 
     @Override
-    public void onUpdateData() {
-        mPresenter.getListDomainManagement();
+    public void onRequestRegisterDomain(String nameDomain, String status) {
+        RegisterDomainRequest registerDomainRequest = new RegisterDomainRequest();
+        RegisterDomain domain = new RegisterDomain();
+        domain.setName(nameDomain);
+        domain.setStatus(status);
+        registerDomainRequest.setDomain(domain);
+        mPresenter.registerDomain(registerDomainRequest);
     }
 }

@@ -162,4 +162,5 @@
     <string name="secret">secret</string>
     <string name="professed">professed</string>
     <string name="add_domain">Add Domain</string>
+    <string name="add_domain_success">Add Domain Successful!</string>
 </resources>
