@@ -4,6 +4,7 @@ import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
+import com.framgia.forder.data.source.remote.api.request.RegisterDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterProductRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateProductRequest;
@@ -20,6 +21,7 @@ import com.framgia.forder.data.source.remote.api.response.OrderManagementRespons
 import com.framgia.forder.data.source.remote.api.response.OrderManagerShopReponse;
 import com.framgia.forder.data.source.remote.api.response.OrderResponse;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
+import com.framgia.forder.data.source.remote.api.response.RegisterDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterProductResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
 import com.framgia.forder.data.source.remote.api.response.SearchResponse;
@@ -145,4 +147,8 @@ public interface FOrderApi {
 
     @GET("v1/domains/0")
     Observable<DomainManagementResponse> getListDomainManagement();
+
+    @POST("v1/domains")
+    Observable<RegisterDomainResponse> requestRegisterDomain(
+            @Body RegisterDomainRequest registerDomainRequest);
 }
