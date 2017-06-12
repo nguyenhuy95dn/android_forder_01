@@ -8,7 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.source.DomainRepository;
+import com.framgia.forder.data.source.UserDataSource;
+import com.framgia.forder.data.source.local.DomainLocalDataSource;
+import com.framgia.forder.data.source.local.UserLocalDataSource;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
+import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentDomainManagementBinding;
+import com.framgia.forder.utils.navigator.Navigator;
 
 /**
  * Domainmanagement Screen.
@@ -25,9 +34,19 @@ public class DomainManagementFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mViewModel = new DomainManagementViewModel();
+        DomainManagementAdapter domainManagementAdapter =
+                new DomainManagementAdapter(getActivity());
+        Navigator navigator = new Navigator(getParentFragment());
+        mViewModel = new DomainManagementViewModel(domainManagementAdapter, navigator);
 
-        DomainManagementContract.Presenter presenter = new DomainManagementPresenter(mViewModel);
+        SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
+        UserDataSource.LocalDataSource userLocalDataSource = new UserLocalDataSource(prefsApi);
+        DomainRepository domainRepository =
+                new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
+                        new DomainLocalDataSource(prefsApi, userLocalDataSource));
+
+        DomainManagementContract.Presenter presenter =
+                new DomainManagementPresenter(mViewModel, domainRepository);
         mViewModel.setPresenter(presenter);
 
         FragmentDomainManagementBinding binding =
