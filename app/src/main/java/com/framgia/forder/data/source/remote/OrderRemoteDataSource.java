@@ -1,7 +1,7 @@
 package com.framgia.forder.data.source.remote;
 
 import com.framgia.forder.data.model.Order;
-import com.framgia.forder.data.model.OrderHistoryList;
+import com.framgia.forder.data.model.OrderHistory;
 import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.source.OrderDataSource;
 import com.framgia.forder.data.source.remote.api.response.CloseOrderResponse;
@@ -88,14 +88,31 @@ public class OrderRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<List<OrderHistoryList>> getListOrderHistoryShop(int shopId) {
+    public Observable<List<OrderHistory>> getListDoneOrdersShop(int shopId) {
         return mFOrderApi.getListOrderHistoryShop(shopId)
-                .flatMap(new Func1<OrderHistoryShopResponse, Observable<List<OrderHistoryList>>>() {
+                .flatMap(new Func1<OrderHistoryShopResponse, Observable<List<OrderHistory>>>() {
                     @Override
-                    public Observable<List<OrderHistoryList>> call(
+                    public Observable<List<OrderHistory>> call(
                             OrderHistoryShopResponse orderHistoryShopResponses) {
                         if (orderHistoryShopResponses != null) {
-                            return Observable.just(orderHistoryShopResponses.getOrderHistoryList());
+                            return Observable.just(orderHistoryShopResponses.getOrderHistoryList()
+                                    .getListDoneOrders());
+                        }
+                        return Observable.error(new NullPointerException());
+                    }
+                });
+    }
+
+    @Override
+    public Observable<List<OrderHistory>> getListRejectOrdersShop(int shopId) {
+        return mFOrderApi.getListOrderHistoryShop(shopId)
+                .flatMap(new Func1<OrderHistoryShopResponse, Observable<List<OrderHistory>>>() {
+                    @Override
+                    public Observable<List<OrderHistory>> call(
+                            OrderHistoryShopResponse orderHistoryShopResponses) {
+                        if (orderHistoryShopResponses != null) {
+                            return Observable.just(orderHistoryShopResponses.getOrderHistoryList()
+                                    .getListRejectedOrder());
                         }
                         return Observable.error(new NullPointerException());
                     }
