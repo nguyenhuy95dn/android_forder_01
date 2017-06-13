@@ -10,7 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import com.framgia.forder.R;
 import com.framgia.forder.databinding.FragmentAddDomainBinding;
-import com.framgia.forder.utils.navigator.Navigator;
 
 /**
  * Adddomain Screen.
@@ -27,8 +26,8 @@ public class AddDomainFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Navigator navigator = new Navigator(this);
-        mViewModel = new AddDomainViewModel(getActivity(), navigator);
+        mViewModel =
+                new AddDomainViewModel(getActivity().getApplicationContext(), mAddDomainListener);
 
         final AddDomainContract.Presenter presenter = new AddDomainPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
@@ -43,6 +42,7 @@ public class AddDomainFragment extends DialogFragment {
                 .setPositiveButton(R.string.create, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(@NonNull DialogInterface dialogInterface, int i) {
+                        mViewModel.onRequestRegisterDomain();
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

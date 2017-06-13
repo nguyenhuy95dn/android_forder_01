@@ -4,6 +4,8 @@ import com.framgia.forder.data.model.DomainManagement;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
+import com.framgia.forder.data.source.remote.api.request.RegisterDomainRequest;
+import com.framgia.forder.data.source.remote.api.response.RegisterDomainResponse;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -28,11 +30,11 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
         mViewModel = viewModel;
         mDomainRepository = domainRepository;
         mCompositeSubscription = new CompositeSubscription();
+        getListDomainManagement();
     }
 
     @Override
     public void onStart() {
-        getListDomainManagement();
     }
 
     @Override
@@ -54,6 +56,25 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
                     @Override
                     public void onSafetyError(BaseException error) {
                         mViewModel.onGetListDomainManagementError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void registerDomain(RegisterDomainRequest registerDomainRequest) {
+        Subscription subscription = mDomainRepository.requestRegisterDomain(registerDomainRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<RegisterDomainResponse>() {
+                    @Override
+                    public void call(RegisterDomainResponse response) {
+                        mViewModel.onRegisterDomainSuccess();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onRegisterDomainError(error);
                     }
                 });
         mCompositeSubscription.add(subscription);
