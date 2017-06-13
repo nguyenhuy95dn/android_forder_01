@@ -4,7 +4,7 @@ import com.framgia.forder.data.model.CollectionImage;
 import com.framgia.forder.data.model.Image;
 import com.framgia.forder.data.model.Order;
 import com.framgia.forder.data.model.OrderDetail;
-import com.framgia.forder.data.model.OrderHistoryList;
+import com.framgia.forder.data.model.OrderHistory;
 import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.User;
@@ -98,7 +98,11 @@ public class OrderRepository {
         return mRemoteDataSource.notifyDoneOrderToServer(shopId);
     }
 
-    public Observable<List<OrderHistoryList>> getListOrderHistoryShop(int shopId) {
-        return mRemoteDataSource.getListOrderHistoryShop(shopId);
+    public Observable<List<OrderHistory>> getListOrderHistoryShop(int shopId) {
+        return mRemoteDataSource.getListDoneOrdersShop(shopId);
+    }
+
+    public Observable<List<OrderHistory>> getListRejectOrdersShop(int shopId) {
+        return mRemoteDataSource.getListRejectOrdersShop(shopId);
     }
 }

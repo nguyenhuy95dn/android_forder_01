@@ -10,7 +10,11 @@ import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.OrderHistory;
 import com.framgia.forder.data.model.ShopManagement;
+import com.framgia.forder.data.source.OrderRepository;
+import com.framgia.forder.data.source.remote.OrderRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentListDoneOrdersBinding;
+import com.framgia.forder.utils.navigator.Navigator;
 
 /**
  * ListDoneOrders Screen.
@@ -31,10 +35,19 @@ public class ListDoneOrdersFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Navigator navigator = new Navigator(getParentFragment());
+        ShopManagement shopManagement = (ShopManagement) getArguments().get(EXTRA_ORDER_SHOP);
         OrderHistory orderHistory = new OrderHistory();
-        mViewModel = new ListDoneOrdersViewModel(orderHistory);
+        ListDoneOrderAdapter adapter = new ListDoneOrderAdapter(getActivity());
 
-        ListDoneOrdersContract.Presenter presenter = new ListDoneOrdersPresenter(mViewModel);
+        mViewModel = new ListDoneOrdersViewModel(getContext().getApplicationContext(), navigator,
+                orderHistory, adapter,
+                shopManagement);
+
+        OrderRepository orderRepository =
+                new OrderRepository(new OrderRemoteDataSource(FOrderServiceClient.getInstance()));
+        ListDoneOrdersContract.Presenter presenter =
+                new ListDoneOrdersPresenter(mViewModel, orderRepository);
         mViewModel.setPresenter(presenter);
     }
 
