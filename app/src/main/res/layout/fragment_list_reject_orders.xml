@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.framgia.forder.screen.orderhistoryshop.listrejectorders.ListRejectOrdersViewModel"
+            />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_gray_white"
+        >
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            app:recyclerAdapter="@{viewModel.adapter}"
+            />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="@{viewModel.progressBarVisibilityListOrder}"
+            style="?android:attr/progressBarPadding"
+            />
+    </RelativeLayout>
+</layout>

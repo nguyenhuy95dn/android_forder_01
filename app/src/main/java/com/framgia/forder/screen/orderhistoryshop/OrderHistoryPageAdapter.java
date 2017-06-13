@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.screen.orderhistoryshop.listdoneorders.ListDoneOrdersFragment;
+import com.framgia.forder.screen.orderhistoryshop.listrejectorders.ListRejectOrdersFragment;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,8 +40,7 @@ public class OrderHistoryPageAdapter extends FragmentPagerAdapter {
                 mFragments.add(OrderHistoryPageResultsTab.TAB_ORDER_ACCEPTED, fragment);
                 break;
             case OrderHistoryPageAdapter.OrderHistoryPageResultsTab.TAB_ORDER_REJECT:
-                //TODO Fragment List Orders Reject (Edit later)
-                fragment = ListDoneOrdersFragment.newInstance(mShopManagement);
+                fragment = ListRejectOrdersFragment.newInstance(mShopManagement);
                 mFragments.add(OrderHistoryPageResultsTab.TAB_ORDER_ACCEPTED, fragment);
                 break;
             default:
