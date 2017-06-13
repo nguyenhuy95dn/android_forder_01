@@ -24,7 +24,7 @@ public class ItemGroupOrderViewModel {
 
     public String getStatus() {
         if (mOrder != null) {
-            return mOrder.getStatusOrder();
+            return String.valueOf(mOrder.getStatusOrder());
         }
         return "";
     }

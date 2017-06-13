@@ -155,4 +155,11 @@ public interface FOrderApi {
     @POST("v1/domains")
     Observable<RegisterDomainResponse> requestRegisterDomain(
             @Body RegisterDomainRequest registerDomainRequest);
+
+    @GET("v1/orders/0")
+    Observable<OrderResponse> getListOrderHistoryToday();
+
+    @GET("v1/orders/0")
+    Observable<OrderResponse> getListOrderHistoryByDate(@Query("time_start") String timeStart,
+            @Query("time_end") String timeEnd);
 }

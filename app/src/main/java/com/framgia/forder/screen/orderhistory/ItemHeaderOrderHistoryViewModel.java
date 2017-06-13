@@ -1,8 +1,8 @@
 package com.framgia.forder.screen.orderhistory;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import com.framgia.forder.data.model.Order;
-import com.framgia.forder.utils.OrderStatusCode;
 import com.framgia.forder.utils.Utils;
 
 /**
@@ -12,13 +12,13 @@ import com.framgia.forder.utils.Utils;
 public class ItemHeaderOrderHistoryViewModel extends BaseObservable {
     private Order mOrder;
 
-    public ItemHeaderOrderHistoryViewModel(Order order) {
+    ItemHeaderOrderHistoryViewModel(Order order) {
         mOrder = order;
     }
 
     public String getFormatOrderDate() {
         if (mOrder != null) {
-            return Utils.DateTimeUntils.convertUiFormatToDataFormat(mOrder.getEndDate(),
+            return Utils.DateTimeUntils.convertUiFormatToDataFormat(mOrder.getTimeCreateOrder(),
                     Utils.INPUT_TIME_FORMAT, Utils.OUTPUT_DATE_FORMAT);
         }
         return "";
@@ -28,22 +28,12 @@ public class ItemHeaderOrderHistoryViewModel extends BaseObservable {
         return mOrder != null ? mOrder.getTotalPriceFormat() : "";
     }
 
-    public String getShopName() {
-        if (mOrder != null && mOrder.getShop() != null) {
-            return mOrder.getShop().getName();
-        }
-        return "";
+    @Bindable
+    public int getStatusColor() {
+        return mOrder.getStatusColor();
     }
 
-    public boolean isPendingStatus() {
-        return mOrder.getStatus() == OrderStatusCode.PENDING_CODE;
-    }
-
-    public boolean isAcceptStatus() {
-        return mOrder.getStatus() == OrderStatusCode.ACCEPT_CODE;
-    }
-
-    public boolean isRejectStatus() {
-        return mOrder.getStatus() == OrderStatusCode.REJECT_CODE;
+    public String getStatus() {
+        return mOrder.getStatusOrder().getValue();
     }
 }

@@ -33,7 +33,7 @@
 
             <ImageView
                 android:layout_width="@dimen/dp_70"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dp_50"
                 app:imageUrl="@{viewModel.productImage}"
                 />
 
@@ -41,10 +41,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
                 android:orientation="vertical"
                 >
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -62,13 +63,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_100"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:text="@{viewModel.productPrice}"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/sp_15"
                         />
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -80,7 +82,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Quantity: "
+                        android:text="@string/quantity"
                         android:textSize="@dimen/sp_15"
                         />
 
@@ -91,42 +93,16 @@
                         android:textSize="@dimen/sp_15"
                         />
 
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                    <TextView
+                        android:layout_width="@dimen/dp_80"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_marginLeft="@dimen/dp_50"
                         android:layout_marginStart="@dimen/dp_50"
-                        >
-
-                        <TextView
-                            android:layout_width="@dimen/dp_80"
-                            android:layout_height="@dimen/dp_20"
-                            android:gravity="center"
-                            android:text="@string/pending"
-                            android:textColor="@android:color/white"
-                            android:visibility="@{viewModel.pendingStatus ? View.VISIBLE : View.GONE}"
-                            />
-
-                        <TextView
-                            android:layout_width="@dimen/dp_80"
-                            android:layout_height="@dimen/dp_20"
-                            android:background="@color/color_red"
-                            android:gravity="center"
-                            android:text="@string/rejected"
-                            android:textColor="@android:color/white"
-                            android:visibility="@{viewModel.rejectStatus ? View.VISIBLE : View.GONE}"
-                            />
-
-                        <TextView
-                            android:layout_width="@dimen/dp_80"
-                            android:layout_height="@dimen/dp_20"
-                            android:background="@color/color_green"
-                            android:gravity="center"
-                            android:text="@string/accepted"
-                            android:textColor="@android:color/white"
-                            android:visibility="@{viewModel.acceptStatus ? View.VISIBLE : View.GONE}"
-                            />
-
-                    </FrameLayout>
+                        android:gravity="center"
+                        android:text="@{viewModel.status}"
+                        android:textColor="@color/color_gray_white"
+                        app:background="@{viewModel.statusColor}"
+                        />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
