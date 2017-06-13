@@ -10,14 +10,25 @@ import java.util.List;
 
 public class OrderHistoryList {
     @Expose
-    @SerializedName(value = "order_products_done", alternate = { "order_products_reject" })
-    private List<OrderHistory> mOrderHistory;
+    @SerializedName("order_products_done")
+    private List<OrderHistory> mListDoneOrders;
+    @Expose
+    @SerializedName("order_products_reject")
+    private List<OrderHistory> mListRejectedOrder;
 
-    public List<OrderHistory> getOrderHistory() {
-        return mOrderHistory;
+    public List<OrderHistory> getListDoneOrders() {
+        return mListDoneOrders;
     }
 
-    public void setOrderHistory(List<OrderHistory> orderHistory) {
-        mOrderHistory = orderHistory;
+    public void setListDoneOrders(List<OrderHistory> listDoneOrders) {
+        mListDoneOrders = listDoneOrders;
+    }
+
+    public List<OrderHistory> getListRejectedOrder() {
+        return mListRejectedOrder;
+    }
+
+    public void setListRejectedOrder(List<OrderHistory> listRejectedOrder) {
+        mListRejectedOrder = listRejectedOrder;
     }
 }

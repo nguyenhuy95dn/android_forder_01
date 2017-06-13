@@ -17,6 +17,7 @@ import com.framgia.forder.data.source.remote.api.response.DomainResponse;
 import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
 import com.framgia.forder.data.source.remote.api.response.NotificationResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderCartResponse;
+import com.framgia.forder.data.source.remote.api.response.OrderHistoryShopResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderManagerShopReponse;
 import com.framgia.forder.data.source.remote.api.response.OrderResponse;
@@ -147,6 +148,9 @@ public interface FOrderApi {
 
     @GET("v1/domains/0")
     Observable<DomainManagementResponse> getListDomainManagement();
+
+    @GET("v1/dashboard/order_managers")
+    Observable<OrderHistoryShopResponse> getListOrderHistoryShop(@Query("shop_id") int shopId);
 
     @POST("v1/domains")
     Observable<RegisterDomainResponse> requestRegisterDomain(

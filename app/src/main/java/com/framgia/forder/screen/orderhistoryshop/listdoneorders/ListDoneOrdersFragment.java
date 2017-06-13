@@ -9,17 +9,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.OrderHistory;
+import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.databinding.FragmentListDoneOrdersBinding;
 
 /**
  * ListDoneOrders Screen.
  */
 public class ListDoneOrdersFragment extends Fragment {
+    private static final String EXTRA_ORDER_SHOP = "EXTRA_ORDER_SHOP";
 
     private ListDoneOrdersContract.ViewModel mViewModel;
 
-    public static ListDoneOrdersFragment newInstance() {
-        return new ListDoneOrdersFragment();
+    public static ListDoneOrdersFragment newInstance(ShopManagement shopManagement) {
+        ListDoneOrdersFragment listDoneOrdersFragment = new ListDoneOrdersFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(EXTRA_ORDER_SHOP, shopManagement);
+        listDoneOrdersFragment.setArguments(bundle);
+        return listDoneOrdersFragment;
     }
 
     @Override

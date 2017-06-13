@@ -1,6 +1,7 @@
 package com.framgia.forder.data.source;
 
 import com.framgia.forder.data.model.Order;
+import com.framgia.forder.data.model.OrderHistoryList;
 import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.source.remote.api.response.OrderManagerShopReponse;
 import java.util.List;
@@ -22,5 +23,7 @@ public interface OrderDataSource {
                 OrderManagement acceptProductInOrderRequest);
 
         Observable<Void> notifyDoneOrderToServer(int shopId);
+
+        Observable<List<OrderHistoryList>> getListOrderHistoryShop(int shopId);
     }
 }

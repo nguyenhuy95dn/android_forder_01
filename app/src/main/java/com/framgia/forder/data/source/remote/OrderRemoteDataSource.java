@@ -1,9 +1,11 @@
 package com.framgia.forder.data.source.remote;
 
 import com.framgia.forder.data.model.Order;
+import com.framgia.forder.data.model.OrderHistoryList;
 import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.source.OrderDataSource;
 import com.framgia.forder.data.source.remote.api.response.CloseOrderResponse;
+import com.framgia.forder.data.source.remote.api.response.OrderHistoryShopResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderManagerShopReponse;
 import com.framgia.forder.data.source.remote.api.response.OrderResponse;
@@ -79,9 +81,23 @@ public class OrderRemoteDataSource extends BaseRemoteDataSource
         return mFOrderApi.notifyDoneOrderToServer(shopId)
                 .flatMap(new Func1<CloseOrderResponse, Observable<Void>>() {
                     @Override
-                    public Observable<Void> call(
-                            CloseOrderResponse closeOrderResponse) {
+                    public Observable<Void> call(CloseOrderResponse closeOrderResponse) {
                         return Observable.just(null);
+                    }
+                });
+    }
+
+    @Override
+    public Observable<List<OrderHistoryList>> getListOrderHistoryShop(int shopId) {
+        return mFOrderApi.getListOrderHistoryShop(shopId)
+                .flatMap(new Func1<OrderHistoryShopResponse, Observable<List<OrderHistoryList>>>() {
+                    @Override
+                    public Observable<List<OrderHistoryList>> call(
+                            OrderHistoryShopResponse orderHistoryShopResponses) {
+                        if (orderHistoryShopResponses != null) {
+                            return Observable.just(orderHistoryShopResponses.getOrderHistoryList());
+                        }
+                        return Observable.error(new NullPointerException());
                     }
                 });
     }
