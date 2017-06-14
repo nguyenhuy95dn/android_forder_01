@@ -16,6 +16,8 @@ public final class Constant {
 
     public static final String FORMAT_DATE = "dd-MM-yyyy";
 
+    public static final String FORMAT_DATE_OTHER = "yyyy/MM/dd";
+
     public static final String UNIT_MONEY = " VNĐ";
 
     public static final String FORMAT_USER = " User";
