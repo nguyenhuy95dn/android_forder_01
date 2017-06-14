@@ -24,5 +24,6 @@ public interface OrderHistoryContract {
      * Presenter.
      */
     interface Presenter extends BasePresenter {
+        void onGetListOrderHistoryByDate(String startDate, String endDate);
     }
 }

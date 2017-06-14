@@ -1,9 +1,6 @@
 package com.framgia.forder.screen.orderhistory;
 
-import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.Order;
-import com.framgia.forder.data.model.User;
-import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.OrderRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
@@ -24,14 +21,12 @@ public class OrderHistoryPresenter implements OrderHistoryContract.Presenter {
     private final OrderHistoryContract.ViewModel mViewModel;
     private final CompositeSubscription mCompositeSubscription;
     private OrderRepository mOrderRepository;
-    private DomainRepository mDomainRepository;
 
-    public OrderHistoryPresenter(OrderHistoryContract.ViewModel viewModel,
-            OrderRepository orderRepository, DomainRepository domainRepository) {
+    OrderHistoryPresenter(OrderHistoryContract.ViewModel viewModel,
+            OrderRepository orderRepository) {
         mViewModel = viewModel;
-        mCompositeSubscription = new CompositeSubscription();
         mOrderRepository = orderRepository;
-        mDomainRepository = domainRepository;
+        mCompositeSubscription = new CompositeSubscription();
         getListOrderHistory();
     }
 
@@ -45,25 +40,39 @@ public class OrderHistoryPresenter implements OrderHistoryContract.Presenter {
     }
 
     private void getListOrderHistory() {
-        User user = mDomainRepository.getUser();
-        Domain domain = mDomainRepository.getCurrentDomain();
-        if (user != null && domain != null) {
-            Subscription subscription =
-                    mOrderRepository.getOrderHistory(user.getId(), domain.getId())
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new Action1<List<Order>>() {
-                                @Override
-                                public void call(List<Order> orders) {
-                                    mViewModel.onGetListAllOrderHistorySuccess(orders);
-                                }
-                            }, new SafetyError() {
-                                @Override
-                                public void onSafetyError(BaseException error) {
-                                    mViewModel.onGetListAllOrderHistoryError(error);
-                                }
-                            });
-            mCompositeSubscription.add(subscription);
-        }
+        Subscription subscription = mOrderRepository.getOrderHistory()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<List<Order>>() {
+                    @Override
+                    public void call(List<Order> orders) {
+                        mViewModel.onGetListAllOrderHistorySuccess(orders);
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onGetListAllOrderHistoryError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void onGetListOrderHistoryByDate(String startDate, String endDate) {
+        Subscription subscription = mOrderRepository.getOrderHistoryByDate(startDate, endDate)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<List<Order>>() {
+                    @Override
+                    public void call(List<Order> orders) {
+                        mViewModel.onGetListAllOrderHistorySuccess(orders);
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onGetListAllOrderHistoryError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
     }
 }

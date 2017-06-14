@@ -163,4 +163,5 @@
     <string name="professed">professed</string>
     <string name="add_domain">Add Domain</string>
     <string name="add_domain_success">Add Domain Successful!</string>
+    <string name="quantity_order_history">Quantity: </string>
 </resources>

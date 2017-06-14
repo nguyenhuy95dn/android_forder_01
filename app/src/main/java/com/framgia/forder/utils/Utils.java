@@ -70,6 +70,12 @@ public class Utils {
                     new SimpleDateFormat(Constant.FORMAT_DATE, Locale.getDefault());
             return simpleDateFormat.format(date);
         }
+
+        public static String convertDateToStringOther(Date date) {
+            SimpleDateFormat simpleDateFormat =
+                    new SimpleDateFormat(Constant.FORMAT_DATE_OTHER, Locale.getDefault());
+            return simpleDateFormat.format(date);
+        }
     }
 
     public static class ImageUtils {
