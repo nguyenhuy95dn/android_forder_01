@@ -12,6 +12,8 @@ import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateShopRequest;
 import com.framgia.forder.data.source.remote.api.response.CategoryResponse;
 import com.framgia.forder.data.source.remote.api.response.CloseOrderResponse;
+import com.framgia.forder.data.source.remote.api.response.DeleteDomainResponse;
+import com.framgia.forder.data.source.remote.api.response.DeleteUserInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
 import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
@@ -32,6 +34,7 @@ import com.framgia.forder.data.source.remote.api.response.UpdateProductResponse;
 import com.framgia.forder.data.source.remote.api.response.UpdateProfileResponse;
 import com.framgia.forder.data.source.remote.api.response.UserResponse;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -162,4 +165,11 @@ public interface FOrderApi {
     @GET("v1/orders/0")
     Observable<OrderResponse> getListOrderHistoryByDate(@Query("time_start") String timeStart,
             @Query("time_end") String timeEnd);
+
+    @DELETE("v1/user_domains/1")
+    Observable<DeleteUserInDomainResponse> requestDeleteUserInDomain(
+            @Query("domain_id") int domainId, @Query("user_id") int userId);
+
+    @DELETE("v1/domains/{domain_id}")
+    Observable<DeleteDomainResponse> requestDeleteDomain(@Path("domain_id") int domainId);
 }

@@ -1,13 +1,15 @@
 package com.framgia.forder.screen.domainmanagement;
 
+import com.framgia.forder.data.model.DomainManagement;
+
 /**
  * Created by Age on 6/8/2017.
  */
 
 public interface DomainManagementListener {
-    void onGetListUserInDomain(int domainId);
+    void onGetListUserInDomain(DomainManagement domainManagement);
 
-    void onGetListShopInDomain(int domainId);
+    void onGetListShopInDomain(DomainManagement domainManagement);
 
     void onLeaveDomain(int domainId);
 

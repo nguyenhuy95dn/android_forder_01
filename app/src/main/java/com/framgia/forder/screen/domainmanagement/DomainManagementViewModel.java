@@ -72,12 +72,12 @@ public class DomainManagementViewModel extends BaseObservable
     }
 
     @Override
-    public void onGetListUserInDomain(int domainId) {
+    public void onGetListUserInDomain(DomainManagement domainManagement) {
         //Todo dev later
     }
 
     @Override
-    public void onGetListShopInDomain(int domainId) {
+    public void onGetListShopInDomain(DomainManagement domainManagement) {
         //Todo dev later
     }
 
