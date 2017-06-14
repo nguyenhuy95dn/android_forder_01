@@ -15,7 +15,9 @@ public interface OrderDataSource {
     interface RemoteDataSource {
         Observable<List<Order>> getOrderManagement();
 
-        Observable<List<Order>> getOrderHistory(int userId, int domainId);
+        Observable<List<Order>> getOrderHistory();
+
+        Observable<List<Order>> getOrderHistoryByDate(String startDate, String endDate);
 
         Observable<List<Order>> getListOrderManagementShop(int shopId);
 

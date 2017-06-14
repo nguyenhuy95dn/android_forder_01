@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
     <data>
@@ -22,49 +23,23 @@
         android:padding="@dimen/dp_10"
         >
 
-        <FrameLayout
+        <TextView
             android:layout_width="@dimen/dp_80"
             android:layout_height="@dimen/dp_30"
             android:layout_marginLeft="@dimen/dp_24"
-            >
-
-            <TextView
-                android:layout_width="@dimen/dp_80"
-                android:layout_height="@dimen/dp_30"
-                android:background="@color/color_blue"
-                android:gravity="center"
-                android:text="@string/pending"
-                android:textColor="@android:color/white"
-                android:visibility="@{viewModel.pendingStatus ? View.VISIBLE : View.GONE}"
-                />
-
-            <TextView
-                android:layout_width="@dimen/dp_80"
-                android:layout_height="@dimen/dp_30"
-                android:background="@color/color_red"
-                android:gravity="center"
-                android:text="@string/rejected"
-                android:textColor="@android:color/white"
-                android:visibility="@{viewModel.rejectStatus ? View.VISIBLE : View.GONE}"
-                />
-
-            <TextView
-                android:layout_width="@dimen/dp_80"
-                android:layout_height="@dimen/dp_30"
-                android:background="@color/color_green"
-                android:gravity="center"
-                android:text="@string/accepted"
-                android:textColor="@android:color/white"
-                android:visibility="@{viewModel.acceptStatus ? View.VISIBLE : View.GONE}"
-                />
-
-        </FrameLayout>
+            android:layout_marginStart="@dimen/dp_24"
+            android:gravity="center"
+            android:text="@{viewModel.status}"
+            android:textColor="@android:color/white"
+            app:background="@{viewModel.statusColor}"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginStart="@dimen/dp_5"
             android:text="@{viewModel.formatOrderDate}"
             android:textColor="@android:color/holo_red_light"
             android:textSize="@dimen/sp_15"
@@ -75,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginStart="@dimen/dp_5"
             android:text="@string/title_total"
             android:textColor="@android:color/black"
             />
@@ -84,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginStart="@dimen/dp_5"
             android:gravity="right"
             android:text="@{viewModel.totalPrice}"
             android:textColor="@android:color/holo_red_light"

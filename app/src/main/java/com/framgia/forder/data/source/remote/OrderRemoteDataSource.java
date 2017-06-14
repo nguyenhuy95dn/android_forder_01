@@ -41,10 +41,23 @@ public class OrderRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<List<Order>> getOrderHistory(int userId, int domainId) {
-        return mFOrderApi.getListOrder(userId, domainId)
+    public Observable<List<Order>> getOrderHistory() {
+        return mFOrderApi.getListOrderHistoryToday()
                 .flatMap(new Func1<OrderResponse, Observable<List<Order>>>() {
+                    @Override
+                    public Observable<List<Order>> call(OrderResponse orderResponse) {
+                        if (orderResponse != null) {
+                            return Observable.just(orderResponse.getOrders());
+                        }
+                        return Observable.error(new NullPointerException());
+                    }
+                });
+    }
 
+    @Override
+    public Observable<List<Order>> getOrderHistoryByDate(String startDate, String endDate) {
+        return mFOrderApi.getListOrderHistoryByDate(startDate, endDate)
+                .flatMap(new Func1<OrderResponse, Observable<List<Order>>>() {
                     @Override
                     public Observable<List<Order>> call(OrderResponse orderResponse) {
                         if (orderResponse != null) {

@@ -1,5 +1,6 @@
 package com.framgia.forder.data.model;
 
+import com.framgia.forder.R;
 import com.framgia.forder.utils.Utils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -171,6 +172,15 @@ public class OrderDetail {
                 Utils.OUTPUT_TIME_FORMAT + VERTICAL_COLUMN + Utils.OUTPUT_DATE_FORMAT);
     }
 
+    public int getStatusColor() {
+        if (mStatusOrder == StatusOders.Done) {
+            return R.drawable.button_blue;
+        } else if (mStatusOrder == StatusOders.Rejected) {
+            return R.drawable.button_red;
+        }
+        return 0;
+    }
+
     public enum StatusOders {
         @Expose
         @SerializedName("rejected")
@@ -180,7 +190,10 @@ public class OrderDetail {
         Pending("pending"),
         @Expose
         @SerializedName("accepted")
-        Accepted("accepted");
+        Accepted("accepted"),
+        @Expose
+        @SerializedName("done")
+        Done("done");
 
         private final String mValue;
 
@@ -199,6 +212,8 @@ public class OrderDetail {
                 return Pending;
             } else if ("accepted".equals(value)) {
                 return Accepted;
+            } else if ("done".equals(value)) {
+                return Done;
             }
             return null;
         }

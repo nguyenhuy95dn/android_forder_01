@@ -1,5 +1,6 @@
 package com.framgia.forder.data.model;
 
+import com.framgia.forder.R;
 import com.framgia.forder.utils.OrderStatusCode;
 import com.framgia.forder.utils.Utils;
 import com.google.gson.annotations.Expose;
@@ -26,11 +27,9 @@ public class Order {
     @Expose
     @SerializedName("shop_id")
     private int mShopId;
-    @OrderStatusCode
-    private int mStatus;
     @Expose
     @SerializedName("status")
-    private String mStatusOrder;
+    private StatusOders mStatusOrder;
     @Expose
     @SerializedName("end_date")
     private String mEndDate;
@@ -46,6 +45,8 @@ public class Order {
     @Expose
     @SerializedName("shop")
     private Shop mShop;
+    @OrderStatusCode
+    private int mStatus;
     @Expose
     @SerializedName("order_products")
     private List<OrderDetail> mOrderDetails;
@@ -143,11 +144,11 @@ public class Order {
         return mOrderDetails;
     }
 
-    public String getStatusOrder() {
+    public StatusOders getStatusOrder() {
         return mStatusOrder;
     }
 
-    public void setStatusOrder(String statusOrder) {
+    public void setStatusOrder(StatusOders statusOrder) {
         mStatusOrder = statusOrder;
     }
 
@@ -163,5 +164,52 @@ public class Order {
         return Utils.DateTimeUntils.convertUiFormatToDataFormat(mTimeCreateOrder,
                 Utils.INPUT_TIME_FORMAT,
                 Utils.OUTPUT_TIME_FORMAT + VERTICAL_COLUMN + Utils.OUTPUT_DATE_FORMAT);
+    }
+
+    public int getStatusColor() {
+        if (mStatusOrder == StatusOders.Done) {
+            return R.drawable.button_blue;
+        } else if (mStatusOrder == StatusOders.Rejected) {
+            return R.drawable.button_red;
+        }
+        return 0;
+    }
+
+    public enum StatusOders {
+        @Expose
+        @SerializedName("rejected")
+        Rejected("rejected"),
+        @Expose
+        @SerializedName("pending")
+        Pending("pending"),
+        @Expose
+        @SerializedName("accepted")
+        Accepted("accepted"),
+        @Expose
+        @SerializedName("done")
+        Done("done");
+
+        private final String mValue;
+
+        StatusOders(String value) {
+            mValue = value;
+        }
+
+        public String getValue() {
+            return mValue;
+        }
+
+        public static StatusOders getStatusOrders(String value) {
+            if ("rejected".equals(value)) {
+                return Rejected;
+            } else if ("pending".equals(value)) {
+                return Pending;
+            } else if ("accepted".equals(value)) {
+                return Accepted;
+            } else if ("done".equals(value)) {
+                return Done;
+            }
+            return null;
+        }
     }
 }

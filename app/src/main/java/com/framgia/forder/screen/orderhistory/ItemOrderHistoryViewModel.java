@@ -1,8 +1,8 @@
 package com.framgia.forder.screen.orderhistory;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import com.framgia.forder.data.model.OrderDetail;
-import com.framgia.forder.utils.OrderStatusCode;
 
 /**
  * Created by ASUS on 28-04-2017.
@@ -11,17 +11,13 @@ import com.framgia.forder.utils.OrderStatusCode;
 public class ItemOrderHistoryViewModel extends BaseObservable {
     private OrderDetail mOrderDetail;
 
-    public ItemOrderHistoryViewModel(OrderDetail orderDetail) {
+    ItemOrderHistoryViewModel(OrderDetail orderDetail) {
         mOrderDetail = orderDetail;
     }
 
     public String getProductImage() {
-
-        if (mOrderDetail != null
-                && mOrderDetail.getProduct() != null
-                && mOrderDetail.getProduct().getCollectionImage() != null
-                && mOrderDetail.getProduct().getCollectionImage().getImage() != null) {
-            return mOrderDetail.getProduct().getCollectionImage().getImage().getUrl();
+        if (mOrderDetail != null && mOrderDetail.getImageProduct() != null) {
+            return mOrderDetail.getImageProduct().getUrl();
         }
         return "";
     }
@@ -31,28 +27,19 @@ public class ItemOrderHistoryViewModel extends BaseObservable {
     }
 
     public String getProductName() {
-        if (mOrderDetail != null && mOrderDetail.getProduct() != null) {
-            return mOrderDetail.getProduct().getName();
-        }
-        return "";
+        return mOrderDetail.getProductName();
     }
 
     public String getProductPrice() {
-        if (mOrderDetail != null && mOrderDetail.getProduct() != null) {
-            return mOrderDetail.getProduct().getFormatPrice();
-        }
-        return "";
+        return mOrderDetail.getTotalPriceFormat();
     }
 
-    public boolean isAcceptStatus() {
-        return mOrderDetail.getStatus() == OrderStatusCode.ACCEPT_CODE;
+    public String getStatus() {
+        return String.valueOf(mOrderDetail.getStatusOrder());
     }
 
-    public boolean isPendingStatus() {
-        return mOrderDetail.getStatus() == OrderStatusCode.PENDING_CODE;
-    }
-
-    public boolean isRejectStatus() {
-        return mOrderDetail.getStatus() == OrderStatusCode.REJECT_CODE;
+    @Bindable
+    public int getStatusColor() {
+        return mOrderDetail.getStatusColor();
     }
 }
