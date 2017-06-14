@@ -3,8 +3,8 @@ package com.framgia.forder.screen.chooseDomain;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.view.View;
 import android.widget.ArrayAdapter;
+import com.framgia.forder.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
@@ -13,6 +13,8 @@ import com.framgia.forder.utils.navigator.Navigator;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.framgia.forder.utils.Constant.DEFAULT_VALUE;
+
 /**
  * Exposes the data to be used in the ChooseDomain screen.
  */
@@ -20,19 +22,20 @@ import java.util.List;
 public class ChooseDomainViewModel extends BaseObservable
         implements ChooseDomainContract.ViewModel {
 
-    private Context mContext;
+    private final Context mContext;
     private ChooseDomainContract.Presenter mPresenter;
-    private ArrayAdapter<String> mAdapter;
-    private List<Domain> mDomains;
+    private final ArrayAdapter<String> mAdapter;
+    private final List<Domain> mDomains;
     private int mSelectedTypePosition;
-    private Navigator mNavigator;
+    private final Navigator mNavigator;
+    private boolean mIsProgressBarVisible;
 
-    public ChooseDomainViewModel(Context context, ArrayAdapter<String> adapter,
-            Navigator navigator) {
+    ChooseDomainViewModel(Context context, ArrayAdapter<String> adapter, Navigator navigator) {
         mContext = context;
         mAdapter = adapter;
         mNavigator = navigator;
         mDomains = new ArrayList<>();
+        setProgressBarVisible(false);
     }
 
     @Override
@@ -69,19 +72,14 @@ public class ChooseDomainViewModel extends BaseObservable
         // TODO show dialog error later
     }
 
-    public ArrayAdapter<String> getAdapter() {
-        return mAdapter;
+    @Override
+    public void onShowProgressBar() {
+        setProgressBarVisible(true);
     }
 
-    public void onClickNext(View view) {
-        if (mSelectedTypePosition == 0) {
-            mNavigator.showToast(R.string.you_need_to_choose_a_domain_to_continue);
-        } else {
-            Domain domain = mDomains.get(mSelectedTypePosition - 1);
-            mPresenter.saveCurrentDomain(domain);
-            mNavigator.startActivity(MainActivity.class);
-            mNavigator.finishActivity();
-        }
+    @Override
+    public void onHideProgressBar() {
+        setProgressBarVisible(false);
     }
 
     @Bindable
@@ -89,7 +87,35 @@ public class ChooseDomainViewModel extends BaseObservable
         return mSelectedTypePosition;
     }
 
+    public ArrayAdapter<String> getAdapter() {
+        return mAdapter;
+    }
+
+    public void onClickNext() {
+        if (mSelectedTypePosition == DEFAULT_VALUE) {
+            mNavigator.showToastCustom(
+                    mContext.getString(R.string.you_need_to_choose_a_domain_to_continue));
+        } else {
+            onShowProgressBar();
+            Domain domain = mDomains.get(mSelectedTypePosition - 1);
+            mPresenter.saveCurrentDomain(domain);
+            mNavigator.startActivity(MainActivity.class);
+            mNavigator.finishActivity();
+            onHideProgressBar();
+        }
+    }
+
     public void setSelectedTypePosition(Integer selectedTypePosition) {
         this.mSelectedTypePosition = selectedTypePosition;
+    }
+
+    @Bindable
+    public boolean isProgressBarVisible() {
+        return mIsProgressBarVisible;
+    }
+
+    private void setProgressBarVisible(boolean progressBarVisible) {
+        mIsProgressBarVisible = progressBarVisible;
+        notifyPropertyChanged(BR.progressBarVisible);
     }
 }

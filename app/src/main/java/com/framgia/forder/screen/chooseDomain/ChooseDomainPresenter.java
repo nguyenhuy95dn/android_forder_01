@@ -7,6 +7,7 @@ import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -19,8 +20,8 @@ import rx.subscriptions.CompositeSubscription;
 final class ChooseDomainPresenter implements ChooseDomainContract.Presenter {
 
     private final ChooseDomainContract.ViewModel mViewModel;
-    private CompositeSubscription mCompositeSubscription;
-    private DomainRepository mDomainRepository;
+    private final CompositeSubscription mCompositeSubscription;
+    private final DomainRepository mDomainRepository;
 
     ChooseDomainPresenter(ChooseDomainContract.ViewModel viewModel,
             DomainRepository domainRepository) {
@@ -39,9 +40,15 @@ final class ChooseDomainPresenter implements ChooseDomainContract.Presenter {
         mCompositeSubscription.clear();
     }
 
-    public void getListDomain() {
+    private void getListDomain() {
         Subscription subscription = mDomainRepository.getListDomain()
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressBar();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Domain>>() {
                     @Override
@@ -52,6 +59,11 @@ final class ChooseDomainPresenter implements ChooseDomainContract.Presenter {
                     @Override
                     public void onSafetyError(BaseException error) {
                         mViewModel.onGetDomainError(error);
+                    }
+                }, new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressBar();
                     }
                 });
         mCompositeSubscription.add(subscription);

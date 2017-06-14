@@ -14,6 +14,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.Toast;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.CartItem;
@@ -167,6 +169,15 @@ public class Navigator {
 
     public void showToast(String message) {
         Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showToastCustom(String message) {
+        Toast toast = Toast.makeText(mActivity, message, Toast.LENGTH_SHORT);
+        View view = toast.getView();
+        toast.setGravity(Gravity.BOTTOM | Gravity.HORIZONTAL_GRAVITY_MASK, 0, 0);
+        view.setBackgroundResource(R.drawable.item_custom_toast);
+        toast.setView(view);
+        toast.show();
     }
 
     public void goBackFragmentByTag(String tag, int flags) {

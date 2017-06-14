@@ -14,15 +14,21 @@ interface ChooseDomainContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
+
         void onGetDomainSuccess(List<Domain> domains);
 
         void onGetDomainError(BaseException e);
+
+        void onShowProgressBar();
+
+        void onHideProgressBar();
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
+
         void saveCurrentDomain(Domain domain);
     }
 }

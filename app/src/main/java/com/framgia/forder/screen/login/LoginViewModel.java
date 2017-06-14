@@ -17,19 +17,21 @@ import com.framgia.forder.utils.navigator.Navigator;
 
 public class LoginViewModel extends BaseObservable implements LoginContract.ViewModel {
 
-    private Context mContext;
-    private Application mApplication;
-    private Navigator mNavigator;
+    private final Context mContext;
+    private final Application mApplication;
+    private final Navigator mNavigator;
     private LoginContract.Presenter mPresenter;
     private String mUsernameError;
     private String mPasswordError;
     private String mUsername;
     private String mPassword;
+    private boolean mIsProgressBarVisible;
 
-    public LoginViewModel(Context context, Application application, Navigator navigator) {
+    LoginViewModel(Context context, Application application, Navigator navigator) {
         mContext = context;
         mApplication = application;
         mNavigator = navigator;
+        setProgressBarVisible(false);
     }
 
     @Override
@@ -37,6 +39,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
         if (!mPresenter.validateDataInput(mUsername, mPassword)) {
             return;
         }
+        setProgressBarVisible(true);
         mPresenter.login(mUsername, mPassword);
     }
 
@@ -66,18 +69,17 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     }
 
     @Override
-    public void onLoginError(BaseException e) {
-        //TODO Login Error !
-        mNavigator.showToast(e.getMessage());
+    public void onLoginError(BaseException exeption) {
+        setProgressBarVisible(false);
+        mNavigator.showToastCustom(exeption.getMessage());
     }
 
     @Override
 
     public void onLoginSuccess() {
-        //TODO Login Success !
-        mNavigator.showToast(R.string.login_success);
         mNavigator.startActivity(ChooseDomainActivity.class);
         FOrderServiceClient.initialize(mApplication);
+        setProgressBarVisible(false);
         mNavigator.finishActivity();
     }
 
@@ -127,5 +129,15 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     public void setPassswordError(String passwordError) {
         mPasswordError = passwordError;
+    }
+
+    @Bindable
+    public boolean isProgressBarVisible() {
+        return mIsProgressBarVisible;
+    }
+
+    public void setProgressBarVisible(boolean progressBarVisible) {
+        mIsProgressBarVisible = progressBarVisible;
+        notifyPropertyChanged(BR.progressBarVisible);
     }
 }
