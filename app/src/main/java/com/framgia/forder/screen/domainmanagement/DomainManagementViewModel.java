@@ -86,6 +86,16 @@ public class DomainManagementViewModel extends BaseObservable
         //Todo dev later
     }
 
+    @Override
+    public void onEditDomain(int domainId) {
+        //Todo dev later
+    }
+
+    @Override
+    public void onDeleteDomain(int domainId) {
+        //Todo dev later
+    }
+
     public void onClickAddDomain() {
         mNavigator.showAddDomainDialog("AddDomainFragment", this);
     }

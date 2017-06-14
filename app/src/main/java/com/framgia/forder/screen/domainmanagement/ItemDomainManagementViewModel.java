@@ -1,7 +1,8 @@
 package com.framgia.forder.screen.domainmanagement;
 
 import android.databinding.BaseObservable;
-import android.databinding.ObservableInt;
+import android.databinding.Bindable;
+import com.framgia.forder.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.DomainManagement;
 
@@ -21,34 +22,33 @@ public class ItemDomainManagementViewModel extends BaseObservable {
 
     private final DomainManagement mDomainManagement;
     private final DomainManagementListener mDomainManagementListener;
-    private final ObservableInt mImageStatus;
+    private int mImageStatus;
     private boolean mIsMember;
 
     ItemDomainManagementViewModel(DomainManagement domainManagement,
             DomainManagementListener domainManagementListener) {
         mDomainManagement = domainManagement;
         mDomainManagementListener = domainManagementListener;
-        mImageStatus = new ObservableInt();
         mIsMember = false;
         initValueStatus();
         checkMember();
     }
 
     private void initValueStatus() {
-
         switch (mDomainManagement.getStatus()) {
             case SECRET_STATUS:
-                mImageStatus.set(R.drawable.ic_lock);
+                mImageStatus = R.drawable.ic_lock;
                 break;
             case PROFESSED_STATUS:
-                mImageStatus.set(R.drawable.ic_public);
+                mImageStatus = R.drawable.ic_public;
                 break;
             case DEFAULT_STATUS:
-                mImageStatus.set(R.drawable.ic_lock);
+                mImageStatus = R.drawable.ic_lock;
                 break;
             default:
                 break;
         }
+        notifyPropertyChanged(BR.imageStatus);
     }
 
     private void checkMember() {
@@ -78,6 +78,20 @@ public class ItemDomainManagementViewModel extends BaseObservable {
         mDomainManagementListener.onLeaveDomain(mDomainManagement.getId());
     }
 
+    public void onClickEditDomain() {
+        if (mDomainManagementListener == null) {
+            return;
+        }
+        mDomainManagementListener.onEditDomain(mDomainManagement.getId());
+    }
+
+    public void onClickDeleteDomain() {
+        if (mDomainManagementListener == null) {
+            return;
+        }
+        mDomainManagementListener.onDeleteDomain(mDomainManagement.getId());
+    }
+
     public String getName() {
         return mDomainManagement.getName();
     }
@@ -94,11 +108,16 @@ public class ItemDomainManagementViewModel extends BaseObservable {
         return mDomainManagement.getCountShop() + FORMAT_PRODUCT;
     }
 
-    public ObservableInt getImageStatus() {
+    @Bindable
+    public int getImageStatus() {
         return mImageStatus;
     }
 
     public boolean isMember() {
         return mIsMember;
+    }
+
+    public boolean isOwner() {
+        return !mIsMember;
     }
 }
