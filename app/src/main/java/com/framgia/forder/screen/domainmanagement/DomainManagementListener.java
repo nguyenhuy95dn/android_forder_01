@@ -10,4 +10,8 @@ public interface DomainManagementListener {
     void onGetListShopInDomain(int domainId);
 
     void onLeaveDomain(int domainId);
+
+    void onEditDomain(int domainId);
+
+    void onDeleteDomain(int domainId);
 }
