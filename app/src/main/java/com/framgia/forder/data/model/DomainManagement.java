@@ -1,5 +1,7 @@
 package com.framgia.forder.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +9,20 @@ import com.google.gson.annotations.SerializedName;
  * Created by Age on 6/8/2017.
  */
 
-public class DomainManagement {
+public final class DomainManagement implements Parcelable {
+
+    public static final Creator<DomainManagement> CREATOR = new Creator<DomainManagement>() {
+        @Override
+        public DomainManagement createFromParcel(Parcel in) {
+            return new DomainManagement(in);
+        }
+
+        @Override
+        public DomainManagement[] newArray(int size) {
+            return new DomainManagement[size];
+        }
+    };
+
     @Expose
     @SerializedName("id")
     private int mId;
@@ -41,6 +56,20 @@ public class DomainManagement {
     @Expose
     @SerializedName("role_of_current_user")
     private String mRoleOfCurrentUser;
+
+    private DomainManagement(Parcel in) {
+        mId = in.readInt();
+        mName = in.readString();
+        mCreateAt = in.readString();
+        mUpdateAt = in.readString();
+        mSlug = in.readString();
+        mStatus = in.readString();
+        mOwner = in.readInt();
+        mCountUser = in.readInt();
+        mCountShop = in.readInt();
+        mCountProduct = in.readInt();
+        mRoleOfCurrentUser = in.readString();
+    }
 
     public int getId() {
         return mId;
@@ -128,5 +157,25 @@ public class DomainManagement {
 
     public void setRoleOfCurrentUser(String roleOfCurrentUser) {
         mRoleOfCurrentUser = roleOfCurrentUser;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mId);
+        dest.writeString(mName);
+        dest.writeString(mCreateAt);
+        dest.writeString(mUpdateAt);
+        dest.writeString(mSlug);
+        dest.writeString(mStatus);
+        dest.writeInt(mOwner);
+        dest.writeInt(mCountUser);
+        dest.writeInt(mCountShop);
+        dest.writeInt(mCountProduct);
+        dest.writeString(mRoleOfCurrentUser);
     }
 }
