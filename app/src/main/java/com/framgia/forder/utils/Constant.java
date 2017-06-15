@@ -38,6 +38,8 @@ public final class Constant {
 
     public static final int REQUEST_SELECT_IMAGE = 100;
 
+    public static final int DEFAULT_VALUE = 0;
+
     private Constant() {
         // No-op
     }
