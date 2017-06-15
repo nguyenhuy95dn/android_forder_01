@@ -19,9 +19,12 @@ import android.view.View;
 import android.widget.Toast;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.CartItem;
+import com.framgia.forder.data.model.DomainManagement;
 import com.framgia.forder.screen.cart.notecart.NoteCartFragment;
 import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainFragment;
 import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainListener;
+import com.framgia.forder.screen.domainmanagement.editdomain.EditDomainListener;
+import com.framgia.forder.screen.domainmanagement.editdomain.EditdomainFragment;
 
 /**
  * Created by le.quang.dao on 14/03/2017.
@@ -205,6 +208,14 @@ public class Navigator {
         FragmentManager fragmentManager = mFragment.getFragmentManager();
         AddDomainFragment fragment = AddDomainFragment.newInstance();
         fragment.setAddDomainListener(listener);
+        fragment.show(fragmentManager, tag);
+    }
+
+    public void showEditDomainDialog(String tag, DomainManagement domainManagement,
+            EditDomainListener listener) {
+        FragmentManager fragmentManager = mFragment.getFragmentManager();
+        EditdomainFragment fragment = EditdomainFragment.newInstance(domainManagement);
+        fragment.setEditDomainListener(listener);
         fragment.show(fragmentManager, tag);
     }
 

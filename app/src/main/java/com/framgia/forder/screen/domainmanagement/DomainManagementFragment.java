@@ -19,6 +19,7 @@ import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentDomainManagementBinding;
 import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainFragment;
+import com.framgia.forder.screen.domainmanagement.editdomain.EditdomainFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 
@@ -40,10 +41,12 @@ public class DomainManagementFragment extends Fragment {
         DomainManagementAdapter domainManagementAdapter =
                 new DomainManagementAdapter(getActivity());
         Navigator navigator = new Navigator(getParentFragment());
-        AddDomainFragment fragment = new AddDomainFragment();
+        AddDomainFragment addDomainFragment = new AddDomainFragment();
+        EditdomainFragment editdomainFragment = new EditdomainFragment();
         DialogManager dialogManager = new DialogManager(getActivity());
-        mViewModel = new DomainManagementViewModel(domainManagementAdapter, navigator, fragment,
-                dialogManager);
+        mViewModel =
+                new DomainManagementViewModel(domainManagementAdapter, navigator, addDomainFragment,
+                        editdomainFragment, dialogManager);
 
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
         UserDataSource.LocalDataSource userLocalDataSource = new UserLocalDataSource(prefsApi);

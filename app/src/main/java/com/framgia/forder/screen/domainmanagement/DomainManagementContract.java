@@ -30,6 +30,10 @@ interface DomainManagementContract {
         void onDeleteDomainSuccess();
 
         void onDeleteDomainError(BaseException error);
+
+        void onEditDomainSuccess();
+
+        void onEditDomainError(BaseException error);
     }
 
     /**
@@ -43,5 +47,7 @@ interface DomainManagementContract {
         void leaveDomain(int domainId);
 
         void deleteDomain(int domainId);
+
+        void editDomain(int domainId, String name, String status);
     }
 }

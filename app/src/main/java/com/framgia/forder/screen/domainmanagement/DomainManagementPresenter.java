@@ -9,6 +9,7 @@ import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import com.framgia.forder.data.source.remote.api.request.RegisterDomainRequest;
 import com.framgia.forder.data.source.remote.api.response.DeleteDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteUserInDomainResponse;
+import com.framgia.forder.data.source.remote.api.response.EditDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterDomainResponse;
 import java.util.List;
 import rx.Subscription;
@@ -121,6 +122,25 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
                     @Override
                     public void onSafetyError(BaseException error) {
                         mViewModel.onDeleteDomainError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void editDomain(int domainId, String name, String status) {
+        Subscription subscription = mDomainRepository.requestEditDomain(domainId, name, status)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<EditDomainResponse>() {
+                    @Override
+                    public void call(EditDomainResponse response) {
+                        mViewModel.onEditDomainSuccess();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onEditDomainError(error);
                     }
                 });
         mCompositeSubscription.add(subscription);

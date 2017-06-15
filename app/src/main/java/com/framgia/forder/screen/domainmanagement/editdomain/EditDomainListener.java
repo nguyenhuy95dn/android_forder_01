@@ -5,5 +5,5 @@ package com.framgia.forder.screen.domainmanagement.editdomain;
  */
 
 public interface EditDomainListener {
-    void onRequestEditDomain(String nameDomain, String status);
+    void onRequestEditDomain(int domainId, String nameDomain, String status);
 }
