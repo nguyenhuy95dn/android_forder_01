@@ -164,4 +164,8 @@
     <string name="add_domain">Add Domain</string>
     <string name="add_domain_success">Add Domain Successful!</string>
     <string name="quantity_order_history">Quantity: </string>
+    <string name="msg_delete_domain">Do you really want to delete?</string>
+    <string name="msg_leave_domain">Do you really want to leave?</string>
+    <string name="delete_the_domain_success">Delete the domain successful!</string>
+    <string name="leave_the_domain_successful">Leave the domain successful!</string>
 </resources>

@@ -1,10 +1,14 @@
 package com.framgia.forder.screen.domainmanagement;
 
 import com.framgia.forder.data.model.DomainManagement;
+import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.DomainRepository;
+import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import com.framgia.forder.data.source.remote.api.request.RegisterDomainRequest;
+import com.framgia.forder.data.source.remote.api.response.DeleteDomainResponse;
+import com.framgia.forder.data.source.remote.api.response.DeleteUserInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterDomainResponse;
 import java.util.List;
 import rx.Subscription;
@@ -23,12 +27,14 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
 
     private final DomainManagementContract.ViewModel mViewModel;
     private final DomainRepository mDomainRepository;
+    private final UserRepository mUserRepository;
     private final CompositeSubscription mCompositeSubscription;
 
     DomainManagementPresenter(DomainManagementContract.ViewModel viewModel,
-            DomainRepository domainRepository) {
+            DomainRepository domainRepository, UserRepository userRepository) {
         mViewModel = viewModel;
         mDomainRepository = domainRepository;
+        mUserRepository = userRepository;
         mCompositeSubscription = new CompositeSubscription();
         getListDomainManagement();
     }
@@ -75,6 +81,46 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
                     @Override
                     public void onSafetyError(BaseException error) {
                         mViewModel.onRegisterDomainError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void leaveDomain(int domainId) {
+        User user = mUserRepository.getUser();
+        Subscription subscription =
+                mDomainRepository.requestDeleteUserInDomain(domainId, user.getId())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Action1<DeleteUserInDomainResponse>() {
+                            @Override
+                            public void call(DeleteUserInDomainResponse response) {
+                                mViewModel.onLeaveDomainSuccess();
+                            }
+                        }, new SafetyError() {
+                            @Override
+                            public void onSafetyError(BaseException error) {
+                                mViewModel.onLeaveDomainError(error);
+                            }
+                        });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void deleteDomain(int domainId) {
+        Subscription subscription = mDomainRepository.requestDeleteDomain(domainId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<DeleteDomainResponse>() {
+                    @Override
+                    public void call(DeleteDomainResponse response) {
+                        mViewModel.onDeleteDomainSuccess();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onDeleteDomainError(error);
                     }
                 });
         mCompositeSubscription.add(subscription);

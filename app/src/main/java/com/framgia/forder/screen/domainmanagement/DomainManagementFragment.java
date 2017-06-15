@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.UserDataSource;
+import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.local.DomainLocalDataSource;
 import com.framgia.forder.data.source.local.UserLocalDataSource;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
@@ -19,6 +20,7 @@ import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentDomainManagementBinding;
 import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainFragment;
 import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
 
 /**
  * Domainmanagement Screen.
@@ -39,16 +41,19 @@ public class DomainManagementFragment extends Fragment {
                 new DomainManagementAdapter(getActivity());
         Navigator navigator = new Navigator(getParentFragment());
         AddDomainFragment fragment = new AddDomainFragment();
-        mViewModel = new DomainManagementViewModel(domainManagementAdapter, navigator, fragment);
+        DialogManager dialogManager = new DialogManager(getActivity());
+        mViewModel = new DomainManagementViewModel(domainManagementAdapter, navigator, fragment,
+                dialogManager);
 
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
         UserDataSource.LocalDataSource userLocalDataSource = new UserLocalDataSource(prefsApi);
         DomainRepository domainRepository =
                 new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
                         new DomainLocalDataSource(prefsApi, userLocalDataSource));
+        UserRepository userRepository = new UserRepository(null, new UserLocalDataSource(prefsApi));
 
         DomainManagementContract.Presenter presenter =
-                new DomainManagementPresenter(mViewModel, domainRepository);
+                new DomainManagementPresenter(mViewModel, domainRepository, userRepository);
         mViewModel.setPresenter(presenter);
 
         FragmentDomainManagementBinding binding =
