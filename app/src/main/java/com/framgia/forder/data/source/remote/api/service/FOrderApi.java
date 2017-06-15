@@ -16,6 +16,7 @@ import com.framgia.forder.data.source.remote.api.response.DeleteDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteUserInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
+import com.framgia.forder.data.source.remote.api.response.EditDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
 import com.framgia.forder.data.source.remote.api.response.NotificationResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderCartResponse;
@@ -172,4 +173,8 @@ public interface FOrderApi {
 
     @DELETE("v1/domains/{domain_id}")
     Observable<DeleteDomainResponse> requestDeleteDomain(@Path("domain_id") int domainId);
+
+    @GET("v1/domains/{domain_id}/edit")
+    Observable<EditDomainResponse> requestEditDomain(@Path("domain_id") int domainId,
+            @Query("name") String name, @Query("status") String status);
 }

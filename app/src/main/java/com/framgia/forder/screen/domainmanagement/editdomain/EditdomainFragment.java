@@ -43,9 +43,9 @@ public class EditdomainFragment extends DialogFragment {
         binding.setViewModel((EditdomainViewModel) mViewModel);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
-                R.style.Theme_AppCompat_DayNight_Dialog).setTitle(R.string.add_domain)
+                R.style.Theme_AppCompat_DayNight_Dialog).setTitle(R.string.edit_domain)
                 .setView(binding.getRoot())
-                .setPositiveButton(R.string.create, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(@NonNull DialogInterface dialogInterface, int i) {
                     }
