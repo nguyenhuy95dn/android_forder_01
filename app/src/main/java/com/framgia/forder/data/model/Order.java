@@ -171,6 +171,10 @@ public class Order {
             return R.drawable.button_blue;
         } else if (mStatusOrder == StatusOders.Rejected) {
             return R.drawable.button_red;
+        } else if (mStatusOrder == StatusOders.Pending) {
+            return R.drawable.button_blue;
+        } else if (mStatusOrder == StatusOders.Accepted) {
+            return R.drawable.button_orange;
         }
         return 0;
     }

@@ -15,7 +15,8 @@ interface DomainManagementContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
-        void onGetListDomainManagementSuccess(List<DomainManagement> domainManagementList);
+        void onGetListDomainManagementSuccess(int userId,
+                List<DomainManagement> domainManagementList);
 
         void onGetListDomainManagementError(BaseException error);
 

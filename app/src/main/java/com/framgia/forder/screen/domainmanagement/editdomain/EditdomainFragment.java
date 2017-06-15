@@ -48,6 +48,7 @@ public class EditdomainFragment extends DialogFragment {
                 .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(@NonNull DialogInterface dialogInterface, int i) {
+                        mViewModel.onRequestEditDomain();
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

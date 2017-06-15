@@ -120,4 +120,8 @@ public class ItemDomainManagementViewModel extends BaseObservable {
     public boolean isOwner() {
         return !mIsMember;
     }
+
+    public boolean isOwnerMember() {
+        return mDomainManagement.isOwner();
+    }
 }

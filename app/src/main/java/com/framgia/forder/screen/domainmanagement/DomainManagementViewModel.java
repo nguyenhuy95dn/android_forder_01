@@ -60,7 +60,13 @@ public class DomainManagementViewModel extends BaseObservable
     }
 
     @Override
-    public void onGetListDomainManagementSuccess(List<DomainManagement> domainManagementList) {
+    public void onGetListDomainManagementSuccess(int userId,
+            List<DomainManagement> domainManagementList) {
+        for (DomainManagement domainManagement : domainManagementList) {
+            if (userId == domainManagement.getOwner()) {
+                domainManagement.setOwner(true);
+            }
+        }
         mDomainManagementAdapter.updateData(domainManagementList);
     }
 

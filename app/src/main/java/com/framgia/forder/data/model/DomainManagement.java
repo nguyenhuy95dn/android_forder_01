@@ -56,6 +56,7 @@ public final class DomainManagement implements Parcelable {
     @Expose
     @SerializedName("role_of_current_user")
     private String mRoleOfCurrentUser;
+    private boolean mIsOwner;
 
     private DomainManagement(Parcel in) {
         mId = in.readInt();
@@ -157,6 +158,14 @@ public final class DomainManagement implements Parcelable {
 
     public void setRoleOfCurrentUser(String roleOfCurrentUser) {
         mRoleOfCurrentUser = roleOfCurrentUser;
+    }
+
+    public boolean isOwner() {
+        return mIsOwner;
+    }
+
+    public void setOwner(boolean owner) {
+        mIsOwner = owner;
     }
 
     @Override
