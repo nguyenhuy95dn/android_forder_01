@@ -9,6 +9,8 @@ import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.RegisterDomainRequest;
 import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainFragment;
 import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainListener;
+import com.framgia.forder.screen.domainmanagement.editdomain.EditDomainListener;
+import com.framgia.forder.screen.domainmanagement.editdomain.EditdomainFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.List;
@@ -18,7 +20,8 @@ import java.util.List;
  */
 
 public class DomainManagementViewModel extends BaseObservable
-        implements DomainManagementContract.ViewModel, DomainManagementListener, AddDomainListener {
+        implements DomainManagementContract.ViewModel, DomainManagementListener, AddDomainListener,
+        EditDomainListener {
     private static final String TAG = "DomainManagementViewModel";
 
     private DomainManagementContract.Presenter mPresenter;
@@ -27,12 +30,14 @@ public class DomainManagementViewModel extends BaseObservable
     private final DialogManager mDialogManager;
 
     DomainManagementViewModel(DomainManagementAdapter domainManagementAdapter, Navigator navigator,
-            AddDomainFragment addDomainFragment, DialogManager dialogManager) {
+            AddDomainFragment addDomainFragment, EditdomainFragment editdomainFragment,
+            DialogManager dialogManager) {
         mDomainManagementAdapter = domainManagementAdapter;
         mNavigator = navigator;
-        mDialogManager = dialogManager;
         domainManagementAdapter.setDomainManagementListener(this);
+        mDialogManager = dialogManager;
         addDomainFragment.setAddDomainListener(this);
+        editdomainFragment.setEditDomainListener(this);
     }
 
     @Override
@@ -120,8 +125,19 @@ public class DomainManagementViewModel extends BaseObservable
     }
 
     @Override
+    public void onEditDomainSuccess() {
+        mNavigator.showToast(R.string.update_successful);
+        mPresenter.getListDomainManagement();
+    }
+
+    @Override
+    public void onEditDomainError(BaseException error) {
+        mNavigator.showToast(error.getMessage());
+    }
+
+    @Override
     public void onEditDomain(DomainManagement domainManagement) {
-        //Todo dev later
+        mNavigator.showEditDomainDialog("EditDomainFragment", domainManagement, this);
     }
 
     @Override
@@ -148,5 +164,10 @@ public class DomainManagementViewModel extends BaseObservable
         domain.setStatus(status);
         registerDomainRequest.setDomain(domain);
         mPresenter.registerDomain(registerDomainRequest);
+    }
+
+    @Override
+    public void onRequestEditDomain(int domainId, String nameDomain, String status) {
+        mPresenter.editDomain(domainId, nameDomain, status);
     }
 }

@@ -46,7 +46,7 @@ public class EditdomainViewModel extends BaseObservable implements EditdomainCon
 
     @Override
     public void onRequestEditDomain() {
-        mEditDomainListener.onRequestEditDomain(mNameDomain, mStatus);
+        mEditDomainListener.onRequestEditDomain(mDomainManagement.getId(), mNameDomain, mStatus);
     }
 
     @Bindable
