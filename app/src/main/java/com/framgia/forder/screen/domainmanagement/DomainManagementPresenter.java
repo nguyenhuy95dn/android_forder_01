@@ -51,13 +51,15 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
 
     @Override
     public void getListDomainManagement() {
+        final User user = mUserRepository.getUser();
         Subscription subscription = mDomainRepository.getListDomainManagement()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<DomainManagement>>() {
                     @Override
                     public void call(List<DomainManagement> domainManagementList) {
-                        mViewModel.onGetListDomainManagementSuccess(domainManagementList);
+                        mViewModel.onGetListDomainManagementSuccess(user.getId(),
+                                domainManagementList);
                     }
                 }, new SafetyError() {
                     @Override
