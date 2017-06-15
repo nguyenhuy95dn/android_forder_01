@@ -44,16 +44,17 @@
                 />
             <ImageButton
                 android:id="@+id/button_add_shopping_card"
-                android:layout_width="@dimen/dp_40"
-                android:layout_height="@dimen/dp_40"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_margin="@dimen/dp_10"
-                android:background="@android:color/transparent"
+                android:background="@drawable/border_button"
+                android:backgroundTint="@color/color_orange_mos"
                 android:onClick="@{()-> viewModel.addCart()}"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_add_cart"
-                tools:ignore="ContentDescription"
+                android:src="@drawable/ic_add_product_cart"
+                tools:ignore="ContentDescription,UnusedAttribute,VectorDrawableCompat"
                 />
 
             <TextView

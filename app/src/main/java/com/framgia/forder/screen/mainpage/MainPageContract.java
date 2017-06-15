@@ -24,7 +24,7 @@ interface MainPageContract {
 
         void onGetListShopSuccess(List<Shop> shops);
 
-        void onAddToCartError(BaseException exception);
+        void onAddToCartError(Throwable exception);
 
         void onAddToCartSuccess();
 

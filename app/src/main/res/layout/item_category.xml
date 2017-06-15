@@ -11,12 +11,12 @@
     </data>
     <RelativeLayout
         android:layout_width="@dimen/dp_150"
-        android:layout_height="@dimen/dp_70"
+        android:layout_height="@dimen/dp_60"
         android:background="@color/transparent"
         >
         <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/tag"
             android:src="@color/transparent"
             tools:ignore="ContentDescription"
@@ -28,6 +28,10 @@
             android:layout_centerVertical="true"
             android:fontFamily="@string/font_serif"
             android:gravity="center_horizontal"
+            android:paddingEnd="@dimen/dp_10"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingStart="@dimen/dp_15"
             android:text="@{viewModel.nameCateGory}"
             android:textColor="@color/color_white"
             tools:ignore="UnusedAttribute"

@@ -56,7 +56,8 @@ public class MainPageFragment extends Fragment {
         CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), categories);
         Navigator navigator = new Navigator(getParentFragment().getParentFragment());
 
-        mViewModel = new MainPageViewModel(productAdapter, shopAdapter, navigator, categoryAdapter);
+        mViewModel = new MainPageViewModel(getContext().getApplicationContext(), productAdapter,
+                shopAdapter, navigator, categoryAdapter);
 
         RealmApi realmApi = new RealmApi();
 
