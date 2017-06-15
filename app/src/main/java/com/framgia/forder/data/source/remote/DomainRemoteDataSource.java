@@ -8,6 +8,7 @@ import com.framgia.forder.data.source.remote.api.response.DeleteDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteUserInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
+import com.framgia.forder.data.source.remote.api.response.EditDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterDomainResponse;
 import com.framgia.forder.data.source.remote.api.service.FOrderApi;
 import java.util.ArrayList;
@@ -76,5 +77,11 @@ public class DomainRemoteDataSource implements DomainDataSource.RemoteDataSource
     @Override
     public Observable<DeleteDomainResponse> requestDeleteDomain(int domainId) {
         return mFOrderApi.requestDeleteDomain(domainId);
+    }
+
+    @Override
+    public Observable<EditDomainResponse> requestEditDdomain(int domainId, String name,
+            String status) {
+        return mFOrderApi.requestEditDomain(domainId, name, status);
     }
 }

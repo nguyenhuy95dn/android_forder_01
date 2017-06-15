@@ -6,6 +6,7 @@ import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.api.request.RegisterDomainRequest;
 import com.framgia.forder.data.source.remote.api.response.DeleteDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteUserInDomainResponse;
+import com.framgia.forder.data.source.remote.api.response.EditDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterDomainResponse;
 import java.util.List;
 import rx.Observable;
@@ -34,5 +35,7 @@ public class DomainDataSource {
         Observable<DeleteUserInDomainResponse> requestDeleteUserInDomain(int domainId, int userId);
 
         Observable<DeleteDomainResponse> requestDeleteDomain(int domainId);
+
+        Observable<EditDomainResponse> requestEditDdomain(int domainId, String name, String status);
     }
 }
