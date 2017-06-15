@@ -5,7 +5,6 @@ import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.shopDetail.ShopDetailFragment;
-import com.framgia.forder.utils.binding.LayoutManagers;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
 import java.util.Observable;
@@ -18,13 +17,13 @@ public class ListShopViewModel extends Observable implements ListShopContract.Vi
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
 
     private ListShopContract.Presenter mPresenter;
-    private ListShopAdapter mListShopAdapter;
-    private Navigator mNavigator;
+    private final ListShopAdapter mAdapter;
+    private final Navigator mNavigator;
 
-    public ListShopViewModel(ListShopAdapter listShopAdapter, Navigator navigator) {
-        mListShopAdapter = listShopAdapter;
+    ListShopViewModel(Navigator navigator, ListShopAdapter adapter) {
         mNavigator = navigator;
-        mListShopAdapter.setItemClickListener(this);
+        mAdapter = adapter;
+        mAdapter.setItemClickListener(this);
     }
 
     @Override
@@ -49,7 +48,7 @@ public class ListShopViewModel extends Observable implements ListShopContract.Vi
 
     @Override
     public void onGetListAllShopSuccess(List<Shop> shops) {
-        mListShopAdapter.updateData(shops);
+        mAdapter.updateData(shops);
     }
 
     @Override
@@ -62,11 +61,7 @@ public class ListShopViewModel extends Observable implements ListShopContract.Vi
                 true, Navigator.RIGHT_LEFT, "ShopDetailFragment");
     }
 
-    public LayoutManagers.LayoutManagerFactory getLayoutManager() {
-        return LayoutManagers.linear();
-    }
-
-    public ListShopAdapter getListShopAdapter() {
-        return mListShopAdapter;
+    public ListShopAdapter getAdapter() {
+        return mAdapter;
     }
 }

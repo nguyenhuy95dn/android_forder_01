@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Shop;
-import com.framgia.forder.databinding.ItemHeaderShopBinding;
 import com.framgia.forder.databinding.ItemListShopBinding;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.mainpage.shop.ItemShopViewModel;
+import com.framgia.forder.widgets.animation.AnimationManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,49 +19,34 @@ import java.util.List;
  * Created by ASUS on 20-04-2017.
  */
 
-public class ListShopAdapter extends BaseRecyclerViewAdapter<RecyclerView.ViewHolder> {
-    private static final int HEADER = 0;
-    private static final int CONTENT = 1;
-    private OnRecyclerViewItemClickListener<Object> mItemClickListener;
-    private List<Shop> mShops;
+public class ListShopAdapter extends BaseRecyclerViewAdapter<ListShopAdapter.ItemViewHolder> {
 
-    ListShopAdapter(@NonNull Context context, List<Shop> shops) {
+    private final List<Shop> mShops;
+    private OnRecyclerViewItemClickListener<Object> mItemClickListener;
+    private AnimationManager mAnimationManager;
+
+    public ListShopAdapter(@NonNull Context context, List<Shop> shops) {
         super(context);
         mShops = new ArrayList<>();
+        if (shops == null) {
+            return;
+        }
         mShops.addAll(shops);
+        mAnimationManager = new AnimationManager(context);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        switch (viewType) {
-            case HEADER:
-                ItemHeaderShopBinding itemHeaderShopBinding =
-                        DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                                R.layout.item_header_shop, parent, false);
-                return new HeaderViewHolder(itemHeaderShopBinding, mItemClickListener);
-            case CONTENT:
-                ItemListShopBinding itemListShopBinding =
-                        DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                                R.layout.item_list_shop, parent, false);
-                return new ContentViewHolder(itemListShopBinding, mItemClickListener);
-            default:
-                break;
-        }
-        return null;
+    public ListShopAdapter.ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        ItemListShopBinding binding =
+                DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                        R.layout.item_list_shop, parent, false);
+        return new ListShopAdapter.ItemViewHolder(binding, mItemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        switch (getItemViewType(position)) {
-            case HEADER:
-                HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-                headerViewHolder.bind(mShops.get(position));
-                break;
-            case CONTENT:
-                ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
-                contentViewHolder.bind(mShops.get(position));
-                break;
-        }
+    public void onBindViewHolder(ListShopAdapter.ItemViewHolder holder, int position) {
+        holder.bind(mShops.get(position));
+        mAnimationManager.animationSlideInLeft(holder.itemView, position);
     }
 
     @Override
@@ -69,16 +54,11 @@ public class ListShopAdapter extends BaseRecyclerViewAdapter<RecyclerView.ViewHo
         return mShops.size();
     }
 
-    void setItemClickListener(OnRecyclerViewItemClickListener<Object> itemClickListener) {
+    public void setItemClickListener(OnRecyclerViewItemClickListener<Object> itemClickListener) {
         mItemClickListener = itemClickListener;
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return position == 0 ? HEADER : CONTENT;
-    }
-
-    void updateData(List<Shop> shops) {
+    public void updateData(List<Shop> shops) {
         if (shops == null) {
             return;
         }
@@ -87,29 +67,13 @@ public class ListShopAdapter extends BaseRecyclerViewAdapter<RecyclerView.ViewHo
         notifyDataSetChanged();
     }
 
-    static class HeaderViewHolder extends RecyclerView.ViewHolder {
-        private ItemHeaderShopBinding mBinding;
-        private OnRecyclerViewItemClickListener<Object> mItemClickListener;
+    static class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        HeaderViewHolder(ItemHeaderShopBinding binding,
-                BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> listener) {
-            super(binding.getRoot());
-            mBinding = binding;
-            mItemClickListener = listener;
-        }
+        private final ItemListShopBinding mBinding;
+        private final OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
-        void bind(Shop shop) {
-            mBinding.setViewModel(new ItemShopViewModel(shop, mItemClickListener));
-            mBinding.executePendingBindings();
-        }
-    }
-
-    static class ContentViewHolder extends RecyclerView.ViewHolder {
-        private ItemListShopBinding mBinding;
-        private OnRecyclerViewItemClickListener<Object> mItemClickListener;
-
-        ContentViewHolder(ItemListShopBinding binding,
-                BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> listener) {
+        ItemViewHolder(ItemListShopBinding binding,
+                OnRecyclerViewItemClickListener<Object> listener) {
             super(binding.getRoot());
             mBinding = binding;
             mItemClickListener = listener;
