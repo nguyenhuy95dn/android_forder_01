@@ -22,6 +22,14 @@ interface DomainManagementContract {
         void onRegisterDomainSuccess();
 
         void onRegisterDomainError(BaseException error);
+
+        void onLeaveDomainSuccess();
+
+        void onLeaveDomainError(BaseException error);
+
+        void onDeleteDomainSuccess();
+
+        void onDeleteDomainError(BaseException error);
     }
 
     /**
@@ -31,5 +39,9 @@ interface DomainManagementContract {
         void getListDomainManagement();
 
         void registerDomain(RegisterDomainRequest registerDomainRequest);
+
+        void leaveDomain(int domainId);
+
+        void deleteDomain(int domainId);
     }
 }
