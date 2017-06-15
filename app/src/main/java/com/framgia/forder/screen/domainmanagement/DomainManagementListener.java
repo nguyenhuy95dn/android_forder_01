@@ -13,7 +13,7 @@ public interface DomainManagementListener {
 
     void onLeaveDomain(int domainId);
 
-    void onEditDomain(int domainId);
+    void onEditDomain(DomainManagement domainManagement);
 
     void onDeleteDomain(int domainId);
 }

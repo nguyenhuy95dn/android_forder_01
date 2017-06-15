@@ -120,7 +120,7 @@ public class DomainManagementViewModel extends BaseObservable
     }
 
     @Override
-    public void onEditDomain(int domainId) {
+    public void onEditDomain(DomainManagement domainManagement) {
         //Todo dev later
     }
 

@@ -82,7 +82,7 @@ public class ItemDomainManagementViewModel extends BaseObservable {
         if (mDomainManagementListener == null) {
             return;
         }
-        mDomainManagementListener.onEditDomain(mDomainManagement.getId());
+        mDomainManagementListener.onEditDomain(mDomainManagement);
     }
 
     public void onClickDeleteDomain() {
