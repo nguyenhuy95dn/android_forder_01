@@ -20,13 +20,13 @@ import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
 import com.framgia.forder.data.source.remote.SearchRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentSearchContainerBinding;
+import com.framgia.forder.utils.navigator.Navigator;
 
 /**
  * FragmentSearchContainer Screen.
  */
 public class SearchContainerFragment extends Fragment {
     private SearchContainerContract.ViewModel mViewModel;
-    private FragmentSearchContainerBinding mBinding;
 
     public static SearchContainerFragment newInstance() {
         return new SearchContainerFragment();
@@ -38,7 +38,8 @@ public class SearchContainerFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         SearchContainerAdapter adapter =
                 new SearchContainerAdapter(getActivity(), getChildFragmentManager());
-        mViewModel = new SearchContainerViewModel(adapter);
+        Navigator navigator = new Navigator(getParentFragment());
+        mViewModel = new SearchContainerViewModel(adapter, navigator);
         SearchRepository searchRepository =
                 new SearchRepository(new SearchRemoteDataSource(FOrderServiceClient.getInstance()));
 
@@ -50,10 +51,11 @@ public class SearchContainerFragment extends Fragment {
                 new SearchContainerPresenter(mViewModel, searchRepository, domainRepository);
         mViewModel.setPresenter(presenter);
 
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_container, container,
-                false);
-        mBinding.setViewModel((SearchContainerViewModel) mViewModel);
-        return mBinding.getRoot();
+        FragmentSearchContainerBinding binding =
+                DataBindingUtil.inflate(inflater, R.layout.fragment_search_container, container,
+                        false);
+        binding.setViewModel((SearchContainerViewModel) mViewModel);
+        return binding.getRoot();
     }
 
     @Override

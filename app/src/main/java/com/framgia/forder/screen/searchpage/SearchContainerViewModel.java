@@ -3,11 +3,13 @@ package com.framgia.forder.screen.searchpage;
 import android.databinding.BaseObservable;
 import android.support.v4.app.Fragment;
 import com.arlib.floatingsearchview.FloatingSearchView;
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.searchproduct.ProductSearchResultFragment;
 import com.framgia.forder.screen.searchshop.ShopSearchResultFragment;
+import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
 
 /**
@@ -18,10 +20,12 @@ public class SearchContainerViewModel extends BaseObservable
         implements SearchContainerContract.ViewModel {
 
     private SearchContainerContract.Presenter mPresenter;
-    private SearchContainerAdapter mAdapter;
+    private final SearchContainerAdapter mAdapter;
+    private final Navigator mNavigator;
 
-    public SearchContainerViewModel(SearchContainerAdapter adapter) {
+    SearchContainerViewModel(SearchContainerAdapter adapter, Navigator navigator) {
         mAdapter = adapter;
+        mNavigator = navigator;
     }
 
     @Override
@@ -61,13 +65,8 @@ public class SearchContainerViewModel extends BaseObservable
     }
 
     @Override
-    public void onSearchProductsError(BaseException error) {
-        // Todo show dialog message
-    }
-
-    @Override
-    public void onSearchShopsError(BaseException error) {
-        // Todo show dialog message
+    public void onSearchError(BaseException error) {
+        mNavigator.showToast(error.getMessage());
     }
 
     @Override
@@ -75,12 +74,16 @@ public class SearchContainerViewModel extends BaseObservable
         mPresenter.search(keyWord);
     }
 
-    public FloatingSearchView.OnQueryChangeListener getQueryTextListener() {
-        return new FloatingSearchView.OnQueryChangeListener() {
+    public FloatingSearchView.OnSearchListener getQueryTextListener() {
+        return new FloatingSearchView.OnSearchListener() {
+            @Override
+            public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
+                //Todo dev later
+            }
 
             @Override
-            public void onSearchTextChanged(String oldQuery, String newQuery) {
-                onClickSearch(newQuery);
+            public void onSearchAction(String keyWord) {
+                onClickSearch(keyWord);
             }
         };
     }

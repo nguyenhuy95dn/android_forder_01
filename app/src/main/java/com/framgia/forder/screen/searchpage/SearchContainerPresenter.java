@@ -21,9 +21,9 @@ final class SearchContainerPresenter implements SearchContainerContract.Presente
     private static final String TAG = SearchContainerPresenter.class.getName();
 
     private final SearchContainerContract.ViewModel mViewModel;
-    private CompositeSubscription mCompositeSubscriptions;
-    private SearchRepository mSearchRepository;
-    private DomainRepository mDomainRepository;
+    private final CompositeSubscription mCompositeSubscriptions;
+    private final SearchRepository mSearchRepository;
+    private final DomainRepository mDomainRepository;
 
     SearchContainerPresenter(SearchContainerContract.ViewModel viewModel,
             SearchRepository repository, DomainRepository domainRepository) {
@@ -57,13 +57,13 @@ final class SearchContainerPresenter implements SearchContainerContract.Presente
                         if (response == null) {
                             return;
                         }
-                        mViewModel.onSearchProductsSuccess(response.getListProduct());
-                        mViewModel.onSearchShopsSuccess(response.getListShop());
+                        mViewModel.onSearchProductsSuccess(response.getSearch().getProductList());
+                        mViewModel.onSearchShopsSuccess(response.getSearch().getShopList());
                     }
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
-                        mViewModel.onSearchProductsError(error);
+                        mViewModel.onSearchError(error);
                     }
                 });
         mCompositeSubscriptions.add(subscription);

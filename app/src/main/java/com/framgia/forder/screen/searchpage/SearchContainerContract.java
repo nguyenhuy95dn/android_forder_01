@@ -19,11 +19,9 @@ interface SearchContainerContract {
 
         void onSearchShopsSuccess(List<Shop> shops);
 
-        void onSearchProductsError(BaseException error);
+        void onSearchError(BaseException error);
 
         void onClickSearch(String keyWord);
-
-        void onSearchShopsError(BaseException error);
     }
 
     /**

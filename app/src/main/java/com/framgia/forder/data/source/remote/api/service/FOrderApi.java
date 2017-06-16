@@ -76,8 +76,9 @@ public interface FOrderApi {
     Observable<UpdateProfileResponse> updateUserInformation(
             @Body UpdateProfileRequest updateProfileRequest);
 
-    @GET("v1/search")
-    Observable<SearchResponse> search(@Query("domain_id") int id, @Query("keyWord") String keyWord);
+    @GET("v1/searches")
+    Observable<SearchResponse> search(@Query("domain_id") int domainId,
+            @Query("keyword") String keyWord);
 
     @GET("v1/notifications")
     Observable<NotificationResponse> getListNotification();

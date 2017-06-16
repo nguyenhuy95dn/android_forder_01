@@ -1,7 +1,5 @@
 package com.framgia.forder.data.source.remote.api.response;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
 import com.google.gson.annotations.Expose;
@@ -12,7 +10,7 @@ import java.util.List;
  * Created by Age on 4/20/2017.
  */
 
-public class SearchResponse implements Parcelable {
+public class SearchResponse {
     @Expose
     @SerializedName("status")
     private int mStatus;
@@ -20,41 +18,8 @@ public class SearchResponse implements Parcelable {
     @SerializedName("message")
     private String mMessage;
     @Expose
-    @SerializedName("content_shop")
-    private List<Shop> mListShop;
-    @Expose
-    @SerializedName("content_product")
-    private List<Product> mListProduct;
-
-    public SearchResponse() {
-    }
-
-    public SearchResponse(int status, String message, List<Shop> listShop,
-            List<Product> listProduct) {
-        mStatus = status;
-        mMessage = message;
-        mListShop = listShop;
-        mListProduct = listProduct;
-    }
-
-    protected SearchResponse(Parcel in) {
-        mStatus = in.readInt();
-        mMessage = in.readString();
-        mListShop = in.createTypedArrayList(Shop.CREATOR);
-        mListProduct = in.createTypedArrayList(Product.CREATOR);
-    }
-
-    public static final Creator<SearchResponse> CREATOR = new Creator<SearchResponse>() {
-        @Override
-        public SearchResponse createFromParcel(Parcel in) {
-            return new SearchResponse(in);
-        }
-
-        @Override
-        public SearchResponse[] newArray(int size) {
-            return new SearchResponse[size];
-        }
-    };
+    @SerializedName("content")
+    private Search mSearch;
 
     public int getStatus() {
         return mStatus;
@@ -72,32 +37,36 @@ public class SearchResponse implements Parcelable {
         mMessage = message;
     }
 
-    public List<Shop> getListShop() {
-        return mListShop;
+    public Search getSearch() {
+        return mSearch;
     }
 
-    public void setListShop(List<Shop> listShop) {
-        mListShop = listShop;
+    public void setSearch(Search search) {
+        mSearch = search;
     }
 
-    public List<Product> getListProduct() {
-        return mListProduct;
-    }
+    public class Search {
+        @Expose
+        @SerializedName("products")
+        private List<Product> mProductList;
+        @Expose
+        @SerializedName("shops")
+        private List<Shop> mShopList;
 
-    public void setListProduct(List<Product> listProduct) {
-        mListProduct = listProduct;
-    }
+        public List<Product> getProductList() {
+            return mProductList;
+        }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+        public void setProductList(List<Product> productList) {
+            mProductList = productList;
+        }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(mStatus);
-        dest.writeString(mMessage);
-        dest.writeTypedList(mListShop);
-        dest.writeTypedList(mListProduct);
+        public List<Shop> getShopList() {
+            return mShopList;
+        }
+
+        public void setShopList(List<Shop> shopList) {
+            mShopList = shopList;
+        }
     }
 }
