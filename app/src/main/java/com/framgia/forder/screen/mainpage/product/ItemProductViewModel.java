@@ -43,7 +43,10 @@ public class ItemProductViewModel extends BaseObservable {
     }
 
     public String getShopName() {
-        return mProduct.getShop().getName();
+        if (mProduct.getShop() != null) {
+            return mProduct.getShop().getName();
+        }
+        return "";
     }
 
     public String getShopImage() {

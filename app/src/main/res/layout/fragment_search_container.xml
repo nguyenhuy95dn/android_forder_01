@@ -58,6 +58,9 @@
             android:id="@+id/floating_search_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             app:floatingSearch_close_search_on_keyboard_dismiss="false"
             app:floatingSearch_dimBackground="false"
             app:floatingSearch_dismissOnOutsideTouch="true"
@@ -68,10 +71,7 @@
             app:floatingSearch_searchHint="@string/search"
             app:floatingSearch_showSearchKey="true"
             app:floatingSearch_suggestionsListAnimDuration="250"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            bind:setOnQueryChangeListener="@{viewModel.queryTextListener}"
+            bind:setOnSearchListener="@{viewModel.queryTextListener}"
             />
     </RelativeLayout>
 </layout>
