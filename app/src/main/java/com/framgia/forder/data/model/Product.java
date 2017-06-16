@@ -5,6 +5,10 @@ import android.os.Parcelable;
 import com.framgia.forder.utils.Utils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.util.Locale;
+
+import static com.framgia.forder.utils.Constant.FORMAT_PRICE;
+import static com.framgia.forder.utils.Constant.UNIT_MONEY;
 
 public class Product implements Parcelable {
     public static final Creator<Product> CREATOR = new Creator<Product>() {
@@ -78,7 +82,6 @@ public class Product implements Parcelable {
         mDescription = in.readString();
         mStartHour = in.readString();
         mEndHour = in.readString();
-        mStatus = in.readString();
         mShopId = in.readInt();
         mCategoryId = in.readInt();
         mNotes = in.readString();
@@ -191,7 +194,7 @@ public class Product implements Parcelable {
     }
 
     public String getFormatPrice() {
-        return String.format(Utils.FORMAT_PRICE, mPrice);
+        return String.format(Locale.ENGLISH, FORMAT_PRICE, mPrice) + UNIT_MONEY;
     }
 
     @Override
@@ -207,7 +210,6 @@ public class Product implements Parcelable {
         dest.writeString(mDescription);
         dest.writeString(mStartHour);
         dest.writeString(mEndHour);
-        dest.writeString(mStatus);
         dest.writeInt(mShopId);
         dest.writeInt(mCategoryId);
         dest.writeString(mNotes);

@@ -123,7 +123,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
 
     @Override
     public void onAddToCartSuccess() {
-        // Todo edit later
+        mNavigator.showToastCustom((mContext.getString(R.string.add_to_cart_success)));
     }
 
     @Override
