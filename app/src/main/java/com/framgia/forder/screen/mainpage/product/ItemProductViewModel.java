@@ -72,4 +72,8 @@ public class ItemProductViewModel extends BaseObservable {
         }
         mOrderListener.onAddToCart(mProduct);
     }
+
+    public String getDescription() {
+        return mProduct.getDescription();
+    }
 }
