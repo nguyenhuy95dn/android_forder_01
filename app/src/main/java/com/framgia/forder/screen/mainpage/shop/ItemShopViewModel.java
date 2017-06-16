@@ -20,8 +20,8 @@ public class ItemShopViewModel extends BaseObservable {
     }
 
     public String getShopImage() {
-        if (mShop != null && mShop.getCollectionAvatar() != null) {
-            return mShop.getCollectionAvatar().getUrl();
+        if (mShop.getCollectionAvatar() != null && mShop.getCollectionAvatar().getImage() != null) {
+            return mShop.getCollectionAvatar().getImage().getUrl();
         }
         return "";
     }

@@ -1,7 +1,10 @@
 package com.framgia.forder.screen.mainpage;
 
-import android.databinding.ObservableField;
-import android.view.View;
+import android.content.Context;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.support.annotation.NonNull;
+import com.framgia.forder.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Category;
 import com.framgia.forder.data.model.Product;
@@ -18,27 +21,28 @@ import com.framgia.forder.screen.productdetail.ProductDetailFragment;
 import com.framgia.forder.screen.shopDetail.ShopDetailFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
-import java.util.Observable;
 
 /**
  * Exposes the data to be used in the Main screen.
  */
 
-public class MainPageViewModel extends Observable implements MainPageContract.ViewModel,
+public class MainPageViewModel extends BaseObservable implements MainPageContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener {
     private static final String TAG = "ListProductFragment";
 
+    private final Context mContext;
     private final Navigator mNavigator;
     private MainPageContract.Presenter mPresenter;
     private final ProductAdapter mProductAdapter;
     private final ShopAdapter mShopAdapter;
     private final CategoryAdapter mCategoryAdapter;
-    private final ObservableField<Integer> mProgressBarVisibilityProduct = new ObservableField<>();
-    private final ObservableField<Integer> mProgressBarVisibilityShop = new ObservableField<>();
-    private final ObservableField<Integer> mProgressBarVisibilityCategory = new ObservableField<>();
+    private boolean mIsProgressBarVisibleShop;
+    private boolean mIsProgressBarVisibleCategory;
+    private boolean mIsProgressBarVisibleProduct;
 
-    public MainPageViewModel(ProductAdapter productAdapter, ShopAdapter shopAdapter,
-            Navigator navigator, CategoryAdapter categoryAdapter) {
+    MainPageViewModel(@NonNull Context context, ProductAdapter productAdapter,
+            ShopAdapter shopAdapter, Navigator navigator, CategoryAdapter categoryAdapter) {
+        this.mContext = context;
         mProductAdapter = productAdapter;
         mProductAdapter.setOrderListener(this);
         mProductAdapter.setItemClickListener(this);
@@ -47,9 +51,9 @@ public class MainPageViewModel extends Observable implements MainPageContract.Vi
         mNavigator = navigator;
         mCategoryAdapter = categoryAdapter;
         mCategoryAdapter.setItemClickListener(this);
-        mProgressBarVisibilityProduct.set(View.GONE);
-        mProgressBarVisibilityShop.set(View.GONE);
-        mProgressBarVisibilityCategory.set(View.GONE);
+        setProgressBarVisibleShop(false);
+        setProgressBarVisibleCategory(false);
+        setProgressBarVisibleProduct(false);
     }
 
     @Override
@@ -75,18 +79,12 @@ public class MainPageViewModel extends Observable implements MainPageContract.Vi
         if (item instanceof Product) {
             Product product = (Product) item;
             mNavigator.goNextChildFragment(R.id.layout_content,
-                    ProductDetailFragment.newInstance(product), true, Navigator.RIGHT_LEFT,
-                    "ProductDetailFragment");
+                    ProductDetailFragment.newInstance(product), true, Navigator.RIGHT_LEFT, TAG);
         }
         if (item instanceof Shop) {
             Shop shop = (Shop) item;
             mNavigator.goNextChildFragment(R.id.layout_content,
-                    ShopDetailFragment.newInstance(shop), true, Navigator.RIGHT_LEFT,
-                    "ShopDetailFragment");
-        }
-        if (item instanceof Category) {
-            Category category = (Category) item;
-            mNavigator.showToast("Click");
+                    ShopDetailFragment.newInstance(shop), true, Navigator.RIGHT_LEFT, TAG);
         }
     }
 
@@ -119,13 +117,13 @@ public class MainPageViewModel extends Observable implements MainPageContract.Vi
     }
 
     @Override
-    public void onAddToCartError(BaseException exception) {
-        // Todo show dialog message
+    public void onAddToCartError(Throwable exception) {
+        mNavigator.showToastCustom(exception.getMessage());
     }
 
     @Override
     public void onAddToCartSuccess() {
-        // Todo show dialog message
+        // Todo edit later
     }
 
     @Override
@@ -140,32 +138,32 @@ public class MainPageViewModel extends Observable implements MainPageContract.Vi
 
     @Override
     public void onShowProgressbarProduct() {
-        mProgressBarVisibilityProduct.set(View.VISIBLE);
+        setProgressBarVisibleProduct(true);
     }
 
     @Override
     public void onHideProgressbarProduct() {
-        mProgressBarVisibilityProduct.set(View.GONE);
+        setProgressBarVisibleProduct(false);
     }
 
     @Override
     public void onShowProgressbarShop() {
-        mProgressBarVisibilityShop.set(View.VISIBLE);
+        setProgressBarVisibleShop(true);
     }
 
     @Override
     public void onHideProgressbarShop() {
-        mProgressBarVisibilityShop.set(View.GONE);
+        setProgressBarVisibleShop(false);
     }
 
     @Override
     public void onShowProgressbarCategory() {
-        mProgressBarVisibilityCategory.set(View.VISIBLE);
+        setProgressBarVisibleCategory(true);
     }
 
     @Override
     public void onHideProgressbarCategory() {
-        mProgressBarVisibilityCategory.set(View.GONE);
+        setProgressBarVisibleCategory(false);
     }
 
     public void onSeeMoreShopClick() {
@@ -190,15 +188,33 @@ public class MainPageViewModel extends Observable implements MainPageContract.Vi
         return mCategoryAdapter;
     }
 
-    public ObservableField<Integer> getProgressBarVisibilityProduct() {
-        return mProgressBarVisibilityProduct;
+    @Bindable
+    public boolean isProgressBarVisibleShop() {
+        return mIsProgressBarVisibleShop;
     }
 
-    public ObservableField<Integer> getProgressBarVisibilityShop() {
-        return mProgressBarVisibilityShop;
+    private void setProgressBarVisibleShop(boolean progressBarVisibleShop) {
+        mIsProgressBarVisibleShop = progressBarVisibleShop;
+        notifyPropertyChanged(BR.progressBarVisibleShop);
     }
 
-    public ObservableField<Integer> getProgressBarVisibilityCategory() {
-        return mProgressBarVisibilityCategory;
+    @Bindable
+    public boolean isProgressBarVisibleCategory() {
+        return mIsProgressBarVisibleCategory;
+    }
+
+    private void setProgressBarVisibleCategory(boolean progressBarVisibleCategory) {
+        mIsProgressBarVisibleCategory = progressBarVisibleCategory;
+        notifyPropertyChanged(BR.progressBarVisibleCategory);
+    }
+
+    @Bindable
+    public boolean isProgressBarVisibleProduct() {
+        return mIsProgressBarVisibleProduct;
+    }
+
+    private void setProgressBarVisibleProduct(boolean progressBarVisibleProduct) {
+        mIsProgressBarVisibleProduct = progressBarVisibleProduct;
+        notifyPropertyChanged(BR.progressBarVisibleProduct);
     }
 }
