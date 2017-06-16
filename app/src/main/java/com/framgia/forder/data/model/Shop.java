@@ -73,6 +73,12 @@ public class Shop implements Parcelable {
     @Expose
     @SerializedName("time_auto_close")
     private String mTimeAutoClose;
+    @Expose
+    @SerializedName("owner_name")
+    private String mNameOwner;
+    @Expose
+    @SerializedName("owner_email")
+    private String mEmailOwner;
 
     public Shop() {
     }
@@ -275,6 +281,22 @@ public class Shop implements Parcelable {
 
     public void setTimeAutoClose(String timeAutoClose) {
         mTimeAutoClose = timeAutoClose;
+    }
+
+    public String getNameOwner() {
+        return mNameOwner;
+    }
+
+    public void setNameOwner(String nameOwner) {
+        mNameOwner = nameOwner;
+    }
+
+    public String getEmailOwner() {
+        return mEmailOwner;
+    }
+
+    public void setEmailOwner(String emailOwner) {
+        mEmailOwner = emailOwner;
     }
 
     @Override

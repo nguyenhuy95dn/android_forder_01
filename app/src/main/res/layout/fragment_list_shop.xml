@@ -16,8 +16,8 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="@{viewModel.layoutManager}"
-        app:recyclerAdapter="@{viewModel.listShopAdapter}"
+        android:background="@color/color_gray_white"
+        app:layoutManager="LinearLayoutManager"
+        app:recyclerAdapter="@{viewModel.adapter}"
         />
-
 </layout>

@@ -38,9 +38,9 @@ public class ListShopFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         List<Shop> shops = new ArrayList<>();
-        ListShopAdapter listShopAdapter = new ListShopAdapter(getActivity(), shops);
+        ListShopAdapter adapter = new ListShopAdapter(getActivity(), shops);
         Navigator navigator = new Navigator(getParentFragment());
-        mViewModel = new ListShopViewModel(listShopAdapter, navigator);
+        mViewModel = new ListShopViewModel(navigator, adapter);
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
         DomainRepository domainRepository =
                 new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
