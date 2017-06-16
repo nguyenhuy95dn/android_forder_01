@@ -100,17 +100,26 @@ public class ProductDetailViewModel extends BaseObservable
 
     @Bindable
     public String getShopName() {
-        return mProduct.getShop().getName();
+        if (mProduct != null && mProduct.getShop() != null) {
+            return mProduct.getShop().getName();
+        }
+        return "";
     }
 
     @Bindable
     public String getNameUserShop() {
-        return mProduct.getShop().getDescription();
+        if (mProduct != null && mProduct.getShop() != null) {
+            return mProduct.getShop().getDescription();
+        }
+        return "";
     }
 
     @Bindable
     public float getRatingShop() {
-        return mProduct.getShop().getAverageRating();
+        if (mProduct != null && mProduct.getShop() != null) {
+            return mProduct.getShop().getAverageRating();
+        }
+        return 0;
     }
 
     public void onClickSeeAllProduct() {
