@@ -2,13 +2,18 @@ package com.framgia.forder.screen.listProduct;
 
 import android.util.Log;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.Cart;
+import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.listProduct.adapter.ListProductAdapter;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
 import com.framgia.forder.screen.productdetail.ProductDetailFragment;
+import com.framgia.forder.screen.quickorder.QuickOrderListener;
 import com.framgia.forder.utils.navigator.Navigator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
@@ -17,7 +22,8 @@ import java.util.Observable;
  */
 
 public class ListProductViewModel extends Observable implements ListProductContract.ViewModel,
-        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener {
+        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener,
+        QuickOrderListener {
     private static final String TAG = "ListProductFragment";
 
     private final Navigator mNavigator;
@@ -69,11 +75,26 @@ public class ListProductViewModel extends Observable implements ListProductContr
     }
 
     @Override
+    public void onOrderProductSuccess() {
+
+    }
+
+    @Override
+    public void onOrderProductError(BaseException error) {
+
+    }
+
+    @Override
     public void onAddToCart(Product product) {
         if (product == null) {
             return;
         }
         mPresenter.addToCart(product);
+    }
+
+    @Override
+    public void onQuickOrder(Product product) {
+
     }
 
     @Override
@@ -88,5 +109,31 @@ public class ListProductViewModel extends Observable implements ListProductContr
 
     public ListProductAdapter getListProductAdapter() {
         return mListProductAdapter;
+    }
+
+    @Override
+    public void onRequestOrderNow(Product product, double totalPrice, int quantity, String note) {
+        OrderRequest request = new OrderRequest();
+
+        CartItem cartItem = new CartItem();
+        cartItem.setProductId(product.getId());
+        cartItem.setPrice(totalPrice);
+        cartItem.setQuantity(quantity);
+        cartItem.setNotes(note);
+
+        List<CartItem> cartItems = new ArrayList<>();
+        cartItems.add(cartItem);
+
+        Cart cart = new Cart();
+        cart.setShopId(product.getShop().getId());
+        cart.setTotal((int) totalPrice);
+        cart.setCartItemList(cartItems);
+
+        List<Cart> carts = new ArrayList<>();
+        carts.add(cart);
+
+        request.setCartList(carts);
+
+        mPresenter.orderProduct(request);
     }
 }

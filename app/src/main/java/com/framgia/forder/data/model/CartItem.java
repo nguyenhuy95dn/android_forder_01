@@ -45,6 +45,9 @@ public class CartItem implements Parcelable {
     private String mEndHour;
     private Double mTotal;
 
+    public CartItem() {
+    }
+
     public CartItem(int domainId, int shopId, int quantity, int productId, String productName,
             String productImage, double price, String startHour, String endHour, Double total,
             String notes) {

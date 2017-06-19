@@ -70,6 +70,11 @@ public class ProductSearchResultViewModel extends BaseObservable
     }
 
     @Override
+    public void onQuickOrder(Product product) {
+
+    }
+
+    @Override
     public void onItemRecyclerViewClick(Object item) {
         if (item instanceof Product) {
             Product product = (Product) item;

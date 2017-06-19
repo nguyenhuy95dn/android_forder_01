@@ -97,6 +97,11 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
     }
 
     @Override
+    public void onQuickOrder(Product product) {
+
+    }
+
+    @Override
     public void onGetListProductError(BaseException exception) {
         mNavigator.showToast(exception.getMessage());
     }
