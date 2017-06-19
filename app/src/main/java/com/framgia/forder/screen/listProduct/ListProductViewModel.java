@@ -20,11 +20,11 @@ public class ListProductViewModel extends Observable implements ListProductContr
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener {
     private static final String TAG = "ListProductFragment";
 
-    private Navigator mNavigator;
+    private final Navigator mNavigator;
     private ListProductContract.Presenter mPresenter;
-    private ListProductAdapter mListProductAdapter;
+    private final ListProductAdapter mListProductAdapter;
 
-    public ListProductViewModel(ListProductAdapter listProductAdapter, Navigator navigator) {
+    ListProductViewModel(ListProductAdapter listProductAdapter, Navigator navigator) {
 
         mListProductAdapter = listProductAdapter;
         mNavigator = navigator;
@@ -65,7 +65,7 @@ public class ListProductViewModel extends Observable implements ListProductContr
 
     @Override
     public void onAddToCartSuccess() {
-        //TODO update order quantity of product in here
+        mNavigator.showToastCustomActivity(R.string.add_to_cart_success);
     }
 
     @Override

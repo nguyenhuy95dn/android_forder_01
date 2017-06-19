@@ -183,6 +183,15 @@ public class Navigator {
         toast.show();
     }
 
+    public void showToastCustomActivity(@StringRes int stringId) {
+        Toast toast = Toast.makeText(mActivity, stringId, Toast.LENGTH_SHORT);
+        View view = toast.getView();
+        toast.setGravity(Gravity.BOTTOM | Gravity.HORIZONTAL_GRAVITY_MASK, 0, 0);
+        view.setBackgroundResource(R.drawable.item_custom_toast);
+        toast.setView(view);
+        toast.show();
+    }
+
     public void goBackFragmentByTag(String tag, int flags) {
         mFragment.getChildFragmentManager().popBackStackImmediate(tag, flags);
     }

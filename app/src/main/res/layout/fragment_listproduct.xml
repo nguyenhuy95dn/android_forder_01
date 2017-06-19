@@ -10,12 +10,16 @@
             name="viewModel"
             type="com.framgia.forder.screen.listProduct.ListProductViewModel"
             />
-
     </data>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"
+        android:background="@color/color_gray_white"
+        android:foregroundGravity="center_horizontal"
+        android:orientation="vertical"
+        app:layoutManager="GridLayoutManager"
         app:recyclerAdapter="@{viewModel.listProductAdapter}"
+        app:reverseLayout="false"
+        app:spanCount="2"
         />
 </layout>
