@@ -8,4 +8,6 @@ import com.framgia.forder.data.model.Product;
 
 public interface OrderListener {
     void onAddToCart(Product product);
+
+    void onQuickOrder(Product product);
 }

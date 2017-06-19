@@ -85,7 +85,7 @@ public class ItemProductViewModel extends BaseObservable {
                 mOrderListener.onAddToCart(mProduct);
                 return true;
             case R.id.order_now:
-                // TODO Click Order Now
+                mOrderListener.onQuickOrder(mProduct);
                 return true;
             default:
         }

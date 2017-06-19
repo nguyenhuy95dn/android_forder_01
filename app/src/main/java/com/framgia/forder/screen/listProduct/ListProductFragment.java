@@ -11,6 +11,7 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ProductRepository;
+import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.local.DomainLocalDataSource;
 import com.framgia.forder.data.source.local.ProductLocalDataSource;
 import com.framgia.forder.data.source.local.UserLocalDataSource;
@@ -19,6 +20,7 @@ import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
 import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
 import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
+import com.framgia.forder.data.source.remote.UserRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentListproductBinding;
 import com.framgia.forder.screen.listProduct.adapter.ListProductAdapter;
@@ -52,9 +54,14 @@ public class ListProductFragment extends Fragment {
                         new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
         ProductRepository productRepository = new ProductRepository(
                 new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
-                new ProductLocalDataSource(realmApi), domainRepository);
+                new ProductLocalDataSource(realmApi));
+        UserRepository userRepository =
+                new UserRepository(new UserRemoteDataSource(FOrderServiceClient.getInstance()),
+                        new UserLocalDataSource(prefsApi));
+
         ListProductContract.Presenter presenter =
-                new ListProductPresenter(mViewModel, productRepository);
+                new ListProductPresenter(mViewModel, productRepository, userRepository,
+                        domainRepository);
         mViewModel.setPresenter(presenter);
 
         FragmentListproductBinding binding =
