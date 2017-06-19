@@ -9,7 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
+import com.framgia.forder.data.source.ProductRepository;
+import com.framgia.forder.data.source.local.ProductLocalDataSource;
+import com.framgia.forder.data.source.local.realm.RealmApi;
+import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentProductSearchResultBinding;
+import com.framgia.forder.utils.navigator.Navigator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +36,16 @@ public class ProductSearchResultFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         List<Product> products = new ArrayList<>();
         ProductSearchResultAdapter adapter = new ProductSearchResultAdapter(getContext(), products);
-        mViewModel = new ProductSearchResultViewModel(adapter);
+        Navigator navigator = new Navigator(getParentFragment().getParentFragment());
+        mViewModel = new ProductSearchResultViewModel(adapter, navigator);
+
+        RealmApi realmApi = new RealmApi();
+        ProductRepository productRepository = new ProductRepository(
+                new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
+                new ProductLocalDataSource(realmApi));
+
         ProductSearchResultContract.Presenter presenter =
-                new ProductSearchResultPresenter(mViewModel);
+                new ProductSearchResultPresenter(mViewModel, productRepository);
         mViewModel.setPresenter(presenter);
 
         FragmentProductSearchResultBinding binding =

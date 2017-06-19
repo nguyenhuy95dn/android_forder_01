@@ -27,11 +27,17 @@ public class ItemShopViewModel extends BaseObservable {
     }
 
     public String getShopName() {
-        return mShop.getName();
+        if (mShop != null) {
+            return mShop.getName();
+        }
+        return "";
     }
 
     public String getDescription() {
-        return mShop.getDescription();
+        if (mShop != null) {
+            return mShop.getDescription();
+        }
+        return "";
     }
 
     public float getRating() {
@@ -46,14 +52,23 @@ public class ItemShopViewModel extends BaseObservable {
     }
 
     public String getOwnerName() {
-        return mShop.getNameOwner();
+        if (mShop != null) {
+            return mShop.getNameOwner();
+        }
+        return "";
     }
 
     public String getOwnerEmail() {
-        return mShop.getEmailOwner();
+        if (mShop != null) {
+            return mShop.getEmailOwner();
+        }
+        return "";
     }
 
     public String getStatus() {
-        return mShop.getStatus();
+        if (mShop != null) {
+            return mShop.getStatus();
+        }
+        return "";
     }
 }

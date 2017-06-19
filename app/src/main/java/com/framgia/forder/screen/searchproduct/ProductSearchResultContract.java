@@ -14,11 +14,16 @@ interface ProductSearchResultContract {
      */
     interface ViewModel extends BaseViewModel<Presenter> {
         void onSearchSuccess(List<Product> products);
+
+        void onAddToCartSuccess();
+
+        void onAddToCartError(Throwable e);
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
+        void addToCart(Product product);
     }
 }
