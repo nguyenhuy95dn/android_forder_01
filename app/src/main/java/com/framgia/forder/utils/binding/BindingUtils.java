@@ -15,8 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.framgia.forder.R;
+import com.framgia.forder.screen.mainpage.shop.ShopPageAdapter;
 
 /**
  * Created by le.quang.dao on 20/03/2017.
@@ -116,5 +118,11 @@ public final class BindingUtils {
                 popupMenu.show();
             }
         });
+    }
+
+    @BindingAdapter("adapterViewPageShop")
+    public static void setAdapterViewPageHeroInfo(final ViewPager viewPage,
+            final ShopPageAdapter shopPageAdapter) {
+        viewPage.setAdapter(shopPageAdapter);
     }
 }
