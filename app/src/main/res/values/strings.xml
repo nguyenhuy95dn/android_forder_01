@@ -170,4 +170,6 @@
     <string name="leave_the_domain_successful">Leave the domain successful!</string>
     <string name="edit_domain">Edit Domain</string>
     <string name="add_to_cart_success">Add To Cart Successfully!</string>
+    <string name="hint_notes">Any specific note like less spicy, no pickles mention here…</string>
+    <string name="order_now">Order Now</string>
 </resources>
