@@ -1,6 +1,8 @@
 package com.framgia.forder.screen.mainpage.product;
 
 import android.databinding.BaseObservable;
+import android.view.MenuItem;
+import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 
@@ -66,14 +68,27 @@ public class ItemProductViewModel extends BaseObservable {
         mItemClickListener.onItemRecyclerViewClick(mProduct);
     }
 
-    public void addCart() {
-        if (mOrderListener == null) {
-            return;
-        }
-        mOrderListener.onAddToCart(mProduct);
-    }
-
     public String getDescription() {
         return mProduct.getDescription();
+    }
+
+    public void addCart() {
+        //        TODO Edit Later
+    }
+
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_to_cart:
+                if (mOrderListener == null) {
+                    return false;
+                }
+                mOrderListener.onAddToCart(mProduct);
+                return true;
+            case R.id.order_now:
+                // TODO Click Order Now
+                return true;
+            default:
+        }
+        return false;
     }
 }

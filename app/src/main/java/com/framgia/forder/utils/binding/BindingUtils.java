@@ -6,8 +6,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -58,7 +60,8 @@ public final class BindingUtils {
             url = "";
         }
         Uri uri = Uri.parse(url);
-        Glide.with(imageView.getContext()).load(uri)
+        Glide.with(imageView.getContext())
+                .load(uri)
                 .placeholder(R.drawable.ic_placeholder)
                 .into(imageView);
     }
@@ -98,5 +101,20 @@ public final class BindingUtils {
     @BindingAdapter("leftDrawableText")
     public static void setLeftImageText(TextView view, int resId) {
         view.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0);
+    }
+
+    @BindingAdapter("onClickShowPopupMenuOrder")
+    public static void showPopPupMenuOrder(final View view,
+            final PopupMenu.OnMenuItemClickListener listener) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+                MenuInflater menuInflater = popupMenu.getMenuInflater();
+                menuInflater.inflate(R.menu.menu_order, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(listener);
+                popupMenu.show();
+            }
+        });
     }
 }
