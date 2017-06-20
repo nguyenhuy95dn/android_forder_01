@@ -2,6 +2,7 @@ package com.framgia.forder.data.source.remote;
 
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
+import com.framgia.forder.data.model.ShopInDomain;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.ShopDataSource;
@@ -9,9 +10,11 @@ import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainReques
 import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateShopRequest;
+import com.framgia.forder.data.source.remote.api.response.DeleteShopInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
 import com.framgia.forder.data.source.remote.api.response.ProductResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
+import com.framgia.forder.data.source.remote.api.response.ShopInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopResponse;
 import com.framgia.forder.data.source.remote.api.service.FOrderApi;
@@ -126,5 +129,25 @@ public class ShopRemoteDataSource extends BaseRemoteDataSource
     public Observable<RegisterShopResponse> updateShop(int shopId,
             UpdateShopRequest updateShopRequest) {
         return mFOrderApi.updateShop(shopId, updateShopRequest);
+    }
+
+    @Override
+    public Observable<List<ShopInDomain>> getListShopInDomain(int domainId) {
+        return mFOrderApi.getListShopInDomain(domainId)
+                .flatMap(new Func1<ShopInDomainResponse, Observable<List<ShopInDomain>>>() {
+                    @Override
+                    public Observable<List<ShopInDomain>> call(ShopInDomainResponse shopResponse) {
+                        if (shopResponse != null) {
+                            return Observable.just(shopResponse.getListShop());
+                        }
+                        return Observable.error(new NullPointerException());
+                    }
+                });
+    }
+
+    @Override
+    public Observable<DeleteShopInDomainResponse> requestDeleteShopInDomain(int domainId,
+            int shopId) {
+        return mFOrderApi.requestDeleteShopInDomain(domainId, shopId);
     }
 }

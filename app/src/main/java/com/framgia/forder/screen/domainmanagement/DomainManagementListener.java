@@ -7,9 +7,9 @@ import com.framgia.forder.data.model.DomainManagement;
  */
 
 public interface DomainManagementListener {
-    void onGetListUserInDomain(DomainManagement domainManagement);
+    void onClickShowListUserInDomain(DomainManagement domainManagement);
 
-    void onGetListShopInDomain(DomainManagement domainManagement);
+    void onClickShowListShopInDomain(DomainManagement domainManagement);
 
     void onLeaveDomain(int domainId);
 

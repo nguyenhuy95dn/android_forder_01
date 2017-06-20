@@ -61,14 +61,14 @@ public class ItemDomainManagementViewModel extends BaseObservable {
         if (mDomainManagementListener == null) {
             return;
         }
-        mDomainManagementListener.onGetListUserInDomain(mDomainManagement);
+        mDomainManagementListener.onClickShowListUserInDomain(mDomainManagement);
     }
 
     public void onClickShowListShopInDomain() {
         if (mDomainManagementListener == null) {
             return;
         }
-        mDomainManagementListener.onGetListShopInDomain(mDomainManagement);
+        mDomainManagementListener.onClickShowListShopInDomain(mDomainManagement);
     }
 
     public void onClickLeaveDomain() {

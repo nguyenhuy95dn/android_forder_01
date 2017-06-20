@@ -1,6 +1,7 @@
 package com.framgia.forder.data.source;
 
 import com.framgia.forder.data.model.Shop;
+import com.framgia.forder.data.model.ShopInDomain;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
@@ -8,6 +9,7 @@ import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainReques
 import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateShopRequest;
+import com.framgia.forder.data.source.remote.api.response.DeleteShopInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
 import java.util.List;
@@ -58,5 +60,14 @@ public class ShopRepository {
     public Observable<RegisterShopResponse> updateShop(int shopId,
             UpdateShopRequest updateShopRequest) {
         return mRemoteDataSource.updateShop(shopId, updateShopRequest);
+    }
+
+    public Observable<List<ShopInDomain>> getListShopInDomain(int domainId) {
+        return mRemoteDataSource.getListShopInDomain(domainId);
+    }
+
+    public Observable<DeleteShopInDomainResponse> requestDeleteShopInDomain(int domainId,
+            int shopId) {
+        return mRemoteDataSource.requestDeleteShopInDomain(domainId, shopId);
     }
 }
