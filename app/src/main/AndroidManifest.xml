@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.framgia.forder">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -36,6 +37,20 @@
             android:name=".screen.ordermanagement.OrderManagementActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
-    </application>
 
+        <service
+            android:name=".data.source.local.MyFirebaseMessagingService"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".data.source.local.MyFirebaseInstanceIDService"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+    </application>
 </manifest>

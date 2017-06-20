@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "982987997917",
+    "firebase_url": "https://forder-a5a55.firebaseio.com",
+    "project_id": "forder-a5a55",
+    "storage_bucket": "forder-a5a55.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982987997917:android:e8842c4eb013be86",
+        "android_client_info": {
+          "package_name": "com.framgia.forder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "982987997917-r1lb29j0ok84kopvo7312pn35q3kmhg6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVht1V3bXUaU5-GoeR5_DJXIn17b52Uz0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
