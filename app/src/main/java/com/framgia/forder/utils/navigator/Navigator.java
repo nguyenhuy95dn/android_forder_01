@@ -20,11 +20,14 @@ import android.widget.Toast;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.model.DomainManagement;
+import com.framgia.forder.data.model.Product;
 import com.framgia.forder.screen.cart.notecart.NoteCartFragment;
 import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainFragment;
 import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainListener;
 import com.framgia.forder.screen.domainmanagement.editdomain.EditDomainListener;
 import com.framgia.forder.screen.domainmanagement.editdomain.EditdomainFragment;
+import com.framgia.forder.screen.quickorder.QuickOrderFragment;
+import com.framgia.forder.screen.quickorder.QuickOrderListener;
 
 /**
  * Created by le.quang.dao on 14/03/2017.
@@ -225,6 +228,13 @@ public class Navigator {
         FragmentManager fragmentManager = mFragment.getFragmentManager();
         EditdomainFragment fragment = EditdomainFragment.newInstance(domainManagement);
         fragment.setEditDomainListener(listener);
+        fragment.show(fragmentManager, tag);
+    }
+
+    public void showQuickOrderDialog(String tag, Product product, QuickOrderListener listener) {
+        FragmentManager fragmentManager = mFragment.getFragmentManager();
+        QuickOrderFragment fragment = QuickOrderFragment.newInstance(product);
+        fragment.setQuickOrderListener(listener);
         fragment.show(fragmentManager, tag);
     }
 

@@ -14,9 +14,10 @@ import com.framgia.forder.databinding.FragmentQuickOrderBinding;
 /**
  * Quickorder Screen.
  */
-public class QuickOrderFragment extends DialogFragment {
+public class QuickOrderFragment extends DialogFragment implements DismissDialogListener {
     private static final String EXTRA_PRODUCT = "EXTRA_PRODUCT";
     private QuickOrderContract.ViewModel mViewModel;
+    private QuickOrderListener mQuickOrderListener;
 
     public static QuickOrderFragment newInstance(Product product) {
         QuickOrderFragment quickOrderFragment = new QuickOrderFragment();
@@ -30,7 +31,7 @@ public class QuickOrderFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Product product = (Product) getArguments().get(EXTRA_PRODUCT);
-        mViewModel = new QuickOrderViewModel(product);
+        mViewModel = new QuickOrderViewModel(product, mQuickOrderListener, this);
 
         QuickOrderContract.Presenter presenter = new QuickOrderPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
@@ -41,7 +42,7 @@ public class QuickOrderFragment extends DialogFragment {
         binding.setViewModel((QuickOrderViewModel) mViewModel);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
-                R.style.Theme_AppCompat_DayNight_Dialog).setTitle("Quick Order")
+                R.style.Theme_AppCompat_DayNight_Dialog).setTitle(R.string.quick_order)
                 .setView(binding.getRoot());
         return builder.create();
     }
@@ -56,5 +57,14 @@ public class QuickOrderFragment extends DialogFragment {
     public void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    public void setQuickOrderListener(QuickOrderListener listener) {
+        mQuickOrderListener = listener;
+    }
+
+    @Override
+    public void onDialogDismiss() {
+        dismiss();
     }
 }

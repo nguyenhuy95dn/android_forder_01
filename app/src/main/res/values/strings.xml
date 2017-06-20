@@ -173,4 +173,5 @@
     <string name="add_to_cart">Add To Cart</string>
     <string name="order_now">Order Now</string>
     <string name="hint_notes">Any specific note like less spicy, no pickles mention here…</string>
+    <string name="quick_order">Quick Order</string>
 </resources>
