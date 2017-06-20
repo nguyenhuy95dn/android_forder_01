@@ -76,12 +76,12 @@ public class ListProductViewModel extends Observable implements ListProductContr
 
     @Override
     public void onOrderProductSuccess() {
-
+        mNavigator.showToastCustomActivity(R.string.order_successful);
     }
 
     @Override
     public void onOrderProductError(BaseException error) {
-
+        mNavigator.showToastCustom(error.getMessage());
     }
 
     @Override
@@ -94,7 +94,7 @@ public class ListProductViewModel extends Observable implements ListProductContr
 
     @Override
     public void onQuickOrder(Product product) {
-
+        mNavigator.showQuickOrderDialog("QuickOrderFragment", product, this);
     }
 
     @Override

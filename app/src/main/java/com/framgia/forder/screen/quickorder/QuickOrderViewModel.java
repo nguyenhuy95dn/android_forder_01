@@ -17,15 +17,22 @@ public class QuickOrderViewModel extends BaseObservable implements QuickOrderCon
     private static final int DEFAULT_PRODUCT_NUMBER = 1;
 
     private QuickOrderContract.Presenter mPresenter;
+    private final QuickOrderListener mQuickOrderListener;
     private final Product mProduct;
     private int mQuantity;
-    private final double mPrice;
+    private final DismissDialogListener mDismissDialogListener;
     private String mNote;
+    private double mPrice;
+    private double mTotalPrice;
 
-    QuickOrderViewModel(Product product) {
+    QuickOrderViewModel(Product product, QuickOrderListener listener,
+            DismissDialogListener dismissDialogListener) {
         mProduct = product;
+        mQuickOrderListener = listener;
+        mDismissDialogListener = dismissDialogListener;
         mQuantity = DEFAULT_PRODUCT_NUMBER;
         mPrice = product.getPrice();
+        mTotalPrice = product.getPrice();
     }
 
     @Override
@@ -94,5 +101,18 @@ public class QuickOrderViewModel extends BaseObservable implements QuickOrderCon
     public void setNote(String note) {
         mNote = note;
         notifyPropertyChanged(BR.note);
+    }
+
+    public double getTotalPrice() {
+        return mTotalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        mTotalPrice = totalPrice;
+    }
+
+    public void onClickOrderNow() {
+        mQuickOrderListener.onRequestOrderNow(mProduct, mTotalPrice, mQuantity, mNote);
+        mDismissDialogListener.onDialogDismiss();
     }
 }
