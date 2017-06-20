@@ -29,5 +29,7 @@
     <color name="color_orange_light_white">#FFB185</color>
     <color name="color_orange_light_transparent">#FFE3D7</color>
     <color name="color_gray_mos">#363636</color>
+    <color name="color_blue_light">#B2C9D0</color>
+    <color name="color_white_light">#ECEDE8</color>
     <color name="color_red_light">#E77E7A</color>
 </resources>

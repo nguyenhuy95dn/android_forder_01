@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.util.Locale;
 
 import static com.framgia.forder.utils.Constant.FORMAT_PRICE;
 import static com.framgia.forder.utils.Constant.UNIT_MONEY;
@@ -151,7 +152,7 @@ public class CartItem implements Parcelable {
     }
 
     public String getFormatPrice() {
-        return String.format(FORMAT_PRICE, mTotal) + UNIT_MONEY;
+        return String.format(Locale.ENGLISH, FORMAT_PRICE, mTotal) + UNIT_MONEY;
     }
 
     public Double getTotal() {
