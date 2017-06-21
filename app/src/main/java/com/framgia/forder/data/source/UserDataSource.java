@@ -20,7 +20,7 @@ public class UserDataSource {
     }
 
     public interface RemoteDataSource {
-        Observable<User> login(String userName, String passWord);
+        Observable<User> login(String userName, String passWord, String deviceToken);
 
         Observable<UpdateProfileResponse> updateProfile(UpdateProfileRequest updateProfileRequest);
     }

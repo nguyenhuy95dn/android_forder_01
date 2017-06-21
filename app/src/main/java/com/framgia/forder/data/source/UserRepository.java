@@ -19,8 +19,8 @@ public class UserRepository {
         mUserLocalDataSource = userLocalDataSource;
     }
 
-    public Observable<User> login(String userName, String passWord) {
-        return mUserRemoteDataSource.login(userName, passWord);
+    public Observable<User> login(String userName, String passWord, String deviceToken) {
+        return mUserRemoteDataSource.login(userName, passWord, deviceToken);
     }
 
     public Observable<UpdateProfileResponse> updateProfile(

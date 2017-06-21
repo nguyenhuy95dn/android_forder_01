@@ -5,6 +5,7 @@ import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
+import com.google.firebase.iid.FirebaseInstanceId;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -19,8 +20,8 @@ final class LoginPresenter implements LoginContract.Presenter {
     private static final String TAG = LoginPresenter.class.getName();
 
     private final LoginContract.ViewModel mViewModel;
-    private CompositeSubscription mCompositeSubscription;
-    private UserRepository mUserRepository;
+    private final CompositeSubscription mCompositeSubscription;
+    private final UserRepository mUserRepository;
 
     LoginPresenter(LoginContract.ViewModel viewModel, UserRepository repository) {
         mViewModel = viewModel;
@@ -39,10 +40,11 @@ final class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void login(final String userName, final String passWord) {
+        String deviceToken = FirebaseInstanceId.getInstance().getToken();
         if (!validateDataInput(userName, passWord)) {
             return;
         }
-        Subscription subscription = mUserRepository.login(userName, passWord)
+        Subscription subscription = mUserRepository.login(userName, passWord, deviceToken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<User>() {

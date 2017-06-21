@@ -57,7 +57,7 @@ public interface FOrderApi {
 
     @GET("v1/authen_user_tokens")
     Observable<UserResponse> login(@Query("user_email") String userEmail,
-            @Query("password") String passWord);
+            @Query("password") String passWord, @Query("device_id") String deviceToken);
 
     @GET("v1/domains")
     Observable<DomainResponse> getDomains(@Query("user_id") int id,
