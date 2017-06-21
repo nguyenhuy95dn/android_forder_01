@@ -45,6 +45,7 @@ public class ShopInDomain {
     @Expose
     @SerializedName("total_products")
     private int mTotalProduct;
+    private boolean mIsOwner;
 
     public int getId() {
         return mId;
@@ -140,5 +141,13 @@ public class ShopInDomain {
 
     public void setTotalProduct(int totalProduct) {
         mTotalProduct = totalProduct;
+    }
+
+    public boolean isOwner() {
+        return mIsOwner;
+    }
+
+    public void setOwner(boolean owner) {
+        mIsOwner = owner;
     }
 }

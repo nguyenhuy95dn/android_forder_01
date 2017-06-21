@@ -11,9 +11,11 @@ import static com.framgia.forder.utils.Constant.FORMAT_PRODUCT;
 public class ItemShopInDomainViewModel {
 
     private final ShopInDomain mShop;
+    private final ShopInDomainListener mShopInDomainListener;
 
-    ItemShopInDomainViewModel(ShopInDomain shop) {
+    ItemShopInDomainViewModel(ShopInDomain shop, ShopInDomainListener shopInDomainListener) {
         mShop = shop;
+        mShopInDomainListener = shopInDomainListener;
     }
 
     public String getShopName() {
@@ -34,5 +36,17 @@ public class ItemShopInDomainViewModel {
 
     public String getStatus() {
         return mShop.getStatus();
+    }
+
+    public void onClickSeeMoreOwner() {
+        mShopInDomainListener.onClickSeeMoreOwner(mShop.getOwnerShops());
+    }
+
+    public void onClickDeleteShop() {
+        mShopInDomainListener.onClickDeleteShop(mShop);
+    }
+
+    public boolean isOwner() {
+        return mShop.isOwner();
     }
 }

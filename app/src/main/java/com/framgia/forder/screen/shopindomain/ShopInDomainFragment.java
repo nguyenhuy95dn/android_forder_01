@@ -9,7 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.DomainManagement;
+import com.framgia.forder.data.source.ShopRepository;
+import com.framgia.forder.data.source.UserRepository;
+import com.framgia.forder.data.source.local.UserLocalDataSource;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
+import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentShopInDomainBinding;
+import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
 
 /**
  * Shopindomain Screen.
@@ -30,11 +39,20 @@ public class ShopInDomainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ShopInDomainAdapter adapter = new ShopInDomainAdapter(getActivity());
+        Navigator navigator = new Navigator(getParentFragment());
         DomainManagement domainManagement = (DomainManagement) getArguments().get(EXTRA_DOMAIN);
+        DialogManager dialogManager = new DialogManager(getActivity());
 
-        mViewModel = new ShopInDomainViewModel();
+        mViewModel = new ShopInDomainViewModel(adapter, navigator, domainManagement, dialogManager);
 
-        ShopInDomainContract.Presenter presenter = new ShopInDomainPresenter(mViewModel);
+        ShopRepository shopRepository =
+                new ShopRepository(new ShopRemoteDataSource(FOrderServiceClient.getInstance()));
+        SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
+        UserRepository userRepository = new UserRepository(null, new UserLocalDataSource(prefsApi));
+
+        ShopInDomainContract.Presenter presenter =
+                new ShopInDomainPresenter(mViewModel, shopRepository, userRepository);
         mViewModel.setPresenter(presenter);
 
         FragmentShopInDomainBinding binding =
