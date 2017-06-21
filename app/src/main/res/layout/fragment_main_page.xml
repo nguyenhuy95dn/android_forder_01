@@ -6,7 +6,6 @@
     >
 
     <data>
-
         <variable
             name="viewModel"
             type="com.framgia.forder.screen.mainpage.MainPageViewModel"
@@ -112,10 +111,12 @@
                             />
 
                         <android.support.v4.view.ViewPager
-                            android:id="@+id/pager"
+                            android:id="@+id/viewpager_slide"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_270"
                             android:background="@color/color_gray_white"
+                            app:offscreenPageLimit="@{viewModel.pageLimit}"
+                            bind:adapter="@{viewModel.shopPageAdapter}"
                             />
                     </LinearLayout>
 

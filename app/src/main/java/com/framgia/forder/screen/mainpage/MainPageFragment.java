@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Category;
 import com.framgia.forder.data.model.Product;
@@ -29,8 +28,8 @@ import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentMainPageBinding;
 import com.framgia.forder.screen.mainpage.category.CategoryAdapter;
 import com.framgia.forder.screen.mainpage.product.ProductAdapter;
+import com.framgia.forder.screen.mainpage.shop.ShopPageAdapter;
 import com.framgia.forder.utils.navigator.Navigator;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,9 +52,9 @@ public class MainPageFragment extends Fragment {
         List<Category> categories = new ArrayList<>();
         CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), categories);
         Navigator navigator = new Navigator(getParentFragment().getParentFragment());
-
+        ShopPageAdapter shopPageAdapter = new ShopPageAdapter(getFragmentManager());
         mViewModel = new MainPageViewModel(getContext().getApplicationContext(), productAdapter,
-                navigator, categoryAdapter);
+                navigator, categoryAdapter, shopPageAdapter);
 
         RealmApi realmApi = new RealmApi();
 

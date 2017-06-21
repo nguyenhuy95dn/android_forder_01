@@ -4,7 +4,6 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.annotation.NonNull;
-
 import com.framgia.forder.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Category;
@@ -17,11 +16,9 @@ import com.framgia.forder.screen.listshop.ListShopFragment;
 import com.framgia.forder.screen.mainpage.category.CategoryAdapter;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
 import com.framgia.forder.screen.mainpage.product.ProductAdapter;
-import com.framgia.forder.screen.mainpage.shop.ShopListener;
+import com.framgia.forder.screen.mainpage.shop.ShopPageAdapter;
 import com.framgia.forder.screen.productdetail.ProductDetailFragment;
-import com.framgia.forder.screen.shopDetail.ShopDetailFragment;
 import com.framgia.forder.utils.navigator.Navigator;
-
 import java.util.List;
 
 /**
@@ -29,8 +26,7 @@ import java.util.List;
  */
 
 public class MainPageViewModel extends BaseObservable implements MainPageContract.ViewModel,
-        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener,
-        ShopListener {
+        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener{
     private static final String TAG = "ListProductFragment";
 
     private final Context mContext;
@@ -41,9 +37,11 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
     private boolean mIsProgressBarVisibleShop;
     private boolean mIsProgressBarVisibleCategory;
     private boolean mIsProgressBarVisibleProduct;
+    private ShopPageAdapter mShopPageAdapter;
+    private int mPageLimit = 6;
 
     MainPageViewModel(@NonNull Context context, ProductAdapter productAdapter, Navigator navigator,
-            CategoryAdapter categoryAdapter) {
+            CategoryAdapter categoryAdapter, ShopPageAdapter shopPageAdapter) {
         this.mContext = context;
         mProductAdapter = productAdapter;
         mProductAdapter.setOrderListener(this);
@@ -54,6 +52,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
         setProgressBarVisibleShop(false);
         setProgressBarVisibleCategory(false);
         setProgressBarVisibleProduct(false);
+        mShopPageAdapter = shopPageAdapter;
     }
 
     @Override
@@ -113,7 +112,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
 
     @Override
     public void onGetListShopSuccess(List<Shop> shops) {
-        //TODO coming soon
+        mShopPageAdapter.updateShop(shops);
     }
 
     @Override
@@ -214,9 +213,12 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
         notifyPropertyChanged(BR.progressBarVisibleProduct);
     }
 
-    @Override
-    public void onClickShopItem(Shop shop) {
-        mNavigator.goNextChildFragment(R.id.layout_content, ShopDetailFragment.newInstance(shop),
-                true, Navigator.RIGHT_LEFT, TAG);
+
+    public ShopPageAdapter getShopPageAdapter() {
+        return mShopPageAdapter;
+    }
+
+    public int getPageLimit() {
+        return mPageLimit;
     }
 }
