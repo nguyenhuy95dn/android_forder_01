@@ -11,6 +11,7 @@ import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainFragment;
 import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainListener;
 import com.framgia.forder.screen.domainmanagement.editdomain.EditDomainListener;
 import com.framgia.forder.screen.domainmanagement.editdomain.EditdomainFragment;
+import com.framgia.forder.screen.shopindomain.ShopInDomainFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.List;
@@ -87,13 +88,15 @@ public class DomainManagementViewModel extends BaseObservable
     }
 
     @Override
-    public void onGetListUserInDomain(DomainManagement domainManagement) {
+    public void onClickShowListUserInDomain(DomainManagement domainManagement) {
         //Todo dev later
     }
 
     @Override
-    public void onGetListShopInDomain(DomainManagement domainManagement) {
-        //Todo dev later
+    public void onClickShowListShopInDomain(DomainManagement domainManagement) {
+        mNavigator.goNextChildFragment(R.id.layout_content,
+                ShopInDomainFragment.newInstance(domainManagement), true, Navigator.RIGHT_LEFT,
+                "ShopInDomainFragment");
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.framgia.forder.data.source.remote.api.request.UpdateShopRequest;
 import com.framgia.forder.data.source.remote.api.response.CategoryResponse;
 import com.framgia.forder.data.source.remote.api.response.CloseOrderResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteDomainResponse;
+import com.framgia.forder.data.source.remote.api.response.DeleteShopInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteUserInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
@@ -29,6 +30,7 @@ import com.framgia.forder.data.source.remote.api.response.RegisterDomainResponse
 import com.framgia.forder.data.source.remote.api.response.RegisterProductResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
 import com.framgia.forder.data.source.remote.api.response.SearchResponse;
+import com.framgia.forder.data.source.remote.api.response.ShopInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopResponse;
 import com.framgia.forder.data.source.remote.api.response.UpdateProductResponse;
@@ -178,4 +180,12 @@ public interface FOrderApi {
     @GET("v1/domains/{domain_id}/edit")
     Observable<EditDomainResponse> requestEditDomain(@Path("domain_id") int domainId,
             @Query("name") String name, @Query("status") String status);
+
+    @GET("v1/dashboard/shop_domains")
+    Observable<ShopInDomainResponse> getListShopInDomain(@Query("domain_id") int domainId);
+
+    @DELETE("v1/shop_domains/0")
+    Observable<DeleteShopInDomainResponse> requestDeleteShopInDomain(
+            @Query("domain_id") int domainId,
+            @Query("shop_id") int shopId);
 }
