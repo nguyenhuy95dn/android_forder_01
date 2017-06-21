@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
+
     <data>
+
         <variable
             name="viewModel"
             type="com.framgia.forder.screen.mainpage.MainPageViewModel"
             />
+
         <variable
             name="mainPage"
             type="com.framgia.forder.screen.mainpage.MainPageFragment"
             />
+
         <import type="android.view.View"/>
+
         <import type="com.framgia.forder.R"/>
+
         <import type="com.framgia.forder.utils.binding.LayoutManagers"/>
+
         <import type="android.support.v7.widget.LinearLayoutManager"/>
     </data>
+
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -37,28 +45,33 @@
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
                 >
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/color_gray_white"
                     >
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
                         android:orientation="vertical"
                         >
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/color_white"
                             >
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp_1"
                                 android:layout_alignParentTop="true"
                                 android:background="@color/color_orange_mos"
                                 />
+
                             <TextView
                                 android:layout_width="@dimen/dp_250"
                                 android:layout_height="wrap_content"
@@ -76,6 +89,7 @@
                                 android:textStyle="bold"
                                 tools:ignore="UnusedAttribute"
                                 />
+
                             <ImageButton
                                 android:layout_width="@dimen/dp_35"
                                 android:layout_height="@dimen/dp_35"
@@ -90,20 +104,21 @@
                                 tools:ignore="ContentDescription"
                                 />
                         </RelativeLayout>
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_1"
                             android:background="@color/color_orange_mos"
                             />
-                        <android.support.v7.widget.RecyclerView
+
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/pager"
                             android:layout_width="match_parent"
-                            android:layout_height="270dp"
+                            android:layout_height="@dimen/dp_270"
                             android:background="@color/color_gray_white"
-                            android:padding="@dimen/dp_10"
-                            app:layoutManager="@{LayoutManagers.linear(LinearLayoutManager.HORIZONTAL)}"
-                            app:recyclerAdapter="@{viewModel.shopAdapter}"
                             />
                     </LinearLayout>
+
                     <ProgressBar
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -116,21 +131,25 @@
 
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
+
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             >
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
+
                 <View
                     android:id="@+id/view_top"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
                     android:background="@color/color_orange_mos"
                     />
+
                 <TextView
                     android:id="@+id/text_categories"
                     android:layout_width="match_parent"
@@ -148,6 +167,7 @@
                     android:textStyle="bold"
                     tools:ignore="UnusedAttribute"
                     />
+
                 <View
                     android:id="@+id/view_bottom"
                     android:layout_width="match_parent"
@@ -155,6 +175,7 @@
                     android:layout_below="@+id/text_categories"
                     android:background="@color/color_orange_mos"
                     />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -162,11 +183,13 @@
                     android:layout_marginBottom="@dimen/dp_5"
                     android:orientation="vertical"
                     >
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/color_gray_white"
                         >
+
                         <ProgressBar
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -175,6 +198,7 @@
                             android:visibility="@{viewModel.progressBarVisibleCategory? View.VISIBLE : View.GONE}"
                             style="?android:attr/progressBarStyleSmall"
                             />
+
                         <android.support.v7.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_80"
@@ -189,16 +213,19 @@
                             app:recyclerAdapter="@{viewModel.categoryAdapter}"
                             />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         >
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_1"
                             android:layout_alignParentTop="true"
                             android:background="@color/color_orange_mos"
                             />
+
                         <TextView
                             android:layout_width="@dimen/dp_250"
                             android:layout_height="wrap_content"
@@ -216,6 +243,7 @@
                             android:textStyle="bold"
                             tools:ignore="UnusedAttribute"
                             />
+
                         <ImageButton
                             android:layout_width="@dimen/dp_35"
                             android:layout_height="@dimen/dp_35"
@@ -229,6 +257,7 @@
                             app:srcCompat="@drawable/ic_next_fragment"
                             tools:ignore="ContentDescription"
                             />
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_1"
@@ -236,11 +265,13 @@
                             android:background="@color/color_orange_mos"
                             />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/color_gray_white"
                         >
+
                         <ProgressBar
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -249,6 +280,7 @@
                             android:visibility="@{viewModel.progressBarVisibleProduct? View.VISIBLE : View.GONE}"
                             style="?android:attr/progressBarStyleSmall"
                             />
+
                         <android.support.v7.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
