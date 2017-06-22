@@ -21,10 +21,10 @@ public class ProductRepository {
     private int mCurrentDomainId;
 
     public ProductRepository(ProductRemoteDataSource remoteDataSource,
-            ProductLocalDataSource productLocalDataSource, DomainRepository domainRepository) {
+            ProductLocalDataSource productLocalDataSource, int currentDomainId) {
         mRemoteDataSource = remoteDataSource;
         mLocalProductDataSource = productLocalDataSource;
-        mCurrentDomainId = domainRepository.getCurrentDomain().getId();
+        mCurrentDomainId = currentDomainId;
     }
 
     public ProductRepository(ProductRemoteDataSource productRemoteDataSource,
