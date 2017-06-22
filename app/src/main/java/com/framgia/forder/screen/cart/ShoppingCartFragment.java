@@ -55,10 +55,10 @@ public class ShoppingCartFragment extends Fragment {
         DomainRepository domainRepository =
                 new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
                         new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
-
+        int currentDomainId = domainRepository.getCurrentDomain().getId();
         ProductRepository productRepository = new ProductRepository(
                 new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
-                new ProductLocalDataSource(realmApi), domainRepository);
+                new ProductLocalDataSource(realmApi), currentDomainId);
         UserRepository userRepository =
                 new UserRepository(new UserRemoteDataSource(FOrderServiceClient.getInstance()),
                         new UserLocalDataSource(prefsApi));

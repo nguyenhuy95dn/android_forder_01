@@ -52,10 +52,10 @@ public class NoteCartFragment extends DialogFragment {
         DomainRepository domainRepository =
                 new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
                         new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
+        int currentDomainId = domainRepository.getCurrentDomain().getId();
         ProductRepository productRepository = new ProductRepository(
                 new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
-                new ProductLocalDataSource(realmApi), domainRepository);
-
+                new ProductLocalDataSource(realmApi), currentDomainId);
         final NoteCartContract.Presenter presenter =
                 new NoteCartPresenter(mViewModel, productRepository);
         mViewModel.setPresenter(presenter);

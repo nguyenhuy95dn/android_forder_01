@@ -55,16 +55,15 @@ public class MainPageFragment extends Fragment {
         ShopPageAdapter shopPageAdapter = new ShopPageAdapter(getFragmentManager());
         mViewModel = new MainPageViewModel(getContext().getApplicationContext(), productAdapter,
                 navigator, categoryAdapter, shopPageAdapter);
-
         RealmApi realmApi = new RealmApi();
-
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
         DomainRepository domainRepository =
                 new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
                         new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
+        int currentDomainId = domainRepository.getCurrentDomain().getId();
         ProductRepository productRepository = new ProductRepository(
                 new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
-                new ProductLocalDataSource(realmApi), domainRepository);
+                new ProductLocalDataSource(realmApi), currentDomainId);
         ShopRepository shopRepository =
                 new ShopRepository(new ShopRemoteDataSource(FOrderServiceClient.getInstance()));
         CategoryRepository categoryRepository = new CategoryRepository(
