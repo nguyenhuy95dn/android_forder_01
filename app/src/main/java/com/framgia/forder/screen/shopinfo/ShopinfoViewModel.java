@@ -10,6 +10,7 @@ import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.managerdetail.ManagerDetailFragment;
 import com.framgia.forder.screen.orderhistoryshop.OrderHistoryShopFragment;
 import com.framgia.forder.screen.ordershop.OrderShopFragment;
+import com.framgia.forder.screen.shopinfo.listdomain.ListDomainAdapter;
 import com.framgia.forder.screen.shopupdate.ShopUpdateFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
@@ -24,19 +25,22 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<User> {
 
     private static final String TAG = "ShopinfoFragment";
+
     private final Navigator mNavigator;
     private ShopinfoContract.Presenter mPresenter;
     private final ShopManagement mShopManagement;
     private final ShopInfo mShopInfo;
     private final ManagerShopInfoAdapter mAdapter;
+    private final ListDomainAdapter mDomainAdapter;
 
     ShopinfoViewModel(Navigator navigator, ShopManagement shopManagement,
-            ManagerShopInfoAdapter adapter) {
+            ManagerShopInfoAdapter adapter, ListDomainAdapter domainAdapter) {
         mNavigator = navigator;
         mShopManagement = shopManagement;
         mAdapter = adapter;
+        mDomainAdapter = domainAdapter;
         mAdapter.setItemClickListener(this);
-        mShopInfo = mShopManagement.getShopInfos().get(1);
+        mShopInfo = mShopManagement.getShopInfos().get(DEFAULT_VALUE);
     }
 
     @Override
@@ -79,10 +83,7 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
     }
 
     public String getNumberProduct() {
-        if (mShopInfo != null) {
-            return String.valueOf(mShopInfo.getNumberProduct());
-        }
-        return "";
+        return String.valueOf(mShopInfo.getNumberProduct());
     }
 
     public String getTimeOpenShop() {
@@ -116,10 +117,6 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
         mNavigator.showToast(exception.getMessage());
     }
 
-    public ManagerShopInfoAdapter getAdapter() {
-        return mAdapter;
-    }
-
     @Override
     public void onItemRecyclerViewClick(User user) {
         mNavigator.goNextChildFragment(R.id.layout_content, ManagerDetailFragment.newInstance(user),
@@ -134,8 +131,15 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
 
     public void onClickOrderHistory() {
         mNavigator.goNextChildFragment(R.id.layout_content,
-                OrderHistoryShopFragment.newInstance(this.mShopManagement),
-                true,
+                OrderHistoryShopFragment.newInstance(this.mShopManagement), true,
                 Navigator.BOTTOM_UP, TAG);
+    }
+
+    public ManagerShopInfoAdapter getAdapter() {
+        return mAdapter;
+    }
+
+    public ListDomainAdapter getDomainAdapter() {
+        return mDomainAdapter;
     }
 }

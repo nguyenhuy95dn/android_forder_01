@@ -13,6 +13,7 @@ import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentShopinfoBinding;
+import com.framgia.forder.screen.shopinfo.listdomain.ListDomainAdapter;
 import com.framgia.forder.utils.navigator.Navigator;
 
 /**
@@ -21,6 +22,7 @@ import com.framgia.forder.utils.navigator.Navigator;
 public class ShopinfoFragment extends Fragment {
 
     private static final String EXTRA_SHOP = "EXTRA_SHOP";
+
     private ShopinfoContract.ViewModel mViewModel;
 
     public static ShopinfoFragment newInstance(ShopManagement shopManagement) {
@@ -39,8 +41,10 @@ public class ShopinfoFragment extends Fragment {
         Navigator navigator = new Navigator(getParentFragment().getParentFragment());
 
         ManagerShopInfoAdapter adapter = new ManagerShopInfoAdapter(getActivity());
+        ListDomainAdapter domainAdapter = new ListDomainAdapter(getActivity());
         ShopManagement shopManagement = (ShopManagement) getArguments().get(EXTRA_SHOP);
-        mViewModel = new ShopinfoViewModel(navigator, shopManagement, adapter);
+
+        mViewModel = new ShopinfoViewModel(navigator, shopManagement, adapter, domainAdapter);
 
         ShopRepository shopRepository =
                 new ShopRepository(new ShopRemoteDataSource(FOrderServiceClient.getInstance()));

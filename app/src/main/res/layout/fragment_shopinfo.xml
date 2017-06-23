@@ -267,6 +267,32 @@
                     app:layoutManager="LinearLayoutManager"
                     app:recyclerAdapter="@{viewModel.adapter}"
                     />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_2"
+                    android:background="@color/color_gray_white"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_gray_white"
+                    android:drawableLeft="@drawable/ic_public"
+                    android:drawableStart="@drawable/ic_public"
+                    android:gravity="center_vertical"
+                    android:text="@string/list_domain"
+                    android:textColor="@color/color_orange_mos"
+                    android:textStyle="bold"
+                    />
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@drawable/border_layout"
+                    android:orientation="vertical"
+                    app:layoutManager="LinearLayoutManager"
+                    app:recyclerAdapter="@{viewModel.domainAdapter}"
+                    />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>
