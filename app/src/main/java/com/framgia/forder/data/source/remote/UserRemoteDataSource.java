@@ -21,8 +21,8 @@ public class UserRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<User> login(final String userName, String passWord) {
-        return mFOrderApi.login(userName, passWord)
+    public Observable<User> login(final String userName, String passWord, String deviceToken) {
+        return mFOrderApi.login(userName, passWord, deviceToken)
                 .flatMap(new Func1<UserResponse, Observable<User>>() {
 
                     @Override

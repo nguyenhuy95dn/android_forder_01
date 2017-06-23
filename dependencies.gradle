@@ -23,5 +23,5 @@ ext {
                   floatingsearchview: 'com.github.arimorty:floatingsearchview:2.0.4',
                   annotation            : 'javax.annotation:javax.annotation-api:1.2',
                   expandablerecyclerview: 'com.bignerdranch.android:expandablerecyclerview:1.0.3',
-                  firebaseMessage       : 'com.google.firebase:firebase-messaging:9.0.0',]
+                  firebaseMessage       : 'com.google.firebase:firebase-messaging:10.0.1',]
 }
