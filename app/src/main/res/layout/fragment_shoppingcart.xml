@@ -22,7 +22,7 @@
         <ExpandableListView
             android:id="@+id/expand_list_order"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_above="@+id/layout_order"
             android:background="@color/transparent"
             android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"

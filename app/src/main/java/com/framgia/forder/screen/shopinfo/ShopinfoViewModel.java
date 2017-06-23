@@ -14,6 +14,8 @@ import com.framgia.forder.screen.shopupdate.ShopUpdateFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
 
+import static com.framgia.forder.utils.Constant.DEFAULT_VALUE;
+
 /**
  * Exposes the data to be used in the Shopinfo screen.
  */
@@ -69,11 +71,11 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
         return "";
     }
 
-    public float getRating() {
+    public String getRating() {
         if (mShopManagement.getShop() != null) {
-            return mShopManagement.getShop().getAverageRating();
+            return String.valueOf(mShopManagement.getShop().getAverageRating());
         }
-        return 0;
+        return String.valueOf(DEFAULT_VALUE);
     }
 
     public String getNumberProduct() {

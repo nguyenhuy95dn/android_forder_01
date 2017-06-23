@@ -29,7 +29,7 @@
     <string name="next">Next</string>
     <string name="welcome">Welcome to</string>
     <string name="btn_detail_profile">Your profile</string>
-    <string name="order_history">Order history</string>
+    <string name="order_history">Order History</string>
     <string name="order_management">Order management</string>
     <string name="shop_management">Shop management</string>
     <string name="domain_management">Domain management</string>
@@ -175,4 +175,5 @@
     <string name="hint_notes">Any specific note like less spicy, no pickles mention here…</string>
     <string name="quick_order">Quick Order</string>
     <string name="owners_more">Owners More</string>
+    <string name="list_order">List Order</string>
 </resources>
