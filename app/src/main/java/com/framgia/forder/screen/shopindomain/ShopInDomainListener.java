@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public interface ShopInDomainListener {
-    void onClickSeeMoreOwner(List<OwnerShop> ownerShops);
+    void onClickSeeAllManager(List<OwnerShop> ownerShops);
 
     void onClickDeleteShop(ShopInDomain shop);
 }

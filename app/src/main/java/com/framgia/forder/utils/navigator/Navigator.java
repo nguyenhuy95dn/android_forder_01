@@ -241,7 +241,7 @@ public class Navigator {
         fragment.show(fragmentManager, tag);
     }
 
-    public void showMoreOwnerDialog(String tag, List<OwnerShop> ownerShops) {
+    public void showManagerInShopDialog(String tag, List<OwnerShop> ownerShops) {
         FragmentManager fragmentManager = mFragment.getFragmentManager();
         ManagerInShopFragment fragment = ManagerInShopFragment.newInstance(ownerShops);
         fragment.show(fragmentManager, tag);

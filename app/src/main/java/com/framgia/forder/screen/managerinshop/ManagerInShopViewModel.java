@@ -8,7 +8,10 @@ public class ManagerInShopViewModel implements ManagerInShopContract.ViewModel {
 
     private ManagerInShopContract.Presenter mPresenter;
 
-    public ManagerInShopViewModel() {
+    private final ManagerInShopAdapter mManagerInShopAdapter;
+
+    ManagerInShopViewModel(ManagerInShopAdapter managerInShopAdapter) {
+        mManagerInShopAdapter = managerInShopAdapter;
     }
 
     @Override
@@ -24,5 +27,9 @@ public class ManagerInShopViewModel implements ManagerInShopContract.ViewModel {
     @Override
     public void setPresenter(ManagerInShopContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    public ManagerInShopAdapter getOwnerInShopAdater() {
+        return mManagerInShopAdapter;
     }
 }
