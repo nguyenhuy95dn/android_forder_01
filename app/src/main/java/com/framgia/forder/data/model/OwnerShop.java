@@ -1,5 +1,7 @@
 package com.framgia.forder.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +9,20 @@ import com.google.gson.annotations.SerializedName;
  * Created by Age on 6/15/2017.
  */
 
-public class OwnerShop {
+public final class OwnerShop implements Parcelable {
+
+    public static final Creator<OwnerShop> CREATOR = new Creator<OwnerShop>() {
+        @Override
+        public OwnerShop createFromParcel(Parcel in) {
+            return new OwnerShop(in);
+        }
+
+        @Override
+        public OwnerShop[] newArray(int size) {
+            return new OwnerShop[size];
+        }
+    };
+
     @Expose
     @SerializedName("id")
     private int mId;
@@ -23,6 +38,14 @@ public class OwnerShop {
     @Expose
     @SerializedName("user_name")
     private String mUserName;
+
+    private OwnerShop(Parcel in) {
+        mId = in.readInt();
+        mUserId = in.readInt();
+        mShopId = in.readInt();
+        mRole = in.readString();
+        mUserName = in.readString();
+    }
 
     public int getId() {
         return mId;
@@ -62,5 +85,19 @@ public class OwnerShop {
 
     public void setUserName(String userName) {
         mUserName = userName;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mId);
+        dest.writeInt(mUserId);
+        dest.writeInt(mShopId);
+        dest.writeString(mRole);
+        dest.writeString(mUserName);
     }
 }

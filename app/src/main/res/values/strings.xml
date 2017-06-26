@@ -176,4 +176,6 @@
     <string name="quick_order">Quick Order</string>
     <string name="owners_more">Owners More</string>
     <string name="list_order">List Order</string>
+    <string name="manager_in_shop">Manager in shop</string>
+    <string name="close">Close</string>
 </resources>
