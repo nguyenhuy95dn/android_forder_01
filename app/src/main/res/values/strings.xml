@@ -175,6 +175,7 @@
     <string name="hint_notes">Any specific note like less spicy, no pickles mention here…</string>
     <string name="quick_order">Quick Order</string>
     <string name="owners_more">Owners More</string>
+    <string name="list_domain">List Domain</string>
     <string name="list_order">List Order</string>
     <string name="manager_in_shop">Manager in shop</string>
     <string name="close">Close</string>
