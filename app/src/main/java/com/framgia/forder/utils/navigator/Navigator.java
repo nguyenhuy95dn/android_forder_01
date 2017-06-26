@@ -20,14 +20,17 @@ import android.widget.Toast;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.model.DomainManagement;
+import com.framgia.forder.data.model.OwnerShop;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.screen.cart.notecart.NoteCartFragment;
 import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainFragment;
 import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainListener;
 import com.framgia.forder.screen.domainmanagement.editdomain.EditDomainListener;
 import com.framgia.forder.screen.domainmanagement.editdomain.EditdomainFragment;
+import com.framgia.forder.screen.managerinshop.ManagerInShopFragment;
 import com.framgia.forder.screen.quickorder.QuickOrderFragment;
 import com.framgia.forder.screen.quickorder.QuickOrderListener;
+import java.util.List;
 
 /**
  * Created by le.quang.dao on 14/03/2017.
@@ -235,6 +238,12 @@ public class Navigator {
         FragmentManager fragmentManager = mFragment.getFragmentManager();
         QuickOrderFragment fragment = QuickOrderFragment.newInstance(product);
         fragment.setQuickOrderListener(listener);
+        fragment.show(fragmentManager, tag);
+    }
+
+    public void showMoreOwnerDialog(String tag, List<OwnerShop> ownerShops) {
+        FragmentManager fragmentManager = mFragment.getFragmentManager();
+        ManagerInShopFragment fragment = ManagerInShopFragment.newInstance(ownerShops);
         fragment.show(fragmentManager, tag);
     }
 
