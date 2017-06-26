@@ -40,6 +40,10 @@ public class ManagerInShopFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         List<OwnerShop> ownerShops = (List<OwnerShop>) getArguments().get(EXTRA_OWNER);
+        ManagerInShopAdapter managerInShopAdapter =
+                new ManagerInShopAdapter(getActivity().getApplicationContext());
+        managerInShopAdapter.updateData(ownerShops);
+        mViewModel = new ManagerInShopViewModel(managerInShopAdapter);
 
         ManagerInShopContract.Presenter presenter = new ManagerInShopPresenter(mViewModel);
         mViewModel.setPresenter(presenter);

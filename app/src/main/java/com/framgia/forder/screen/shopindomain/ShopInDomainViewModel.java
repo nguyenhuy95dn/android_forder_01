@@ -16,6 +16,8 @@ import java.util.List;
 
 public class ShopInDomainViewModel implements ShopInDomainContract.ViewModel, ShopInDomainListener {
 
+    private static final String TAG = "ManagerInShopFragment";
+
     private final ShopInDomainAdapter mAdapter;
     private final Navigator mNavigator;
     private final DomainManagement mDomainManagement;
@@ -72,8 +74,8 @@ public class ShopInDomainViewModel implements ShopInDomainContract.ViewModel, Sh
     }
 
     @Override
-    public void onClickSeeMoreOwner(List<OwnerShop> ownerShops) {
-        //Todo dev later
+    public void onClickSeeAllManager(List<OwnerShop> ownerShops) {
+        mNavigator.showManagerInShopDialog(TAG, ownerShops);
     }
 
     @Override

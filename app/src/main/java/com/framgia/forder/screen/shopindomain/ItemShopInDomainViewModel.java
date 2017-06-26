@@ -38,8 +38,8 @@ public class ItemShopInDomainViewModel {
         return mShop.getStatus();
     }
 
-    public void onClickSeeMoreOwner() {
-        mShopInDomainListener.onClickSeeMoreOwner(mShop.getOwnerShops());
+    public void onClickSeeAllManager() {
+        mShopInDomainListener.onClickSeeAllManager(mShop.getOwnerShops());
     }
 
     public void onClickDeleteShop() {
