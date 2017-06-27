@@ -299,6 +299,16 @@ public class Shop implements Parcelable {
         mEmailOwner = emailOwner;
     }
 
+    public boolean isFormatStatus() {
+        if ("on".equals(mStatusShop)) {
+            return true;
+        }
+        if ("off".equals(mStatusShop)) {
+            return false;
+        }
+        return false;
+    }
+
     @Override
     public int describeContents() {
         return 0;

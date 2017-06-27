@@ -3,18 +3,14 @@ package com.framgia.forder.screen.shopmanagement;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
-import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
-import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
-import com.framgia.forder.databinding.ItemJoinDomainBinding;
 import com.framgia.forder.databinding.ItemShopManagementBinding;
-import com.framgia.forder.utils.navigator.Navigator;
-import com.framgia.forder.widgets.dialog.DialogManager;
+import com.framgia.forder.screen.BaseRecyclerViewAdapter;
+import com.framgia.forder.widgets.animation.AnimationManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,24 +18,41 @@ import java.util.List;
  * Created by levutantuan on 5/3/17.
  */
 
-public class ListShopManagementAdapter extends BaseExpandableListAdapter {
+public class ListShopManagementAdapter
+        extends BaseRecyclerViewAdapter<ListShopManagementAdapter.ItemViewHolder> {
 
-    private final Context mContext;
-    private final Navigator mNavigator;
     private final List<ShopManagement> mShopManagements;
-    private ShopDomainManagementListener mShopDomainManagementListener;
-    private final DialogManager mDialogManager;
+    private OnRecyclerViewItemClickListener<Object> mItemClickListener;
+    private final AnimationManager mAnimationManager;
 
-    ListShopManagementAdapter(@NonNull Context context, Navigator navigator) {
-        this.mContext = context;
-        mNavigator = navigator;
+    ListShopManagementAdapter(@NonNull Context context) {
+        super(context);
         mShopManagements = new ArrayList<>();
-        mDialogManager = new DialogManager(context);
+        mAnimationManager = new AnimationManager(context);
     }
 
-    public void setShopDomainManagementListener(
-            ShopDomainManagementListener shopDomainManagementListener) {
-        mShopDomainManagementListener = shopDomainManagementListener;
+    @Override
+    public ListShopManagementAdapter.ItemViewHolder onCreateViewHolder(ViewGroup parent,
+            int viewType) {
+        ItemShopManagementBinding binding =
+                DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                        R.layout.item_shop_management, parent, false);
+        return new ListShopManagementAdapter.ItemViewHolder(binding, mItemClickListener);
+    }
+
+    @Override
+    public void onBindViewHolder(ListShopManagementAdapter.ItemViewHolder holder, int position) {
+        holder.bind(mShopManagements.get(position));
+        mAnimationManager.animationSlideInLeft(holder.itemView, position);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mShopManagements.size();
+    }
+
+    public void setItemClickListener(OnRecyclerViewItemClickListener<Object> itemClickListener) {
+        mItemClickListener = itemClickListener;
     }
 
     public void updateData(List<ShopManagement> shopManagements) {
@@ -51,96 +64,22 @@ public class ListShopManagementAdapter extends BaseExpandableListAdapter {
         notifyDataSetChanged();
     }
 
-    @Override
-    public int getGroupCount() {
-        return mShopManagements.size();
-    }
+    static class ItemViewHolder extends RecyclerView.ViewHolder {
 
-    @Override
-    public int getChildrenCount(int groupPosition) {
-        if (mShopManagements.get(groupPosition) != null
-                && mShopManagements.get(groupPosition).getShopInfos() != null) {
-            return mShopManagements.get(groupPosition).getShopInfos().size();
+        private final ItemShopManagementBinding mBinding;
+        private final OnRecyclerViewItemClickListener<Object> mItemClickListener;
+
+        ItemViewHolder(ItemShopManagementBinding binding,
+                OnRecyclerViewItemClickListener<Object> listener) {
+            super(binding.getRoot());
+            mBinding = binding;
+            mItemClickListener = listener;
         }
-        return 0;
-    }
 
-    @Override
-    public Object getGroup(int groupPosition) {
-        return mShopManagements.get(groupPosition);
-    }
-
-    @Override
-    public Object getChild(int groupPosition, int childPosition) {
-        if (mShopManagements.get(groupPosition) != null
-                && mShopManagements.get(groupPosition).getShopInfos() != null) {
-            return mShopManagements.get(groupPosition);
+        void bind(ShopManagement shopManagement) {
+            mBinding.setViewModel(
+                    new ItemShopManagementViewModel(shopManagement, mItemClickListener));
+            mBinding.executePendingBindings();
         }
-        return "";
-    }
-
-    @Override
-    public long getGroupId(int groupPosition) {
-        if (mShopManagements.get(groupPosition) != null
-                && mShopManagements.get(groupPosition).getShop() != null) {
-            return mShopManagements.get(groupPosition).getShop().getId();
-        }
-        return 0;
-    }
-
-    @Override
-    public long getChildId(int groupPosition, int childPosition) {
-        if (mShopManagements.get(groupPosition) != null
-                && mShopManagements.get(groupPosition).getShopInfos() != null
-                && mShopManagements.get(groupPosition).getShopInfos().get(childPosition) != null) {
-            return Long.parseLong(String.valueOf(mShopManagements.get(groupPosition)
-                    .getShopInfos()
-                    .get(childPosition)
-                    .getDomainId()));
-        }
-        return 0;
-    }
-
-    @Override
-    public boolean hasStableIds() {
-        return false;
-    }
-
-    @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
-            ViewGroup parent) {
-        ItemShopManagementBinding binding =
-                DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                        R.layout.item_shop_management, parent, false);
-        ItemShopManagementViewModel viewModel = new ItemShopManagementViewModel(mNavigator,
-                (ShopManagement) getGroup(groupPosition));
-        binding.setViewModel(viewModel);
-        binding.executePendingBindings();
-        return binding.getRoot();
-    }
-
-    @Override
-    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild,
-            View convertView, ViewGroup parent) {
-        ItemJoinDomainBinding binding =
-                DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                        R.layout.item_join_domain, parent, false);
-        final ItemShopInfoViewModel viewModel = new ItemShopInfoViewModel(mContext,
-                (ShopManagement) getChild(groupPosition, childPosition), childPosition,
-                mShopDomainManagementListener, mDialogManager);
-        binding.setViewModel(viewModel);
-        binding.executePendingBindings();
-        return binding.getRoot();
-    }
-
-    @Override
-    public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
-    }
-
-    public interface ShopDomainManagementListener {
-        void onRequestJoinDomain(ApplyShopToDomainRequest applyShopToDomainRequest);
-
-        void onCancleJoinDomain(LeaveShopToDomainRequest leaveShopToDomainRequest);
     }
 }

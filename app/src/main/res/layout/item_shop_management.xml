@@ -2,7 +2,6 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     >
 
     <data>
@@ -18,66 +17,104 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp_2"
         android:background="@drawable/border_comment"
+        android:onClick="@{()-> viewModel.onItemClicked()}"
         android:padding="@dimen/dp_2"
+        app:cardCornerRadius="@dimen/dp_10"
         >
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_1"
-            android:background="@color/color_white"
-            android:orientation="horizontal"
+            android:background="@drawable/border_layout"
             >
             <ImageView
-                android:layout_width="@dimen/dp_100"
-                android:layout_height="@dimen/dp_80"
-                android:layout_margin="@dimen/dp_1"
+                android:id="@+id/image_shop"
+                android:layout_width="@dimen/dp_90"
+                android:layout_height="@dimen/dp_90"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/title_shop"
-                android:scaleType="centerCrop"
+                android:padding="@dimen/dp_5"
                 app:imageUrl="@{viewModel.shopImage}"
                 />
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <View
+                android:layout_width="@dimen/dp_1"
                 android:layout_height="@dimen/dp_80"
+                android:layout_margin="@dimen/dp_2"
+                android:layout_toEndOf="@+id/image_shop"
+                android:layout_toRightOf="@+id/image_shop"
+                android:background="@color/color_gray_white"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_5"
                 android:layout_marginStart="@dimen/dp_5"
+                android:layout_toEndOf="@+id/image_shop"
+                android:layout_toLeftOf="@+id/button_status_shop"
+                android:layout_toRightOf="@+id/image_shop"
+                android:layout_toStartOf="@+id/button_status_shop"
+                android:gravity="center_vertical"
                 android:orientation="vertical"
                 >
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:drawableLeft="@drawable/ic_store_24dp"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:drawableStart="@drawable/ic_store_24dp"
                     android:ellipsize="marquee"
-                    android:ems="10"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="1"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
                     android:text="@{viewModel.shopName}"
-                    android:textColor="@color/color_orange_mos"
-                    android:textSize="@dimen/sp_18"
+                    android:textColor="@color/color_gray_mos"
+                    android:textSize="@dimen/sp_20"
                     android:textStyle="bold"
-                    tools:ignore="Deprecated"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_margin="@dimen/dp_3"
+                    android:background="@color/color_orange_light"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_20"
-                    android:ems="10"
+                    android:layout_gravity="center_vertical"
+                    android:drawableLeft="@drawable/ic_label"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:drawableStart="@drawable/ic_label"
+                    android:ellipsize="marquee"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
                     android:text="@{viewModel.description}"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_gray"
                     android:textSize="@dimen/sp_15"
                     />
             </LinearLayout>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dp_4"
-                android:layout_marginStart="@dimen/dp_4"
-                android:contentDescription="@string/shop_management"
-                android:onClick="@{() -> viewModel.onClickShopInformation()}"
-                app:srcCompat="@drawable/ic_next_fragment"
+            <ToggleButton
+                android:id="@+id/button_status_shop"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_25"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:layout_marginLeft="@dimen/dp_1"
+                android:layout_marginRight="@dimen/dp_5"
+                android:layout_marginStart="@dimen/dp_1"
+                android:background="@drawable/toggle_item"
+                android:checked="@{viewModel.statusShop}"
+                android:onCheckedChanged="@{() -> viewModel.checked()}"
+                android:textOff="@null"
+                android:textOn="@null"
                 />
-        </LinearLayout>
+
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 </layout>
