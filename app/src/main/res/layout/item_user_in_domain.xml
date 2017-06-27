@@ -74,7 +74,9 @@
             android:layout_marginRight="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_10"
             android:adjustViewBounds="true"
+            android:background="@drawable/ic_three_dots"
             android:scaleType="centerCrop"
+            app:showPopupMenuRuleOfOwner="@{viewModel::onMenuItemClick}"
             tools:ignore="ContentDescription"
             />
     </RelativeLayout>

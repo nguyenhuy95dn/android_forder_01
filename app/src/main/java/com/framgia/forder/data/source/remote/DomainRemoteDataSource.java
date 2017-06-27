@@ -2,14 +2,17 @@ package com.framgia.forder.data.source.remote;
 
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.DomainManagement;
+import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.DomainDataSource;
 import com.framgia.forder.data.source.remote.api.request.RegisterDomainRequest;
+import com.framgia.forder.data.source.remote.api.response.ChangeRuleOfUserResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteUserInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
 import com.framgia.forder.data.source.remote.api.response.EditDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterDomainResponse;
+import com.framgia.forder.data.source.remote.api.response.UserInDomainResponse;
 import com.framgia.forder.data.source.remote.api.service.FOrderApi;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,5 +86,25 @@ public class DomainRemoteDataSource implements DomainDataSource.RemoteDataSource
     public Observable<EditDomainResponse> requestEditDdomain(int domainId, String name,
             String status) {
         return mFOrderApi.requestEditDomain(domainId, name, status);
+    }
+
+    @Override
+    public Observable<List<User>> getListUserInDomain(int domainId) {
+        return mFOrderApi.getListUserInDomain(domainId)
+                .flatMap(new Func1<UserInDomainResponse, Observable<List<User>>>() {
+                    @Override
+                    public Observable<List<User>> call(UserInDomainResponse response) {
+                        if (response != null) {
+                            return Observable.just(response.getUserList());
+                        }
+                        return Observable.error(new NullPointerException());
+                    }
+                });
+    }
+
+    @Override
+    public Observable<ChangeRuleOfUserResponse> requestChangeRuleOfUserInDomain(int domainId,
+            int userId, String role) {
+        return mFOrderApi.requestChangeRuleOfUserInDomain(domainId, userId, role);
     }
 }

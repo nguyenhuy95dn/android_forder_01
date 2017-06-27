@@ -125,4 +125,19 @@ public final class BindingUtils {
             final ShopPageAdapter shopPageAdapter) {
         viewPage.setAdapter(shopPageAdapter);
     }
+
+    @BindingAdapter("showPopupMenuRuleOfOwner")
+    public static void showPopPupMenuRuleOfOwner(final View view,
+            final PopupMenu.OnMenuItemClickListener listener) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+                MenuInflater menuInflater = popupMenu.getMenuInflater();
+                menuInflater.inflate(R.menu.menu_user_in_domain, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(listener);
+                popupMenu.show();
+            }
+        });
+    }
 }
