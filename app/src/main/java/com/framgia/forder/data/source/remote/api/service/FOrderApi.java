@@ -11,6 +11,7 @@ import com.framgia.forder.data.source.remote.api.request.UpdateProductRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateShopRequest;
 import com.framgia.forder.data.source.remote.api.response.CategoryResponse;
+import com.framgia.forder.data.source.remote.api.response.ChangeRuleOfUserResponse;
 import com.framgia.forder.data.source.remote.api.response.CloseOrderResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteShopInDomainResponse;
@@ -35,6 +36,7 @@ import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse
 import com.framgia.forder.data.source.remote.api.response.ShopResponse;
 import com.framgia.forder.data.source.remote.api.response.UpdateProductResponse;
 import com.framgia.forder.data.source.remote.api.response.UpdateProfileResponse;
+import com.framgia.forder.data.source.remote.api.response.UserInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.UserResponse;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -186,6 +188,13 @@ public interface FOrderApi {
 
     @DELETE("v1/shop_domains/0")
     Observable<DeleteShopInDomainResponse> requestDeleteShopInDomain(
-            @Query("domain_id") int domainId,
-            @Query("shop_id") int shopId);
+            @Query("domain_id") int domainId, @Query("shop_id") int shopId);
+
+    @GET("v1/dashboard/shop_managers")
+    Observable<UserInDomainResponse> getListUserInDomain(@Query("domain_id") int domainId);
+
+    @PUT("v1/user_domains/1")
+    Observable<ChangeRuleOfUserResponse> requestChangeRuleOfUserInDomain(
+            @Query("domain_id") int domainId, @Query("user_id") int userId,
+            @Query("role") String role);
 }
