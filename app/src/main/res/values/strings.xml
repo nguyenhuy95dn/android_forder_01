@@ -180,4 +180,7 @@
     <string name="manager_in_shop">Manager in shop</string>
     <string name="close">Close</string>
     <string name="see_manager">See Manager</string>
+    <string name="user_in_domain">User in domain</string>
+    <string name="delete">Delete</string>
+    <string name="set_manager">Set Manager</string>
 </resources>
