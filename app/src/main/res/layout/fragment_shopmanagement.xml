@@ -17,11 +17,13 @@
         android:layout_height="match_parent"
         android:background="@color/color_gray_white"
         >
-        <ExpandableListView
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/dp_10"
+            android:layout_margin="@dimen/dp_4"
+            android:background="@color/color_gray_white"
             app:adapter="@{viewModel.listShopManagementAdapter}"
+            app:layoutManager="LinearLayoutManager"
             />
 
         <android.support.design.widget.FloatingActionButton

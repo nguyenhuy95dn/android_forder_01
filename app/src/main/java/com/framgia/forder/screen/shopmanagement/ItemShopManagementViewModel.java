@@ -1,22 +1,23 @@
 package com.framgia.forder.screen.shopmanagement;
 
-import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
-import com.framgia.forder.screen.shopinfo.ShopInformationPageContainerFragment;
-import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 
 /**
  * Created by levutantuan on 5/3/17.
  */
 
 public class ItemShopManagementViewModel {
-    private final Navigator mNavigator;
-    private final ShopManagement mShopManagement;
-    private static final String TAG = "ShopManagemantFragment";
 
-    public ItemShopManagementViewModel(Navigator navigator, ShopManagement shopManagements) {
-        mNavigator = navigator;
+    private final ShopManagement mShopManagement;
+    private final BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mListener;
+    private boolean mStatusShop;
+
+    ItemShopManagementViewModel(ShopManagement shopManagements,
+            BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> listener) {
         mShopManagement = shopManagements;
+        mStatusShop = mShopManagement.getShop().isFormatStatus();
+        mListener = listener;
     }
 
     public String getShopImage() {
@@ -42,9 +43,25 @@ public class ItemShopManagementViewModel {
         return "";
     }
 
-    public void onClickShopInformation() {
-        mNavigator.goNextChildFragment(R.id.layout_content,
-                ShopInformationPageContainerFragment.newInstance(this.mShopManagement), true,
-                Navigator.BOTTOM_UP, TAG);
+    public String getTimeAutoRejcet() {
+        if (mShopManagement.getShop() != null) {
+            return mShopManagement.getShop().getTimeAutoReject();
+        }
+        return "";
+    }
+
+    public void onItemClicked() {
+        if (mListener == null) {
+            return;
+        }
+        mListener.onItemRecyclerViewClick(mShopManagement);
+    }
+
+    public boolean isStatusShop() {
+        return mStatusShop;
+    }
+
+    public void checked() {
+        mStatusShop = !mStatusShop;
     }
 }

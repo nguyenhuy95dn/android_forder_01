@@ -17,6 +17,8 @@ import com.framgia.forder.widgets.dialog.DialogManager;
  */
 
 public class ItemShopInfoViewModel {
+
+    //TODO Edit Later File
     private final Context mContext;
     private final ShopInfo mShopInfo;
     private final Domain mDomain;
@@ -25,19 +27,14 @@ public class ItemShopInfoViewModel {
     private ObservableInt mTextButton;
     private ObservableInt mTextStatus;
     private final DialogManager mDialogManager;
-    private final ListShopManagementAdapter.ShopDomainManagementListener
-            mShopDomainManagementListener;
 
     ItemShopInfoViewModel(Context context, ShopManagement shopManagement, int position,
-            ListShopManagementAdapter.ShopDomainManagementListener shopDomainManagementListener,
             DialogManager dialogManager) {
         this.mContext = context;
         mShopInfo = shopManagement.getShopInfos().get(position);
         mDomain = shopManagement.getShopDomains().get(position);
         mShop = shopManagement.getShop();
-
         mDialogManager = dialogManager;
-        mShopDomainManagementListener = shopDomainManagementListener;
         initValueStatus();
     }
 
@@ -131,14 +128,14 @@ public class ItemShopInfoViewModel {
         applyShopToDomainRequest.setShopName(mShop.getName());
         applyShopToDomainRequest.setNumberProduct(mShopInfo.getNumberProduct());
         applyShopToDomainRequest.setDomainName(mShopInfo.getDomainName());
-        mShopDomainManagementListener.onRequestJoinDomain(applyShopToDomainRequest);
+        //        mShopDomainManagementListener.onRequestJoinDomain(applyShopToDomainRequest);
     }
 
     private void onCancelShopInDomain() {
         LeaveShopToDomainRequest leaveShopToDomainRequest = new LeaveShopToDomainRequest();
         leaveShopToDomainRequest.setDomainId(mShopInfo.getDomainId());
         leaveShopToDomainRequest.setShopId(mShop.getId());
-        mShopDomainManagementListener.onCancleJoinDomain(leaveShopToDomainRequest);
+        //        mShopDomainManagementListener.onCancleJoinDomain(leaveShopToDomainRequest);
     }
 
     public ObservableInt getButtonJoinDomain() {
