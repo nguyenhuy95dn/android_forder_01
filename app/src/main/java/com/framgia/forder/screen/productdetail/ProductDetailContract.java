@@ -4,6 +4,7 @@ import com.framgia.forder.data.model.Comment;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.CommentRequest;
+import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BasePresenter;
 import com.framgia.forder.screen.BaseViewModel;
 import java.util.List;
@@ -16,23 +17,30 @@ interface ProductDetailContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
-        void onGetListProductShopError(BaseException exception);
 
         void onGetListProductShopSuccess(List<Product> products);
 
-        void onGetListCommentInProductError(BaseException exception);
+        void onShowMessageError(BaseException exception);
 
         void onGetListCommentInProductSusscess(List<Comment> commentsList);
 
-        void onAddToCartError(BaseException exception);
-
         void onAddToCartSuccess();
 
-        void onAddToCart();
+        void onOrderNowSuccess();
 
         void onCommentSuccess();
 
-        void onCommentError();
+        void onShowProgressBarComment();
+
+        void onHideProgressBarComment();
+
+        void onShowProgressBarListProduct();
+
+        void onHideProgressBarListProduct();
+
+        void onShowProgressBarListComment();
+
+        void onHideProgressBarListComment();
     }
 
     /**
@@ -46,5 +54,7 @@ interface ProductDetailContract {
         void getListCommentInProduct(int productId);
 
         void sendComment(CommentRequest request);
+
+        void orderNow(OrderRequest orderRequest);
     }
 }

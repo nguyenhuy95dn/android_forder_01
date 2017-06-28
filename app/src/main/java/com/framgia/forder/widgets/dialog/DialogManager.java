@@ -2,6 +2,7 @@ package com.framgia.forder.widgets.dialog;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,12 +13,13 @@ import java.util.Calendar;
  * Created by tri on 27/04/2017.
  */
 
-public class DialogManager {
+public class DialogManager implements DialogInterfaceImp {
     private Context mContext;
     private AlertDialog mDialog;
     private DatePickerDialog mDatePickerDialog;
     private TimePickerDialog mTimePickerDialog;
     private Calendar mCalendar;
+    private ProgressDialog mProgressDialog;
 
     public DialogManager(Context context) {
         mContext = context;
@@ -91,5 +93,22 @@ public class DialogManager {
             return;
         }
         mDialog.dismiss();
+    }
+
+    @Override
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(mContext);
+            mProgressDialog.setMessage(mContext.getString(R.string.please_wait));
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setCanceledOnTouchOutside(false);
+        }
+        mProgressDialog.show();
+    }
+
+    @Override
+    public void dismissProgressDialog() {
+        mProgressDialog.dismiss();
     }
 }
