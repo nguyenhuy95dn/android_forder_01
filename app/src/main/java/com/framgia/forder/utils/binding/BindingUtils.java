@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.framgia.forder.R;
 import com.framgia.forder.screen.mainpage.shop.ShopPageAdapter;
@@ -88,6 +87,11 @@ public final class BindingUtils {
     @BindingAdapter("background")
     public static void setBackgroundColor(View view, int resId) {
         view.setBackgroundResource(resId);
+    }
+
+    @BindingAdapter("colorText")
+    public static void setColorText(TextView view, int resId) {
+        view.setTextColor(resId);
     }
 
     @BindingAdapter("text")

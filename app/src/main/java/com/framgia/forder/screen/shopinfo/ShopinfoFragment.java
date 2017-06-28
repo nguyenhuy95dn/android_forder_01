@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.Domain;
+import com.framgia.forder.data.model.ShopInfo;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
@@ -15,6 +17,8 @@ import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentShopinfoBinding;
 import com.framgia.forder.screen.shopinfo.listdomain.ListDomainAdapter;
 import com.framgia.forder.utils.navigator.Navigator;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Shopinfo Screen.
@@ -41,8 +45,15 @@ public class ShopinfoFragment extends Fragment {
         Navigator navigator = new Navigator(getParentFragment().getParentFragment());
 
         ManagerShopInfoAdapter adapter = new ManagerShopInfoAdapter(getActivity());
-        ListDomainAdapter domainAdapter = new ListDomainAdapter(getActivity());
         ShopManagement shopManagement = (ShopManagement) getArguments().get(EXTRA_SHOP);
+        ListDomainAdapter domainAdapter = new ListDomainAdapter(getActivity());
+        List<Domain> domain = new ArrayList<>();
+        List<ShopInfo> shopInfo = new ArrayList<>();
+        if (shopManagement != null) {
+            shopInfo = shopManagement.getShopInfos();
+            domain = shopManagement.getShopDomains();
+        }
+        domainAdapter.updateData(shopInfo, domain);
 
         mViewModel = new ShopinfoViewModel(navigator, shopManagement, adapter, domainAdapter);
 

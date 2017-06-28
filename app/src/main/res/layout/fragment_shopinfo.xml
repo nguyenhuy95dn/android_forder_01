@@ -24,7 +24,6 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             >
 
-
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
@@ -42,6 +41,7 @@
                     app:layout_collapseMode="parallax"
                     tools:ignore="ContentDescription"
                     />
+
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
@@ -53,6 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     >
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_200"
@@ -62,15 +63,14 @@
                         >
 
                         <View
-                            android:id="@+id/view_shop_name"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_100"
                             android:layout_alignParentBottom="true"
                             android:background="@color/color_white_transparent"
                             tools:ignore="ContentDescription,UselessParent"
                             />
+
                         <TextView
-                            android:id="@+id/text_shop_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_above="@+id/view_white"
@@ -93,6 +93,7 @@
                             app:paddingStart="@dimen/dp_5"
                             tools:ignore="ObsoleteLayoutParam,UnusedAttribute"
                             />
+
                         <View
                             android:id="@+id/view_white"
                             android:layout_width="match_parent"
@@ -100,6 +101,7 @@
                             android:layout_alignParentBottom="true"
                             android:background="@color/color_white"
                             />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp_50"
@@ -119,6 +121,7 @@
                             android:textSize="@dimen/sp_20"
                             tools:ignore="RelativeOverlap"
                             />
+
                         <ImageView
                             android:id="@+id/image_shop"
                             android:layout_width="@dimen/dp_150"
@@ -135,6 +138,7 @@
                             android:scaleType="fitXY"
                             app:imageUrl="@{viewModel.shopAvatar}"
                             />
+
                         <ImageButton
                             android:layout_width="@dimen/dp_40"
                             android:layout_height="@dimen/dp_40"
@@ -157,66 +161,77 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
+            android:background="@color/color_white_light"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_10"
+                android:background="@color/transparent"
                 android:orientation="vertical"
                 >
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_3"
-                    android:layout_margin="@dimen/dp_5"
-                    android:background="@color/color_gray_white"
-                    />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="@dimen/dp_5"
                     android:weightSum="2.1"
+                    tools:ignore="UnusedAttribute"
                     >
+
                     <Button
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/button_red"
-                        android:backgroundTint="@color/color_orange_mos"
+                        android:background="@drawable/border_button"
+                        android:backgroundTint="@color/color_red_mos"
                         android:gravity="center"
                         android:onClick="@{() -> viewModel.onClickListOrderShop()}"
                         android:text="@string/list_order"
+                        android:textAllCaps="true"
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/sp_20"
                         tools:ignore="UnusedAttribute"
                         />
+
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.1"
                         android:background="@color/transparent"
                         />
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/button_red"
-                        android:backgroundTint="@color/color_blue"
+                        android:background="@drawable/border_button"
+                        android:backgroundTint="@color/color_blue_light"
                         android:gravity="center"
                         android:onClick="@{() -> viewModel.onClickOrderHistory()}"
                         android:text="@string/order_history"
+                        android:textAllCaps="true"
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/sp_20"
                         tools:ignore="UnusedAttribute"
                         />
+
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_margin="@dimen/dp_5"
+                    android:background="@color/color_gray_white"
+                    />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:background="@color/color_gray_white"
+                    android:layout_marginTop="@dimen/dp_7"
                     android:orientation="horizontal"
                     android:padding="@dimen/dp_5"
                     android:weightSum="4"
@@ -226,10 +241,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_local_dining_24dp"
+                        android:drawableTop="@drawable/ic_timer_off"
                         android:gravity="center"
-                        android:text="@{viewModel.numberProduct}"
-                        android:textColor="@color/color_orange_mos"
+                        android:text="@{viewModel.timeReject}"
+                        android:textColor="@color/color_gray"
                         android:textSize="@dimen/sp_17"
                         android:textStyle="bold"
                         />
@@ -241,7 +256,7 @@
                         android:drawableTop="@drawable/ic_store_24dp"
                         android:gravity="center"
                         android:text="@{viewModel.shopName}"
-                        android:textColor="@color/color_orange_mos"
+                        android:textColor="@color/color_gray"
                         android:textSize="@dimen/sp_17"
                         android:textStyle="bold"
                         />
@@ -253,46 +268,57 @@
                         android:drawableTop="@drawable/ic_time"
                         android:gravity="center"
                         android:text="@{viewModel.timeOpenShop}"
-                        android:textColor="@color/color_orange_mos"
+                        android:textColor="@color/color_gray"
                         android:textSize="@dimen/sp_17"
                         android:textStyle="bold"
                         />
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_margin="@dimen/dp_5"
+                    android:background="@color/color_gray_white"
+                    />
+
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_10"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:background="@drawable/border_layout"
+                    android:background="@color/color_white"
                     android:orientation="horizontal"
                     app:layoutManager="LinearLayoutManager"
                     app:recyclerAdapter="@{viewModel.adapter}"
                     />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_2"
-                    android:background="@color/color_gray_white"
-                    />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_gray_white"
                     android:drawableLeft="@drawable/ic_public"
                     android:drawableStart="@drawable/ic_public"
                     android:gravity="center_vertical"
                     android:text="@string/list_domain"
-                    android:textColor="@color/color_orange_mos"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/sp_20"
                     android:textStyle="bold"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_margin="@dimen/dp_5"
+                    android:background="@color/color_gray_white"
                     />
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:background="@drawable/border_layout"
+                    android:layout_marginTop="@dimen/dp_3"
                     android:orientation="vertical"
                     app:layoutManager="LinearLayoutManager"
                     app:recyclerAdapter="@{viewModel.domainAdapter}"
                     />
+
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>
