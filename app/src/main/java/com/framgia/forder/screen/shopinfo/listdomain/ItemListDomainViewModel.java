@@ -1,10 +1,15 @@
 package com.framgia.forder.screen.shopinfo.listdomain;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.support.annotation.NonNull;
+import com.framgia.forder.R;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.ShopInfo;
-import com.framgia.forder.data.model.ShopManagement;
-
-import static com.framgia.forder.utils.Constant.DEFAULT_VALUE;
+import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
+import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
+import com.framgia.forder.widgets.dialog.DialogManager;
 
 /**
  * Created by levutantuan on 6/23/17.
@@ -12,21 +17,25 @@ import static com.framgia.forder.utils.Constant.DEFAULT_VALUE;
 
 public class ItemListDomainViewModel {
 
-    private final ShopManagement mShopManagement;
     private final ShopInfo mShopInfo;
     private final Domain mDomain;
+    private int mButtonJoinDomain;
+    private int mTextButton;
+    private int mTextStatusColor;
+    private final DialogManager mDialogManager;
+    private final ListDomainAdapter.ShopDomainManagementListener mDomainManagementListener;
 
-    ItemListDomainViewModel(ShopManagement shopManagement) {
-        mShopManagement = shopManagement;
-        mDomain = mShopManagement.getShopDomains().get(DEFAULT_VALUE);
-        mShopInfo = mShopManagement.getShopInfos().get(DEFAULT_VALUE);
+    ItemListDomainViewModel(@NonNull Context context, ShopInfo shopInfo, Domain domain,
+            ListDomainAdapter.ShopDomainManagementListener domainManagementListener) {
+        mShopInfo = shopInfo;
+        mDomain = domain;
+        mDialogManager = new DialogManager(context);
+        mDomainManagementListener = domainManagementListener;
+        initValueStatus();
     }
 
     public String getDomainName() {
-        if (mShopManagement.getShopInfos() != null) {
-            return mShopInfo.getDomainName();
-        }
-        return "";
+        return mShopInfo.getDomainName();
     }
 
     public String getNumberUser() {
@@ -43,5 +52,79 @@ public class ItemListDomainViewModel {
 
     public String getStatus() {
         return String.valueOf(mDomain.getStatus());
+    }
+
+    private void initValueStatus() {
+        switch (mDomain.getStatus()) {
+            case NONE:
+                setButtonJoinDomain(R.drawable.button_blue);
+                setTextButton(R.string.request);
+                setTextStatusColor(Color.GRAY);
+                break;
+            case PENDING:
+                setButtonJoinDomain(R.drawable.button_red);
+                setTextButton(R.string.cancel);
+                setTextStatusColor(Color.BLUE);
+                break;
+            case APPROVED:
+                setButtonJoinDomain(R.drawable.button_red);
+                setTextButton(R.string.cancel);
+                setTextStatusColor(Color.RED);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public int getButtonJoinDomain() {
+        return mButtonJoinDomain;
+    }
+
+    private void setButtonJoinDomain(int buttonJoinDomain) {
+        mButtonJoinDomain = buttonJoinDomain;
+    }
+
+    public int getTextButton() {
+        return mTextButton;
+    }
+
+    private void setTextButton(int textButton) {
+        mTextButton = textButton;
+    }
+
+    public int getTextStatusColor() {
+        return mTextStatusColor;
+    }
+
+    private void setTextStatusColor(int textStatusColor) {
+        mTextStatusColor = textStatusColor;
+    }
+
+    public void onClickRequestOrCancelDomain() {
+        if (mDomain.getStatus() == Domain.Status.NONE) {
+            onApplyToDomain();
+        } else if (mDomain.getStatus() == Domain.Status.APPROVED
+                || mDomain.getStatus() == Domain.Status.PENDING) {
+            mDialogManager.dialogwithNoTitleTwoButton(R.string.are_you_sure_you_want_to_cancel,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            onLeaveToDomain();
+                        }
+                    });
+            mDialogManager.show();
+        }
+    }
+
+    private void onApplyToDomain() {
+        ApplyShopToDomainRequest applyShopToDomainRequest = new ApplyShopToDomainRequest();
+        applyShopToDomainRequest.setDomainId(mShopInfo.getDomainId());
+        mDomainManagementListener.onApplyToDomain(applyShopToDomainRequest);
+    }
+
+    private void onLeaveToDomain() {
+        LeaveShopToDomainRequest leaveShopToDomainRequest = new LeaveShopToDomainRequest();
+        leaveShopToDomainRequest.setDomainId(mShopInfo.getDomainId());
+        mDomainManagementListener.onLeaveToDomain(leaveShopToDomainRequest);
     }
 }

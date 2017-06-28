@@ -2,10 +2,11 @@ package com.framgia.forder.screen.shopinfo;
 
 import android.databinding.BaseObservable;
 import com.framgia.forder.R;
-import com.framgia.forder.data.model.ShopInfo;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
+import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.managerdetail.ManagerDetailFragment;
 import com.framgia.forder.screen.orderhistoryshop.OrderHistoryShopFragment;
@@ -22,14 +23,14 @@ import static com.framgia.forder.utils.Constant.DEFAULT_VALUE;
  */
 
 public class ShopinfoViewModel extends BaseObservable implements ShopinfoContract.ViewModel,
-        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<User> {
+        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<User>,
+        ListDomainAdapter.ShopDomainManagementListener {
 
     private static final String TAG = "ShopinfoFragment";
 
     private final Navigator mNavigator;
     private ShopinfoContract.Presenter mPresenter;
     private final ShopManagement mShopManagement;
-    private final ShopInfo mShopInfo;
     private final ManagerShopInfoAdapter mAdapter;
     private final ListDomainAdapter mDomainAdapter;
 
@@ -40,7 +41,7 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
         mAdapter = adapter;
         mDomainAdapter = domainAdapter;
         mAdapter.setItemClickListener(this);
-        mShopInfo = mShopManagement.getShopInfos().get(DEFAULT_VALUE);
+        mDomainAdapter.setDomainManagementListener(this);
     }
 
     @Override
@@ -82,8 +83,11 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
         return String.valueOf(DEFAULT_VALUE);
     }
 
-    public String getNumberProduct() {
-        return String.valueOf(mShopInfo.getNumberProduct());
+    public String getTimeReject() {
+        if (mShopManagement.getShop() != null) {
+            return mShopManagement.getShop().getTimeAutoReject();
+        }
+        return "";
     }
 
     public String getTimeOpenShop() {
@@ -118,6 +122,31 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
     }
 
     @Override
+    public void onApplyToDomainSuccess() {
+        mNavigator.showToastCustomActivity(R.string.ok);
+    }
+
+    @Override
+    public void onLeaveToDomainSuccess() {
+        mNavigator.showToastCustomActivity(R.string.ok);
+    }
+
+    @Override
+    public void onApplyOrLeaveToDomainError(BaseException exception) {
+        mNavigator.showToast(exception.getMessage());
+    }
+
+    @Override
+    public void onShowProgressBar() {
+        //TODO show Dialog
+    }
+
+    @Override
+    public void onHideProgressBar() {
+        //Todo Hide Dialog
+    }
+
+    @Override
     public void onItemRecyclerViewClick(User user) {
         mNavigator.goNextChildFragment(R.id.layout_content, ManagerDetailFragment.newInstance(user),
                 true, Navigator.BOTTOM_UP, TAG);
@@ -141,5 +170,17 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
 
     public ListDomainAdapter getDomainAdapter() {
         return mDomainAdapter;
+    }
+
+    @Override
+    public void onApplyToDomain(ApplyShopToDomainRequest applyShopToDomainRequest) {
+        applyShopToDomainRequest.setShopId(mShopManagement.getShop().getId());
+        mPresenter.onApplyToDomain(applyShopToDomainRequest);
+    }
+
+    @Override
+    public void onLeaveToDomain(LeaveShopToDomainRequest leaveShopToDomainRequest) {
+        leaveShopToDomainRequest.setShopId(mShopManagement.getShop().getId());
+        mPresenter.onLeaveToDomain(leaveShopToDomainRequest);
     }
 }
