@@ -11,6 +11,7 @@
             name="viewModel"
             type="com.framgia.forder.screen.userindomain.ItemUserInDomainViewModel"
             />
+        <import type="android.view.View"/>
 
     </data>
     <RelativeLayout
@@ -76,6 +77,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/ic_three_dots"
             android:scaleType="centerCrop"
+            android:visibility="@{viewModel.authority ? View.VISIBLE : View.GONE}"
             app:showPopupMenuRuleOfOwner="@{viewModel::onMenuItemClick}"
             tools:ignore="ContentDescription"
             />

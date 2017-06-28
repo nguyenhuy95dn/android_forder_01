@@ -13,10 +13,13 @@ public class ItemUserInDomainViewModel extends BaseObservable {
 
     private final User mUser;
     private final UserInDomainListener mUserInDomainListener;
+    private boolean mIsAuthority;
 
-    ItemUserInDomainViewModel(User user, UserInDomainListener userInDomainListener) {
+    ItemUserInDomainViewModel(User user, UserInDomainListener userInDomainListener,
+            boolean isAuthority) {
         mUser = user;
         mUserInDomainListener = userInDomainListener;
+        mIsAuthority = isAuthority;
     }
 
     public String getAvatar() {
@@ -45,5 +48,9 @@ public class ItemUserInDomainViewModel extends BaseObservable {
             default:
         }
         return false;
+    }
+
+    public boolean isAuthority() {
+        return mIsAuthority;
     }
 }

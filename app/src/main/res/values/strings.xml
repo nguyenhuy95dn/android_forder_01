@@ -183,4 +183,7 @@
     <string name="user_in_domain">User in domain</string>
     <string name="delete">Delete</string>
     <string name="set_manager">Set Manager</string>
+    <string name="delete_success">Delete Successful!</string>
+    <string name="msg_delete_user">Do you really want to delete the user?</string>
+    <string name="change_role_success">Change Role Successful!</string>
 </resources>
