@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.arlib.floatingsearchview.FloatingSearchView;
 import com.bumptech.glide.Glide;
 import com.framgia.forder.R;
 import com.framgia.forder.screen.mainpage.shop.ShopPageAdapter;
@@ -143,5 +144,11 @@ public final class BindingUtils {
                 popupMenu.show();
             }
         });
+    }
+
+    @BindingAdapter("clearText")
+    public static void clearTextFloatingSearchView(FloatingSearchView floatingSearchView,
+            boolean b) {
+        floatingSearchView.clearQuery();
     }
 }

@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
@@ -32,10 +30,9 @@ public class SearchContainerFragment extends Fragment {
         return new SearchContainerFragment();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         SearchContainerAdapter adapter =
                 new SearchContainerAdapter(getActivity(), getChildFragmentManager());
         Navigator navigator = new Navigator(getParentFragment());
@@ -50,7 +47,12 @@ public class SearchContainerFragment extends Fragment {
         SearchContainerContract.Presenter presenter =
                 new SearchContainerPresenter(mViewModel, searchRepository, domainRepository);
         mViewModel.setPresenter(presenter);
+    }
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         FragmentSearchContainerBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_search_container, container,
                         false);
@@ -59,12 +61,14 @@ public class SearchContainerFragment extends Fragment {
     }
 
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
+    public void onStart() {
+        super.onStart();
+        mViewModel.onStart();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+    public void onStop() {
+        mViewModel.onStop();
+        super.onStop();
     }
 }

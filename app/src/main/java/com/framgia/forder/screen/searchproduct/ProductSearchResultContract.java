@@ -1,6 +1,8 @@
 package com.framgia.forder.screen.searchproduct;
 
 import com.framgia.forder.data.model.Product;
+import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BasePresenter;
 import com.framgia.forder.screen.BaseViewModel;
 import java.util.List;
@@ -17,6 +19,10 @@ interface ProductSearchResultContract {
 
         void onAddToCartSuccess();
 
+        void onOrderProductError(BaseException e);
+
+        void onOrderProductSuccess();
+
         void onAddToCartError(Throwable e);
     }
 
@@ -25,5 +31,7 @@ interface ProductSearchResultContract {
      */
     interface Presenter extends BasePresenter {
         void addToCart(Product product);
+
+        void orderProduct(OrderRequest orderRequest);
     }
 }

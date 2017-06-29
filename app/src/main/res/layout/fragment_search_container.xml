@@ -55,21 +55,17 @@
                 />
         </LinearLayout>
         <com.arlib.floatingsearchview.FloatingSearchView
-            android:id="@+id/floating_search_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            app:floatingSearch_close_search_on_keyboard_dismiss="false"
+            android:layout_height="@dimen/dp_60"
+            app:clearText="@{viewModel.clear}"
+            app:floatingSearch_close_search_on_keyboard_dismiss="true"
             app:floatingSearch_dimBackground="false"
-            app:floatingSearch_dismissOnOutsideTouch="true"
             app:floatingSearch_leftActionMode="showHamburger"
             app:floatingSearch_searchBarMarginLeft="@dimen/dp_5"
             app:floatingSearch_searchBarMarginRight="@dimen/dp_5"
             app:floatingSearch_searchBarMarginTop="@dimen/dp_5"
             app:floatingSearch_searchHint="@string/search"
-            app:floatingSearch_showSearchKey="true"
+            app:floatingSearch_showSearchKey="false"
             app:floatingSearch_suggestionsListAnimDuration="250"
             bind:setOnSearchListener="@{viewModel.queryTextListener}"
             />
