@@ -3,17 +3,25 @@ package com.framgia.forder.screen.productdetail;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.Cart;
+import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.model.Comment;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.CommentRequest;
+import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.listProduct.ListProductFragment;
+import com.framgia.forder.screen.mainpage.product.OrderListener;
 import com.framgia.forder.screen.productdetail.adapter.CommentAdapter;
 import com.framgia.forder.screen.productdetail.adapter.ProductShopAdapter;
+import com.framgia.forder.screen.quickorder.QuickOrderListener;
 import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +30,10 @@ import java.util.List;
 
 public class ProductDetailViewModel extends BaseObservable
         implements ProductDetailContract.ViewModel,
-        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
+        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener,
+        QuickOrderListener {
+
+    private static final String TAG = "ProductDetailViewModel";
 
     private ProductDetailContract.Presenter mPresenter;
     private final Product mProduct;
@@ -30,14 +41,21 @@ public class ProductDetailViewModel extends BaseObservable
     private final ProductShopAdapter mProductShopAdapter;
     private final CommentAdapter mCommentInProductAdapter;
     private String mComment;
+    private boolean mIsProgressBarListProductVisible;
+    private boolean mIsProgressBarListCommentVisible;
+    private final DialogManager mDialogManager;
 
-    public ProductDetailViewModel(Product product, ProductShopAdapter productShopAdapter,
-            CommentAdapter commentInProductAdapter, Navigator navigator) {
+    ProductDetailViewModel(Product product, ProductShopAdapter productShopAdapter,
+            CommentAdapter commentInProductAdapter, Navigator navigator,
+            DialogManager dialogManager) {
         mProduct = product;
         mNavigator = navigator;
         mProductShopAdapter = productShopAdapter;
+        mDialogManager = dialogManager;
         mCommentInProductAdapter = commentInProductAdapter;
         mProductShopAdapter.setItemClickListener(this);
+        setProgressBarListCommentVisible(false);
+        setProgressBarListProductVisible(false);
     }
 
     @Override
@@ -57,100 +75,14 @@ public class ProductDetailViewModel extends BaseObservable
         mPresenter = presenter;
     }
 
-    @Bindable
-    public String getNameProduct() {
-        return mProduct.getName();
-    }
-
-    @Bindable
-    public String getDescription() {
-        return mProduct.getDescription();
-    }
-
-    @Bindable
-    public String getProductPrice() {
-        return mProduct.getFormatPrice();
-    }
-
-    @Bindable
-    public String getOrderTime() {
-        return mProduct.getFormatStartHour() + "-" + mProduct.getFormatEndHour();
-    }
-
-    @Bindable
-    public String getProductImage() {
-        if (mProduct != null
-                && mProduct.getCollectionImage() != null
-                && mProduct.getCollectionImage().getImage() != null) {
-            return mProduct.getCollectionImage().getImage().getUrl();
-        }
-        return "";
-    }
-
-    @Bindable
-    public String getShopImage() {
-        if (mProduct != null
-                && mProduct.getShop() != null
-                && mProduct.getShop().getCollectionAvatar() != null
-                && mProduct.getShop().getCollectionAvatar().getImage() != null) {
-            return mProduct.getShop().getCollectionAvatar().getImage().getUrl();
-        }
-        return "";
-    }
-
-    @Bindable
-    public String getShopName() {
-        if (mProduct != null && mProduct.getShop() != null) {
-            return mProduct.getShop().getName();
-        }
-        return "";
-    }
-
-    @Bindable
-    public String getNameUserShop() {
-        if (mProduct != null && mProduct.getShop() != null) {
-            return mProduct.getShop().getDescription();
-        }
-        return "";
-    }
-
-    @Bindable
-    public float getRatingShop() {
-        if (mProduct != null && mProduct.getShop() != null) {
-            return mProduct.getShop().getAverageRating();
-        }
-        return 0;
-    }
-
-    public void onClickSeeAllProduct() {
-        mNavigator.goNextChildFragment(R.id.layout_content, ListProductFragment.newInstance(), true,
-                Navigator.RIGHT_LEFT, "ListProductFragment");
-    }
-
-    @Bindable
-    public String getUserImage() {
-        if (mProduct != null
-                && mProduct.getShop().getUser() != null
-                && mProduct.getShop().getCollectionAvatar() != null
-                && mProduct.getShop().getCollectionAvatar().getImage() != null) {
-            return mProduct.getShop().getCollectionAvatar().getImage().getUrl();
-        }
-        return "";
-    }
-
-    @Override
-    public void onGetListProductShopError(BaseException exception) {
-        // Todo show dialog message
-    }
-
     @Override
     public void onGetListProductShopSuccess(List<Product> products) {
         mProductShopAdapter.updateData(products);
     }
 
     @Override
-    public void onGetListCommentInProductError(BaseException exception) {
-        // Todo show dialog message
+    public void onShowMessageError(BaseException exception) {
+        mNavigator.showToastCustom(exception.getMessage());
     }
 
     @Override
@@ -159,14 +91,8 @@ public class ProductDetailViewModel extends BaseObservable
     }
 
     @Override
-    public void onAddToCartError(BaseException exception) {
-        // Todo show dialog message
-
-    }
-
-    @Override
     public void onAddToCartSuccess() {
-        //TODO update order quantity of product in here
+        mNavigator.showToastCustomActivity(R.string.add_to_cart_success);
     }
 
     @Override
@@ -176,13 +102,12 @@ public class ProductDetailViewModel extends BaseObservable
         }
         Product product = (Product) item;
         mNavigator.goNextChildFragment(R.id.layout_content,
-                ProductDetailFragment.newInstance(product), true, Navigator.RIGHT_LEFT,
-                "ProductDetailFragment");
+                ProductDetailFragment.newInstance(product), true, Navigator.RIGHT_LEFT, TAG);
     }
 
     @Override
-    public void onAddToCart() {
-        mPresenter.addToCart(mProduct);
+    public void onOrderNowSuccess() {
+        mNavigator.showToastCustomActivity(R.string.order_successful);
     }
 
     @Override
@@ -191,8 +116,121 @@ public class ProductDetailViewModel extends BaseObservable
     }
 
     @Override
-    public void onCommentError() {
-        // Todo show dialog message
+    public void onShowProgressBarComment() {
+        mDialogManager.showProgressDialog();
+    }
+
+    @Override
+    public void onHideProgressBarComment() {
+        mDialogManager.dismissProgressDialog();
+    }
+
+    @Override
+    public void onShowProgressBarListProduct() {
+        setProgressBarListProductVisible(true);
+    }
+
+    @Override
+    public void onHideProgressBarListProduct() {
+        setProgressBarListProductVisible(false);
+    }
+
+    @Override
+    public void onShowProgressBarListComment() {
+        setProgressBarListCommentVisible(true);
+    }
+
+    @Override
+    public void onHideProgressBarListComment() {
+        setProgressBarListCommentVisible(false);
+    }
+
+    @Override
+    public void onRequestOrderNow(Product product, double totalPrice, int quantity, String note) {
+        OrderRequest request = new OrderRequest();
+        CartItem cartItem = new CartItem();
+        cartItem.setProductId(product.getId());
+        cartItem.setPrice(totalPrice);
+        cartItem.setQuantity(quantity);
+        cartItem.setNotes(note);
+
+        List<CartItem> cartItems = new ArrayList<>();
+        cartItems.add(cartItem);
+
+        Cart cart = new Cart();
+        cart.setShopId(product.getShop().getId());
+        cart.setTotal((int) totalPrice);
+        cart.setCartItemList(cartItems);
+
+        List<Cart> carts = new ArrayList<>();
+        carts.add(cart);
+        request.setCartList(carts);
+        mPresenter.orderNow(request);
+    }
+
+    @Override
+    public void onAddToCart(Product product) {
+        if (product == null) {
+            return;
+        }
+        mPresenter.addToCart(product);
+    }
+
+    @Override
+    public void onQuickOrder(Product product) {
+        mNavigator.showQuickOrderDialog(TAG, product, this);
+    }
+
+    public String getNameProduct() {
+        return mProduct.getName();
+    }
+
+    public String getDescription() {
+        return mProduct.getDescription();
+    }
+
+    public String getProductPrice() {
+        return mProduct.getFormatPrice();
+    }
+
+    public String getOrderTime() {
+        return mProduct.getFormatStartHour() + "-" + mProduct.getFormatEndHour();
+    }
+
+    public String getProductImage() {
+        if (mProduct.getCollectionImage() != null
+                && mProduct.getCollectionImage().getImage() != null) {
+            return mProduct.getCollectionImage().getImage().getUrl();
+        }
+        return "";
+    }
+
+    public String getShopImage() {
+        if (mProduct.getShop() != null
+                && mProduct.getShop().getCollectionAvatar() != null
+                && mProduct.getShop().getCollectionAvatar().getImage() != null) {
+            return mProduct.getShop().getCollectionAvatar().getImage().getUrl();
+        }
+        return "";
+    }
+
+    public String getShopName() {
+        if (mProduct.getShop() != null) {
+            return mProduct.getShop().getName();
+        }
+        return "";
+    }
+
+    public String getDescriptionShop() {
+        if (mProduct.getShop() != null) {
+            return mProduct.getShop().getDescription();
+        }
+        return "";
+    }
+
+    public void onClickSeeAllProduct() {
+        mNavigator.goNextChildFragment(R.id.layout_content, ListProductFragment.newInstance(), true,
+                Navigator.RIGHT_LEFT, TAG);
     }
 
     public void onClickSendComment() {
@@ -204,6 +242,19 @@ public class ProductDetailViewModel extends BaseObservable
         mPresenter.sendComment(commentRequest);
         setComment("");
         notifyPropertyChanged(BR.comment);
+    }
+
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_to_cart:
+                onAddToCart(mProduct);
+                return true;
+            case R.id.order_now:
+                onQuickOrder(mProduct);
+                return true;
+            default:
+        }
+        return false;
     }
 
     public ProductShopAdapter getProductShopAdapter() {
@@ -221,5 +272,26 @@ public class ProductDetailViewModel extends BaseObservable
 
     public void setComment(String comment) {
         mComment = comment;
+        notifyPropertyChanged(BR.comment);
+    }
+
+    @Bindable
+    public boolean isProgressBarListProductVisible() {
+        return mIsProgressBarListProductVisible;
+    }
+
+    @Bindable
+    public boolean isProgressBarListCommentVisible() {
+        return mIsProgressBarListCommentVisible;
+    }
+
+    private void setProgressBarListProductVisible(boolean progressBarListProductVisible) {
+        mIsProgressBarListProductVisible = progressBarListProductVisible;
+        notifyPropertyChanged(BR.progressBarListProductVisible);
+    }
+
+    private void setProgressBarListCommentVisible(boolean progressBarListCommentVisible) {
+        mIsProgressBarListCommentVisible = progressBarListCommentVisible;
+        notifyPropertyChanged(BR.progressBarListCommentVisible);
     }
 }
