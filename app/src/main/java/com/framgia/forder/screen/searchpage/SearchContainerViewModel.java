@@ -1,9 +1,11 @@
 package com.framgia.forder.screen.searchpage;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.support.v4.app.Fragment;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
+import com.framgia.forder.BR;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
@@ -26,6 +28,7 @@ public class SearchContainerViewModel extends BaseObservable
     SearchContainerViewModel(SearchContainerAdapter adapter, Navigator navigator) {
         mAdapter = adapter;
         mNavigator = navigator;
+        notifyPropertyChanged(BR.clear);
     }
 
     @Override
@@ -51,17 +54,13 @@ public class SearchContainerViewModel extends BaseObservable
     public void onSearchProductsSuccess(List<Product> products) {
         Fragment fragment =
                 mAdapter.getFragment(SearchContainerAdapter.SearchResultsTab.TAB_PRODUCT);
-        if (fragment instanceof ProductSearchResultFragment) {
-            ((ProductSearchResultFragment) fragment).setProducts(products);
-        }
+        ((ProductSearchResultFragment) fragment).setProducts(products);
     }
 
     @Override
     public void onSearchShopsSuccess(List<Shop> shops) {
         Fragment fragment = mAdapter.getFragment(SearchContainerAdapter.SearchResultsTab.TAB_SHOP);
-        if (fragment instanceof ShopSearchResultFragment) {
-            ((ShopSearchResultFragment) fragment).setShops(shops);
-        }
+        ((ShopSearchResultFragment) fragment).setShops(shops);
     }
 
     @Override
@@ -86,5 +85,10 @@ public class SearchContainerViewModel extends BaseObservable
                 onClickSearch(keyWord);
             }
         };
+    }
+
+    @Bindable
+    public boolean isClear() {
+        return true;
     }
 }

@@ -9,10 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
+import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ProductRepository;
+import com.framgia.forder.data.source.UserRepository;
+import com.framgia.forder.data.source.local.DomainLocalDataSource;
 import com.framgia.forder.data.source.local.ProductLocalDataSource;
+import com.framgia.forder.data.source.local.UserLocalDataSource;
 import com.framgia.forder.data.source.local.realm.RealmApi;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
+import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
 import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
+import com.framgia.forder.data.source.remote.UserRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentProductSearchResultBinding;
 import com.framgia.forder.utils.navigator.Navigator;
@@ -40,12 +48,22 @@ public class ProductSearchResultFragment extends Fragment {
         mViewModel = new ProductSearchResultViewModel(adapter, navigator);
 
         RealmApi realmApi = new RealmApi();
+        SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
+
+        DomainRepository domainRepository =
+                new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
+                        new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
+        int currentDomainId = domainRepository.getCurrentDomain().getId();
         ProductRepository productRepository = new ProductRepository(
                 new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
-                new ProductLocalDataSource(realmApi));
+                new ProductLocalDataSource(realmApi), currentDomainId);
+        UserRepository userRepository =
+                new UserRepository(new UserRemoteDataSource(FOrderServiceClient.getInstance()),
+                        new UserLocalDataSource(prefsApi));
 
         ProductSearchResultContract.Presenter presenter =
-                new ProductSearchResultPresenter(mViewModel, productRepository);
+                new ProductSearchResultPresenter(mViewModel, productRepository, userRepository,
+                        domainRepository);
         mViewModel.setPresenter(presenter);
 
         FragmentProductSearchResultBinding binding =

@@ -74,11 +74,17 @@ public class ShopDetailViewModel extends BaseObservable implements ShopDetailCon
 
     @Bindable
     public String getShopOwnerEmail() {
-        return mShop.getUser().getEmail();
+        if (mShop.getUser() != null) {
+            return mShop.getUser().getEmail();
+        }
+        return "";
     }
 
     @Bindable
     public String getShopOwnerName() {
-        return mShop.getUser().getName();
+        if (mShop.getUser() != null) {
+            return mShop.getUser().getName();
+        }
+        return "";
     }
 }
