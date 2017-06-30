@@ -2,6 +2,7 @@ package com.framgia.forder.data.source.remote.api.service;
 
 import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
+import com.framgia.forder.data.source.remote.api.request.CommentRequest;
 import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterDomainRequest;
@@ -10,9 +11,11 @@ import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateProductRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateProfileRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateShopRequest;
+import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import com.framgia.forder.data.source.remote.api.response.CategoryResponse;
 import com.framgia.forder.data.source.remote.api.response.ChangeRuleOfUserResponse;
 import com.framgia.forder.data.source.remote.api.response.CloseOrderResponse;
+import com.framgia.forder.data.source.remote.api.response.CommentResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteShopInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteUserInDomainResponse;
@@ -97,9 +100,12 @@ public interface FOrderApi {
     @GET("order_managers")
     Observable<OrderManagementResponse> getOrderManagement();
 
-    @GET("v1/products")
-    Observable<ProductResponse> getListCommentInProduct(@Query("product_id") int productId,
+    @GET("v1/comments")
+    Observable<CommentResponse> getListCommentInProduct(@Query("product_id") int productId,
             @Query("domain_id") int id);
+
+    @POST("v1/comments")
+    Observable<BaseResponse> sendComment(@Body CommentRequest commentRequest);
 
     @GET("v1/orders")
     Observable<OrderResponse> getListOrder(@Query("user_id") int userId,

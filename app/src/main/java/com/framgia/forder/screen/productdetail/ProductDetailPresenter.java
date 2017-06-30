@@ -10,6 +10,7 @@ import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import com.framgia.forder.data.source.remote.api.request.CommentRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
+import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderCartResponse;
 import java.util.List;
 import rx.Subscription;
@@ -104,6 +105,7 @@ final class ProductDetailPresenter implements ProductDetailContract.Presenter {
 
     @Override
     public void getListCommentInProduct(int productId) {
+
         Subscription subscription = mProductRepository.getListCommentInProduct(productId)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Action0() {
@@ -150,9 +152,9 @@ final class ProductDetailPresenter implements ProductDetailContract.Presenter {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Comment>() {
+                .subscribe(new Action1<BaseResponse>() {
                     @Override
-                    public void call(Comment comment) {
+                    public void call(BaseResponse sendComment) {
                         mViewModel.onCommentSuccess();
                     }
                 }, new SafetyError() {

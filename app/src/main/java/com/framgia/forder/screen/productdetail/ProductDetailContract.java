@@ -41,6 +41,8 @@ interface ProductDetailContract {
         void onShowProgressBarListComment();
 
         void onHideProgressBarListComment();
+
+        void onReLoadData();
     }
 
     /**

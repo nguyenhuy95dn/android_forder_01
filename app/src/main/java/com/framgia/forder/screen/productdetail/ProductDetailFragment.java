@@ -97,4 +97,13 @@ public class ProductDetailFragment extends Fragment {
         mViewModel.onStop();
         super.onStop();
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToComment) {
+        super.setUserVisibleHint(isVisibleToComment);
+        if (!isAdded() || !isVisibleToComment) {
+            return;
+        }
+        mViewModel.onReLoadData();
+    }
 }
