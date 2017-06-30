@@ -186,4 +186,6 @@
     <string name="delete_success">Delete Successful!</string>
     <string name="msg_delete_user">Do you really want to delete the user?</string>
     <string name="change_role_success">Change Role Successful!</string>
+    <string name="view_user">View User</string>
+    <string name="view_product">View Product</string>
 </resources>

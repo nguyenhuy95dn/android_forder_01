@@ -14,6 +14,7 @@ import com.framgia.forder.data.source.remote.api.response.RegisterDomainResponse
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -54,6 +55,18 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
         final User user = mUserRepository.getUser();
         Subscription subscription = mDomainRepository.getListDomainManagement()
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressBar();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressBar();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<DomainManagement>>() {
                     @Override
@@ -64,7 +77,7 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
-                        mViewModel.onGetListDomainManagementError(error);
+                        mViewModel.onShowMessageError(error);
                     }
                 });
         mCompositeSubscription.add(subscription);
@@ -74,6 +87,18 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
     public void registerDomain(RegisterDomainRequest registerDomainRequest) {
         Subscription subscription = mDomainRepository.requestRegisterDomain(registerDomainRequest)
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressDialog();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressDialog();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<RegisterDomainResponse>() {
                     @Override
@@ -83,7 +108,7 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
-                        mViewModel.onRegisterDomainError(error);
+                        mViewModel.onShowMessageError(error);
                     }
                 });
         mCompositeSubscription.add(subscription);
@@ -95,6 +120,18 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
         Subscription subscription =
                 mDomainRepository.requestDeleteUserInDomain(domainId, user.getId())
                         .subscribeOn(Schedulers.io())
+                        .doOnSubscribe(new Action0() {
+                            @Override
+                            public void call() {
+                                mViewModel.onShowProgressDialog();
+                            }
+                        })
+                        .doAfterTerminate(new Action0() {
+                            @Override
+                            public void call() {
+                                mViewModel.onHideProgressDialog();
+                            }
+                        })
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Action1<DeleteUserInDomainResponse>() {
                             @Override
@@ -104,7 +141,7 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
                         }, new SafetyError() {
                             @Override
                             public void onSafetyError(BaseException error) {
-                                mViewModel.onLeaveDomainError(error);
+                                mViewModel.onShowMessageError(error);
                             }
                         });
         mCompositeSubscription.add(subscription);
@@ -114,6 +151,18 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
     public void deleteDomain(int domainId) {
         Subscription subscription = mDomainRepository.requestDeleteDomain(domainId)
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressDialog();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressDialog();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<DeleteDomainResponse>() {
                     @Override
@@ -123,7 +172,7 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
-                        mViewModel.onDeleteDomainError(error);
+                        mViewModel.onShowMessageError(error);
                     }
                 });
         mCompositeSubscription.add(subscription);
@@ -133,6 +182,18 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
     public void editDomain(int domainId, String name, String status) {
         Subscription subscription = mDomainRepository.requestEditDomain(domainId, name, status)
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressDialog();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressDialog();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<EditDomainResponse>() {
                     @Override
@@ -142,7 +203,7 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
-                        mViewModel.onEditDomainError(error);
+                        mViewModel.onShowMessageError(error);
                     }
                 });
         mCompositeSubscription.add(subscription);

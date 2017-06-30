@@ -2,6 +2,7 @@ package com.framgia.forder.screen.domainmanagement;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.view.MenuItem;
 import com.framgia.forder.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.DomainManagement;
@@ -123,5 +124,18 @@ public class ItemDomainManagementViewModel extends BaseObservable {
 
     public boolean isOwnerMember() {
         return mDomainManagement.isOwner();
+    }
+
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.view_user:
+                onClickShowListUserInDomain();
+                return true;
+            case R.id.view_shop:
+                onClickShowListShopInDomain();
+                return true;
+            default:
+        }
+        return false;
     }
 }

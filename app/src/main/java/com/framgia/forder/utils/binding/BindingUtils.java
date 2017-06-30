@@ -146,6 +146,21 @@ public final class BindingUtils {
         });
     }
 
+    @BindingAdapter("showPopupMenuUserAndShop")
+    public static void showPopPupMenuUserAndShop(final View view,
+            final PopupMenu.OnMenuItemClickListener listener) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+                MenuInflater menuInflater = popupMenu.getMenuInflater();
+                menuInflater.inflate(R.menu.menu_domain_management, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(listener);
+                popupMenu.show();
+            }
+        });
+    }
+
     @BindingAdapter("clearText")
     public static void clearTextFloatingSearchView(FloatingSearchView floatingSearchView,
             boolean b) {
