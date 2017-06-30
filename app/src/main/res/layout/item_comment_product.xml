@@ -9,68 +9,92 @@
             name="viewModel"
             type="com.framgia.forder.screen.productdetail.adapter.ItemUserViewModel"
             />
+        <import type="android.view.View"/>
     </data>
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_1"
-        android:padding="@dimen/dp_2"
+        android:padding="@dimen/dp_5"
         >
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/dp_2"
-            tools:ignore="RtlSymmetry"
+            tools:ignore="UselessParent"
             >
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/image_user_profile_photo"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:adjustViewBounds="true"
+                android:padding="@dimen/dp_3"
+                android:scaleType="fitXY"
+                app:imageUrl="@{viewModel.userImage}"
+                tools:ignore="ContentDescription"
+                />
+            <TextView
+                android:id="@+id/text_name_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="UselessParent"
-                >
-                <ImageView
-                    android:id="@+id/image_user_profile_photo"
-                    android:layout_width="@dimen/dp_45"
-                    android:layout_height="@dimen/dp_45"
-                    android:padding="@dimen/dp_3"
-                    app:imageUrl="@{viewModel.userImage}"
-                    tools:ignore="ContentDescription"
-                    />
-                <TextView
-                    android:id="@+id/text_name_user"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="@dimen/dp_20"
-                    android:layout_marginStart="@dimen/dp_20"
-                    android:layout_marginTop="@dimen/dp_2"
-                    android:layout_toEndOf="@+id/image_user_profile_photo"
-                    android:layout_toRightOf="@+id/image_user_profile_photo"
-                    android:text="@{viewModel.userName}"
-                    android:textColor="@color/color_black"
-                    android:textStyle="bold"
-                    />
-                <TextView
-                    android:id="@+id/text_date_comment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:text="@{viewModel.date}"
-                    tools:ignore="RelativeOverlap"
-                    />
-                <TextView
-                    android:id="@+id/text_comments"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/image_user_profile_photo"
-                    android:layout_alignLeft="@+id/text_name_user"
-                    android:layout_alignStart="@+id/text_name_user"
-                    android:ems="16"
-                    android:text="@{viewModel.comment}"
-                    />
-            </RelativeLayout>
-        </LinearLayout>
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_2"
+                android:layout_toEndOf="@+id/image_user_profile_photo"
+                android:layout_toLeftOf="@+id/text_date_comment"
+                android:layout_toRightOf="@+id/image_user_profile_photo"
+                android:layout_toStartOf="@+id/text_date_comment"
+                android:drawableLeft="@drawable/ic_circle"
+                android:drawablePadding="@dimen/dp_3"
+                android:drawableStart="@drawable/ic_circle"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{viewModel.userName}"
+                android:textColor="@color/color_black"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/text_date_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:text="@{viewModel.date}"
+                tools:ignore="RelativeOverlap"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/image_user_profile_photo"
+                android:layout_alignLeft="@+id/text_name_user"
+                android:layout_alignStart="@+id/text_name_user"
+                android:layout_below="@+id/text_name_user"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginStart="@dimen/dp_15"
+                android:layout_toLeftOf="@+id/button_delete_comment"
+                android:layout_toStartOf="@+id/button_delete_comment"
+                android:ellipsize="end"
+                android:ems="16"
+                android:maxLines="1"
+                android:text="@{viewModel.comment}"
+                />
+            <ImageButton
+                android:id="@+id/button_delete_comment"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/text_date_comment"
+                android:background="@color/transparent"
+                android:onClick="@{() -> viewModel.onClickDeleteComment()}"
+                android:src="@drawable/ic_reject"
+                android:tint="@color/color_gray"
+                android:visibility="@{viewModel.deleteCommentVisible ? View.VISIBLE : View.GONE}"
+                tools:ignore="ContentDescription,UnknownIdInLayout,VectorDrawableCompat"
+                />
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 </layout>

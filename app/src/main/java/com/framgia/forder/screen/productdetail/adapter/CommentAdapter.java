@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Comment;
+import com.framgia.forder.data.model.User;
 import com.framgia.forder.databinding.ItemCommentProductBinding;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import java.util.ArrayList;
@@ -19,8 +20,9 @@ import java.util.List;
 
 public class CommentAdapter extends BaseRecyclerViewAdapter<CommentAdapter.ItemViewHolder> {
 
-    private List<Comment> mComments;
-    private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Comment> mItemClickListener;
+    private final List<Comment> mComments;
+    private User mUser;
+    private DeleteCommentListener mDeleteCommentListener;
 
     public CommentAdapter(@NonNull Context context, List<Comment> comments) {
         super(context);
@@ -35,7 +37,7 @@ public class CommentAdapter extends BaseRecyclerViewAdapter<CommentAdapter.ItemV
         ItemCommentProductBinding binding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                         R.layout.item_comment_product, parent, false);
-        return new CommentAdapter.ItemViewHolder(binding, mItemClickListener);
+        return new CommentAdapter.ItemViewHolder(binding, mUser, mDeleteCommentListener);
     }
 
     @Override
@@ -48,30 +50,41 @@ public class CommentAdapter extends BaseRecyclerViewAdapter<CommentAdapter.ItemV
         return mComments.size();
     }
 
-    public void updateData(List<Comment> comments) {
+    public void updateData(List<Comment> comments, User user) {
         if (comments == null) {
             return;
         }
         mComments.clear();
         mComments.addAll(comments);
+        mUser = user;
         notifyDataSetChanged();
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemCommentProductBinding mBinding;
-        private final OnRecyclerViewItemClickListener<Comment> mItemClickListener;
+        private final User mUser;
+        private final DeleteCommentListener mDeleteCommentListener;
 
-        ItemViewHolder(ItemCommentProductBinding binding,
-                OnRecyclerViewItemClickListener<Comment> listener) {
+        ItemViewHolder(ItemCommentProductBinding binding, User user,
+                DeleteCommentListener deleteCommentListener) {
             super(binding.getRoot());
             mBinding = binding;
-            mItemClickListener = listener;
+            mUser = user;
+            mDeleteCommentListener = deleteCommentListener;
         }
 
         void bind(Comment comment) {
-            mBinding.setViewModel(new ItemUserViewModel(comment, mItemClickListener));
+            mBinding.setViewModel(new ItemUserViewModel(comment, mUser, mDeleteCommentListener));
             mBinding.executePendingBindings();
         }
+    }
+
+    public interface DeleteCommentListener {
+        void onDeleteComment(int commentId);
+    }
+
+    public void setDeleteCommentListener(DeleteCommentListener deleteCommentListener) {
+        mDeleteCommentListener = deleteCommentListener;
     }
 }

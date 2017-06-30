@@ -61,5 +61,7 @@ public interface ProductDataSource {
                 UpdateProductRequest updateProductRequest);
 
         Observable<BaseResponse> requestDeleteProductInShop(int productId, int shopId);
+
+        Observable<BaseResponse> deleteCommentInProduct(int commentId);
     }
 }
