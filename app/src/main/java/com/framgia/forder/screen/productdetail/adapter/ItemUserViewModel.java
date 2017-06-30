@@ -29,20 +29,10 @@ public class ItemUserViewModel extends BaseObservable {
     }
 
     public String getUserImage() {
-        if (mComment != null
-                && mComment.getUserImage() != null
-                && mComment.getUserImage().getImage() != null) {
-            return mComment.getUserImage().getImage().getUrl();
+        if (mComment.getImage() != null) {
+            return mComment.getImage().getUrl();
         }
         return "";
-    }
-
-    public int getProductId() {
-        return mComment.getProductId();
-    }
-
-    public int getUserId() {
-        return mComment.getUserId();
     }
 
     public String getUserName() {
@@ -54,6 +44,6 @@ public class ItemUserViewModel extends BaseObservable {
     }
 
     public String getDate() {
-        return mComment.getDate();
+        return mComment.getTimeCommentFormat();
     }
 }

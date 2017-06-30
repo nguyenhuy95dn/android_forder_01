@@ -1,5 +1,6 @@
 package com.framgia.forder.data.source.remote.api.request;
 
+import com.framgia.forder.data.model.RegisterSendComment;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,25 +8,13 @@ import com.google.gson.annotations.SerializedName;
  * Created by levutantuan on 4/27/17.
  */
 
-public class CommentRequest extends BaseRequest {
+public class CommentRequest {
     @Expose
     @SerializedName("product_id")
     private int mProductId;
     @Expose
-    @SerializedName("user_id")
-    private int mUserId;
-    @Expose
     @SerializedName("comment")
-    private String mComment;
-
-    public CommentRequest(int productId, int userId, String comment) {
-        mProductId = productId;
-        mUserId = userId;
-        mComment = comment;
-    }
-
-    public CommentRequest() {
-    }
+    private RegisterSendComment mComment;
 
     public int getProductId() {
         return mProductId;
@@ -35,19 +24,11 @@ public class CommentRequest extends BaseRequest {
         mProductId = productId;
     }
 
-    public int getUserId() {
-        return mUserId;
-    }
-
-    public void setUserId(int userId) {
-        mUserId = userId;
-    }
-
-    public String getComment() {
+    public RegisterSendComment getComment() {
         return mComment;
     }
 
-    public void setComment(String comment) {
+    public void setComment(RegisterSendComment comment) {
         mComment = comment;
     }
 }

@@ -1,8 +1,13 @@
 package com.framgia.forder.data.model;
 
-import android.os.Parcel;
+import com.framgia.forder.utils.Utils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import static com.framgia.forder.utils.Constant.VERTICAL_COLUMN;
+import static com.framgia.forder.utils.Utils.INPUT_TIME_FORMAT;
+import static com.framgia.forder.utils.Utils.OUTPUT_DATE_FORMAT;
+import static com.framgia.forder.utils.Utils.OUTPUT_TIME_FORMAT;
 
 /**
  * Created by levutantuan on 4/27/17.
@@ -11,69 +16,39 @@ import com.google.gson.annotations.SerializedName;
 public class Comment {
 
     @Expose
-    @SerializedName("product_id")
-    private int mProductId;
+    @SerializedName("id")
+    private int mId;
+    @Expose
+    @SerializedName("content")
+    private String mComment;
     @Expose
     @SerializedName("user_id")
     private int mUserId;
     @Expose
-    @SerializedName("user_name")
+    @SerializedName("commentable_type")
+    private String mCommentableType;
+    @Expose
+    @SerializedName("commentable_id")
+    private int mCommentableId;
+    @Expose
+    @SerializedName("created_at")
+    private String mTimeCreate;
+    @Expose
+    @SerializedName("updated_at")
+    private String mTimeUpdate;
+    @Expose
+    @SerializedName("name")
     private String mUserName;
     @Expose
-    @SerializedName("comment")
-    private String mComment;
-    @Expose
-    @SerializedName("date")
-    private String mDate;
-    @SerializedName("user_avatar")
-    @Expose
-    private CollectionAvatar mUserImage;
+    @SerializedName("avatar")
+    private Image mImage;
 
-    public Comment(int productId, int userId, String userName, String comment, String date) {
-        mProductId = productId;
-        mUserId = userId;
-        mUserName = userName;
-        mComment = comment;
-        mDate = date;
+    public int getId() {
+        return mId;
     }
 
-    public Comment(int productId, int userId, String comment) {
-        mProductId = productId;
-        mUserId = userId;
-        mComment = comment;
-    }
-
-    public Comment(Parcel in) {
-        mProductId = in.readInt();
-        mUserId = in.readInt();
-        mUserName = in.readString();
-        mComment = in.readString();
-        mDate = in.readString();
-        mUserImage = in.readParcelable(Image.class.getClassLoader());
-    }
-
-    public int getProductId() {
-        return mProductId;
-    }
-
-    public void setProductId(int productId) {
-        mProductId = productId;
-    }
-
-    public int getUserId() {
-        return mUserId;
-    }
-
-    public void setUserId(int userId) {
-        mUserId = userId;
-    }
-
-    public String getUserName() {
-        return mUserName;
-    }
-
-    public void setUserName(String userName) {
-        mUserName = userName;
+    public void setId(int id) {
+        mId = id;
     }
 
     public String getComment() {
@@ -84,19 +59,64 @@ public class Comment {
         mComment = comment;
     }
 
-    public String getDate() {
-        return mDate;
+    public int getUserId() {
+        return mUserId;
     }
 
-    public void setDate(String date) {
-        mDate = date;
+    public void setUserId(int userId) {
+        mUserId = userId;
     }
 
-    public CollectionAvatar getUserImage() {
-        return mUserImage;
+    public String getCommentableType() {
+        return mCommentableType;
     }
 
-    public void setUserImage(CollectionAvatar userImage) {
-        mUserImage = userImage;
+    public void setCommentableType(String commentableType) {
+        mCommentableType = commentableType;
+    }
+
+    public int getCommentableId() {
+        return mCommentableId;
+    }
+
+    public void setCommentableId(int commentableId) {
+        mCommentableId = commentableId;
+    }
+
+    public String getTimeCreate() {
+        return mTimeCreate;
+    }
+
+    public void setTimeCreate(String timeCreate) {
+        mTimeCreate = timeCreate;
+    }
+
+    public String getTimeUpdate() {
+        return mTimeUpdate;
+    }
+
+    public void setTimeUpdate(String timeUpdate) {
+        mTimeUpdate = timeUpdate;
+    }
+
+    public String getUserName() {
+        return mUserName;
+    }
+
+    public void setUserName(String userName) {
+        mUserName = userName;
+    }
+
+    public Image getImage() {
+        return mImage;
+    }
+
+    public void setImage(Image image) {
+        mImage = image;
+    }
+
+    public String getTimeCommentFormat() {
+        return Utils.DateTimeUntils.convertUiFormatToDataFormat(mTimeCreate, INPUT_TIME_FORMAT,
+                OUTPUT_TIME_FORMAT + VERTICAL_COLUMN + OUTPUT_DATE_FORMAT);
     }
 }

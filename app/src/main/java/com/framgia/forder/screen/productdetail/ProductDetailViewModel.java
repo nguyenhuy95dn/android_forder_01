@@ -10,6 +10,7 @@ import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.model.Comment;
 import com.framgia.forder.data.model.Product;
+import com.framgia.forder.data.model.RegisterSendComment;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.CommentRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
@@ -62,7 +63,7 @@ public class ProductDetailViewModel extends BaseObservable
     public void onStart() {
         mPresenter.onStart();
         mPresenter.getListProductInShop(mProduct.getShopId());
-        mPresenter.getListCommentInProduct(mProduct.getId());
+        onGetListComment();
     }
 
     @Override
@@ -112,7 +113,7 @@ public class ProductDetailViewModel extends BaseObservable
 
     @Override
     public void onCommentSuccess() {
-        // Todo show dialog message
+        onReLoadData();
     }
 
     @Override
@@ -143,6 +144,11 @@ public class ProductDetailViewModel extends BaseObservable
     @Override
     public void onHideProgressBarListComment() {
         setProgressBarListCommentVisible(false);
+    }
+
+    @Override
+    public void onReLoadData() {
+        onGetListComment();
     }
 
     @Override
@@ -179,6 +185,10 @@ public class ProductDetailViewModel extends BaseObservable
     @Override
     public void onQuickOrder(Product product) {
         mNavigator.showQuickOrderDialog(TAG, product, this);
+    }
+
+    private void onGetListComment() {
+        mPresenter.getListCommentInProduct(mProduct.getId());
     }
 
     public String getNameProduct() {
@@ -238,7 +248,10 @@ public class ProductDetailViewModel extends BaseObservable
             return;
         }
         CommentRequest commentRequest = new CommentRequest();
-        commentRequest.setComment(mComment);
+        RegisterSendComment sendComment = new RegisterSendComment();
+        commentRequest.setProductId(mProduct.getId());
+        sendComment.setComment(mComment);
+        commentRequest.setComment(sendComment);
         mPresenter.sendComment(commentRequest);
         setComment("");
         notifyPropertyChanged(BR.comment);
