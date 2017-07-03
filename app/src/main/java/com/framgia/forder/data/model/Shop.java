@@ -79,6 +79,9 @@ public class Shop implements Parcelable {
     @Expose
     @SerializedName("owner_email")
     private String mEmailOwner;
+    @Expose
+    @SerializedName("owner_avatar")
+    private CollectionAvatar mOwnerAvatar;
 
     public Shop() {
     }
@@ -130,6 +133,9 @@ public class Shop implements Parcelable {
         mStatusShop = in.readString();
         mOpenForever = in.readByte() != 0;
         mTimeAutoClose = in.readString();
+        mNameOwner = in.readString();
+        mEmailOwner = in.readString();
+        mOwnerAvatar = in.readParcelable(Image.class.getClassLoader());
     }
 
     public int getDomainId() {
@@ -227,6 +233,14 @@ public class Shop implements Parcelable {
 
     public void setCoverImage(CollectionImage coverImage) {
         mCoverImage = coverImage;
+    }
+
+    public CollectionAvatar getOwnerAvatar() {
+        return mOwnerAvatar;
+    }
+
+    public void setOwnerAvatar(CollectionAvatar ownerAvatar) {
+        mOwnerAvatar = ownerAvatar;
     }
 
     public String getTimeOpenShop() {
@@ -334,5 +348,8 @@ public class Shop implements Parcelable {
         dest.writeString(mStatusShop);
         dest.writeByte((byte) (mOpenForever ? 1 : 0));
         dest.writeString(mTimeAutoClose);
+        dest.writeString(mNameOwner);
+        dest.writeString(mEmailOwner);
+        dest.writeParcelable(mOwnerAvatar, flags);
     }
 }
