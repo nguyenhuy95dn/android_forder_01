@@ -8,13 +8,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
+import com.framgia.forder.data.source.ProductRepository;
+import com.framgia.forder.data.source.local.ProductLocalDataSource;
+import com.framgia.forder.data.source.local.realm.RealmApi;
+import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentShopDetailBinding;
+import com.framgia.forder.screen.productdetail.adapter.ProductShopAdapter;
+import com.framgia.forder.utils.navigator.Navigator;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DetailShop Screen.
  */
 public class ShopDetailFragment extends Fragment {
+
     private static final String EXTRA_SHOP = "EXTRA_SHOP";
     private ShopDetailContract.ViewModel mViewModel;
 
@@ -30,8 +41,17 @@ public class ShopDetailFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Shop shop = (Shop) getArguments().get(EXTRA_SHOP);
-        mViewModel = new ShopDetailViewModel(shop);
-        ShopDetailContract.Presenter presenter = new ShopDetailPresenter(mViewModel);
+        List<Product> products = new ArrayList<>();
+        ProductShopAdapter productAdapter = new ProductShopAdapter(getActivity(), products);
+        Navigator navigator = new Navigator(getParentFragment());
+        mViewModel = new ShopDetailViewModel(shop, productAdapter, navigator);
+
+        RealmApi realmApi = new RealmApi();
+        ProductRepository productRepository = new ProductRepository(
+                new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
+                new ProductLocalDataSource(realmApi));
+        ShopDetailContract.Presenter presenter =
+                new ShopDetailPresenter(mViewModel, productRepository);
 
         mViewModel.setPresenter(presenter);
         FragmentShopDetailBinding binding =
