@@ -2,6 +2,8 @@ package com.framgia.forder.screen.domainmanagement;
 
 import android.content.DialogInterface;
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.DomainManagement;
 import com.framgia.forder.data.model.RegisterDomain;
@@ -30,6 +32,7 @@ public class DomainManagementViewModel extends BaseObservable
     private final DomainManagementAdapter mDomainManagementAdapter;
     private final Navigator mNavigator;
     private final DialogManager mDialogManager;
+    private boolean mIsProgressBarVisible;
 
     DomainManagementViewModel(DomainManagementAdapter domainManagementAdapter, Navigator navigator,
             AddDomainFragment addDomainFragment, EditdomainFragment editdomainFragment,
@@ -73,19 +76,14 @@ public class DomainManagementViewModel extends BaseObservable
     }
 
     @Override
-    public void onGetListDomainManagementError(BaseException error) {
-        mNavigator.showToast(error.getMessage());
+    public void onShowMessageError(BaseException error) {
+        mNavigator.showToastCustom(error.getMessage());
     }
 
     @Override
     public void onRegisterDomainSuccess() {
-        mNavigator.showToast(R.string.add_domain_success);
+        mNavigator.showToastCustomActivity(R.string.add_domain_success);
         mPresenter.getListDomainManagement();
-    }
-
-    @Override
-    public void onRegisterDomainError(BaseException error) {
-        mNavigator.showToast(error.getMessage());
     }
 
     @Override
@@ -116,35 +114,30 @@ public class DomainManagementViewModel extends BaseObservable
 
     @Override
     public void onLeaveDomainSuccess() {
-        mNavigator.showToast(R.string.leave_the_domain_successful);
+        mNavigator.showToastCustomActivity(R.string.leave_the_domain_successful);
         mPresenter.getListDomainManagement();
-    }
-
-    @Override
-    public void onLeaveDomainError(BaseException error) {
-        mNavigator.showToast(error.getMessage());
     }
 
     @Override
     public void onDeleteDomainSuccess() {
-        mNavigator.showToast(R.string.delete_the_domain_success);
+        mNavigator.showToastCustomActivity(R.string.delete_the_domain_success);
         mPresenter.getListDomainManagement();
-    }
-
-    @Override
-    public void onDeleteDomainError(BaseException error) {
-        mNavigator.showToast(error.getMessage());
     }
 
     @Override
     public void onEditDomainSuccess() {
-        mNavigator.showToast(R.string.update_successful);
+        mNavigator.showToastCustomActivity(R.string.update_successful);
         mPresenter.getListDomainManagement();
     }
 
     @Override
-    public void onEditDomainError(BaseException error) {
-        mNavigator.showToast(error.getMessage());
+    public void onShowProgressDialog() {
+        mDialogManager.showProgressDialog();
+    }
+
+    @Override
+    public void onHideProgressDialog() {
+        mDialogManager.dismissProgressDialog();
     }
 
     @Override
@@ -181,5 +174,25 @@ public class DomainManagementViewModel extends BaseObservable
     @Override
     public void onRequestEditDomain(int domainId, String nameDomain, String status) {
         mPresenter.editDomain(domainId, nameDomain, status);
+    }
+
+    @Override
+    public void onShowProgressBar() {
+        setProgressBarVisible(true);
+    }
+
+    @Override
+    public void onHideProgressBar() {
+        setProgressBarVisible(false);
+    }
+
+    @Bindable
+    public boolean isProgressBarVisible() {
+        return mIsProgressBarVisible;
+    }
+
+    public void setProgressBarVisible(boolean progressBarVisible) {
+        mIsProgressBarVisible = progressBarVisible;
+        notifyPropertyChanged(BR.progressBarVisible);
     }
 }

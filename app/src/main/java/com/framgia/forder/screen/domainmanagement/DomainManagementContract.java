@@ -18,23 +18,23 @@ interface DomainManagementContract {
         void onGetListDomainManagementSuccess(int userId,
                 List<DomainManagement> domainManagementList);
 
-        void onGetListDomainManagementError(BaseException error);
+        void onShowMessageError(BaseException error);
 
         void onRegisterDomainSuccess();
 
-        void onRegisterDomainError(BaseException error);
-
         void onLeaveDomainSuccess();
-
-        void onLeaveDomainError(BaseException error);
 
         void onDeleteDomainSuccess();
 
-        void onDeleteDomainError(BaseException error);
-
         void onEditDomainSuccess();
 
-        void onEditDomainError(BaseException error);
+        void onShowProgressDialog();
+
+        void onHideProgressDialog();
+
+        void onShowProgressBar();
+
+        void onHideProgressBar();
     }
 
     /**
