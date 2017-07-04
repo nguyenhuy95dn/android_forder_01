@@ -10,6 +10,7 @@ import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.screen.chooseDomain.ChooseDomainActivity;
 import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
 
 /**
  * Exposes the data to be used in the Login screen.
@@ -25,13 +26,14 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     private String mPasswordError;
     private String mUsername;
     private String mPassword;
-    private boolean mIsProgressBarVisible;
+    private final DialogManager mDialogManager;
 
-    LoginViewModel(Context context, Application application, Navigator navigator) {
+    LoginViewModel(Context context, Application application, Navigator navigator,
+            DialogManager dialogManager) {
         mContext = context;
         mApplication = application;
         mNavigator = navigator;
-        setProgressBarVisible(false);
+        mDialogManager = dialogManager;
     }
 
     @Override
@@ -39,18 +41,27 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
         if (!mPresenter.validateDataInput(mUsername, mPassword)) {
             return;
         }
-        setProgressBarVisible(true);
         mPresenter.login(mUsername, mPassword);
     }
 
     @Override
     public void onSignUpClick() {
-        //TODO SignUp Activity!
+        mNavigator.showToastCustomActivity(R.string.function_is_being_processed);
     }
 
     @Override
     public void onForgotPasswordClick() {
-        //TODO Forgot Password Activity!
+        mNavigator.showToastCustomActivity(R.string.function_is_being_processed);
+    }
+
+    @Override
+    public void onShowProgressBar() {
+        mDialogManager.showProgressDialog();
+    }
+
+    @Override
+    public void onHideProgressBar() {
+        mDialogManager.dismissProgressDialog();
     }
 
     @Override
@@ -70,28 +81,25 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     @Override
     public void onLoginError(BaseException exeption) {
-        setProgressBarVisible(false);
         mNavigator.showToastCustom(exeption.getMessage());
     }
 
     @Override
-
     public void onLoginSuccess() {
         mNavigator.startActivity(ChooseDomainActivity.class);
         FOrderServiceClient.initialize(mApplication);
-        setProgressBarVisible(false);
         mNavigator.finishActivity();
     }
 
     @Override
     public void onInputUserNameError() {
-        mUsernameError = mContext.getString(R.string.email_is_Emty);
+        mUsernameError = mContext.getString(R.string.email_is_Empty);
         notifyPropertyChanged(BR.usernameError);
     }
 
     @Override
     public void onInputPasswordError() {
-        mPasswordError = mContext.getString(R.string.pass_word_is_Emty);
+        mPasswordError = mContext.getString(R.string.password_is_Empty);
         notifyPropertyChanged(BR.passswordError);
     }
 
@@ -118,26 +126,8 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
         return mUsernameError;
     }
 
-    public void setUsernameError(String usernameError) {
-        mUsernameError = usernameError;
-    }
-
     @Bindable
     public String getPassswordError() {
         return mPasswordError;
-    }
-
-    public void setPassswordError(String passwordError) {
-        mPasswordError = passwordError;
-    }
-
-    @Bindable
-    public boolean isProgressBarVisible() {
-        return mIsProgressBarVisible;
-    }
-
-    public void setProgressBarVisible(boolean progressBarVisible) {
-        mIsProgressBarVisible = progressBarVisible;
-        notifyPropertyChanged(BR.progressBarVisible);
     }
 }

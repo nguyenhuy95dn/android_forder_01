@@ -4,12 +4,12 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.widget.ArrayAdapter;
-import com.framgia.forder.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.main.MainActivity;
 import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,14 +28,15 @@ public class ChooseDomainViewModel extends BaseObservable
     private final List<Domain> mDomains;
     private int mSelectedTypePosition;
     private final Navigator mNavigator;
-    private boolean mIsProgressBarVisible;
+    private DialogManager mDialogManager;
 
-    ChooseDomainViewModel(Context context, ArrayAdapter<String> adapter, Navigator navigator) {
+    ChooseDomainViewModel(Context context, ArrayAdapter<String> adapter, Navigator navigator,
+            DialogManager dialogManager) {
         mContext = context;
         mAdapter = adapter;
         mNavigator = navigator;
+        mDialogManager = dialogManager;
         mDomains = new ArrayList<>();
-        setProgressBarVisible(false);
     }
 
     @Override
@@ -69,17 +70,17 @@ public class ChooseDomainViewModel extends BaseObservable
 
     @Override
     public void onGetDomainError(BaseException e) {
-        // TODO show dialog error later
+        mNavigator.showToastCustom(e.getMessage());
     }
 
     @Override
     public void onShowProgressBar() {
-        setProgressBarVisible(true);
+        mDialogManager.showProgressDialog();
     }
 
     @Override
     public void onHideProgressBar() {
-        setProgressBarVisible(false);
+        mDialogManager.dismissProgressDialog();
     }
 
     @Bindable
@@ -107,15 +108,5 @@ public class ChooseDomainViewModel extends BaseObservable
 
     public void setSelectedTypePosition(Integer selectedTypePosition) {
         this.mSelectedTypePosition = selectedTypePosition;
-    }
-
-    @Bindable
-    public boolean isProgressBarVisible() {
-        return mIsProgressBarVisible;
-    }
-
-    private void setProgressBarVisible(boolean progressBarVisible) {
-        mIsProgressBarVisible = progressBarVisible;
-        notifyPropertyChanged(BR.progressBarVisible);
     }
 }

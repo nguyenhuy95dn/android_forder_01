@@ -13,6 +13,7 @@ import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.ActivityLoginBinding;
 import com.framgia.forder.screen.BaseActivity;
 import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
 
 /**
  * Login Screen.
@@ -27,7 +28,9 @@ public class LoginActivity extends BaseActivity {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getApplicationContext());
         Navigator navigator = new Navigator(this);
-        mViewModel = new LoginViewModel(getApplicationContext(), getApplication(), navigator);
+        DialogManager dialogManager = new DialogManager(this);
+        mViewModel = new LoginViewModel(getApplicationContext(), getApplication(), navigator,
+                dialogManager);
         UserRepository userRepository =
                 new UserRepository(new UserRemoteDataSource(FOrderServiceClient.getInstance()),
                         new UserLocalDataSource(prefsApi));

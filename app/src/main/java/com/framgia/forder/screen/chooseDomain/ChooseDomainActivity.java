@@ -15,6 +15,7 @@ import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.ActivityChooseDomainBinding;
 import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +34,10 @@ public class ChooseDomainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, mDomains);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
+        DialogManager dialogManager = new DialogManager(this);
         mViewModel =
-                new ChooseDomainViewModel(getApplicationContext(), adapter, new Navigator(this));
+                new ChooseDomainViewModel(getApplicationContext(), adapter, new Navigator(this),
+                        dialogManager);
 
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getApplicationContext());
         UserDataSource.LocalDataSource userLocalDataSource = new UserLocalDataSource(prefsApi);
