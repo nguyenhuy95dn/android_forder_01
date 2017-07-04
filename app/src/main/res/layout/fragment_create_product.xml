@@ -87,7 +87,9 @@
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textColorHint="@color/colorPrimary"
                             app:errorTextInputLayout="@{viewModel.nameError}"
+                            app:hintTextAppearance="@style/TextLabelInputLayout"
                             >
                             <android.support.design.widget.TextInputEditText
                                 android:layout_width="match_parent"
@@ -99,18 +101,22 @@
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textColorHint="@color/colorPrimary"
                             app:errorTextInputLayout="@{viewModel.descriptionError}"
+                            app:hintTextAppearance="@style/TextLabelInputLayout"
                             >
                             <android.support.design.widget.TextInputEditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="@string/description"
+                                android:hint="@string/product_description"
                                 android:text="@={viewModel.description}"
                                 />
                         </android.support.design.widget.TextInputLayout>
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textColorHint="@color/colorPrimary"
+                            app:hintTextAppearance="@style/TextLabelInputLayout"
                             >
                             <android.support.design.widget.TextInputEditText
                                 android:layout_width="match_parent"
@@ -133,7 +139,7 @@
                                 android:layout_marginTop="@dimen/dp_10"
                                 android:paddingTop="@dimen/dp_10"
                                 android:text="@string/category"
-                                android:textColor="@color/color_black"
+                                android:textColor="@color/colorPrimary"
                                 android:textSize="@dimen/sp_18"
                                 />
                             <android.support.v7.widget.AppCompatSpinner
@@ -161,8 +167,8 @@
                                 android:layout_marginStart="@dimen/dp_5"
                                 android:layout_marginTop="@dimen/dp_5"
                                 android:paddingTop="@dimen/dp_10"
-                                android:text="@string/status"
-                                android:textColor="@color/color_black"
+                                android:text="@string/product_status"
+                                android:textColor="@color/colorPrimary"
                                 android:textSize="@dimen/sp_18"
                                 />
                             <ToggleButton
@@ -185,6 +191,8 @@
                             <android.support.design.widget.TextInputLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textColorHint="@color/colorPrimary"
+                                app:hintTextAppearance="@style/TextLabelInputLayout"
                                 >
                                 <android.support.design.widget.TextInputEditText
                                     android:id="@+id/textInputEditText"
@@ -202,10 +210,10 @@
                                 android:layout_height="@dimen/dp_40"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentRight="true"
-                                android:layout_alignParentTop="true"
-                                android:background="@drawable/ic_timer_black_24dp"
-                                android:backgroundTint="@color/color_gray"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:background="?attr/selectableItemBackgroundBorderless"
                                 android:onClick="@{()-> viewModel.onClickChooseStartHour()}"
+                                app:srcCompat="@drawable/ic_timer_gray"
                                 tools:ignore="ContentDescription,UnusedAttribute"
                                 />
                         </RelativeLayout>
@@ -216,6 +224,8 @@
                             <android.support.design.widget.TextInputLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textColorHint="@color/colorPrimary"
+                                app:hintTextAppearance="@style/TextLabelInputLayout"
                                 >
                                 <android.support.design.widget.TextInputEditText
                                     android:layout_width="match_parent"
@@ -232,9 +242,10 @@
                                 android:layout_height="@dimen/dp_40"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentRight="true"
-                                android:background="@drawable/ic_timer_black_24dp"
-                                android:backgroundTint="@color/color_gray"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:background="?attr/selectableItemBackgroundBorderless"
                                 android:onClick="@{()-> viewModel.onClickChooseEndHour()}"
+                                app:srcCompat="@drawable/ic_timer_gray"
                                 tools:ignore="ContentDescription,UnusedAttribute"
                                 />
                         </RelativeLayout>
