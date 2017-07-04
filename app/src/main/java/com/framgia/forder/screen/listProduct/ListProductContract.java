@@ -26,6 +26,14 @@ interface ListProductContract {
         void onOrderProductSuccess();
 
         void onOrderProductError(BaseException error);
+
+        void onShowProgressBar();
+
+        void onHideProgressBar();
+
+        void onShowProgressDialog();
+
+        void onHideProgressDialog();
     }
 
     /**

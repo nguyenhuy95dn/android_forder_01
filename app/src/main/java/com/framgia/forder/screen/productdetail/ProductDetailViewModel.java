@@ -20,6 +20,7 @@ import com.framgia.forder.screen.mainpage.product.OrderListener;
 import com.framgia.forder.screen.productdetail.adapter.CommentAdapter;
 import com.framgia.forder.screen.productdetail.adapter.ProductShopAdapter;
 import com.framgia.forder.screen.quickorder.QuickOrderListener;
+import com.framgia.forder.utils.Utils;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
@@ -306,5 +307,10 @@ public class ProductDetailViewModel extends BaseObservable
     private void setProgressBarListCommentVisible(boolean progressBarListCommentVisible) {
         mIsProgressBarListCommentVisible = progressBarListCommentVisible;
         notifyPropertyChanged(BR.progressBarListCommentVisible);
+    }
+
+    public boolean isProductTimeOut() {
+        return Utils.DateTimeUntils.isProductTimeOut(mProduct.getStartHour(),
+                mProduct.getEndHour());
     }
 }

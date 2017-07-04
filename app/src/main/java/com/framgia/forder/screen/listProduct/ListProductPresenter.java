@@ -13,6 +13,7 @@ import java.util.List;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -80,12 +81,24 @@ final class ListProductPresenter implements ListProductContract.Presenter {
     public void getListAllProduct() {
         Subscription subscription = mProductRepository.getListProduct()
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressBar();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressBar();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Product>>() {
                     @Override
                     public void call(List<Product> products) {
                         mViewModel.onGetListAllProductSuccess(products);
-                    }
+                }
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
@@ -103,6 +116,18 @@ final class ListProductPresenter implements ListProductContract.Presenter {
         }
         Subscription subscription = mProductRepository.orderCart(orderRequest)
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressDialog();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressDialog();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<OrderCartResponse>() {
                     @Override
