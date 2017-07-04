@@ -84,13 +84,13 @@ public class CreateshopViewModel extends BaseObservable
 
     @Override
     public void onRequestRegisterShopSuccess() {
-        mNavigator.showToast(R.string.create_shop_successful);
+        mNavigator.showToastCustomActivity(R.string.create_shop_successful);
         mNavigator.goBackChildFragment();
     }
 
     @Override
     public void onRequestRegisterShopError(BaseException error) {
-        mNavigator.showToast(error.getMessage());
+        mNavigator.showToastCustom(error.getMessage());
     }
 
     @Override
@@ -159,7 +159,7 @@ public class CreateshopViewModel extends BaseObservable
         }
         try {
             if (mImageCover == null || mImageAvatar == null) {
-                mNavigator.showToast(R.string.you_must_choose_image);
+                mNavigator.showToastCustomActivity(R.string.you_must_choose_image);
                 return;
             }
             RegisterShopRequest request = new RegisterShopRequest();

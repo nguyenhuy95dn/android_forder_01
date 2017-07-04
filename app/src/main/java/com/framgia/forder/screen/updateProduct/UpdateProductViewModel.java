@@ -36,6 +36,7 @@ public class UpdateProductViewModel extends BaseObservable
         implements UpdateProductContract.ViewModel, TimePickerDialog.OnTimeSetListener {
     private static final String TAG = "UpdateProductViewModel";
     private static final int POSITION = 0;
+    private static final int TIME_COMPARE = 10;
 
     private UpdateProductContract.Presenter mPresenter;
     private final Context mContext;
@@ -124,13 +125,13 @@ public class UpdateProductViewModel extends BaseObservable
 
     @Override
     public void onUpdateProductSuccess() {
-        mNavigator.showToast(R.string.update_successful);
+        mNavigator.showToastCustomActivity(R.string.update_successful);
         mNavigator.goBackChildFragment();
     }
 
     @Override
     public void onUpdateProductError(BaseException error) {
-        mNavigator.showToast(error.getMessage());
+        mNavigator.showToastCustom(error.getMessage());
     }
 
     @Override
@@ -207,7 +208,22 @@ public class UpdateProductViewModel extends BaseObservable
 
     @Override
     public void onGetCategoriesError(BaseException error) {
-        //Todo dev later
+        mNavigator.showToastCustom(error.getMessage());
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        String hourString = hourOfDay < TIME_COMPARE ? mContext.getString(R.string.zero) + hourOfDay
+                : "" + hourOfDay;
+        String minuteString =
+                minute < TIME_COMPARE ? mContext.getString(R.string.zero) + minute : "" + minute;
+        if (mFlag == FLAG_OPEN_HOUR) {
+            mStartHour = hourString + mContext.getString(R.string.two_dot) + minuteString;
+            notifyPropertyChanged(BR.startHour);
+        } else {
+            mEndHour = hourString + mContext.getString(R.string.two_dot) + minuteString;
+            notifyPropertyChanged(BR.endHour);
+        }
     }
 
     public int getSelectedTypePosition() {
@@ -228,19 +244,8 @@ public class UpdateProductViewModel extends BaseObservable
         mDialogManager.showTimePickerDialog();
     }
 
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        String hourString =
-                hourOfDay < 10 ? mContext.getString(R.string.zero) + hourOfDay : "" + hourOfDay;
-        String minuteString =
-                minute < 10 ? mContext.getString(R.string.zero) + minute : "" + minute;
-        if (mFlag == FLAG_OPEN_HOUR) {
-            mStartHour = hourString + mContext.getString(R.string.two_dot) + minuteString;
-            notifyPropertyChanged(BR.startHour);
-        } else {
-            mEndHour = hourString + mContext.getString(R.string.two_dot) + minuteString;
-            notifyPropertyChanged(BR.endHour);
-        }
+    public void onClickBack() {
+        mNavigator.goBackChildFragment();
     }
 
     public void onClickChooseImage() {

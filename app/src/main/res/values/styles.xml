@@ -60,4 +60,7 @@
         <item name="android:textSize">@dimen/dp_20</item>
     </style>
 
+    <style name="TextLabelInputLayout" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">@dimen/sp_15</item>
+    </style>
 </resources>
