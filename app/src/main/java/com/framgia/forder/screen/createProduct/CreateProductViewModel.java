@@ -102,7 +102,7 @@ public class CreateProductViewModel extends BaseObservable
 
     @Override
     public void onGetCategoriesError(BaseException error) {
-        //Todo dev later
+        mNavigator.showToastCustom(error.getMessage());
     }
 
     @Override
@@ -140,7 +140,7 @@ public class CreateProductViewModel extends BaseObservable
 
     @Override
     public void onRegisterProductSuccess() {
-        mNavigator.showToast(R.string.create_product_successful);
+        mNavigator.showToastCustomActivity(R.string.create_product_successful);
         mNavigator.goBackChildFragment();
     }
 
@@ -205,11 +205,11 @@ public class CreateProductViewModel extends BaseObservable
         if (isSwitched) {
             isSwitched = false;
             mStatus = mContext.getString(R.string.active);
-            mNavigator.showToast(R.string.active);
+            mNavigator.showToastCustomActivity(R.string.active);
         } else {
             isSwitched = true;
             mStatus = mContext.getString(R.string.inactive);
-            mNavigator.showToast(R.string.inactive);
+            mNavigator.showToastCustomActivity(R.string.inactive);
         }
     }
 
@@ -219,7 +219,7 @@ public class CreateProductViewModel extends BaseObservable
         }
         try {
             if (mImage == null) {
-                mNavigator.showToast(R.string.you_must_choose_image);
+                mNavigator.showToastCustomActivity(R.string.you_must_choose_image);
                 return;
             }
             RegisterProductRequest request = new RegisterProductRequest();
@@ -248,6 +248,10 @@ public class CreateProductViewModel extends BaseObservable
     public void onClickChooseEndHour() {
         mFlag = FLAG_END_HOUR;
         mDialogManager.showTimePickerDialog();
+    }
+
+    public void onClickBack() {
+        mNavigator.goBackChildFragment();
     }
 
     @Bindable
