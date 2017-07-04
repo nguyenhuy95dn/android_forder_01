@@ -13,8 +13,6 @@ import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.ProductRepository;
 import com.framgia.forder.data.source.local.ProductLocalDataSource;
 import com.framgia.forder.data.source.local.realm.RealmApi;
-import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
-import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
 import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentShopDetailBinding;

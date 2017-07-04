@@ -3,12 +3,15 @@ package com.framgia.forder.utils.binding;
 import android.databinding.BindingAdapter;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -166,5 +169,36 @@ public final class BindingUtils {
     public static void clearTextFloatingSearchView(FloatingSearchView floatingSearchView,
             boolean b) {
         floatingSearchView.clearQuery();
+    }
+
+    @BindingAdapter("errorTextInputLayout")
+    public static void setErrorTextInputLayout(final TextInputLayout textInputLayout,
+            final String text) {
+        textInputLayout.setError(text);
+        EditText editText = textInputLayout.getEditText();
+        if (editText == null) {
+            return;
+        }
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //No-Op
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() < 1) {
+                    textInputLayout.setError(text);
+                }
+                if (s.length() > 0) {
+                    textInputLayout.setErrorEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //No-Op
+            }
+        });
     }
 }
