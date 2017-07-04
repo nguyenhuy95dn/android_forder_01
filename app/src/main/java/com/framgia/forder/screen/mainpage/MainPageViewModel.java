@@ -4,7 +4,7 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.annotation.NonNull;
-import com.framgia.forder.BR;
+import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Category;
 import com.framgia.forder.data.model.Product;
@@ -26,7 +26,8 @@ import java.util.List;
  */
 
 public class MainPageViewModel extends BaseObservable implements MainPageContract.ViewModel,
-        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener{
+        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener {
+
     private static final String TAG = "ListProductFragment";
 
     private final Context mContext;
@@ -212,7 +213,6 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
         mIsProgressBarVisibleProduct = progressBarVisibleProduct;
         notifyPropertyChanged(BR.progressBarVisibleProduct);
     }
-
 
     public ShopPageAdapter getShopPageAdapter() {
         return mShopPageAdapter;

@@ -4,12 +4,13 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.widget.ArrayAdapter;
+import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.screen.login.LoginActivity;
 import com.framgia.forder.screen.main.MainActivity;
 import com.framgia.forder.utils.navigator.Navigator;
-import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,15 +29,14 @@ public class ChooseDomainViewModel extends BaseObservable
     private final List<Domain> mDomains;
     private int mSelectedTypePosition;
     private final Navigator mNavigator;
-    private DialogManager mDialogManager;
+    private boolean mProgressBarVisible;
 
-    ChooseDomainViewModel(Context context, ArrayAdapter<String> adapter, Navigator navigator,
-            DialogManager dialogManager) {
+    ChooseDomainViewModel(Context context, ArrayAdapter<String> adapter, Navigator navigator) {
         mContext = context;
         mAdapter = adapter;
         mNavigator = navigator;
-        mDialogManager = dialogManager;
         mDomains = new ArrayList<>();
+        setProgressBarVisible(false);
     }
 
     @Override
@@ -75,12 +75,12 @@ public class ChooseDomainViewModel extends BaseObservable
 
     @Override
     public void onShowProgressBar() {
-        mDialogManager.showProgressDialog();
+        setProgressBarVisible(true);
     }
 
     @Override
     public void onHideProgressBar() {
-        mDialogManager.dismissProgressDialog();
+        setProgressBarVisible(false);
     }
 
     @Bindable
@@ -90,6 +90,16 @@ public class ChooseDomainViewModel extends BaseObservable
 
     public ArrayAdapter<String> getAdapter() {
         return mAdapter;
+    }
+
+    @Bindable
+    public boolean isProgressBarVisible() {
+        return mProgressBarVisible;
+    }
+
+    public void setProgressBarVisible(boolean progressBarVisible) {
+        mProgressBarVisible = progressBarVisible;
+        notifyPropertyChanged(BR.progressBarVisible);
     }
 
     public void onClickNext() {
@@ -104,6 +114,10 @@ public class ChooseDomainViewModel extends BaseObservable
             mNavigator.finishActivity();
             onHideProgressBar();
         }
+    }
+
+    public void onCLickLogout() {
+        mNavigator.startActivity(LoginActivity.class);
     }
 
     public void setSelectedTypePosition(Integer selectedTypePosition) {

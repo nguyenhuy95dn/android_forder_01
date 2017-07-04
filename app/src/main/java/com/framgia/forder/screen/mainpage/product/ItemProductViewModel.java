@@ -73,10 +73,6 @@ public class ItemProductViewModel extends BaseObservable {
         return mProduct.getDescription();
     }
 
-    public void addCart() {
-        //        TODO Edit Later
-    }
-
     public boolean isProductTimeOut() {
         return Utils.DateTimeUntils.isProductTimeOut(mProduct.getFormatStartHour(),
                 mProduct.getFormatEndHour());

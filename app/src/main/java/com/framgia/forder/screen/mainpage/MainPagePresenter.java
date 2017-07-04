@@ -76,6 +76,12 @@ final class MainPagePresenter implements MainPageContract.Presenter {
                         mViewModel.onShowProgressbarProduct();
                     }
                 })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressbarProduct();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Product>>() {
                     @Override
@@ -87,11 +93,6 @@ final class MainPagePresenter implements MainPageContract.Presenter {
                     @Override
                     public void onSafetyError(BaseException error) {
                         mViewModel.onGetListProductError(error);
-                    }
-                }, new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onHideProgressbarProduct();
                     }
                 });
         mCompositeSubscription.add(subscription);
@@ -111,6 +112,12 @@ final class MainPagePresenter implements MainPageContract.Presenter {
                         mViewModel.onShowProgressbarShop();
                     }
                 })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressbarShop();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Shop>>() {
                     @Override
@@ -122,11 +129,6 @@ final class MainPagePresenter implements MainPageContract.Presenter {
                     @Override
                     public void onSafetyError(BaseException error) {
                         mViewModel.onGetListShopError(error);
-                    }
-                }, new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onHideProgressbarShop();
                     }
                 });
         mCompositeSubscription.add(subscription);
@@ -146,6 +148,12 @@ final class MainPagePresenter implements MainPageContract.Presenter {
                         mViewModel.onShowProgressbarCategory();
                     }
                 })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressbarCategory();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Category>>() {
                     @Override
@@ -156,11 +164,6 @@ final class MainPagePresenter implements MainPageContract.Presenter {
                     @Override
                     public void onSafetyError(BaseException error) {
                         mViewModel.onGetListCategoryError(error);
-                    }
-                }, new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onHideProgressbarCategory();
                     }
                 });
         mCompositeSubscription.add(subscription);

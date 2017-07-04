@@ -28,7 +28,7 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
+        android:background="@color/color_gray_white"
         >
 
         <android.support.design.widget.AppBarLayout
@@ -156,6 +156,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/view_top"
+                    android:background="@color/color_white"
                     android:drawableLeft="@drawable/ic_label"
                     android:drawablePadding="@dimen/dp_5"
                     android:drawableStart="@drawable/ic_label"
@@ -218,6 +219,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@color/color_white"
                         >
 
                         <View
@@ -291,6 +293,7 @@
                             android:layout_marginRight="@dimen/dp_1"
                             android:layout_marginStart="@dimen/dp_1"
                             android:layout_marginTop="@dimen/dp_5"
+                            android:background="@color/color_gray_white"
                             android:orientation="vertical"
                             app:layoutManager="LinearLayoutManager"
                             app:recyclerAdapter="@{viewModel.productAdapter}"

@@ -11,10 +11,18 @@
             name="viewModel"
             type="com.framgia.forder.screen.chooseDomain.ChooseDomainViewModel"
             />
+        <import type="android.view.View"/>
+
     </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:ignore="ScrollViewSize"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,6 +58,7 @@
                 android:textSize="@dimen/sp_20"
                 android:textStyle="bold"
                 />
+
             <TextView
                 android:layout_width="@dimen/dp_300"
                 android:layout_height="wrap_content"
@@ -78,6 +87,12 @@
                 android:spinnerMode="dropdown"
                 bind:spinnerAdapter="@{viewModel.adapter}"
                 />
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="@{viewModel.progressBarVisible? View.VISIBLE : View.GONE}"
+                />
             <Button
                 android:layout_width="@dimen/dp_170"
                 android:layout_height="wrap_content"
@@ -89,5 +104,19 @@
                 android:textColor="@color/color_orange"
                 />
         </LinearLayout>
+
+        <ImageButton
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@color/transparent"
+            android:onClick="@{() -> viewModel.onCLickLogout()}"
+            android:src="@drawable/ic_back"
+            tools:ignore="ContentDescription,VectorDrawableCompat"
+            />
     </RelativeLayout>
+    </ScrollView>
 </layout>
