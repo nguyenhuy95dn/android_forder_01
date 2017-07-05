@@ -10,6 +10,7 @@ import com.framgia.forder.data.source.remote.api.response.DeleteShopInDomainResp
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -49,6 +50,18 @@ final class ShopInDomainPresenter implements ShopInDomainContract.Presenter {
         final User user = mUserRepository.getUser();
         Subscription subscription = mShopRepository.getListShopInDomain(domainId)
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressBar();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressBar();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<ShopInDomain>>() {
                     @Override
@@ -68,6 +81,18 @@ final class ShopInDomainPresenter implements ShopInDomainContract.Presenter {
     public void deleteShop(int domainId, int shopId) {
         Subscription subscription = mShopRepository.requestDeleteShopInDomain(domainId, shopId)
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressDialog();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressDialog();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<DeleteShopInDomainResponse>() {
                     @Override

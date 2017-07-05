@@ -1,6 +1,9 @@
 package com.framgia.forder.screen.shopindomain;
 
 import android.content.DialogInterface;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import com.framgia.forder.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.DomainManagement;
 import com.framgia.forder.data.model.OwnerShop;
@@ -14,7 +17,8 @@ import java.util.List;
  * Exposes the data to be used in the Shopindomain screen.
  */
 
-public class ShopInDomainViewModel implements ShopInDomainContract.ViewModel, ShopInDomainListener {
+public class ShopInDomainViewModel extends BaseObservable
+        implements ShopInDomainContract.ViewModel, ShopInDomainListener {
 
     private static final String TAG = "ManagerInShopFragment";
 
@@ -23,6 +27,7 @@ public class ShopInDomainViewModel implements ShopInDomainContract.ViewModel, Sh
     private final DomainManagement mDomainManagement;
     private final DialogManager mDialogManager;
     private ShopInDomainContract.Presenter mPresenter;
+    private boolean mIsProgressBarListShopInDomain;
 
     ShopInDomainViewModel(ShopInDomainAdapter shopInDomainAdapter, Navigator navigator,
             DomainManagement domainManagement, DialogManager dialogManager) {
@@ -88,5 +93,35 @@ public class ShopInDomainViewModel implements ShopInDomainContract.ViewModel, Sh
                     }
                 });
         mDialogManager.show();
+    }
+
+    @Override
+    public void onShowProgressDialog() {
+        mDialogManager.showProgressDialog();
+    }
+
+    @Override
+    public void onHideProgressDialog() {
+        mDialogManager.dismissProgressDialog();
+    }
+
+    @Override
+    public void onShowProgressBar() {
+        setProgressBarListShopInDomain(true);
+    }
+
+    @Override
+    public void onHideProgressBar() {
+        setProgressBarListShopInDomain(false);
+    }
+
+    @Bindable
+    public boolean isProgressBarListShopInDomain() {
+        return mIsProgressBarListShopInDomain;
+    }
+
+    public void setProgressBarListShopInDomain(boolean progressBarListShopInDomain) {
+        mIsProgressBarListShopInDomain = progressBarListShopInDomain;
+        notifyPropertyChanged(BR.progressBarListShopInDomain);
     }
 }
