@@ -59,7 +59,8 @@ public class CreateProductViewModel extends BaseObservable
             ArrayAdapter<String> adapter, Navigator navigatorForStartGallery, Navigator navigator,
             ShopManagement shopManagement) {
         mContext = context;
-        mDialogManager = dialogManager.dialogTimePicker(this);
+        mDialogManager = dialogManager;
+        mDialogManager.dialogTimePicker(this);
         mAdapter = adapter;
         mNavigatorForStartGallery = navigatorForStartGallery;
         mNavigator = navigator;
@@ -147,6 +148,16 @@ public class CreateProductViewModel extends BaseObservable
     @Override
     public void onRegisterProductError(BaseException error) {
         mNavigator.showToast(error.getMessage());
+    }
+
+    @Override
+    public void onShowProgressDialog() {
+        mDialogManager.showProgressDialog();
+    }
+
+    @Override
+    public void onHideProgressDialog() {
+        mDialogManager.dismissProgressDialog();
     }
 
     public String getName() {

@@ -28,6 +28,10 @@ interface CreateProductContract {
         void onRegisterProductSuccess();
 
         void onRegisterProductError(BaseException error);
+
+        void onShowProgressDialog();
+
+        void onHideProgressDialog();
     }
 
     /**
