@@ -21,6 +21,14 @@ interface ShopInDomainContract {
         void ondeleteShopInDomainSuccess();
 
         void ondeleteShopInDomainError(BaseException error);
+
+        void onShowProgressDialog();
+
+        void onHideProgressDialog();
+
+        void onShowProgressBar();
+
+        void onHideProgressBar();
     }
 
     /**

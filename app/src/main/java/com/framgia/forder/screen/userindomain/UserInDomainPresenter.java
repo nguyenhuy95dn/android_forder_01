@@ -10,6 +10,7 @@ import com.framgia.forder.data.source.remote.api.response.DeleteUserInDomainResp
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -50,6 +51,18 @@ final class UserInDomainPresenter implements UserInDomainContract.Presenter {
         final User user = mUserRepository.getUser();
         Subscription subscription = mDomainRepository.getListUserInDomain(domainId)
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressBar();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressBar();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<User>>() {
                     @Override
@@ -69,6 +82,18 @@ final class UserInDomainPresenter implements UserInDomainContract.Presenter {
     public void deleteUserInDomain(int domainId, final int userId) {
         Subscription subscription = mDomainRepository.requestDeleteUserInDomain(domainId, userId)
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressDialog();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressDialog();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<DeleteUserInDomainResponse>() {
                     @Override
@@ -89,6 +114,18 @@ final class UserInDomainPresenter implements UserInDomainContract.Presenter {
         Subscription subscription =
                 mDomainRepository.requestChangeRuleOfUserInDomain(domainId, userId, role)
                         .subscribeOn(Schedulers.io())
+                        .doOnSubscribe(new Action0() {
+                            @Override
+                            public void call() {
+                                mViewModel.onShowProgressDialog();
+                            }
+                        })
+                        .doAfterTerminate(new Action0() {
+                            @Override
+                            public void call() {
+                                mViewModel.onHideProgressDialog();
+                            }
+                        })
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Action1<ChangeRuleOfUserResponse>() {
                             @Override

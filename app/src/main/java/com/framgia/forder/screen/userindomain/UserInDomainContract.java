@@ -26,6 +26,14 @@ interface UserInDomainContract {
         void onChangeRoleOfUserSuccess();
 
         void onChangeRoleOfUserError(BaseException error);
+
+        void onShowProgressDialog();
+
+        void onHideProgressDialog();
+
+        void onShowProgressBar();
+
+        void onHideProgressBar();
     }
 
     /**
