@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
     <data>
@@ -56,10 +57,9 @@
                     android:layout_alignParentRight="true"
                     android:layout_margin="@dimen/dp_10"
                     android:background="@drawable/border_button_next"
-                    android:backgroundTint="@color/color_orange_mos"
-                    android:onClick="@{()-> viewModel.addCart()}"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_add_product_cart"
+                    android:src="@drawable/ic_cart_shop"
+                    bind:onClickShowPopupMenuOrder="@{viewModel::onMenuItemClick}"
                     tools:ignore="ContentDescription,UnusedAttribute,VectorDrawableCompat"
                     />
             </RelativeLayout>
