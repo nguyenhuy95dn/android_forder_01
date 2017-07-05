@@ -55,6 +55,7 @@
                 android:layout_marginLeft="@dimen/dp_5"
                 android:layout_marginStart="@dimen/dp_5"
                 android:checked="@{viewModel.isCheckedProfessed}"
+                android:onCheckedChanged="@{() -> viewModel.onCheckedProfessed()}"
                 android:text="@string/professed"
                 style="@style/Base.Widget.AppCompat.CompoundButton.RadioButton"
                 />

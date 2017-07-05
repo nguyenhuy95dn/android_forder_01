@@ -11,6 +11,6 @@
     <item
         android:id="@+id/view_shop"
         android:icon="@null"
-        android:title="@string/view_product"
+        android:title="@string/view_shop"
         app:showAsAction="never"/>
 </menu>

@@ -59,12 +59,10 @@ public class EditdomainViewModel extends BaseObservable implements EditdomainCon
         notifyPropertyChanged(BR.nameDomain);
     }
 
-    @Bindable
     public boolean isCheckedSecret() {
         return isChecked;
     }
 
-    @Bindable
     public boolean isCheckedProfessed() {
         return !isChecked;
     }
@@ -74,18 +72,20 @@ public class EditdomainViewModel extends BaseObservable implements EditdomainCon
         mStatus = domainManagement.getStatus();
         if (mStatus.equals(mContext.getString(R.string.secret))) {
             isChecked = true;
-            notifyPropertyChanged(BR.checkedProfessed);
-            notifyPropertyChanged(BR.checkedSecret);
         }
     }
 
     public void onCheckedSecret() {
+        if (!isChecked) {
+            isChecked = true;
+            mStatus = mContext.getString(R.string.professed);
+        }
+    }
+
+    public void onCheckedProfessed() {
         if (isChecked) {
             isChecked = false;
             mStatus = mContext.getString(R.string.secret);
-        } else {
-            isChecked = true;
-            mStatus = mContext.getString(R.string.professed);
         }
     }
 

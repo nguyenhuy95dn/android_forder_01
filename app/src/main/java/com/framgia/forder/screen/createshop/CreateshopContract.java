@@ -24,6 +24,10 @@ interface CreateshopContract {
         void setImageCover(String imageCover);
 
         void setImageAvatar(String imageAvatar);
+
+        void onShowProgressDialog();
+
+        void onHideProgressDialog();
     }
 
     /**
