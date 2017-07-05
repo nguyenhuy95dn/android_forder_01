@@ -68,7 +68,8 @@ public class UpdateProductViewModel extends BaseObservable
             ArrayAdapter<String> adapter, Navigator navigatorForStartGallery, Navigator navigator) {
         mContext = context;
         mProduct = product;
-        mDialogManager = dialogManager.dialogTimePicker(this);
+        mDialogManager = dialogManager;
+        mDialogManager.dialogTimePicker(this);
         mAdapter = adapter;
         mNavigatorForStartGallery = navigatorForStartGallery;
         mNavigator = navigator;
@@ -144,6 +145,16 @@ public class UpdateProductViewModel extends BaseObservable
     public void onInputDescriptionError() {
         mDescriptionError = mContext.getString(R.string.description_is_empty);
         notifyPropertyChanged(BR.descriptionError);
+    }
+
+    @Override
+    public void onShowProgressDialog() {
+        mDialogManager.showProgressDialog();
+    }
+
+    @Override
+    public void onHideProgressDialog() {
+        mDialogManager.dismissProgressDialog();
     }
 
     public void setImage(String image) {

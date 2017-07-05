@@ -19,6 +19,10 @@ interface UpdateProductContract {
 
         void onGetCategoriesError(BaseException error);
 
+        void onShowProgressDialog();
+
+        void onHideProgressDialog();
+
         void setImage(String image);
 
         void onUpdateProductSuccess();
