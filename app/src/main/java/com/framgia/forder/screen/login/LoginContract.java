@@ -22,6 +22,10 @@ interface LoginContract {
         void onSignUpClick();
 
         void onForgotPasswordClick();
+
+        void onShowProgressBar();
+
+        void onHideProgressBar();
     }
 
     interface Presenter extends BasePresenter {

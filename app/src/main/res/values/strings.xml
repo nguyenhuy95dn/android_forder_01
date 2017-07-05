@@ -53,8 +53,8 @@
     <string name="message">Message</string>
     <string name="ok">OK</string>
     <string name="cannot_load_the_data">Cannot load the data</string>
-    <string name="email_is_Emty">Email is Emty !</string>
-    <string name="pass_word_is_Emty">Password is Emty!</string>
+    <string name="email_is_Empty">Email is Empty !</string>
+    <string name="password_is_Empty">Password is Empty!</string>
     <string name="you_need_to_choose_a_domain_to_continue">You need to choose a domain to continue!</string>
     <string name="none">None</string>
     <string name="search">Search...</string>
@@ -190,4 +190,5 @@
     <string name="view_product">View Product</string>
     <string name="product_status">Status</string>
     <string name="product_description">Description</string>
+    <string name="function_is_being_processed">Function is being processed!</string>
 </resources>

@@ -49,6 +49,12 @@ final class ChooseDomainPresenter implements ChooseDomainContract.Presenter {
                         mViewModel.onShowProgressBar();
                     }
                 })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressBar();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Domain>>() {
                     @Override
@@ -59,11 +65,6 @@ final class ChooseDomainPresenter implements ChooseDomainContract.Presenter {
                     @Override
                     public void onSafetyError(BaseException error) {
                         mViewModel.onGetDomainError(error);
-                    }
-                }, new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onHideProgressBar();
                     }
                 });
         mCompositeSubscription.add(subscription);

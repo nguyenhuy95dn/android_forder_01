@@ -8,6 +8,7 @@ import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import com.google.firebase.iid.FirebaseInstanceId;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -46,6 +47,18 @@ final class LoginPresenter implements LoginContract.Presenter {
         }
         Subscription subscription = mUserRepository.login(userName, passWord, deviceToken)
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressBar();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressBar();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<User>() {
                     @Override
