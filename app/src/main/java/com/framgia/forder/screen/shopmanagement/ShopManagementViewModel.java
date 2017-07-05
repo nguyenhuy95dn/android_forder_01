@@ -1,5 +1,8 @@
 package com.framgia.forder.screen.shopmanagement;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
@@ -13,7 +16,8 @@ import java.util.List;
  * Exposes the data to be used in the ShopManagement screen.
  */
 
-public class ShopManagementViewModel implements ShopManagementContract.ViewModel,
+public class ShopManagementViewModel extends BaseObservable
+        implements ShopManagementContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
 
     private static final String TAG = "ShopDetailFragment";
@@ -21,11 +25,13 @@ public class ShopManagementViewModel implements ShopManagementContract.ViewModel
     private final Navigator mNavigator;
     private final ListShopManagementAdapter mListShopManagementAdapter;
     private ShopManagementContract.Presenter mPresenter;
+    private boolean mIsProgressbarVisibleShopManagement;
 
     ShopManagementViewModel(Navigator navigator, ListShopManagementAdapter adapter) {
         mNavigator = navigator;
         mListShopManagementAdapter = adapter;
         mListShopManagementAdapter.setItemClickListener(this);
+        setProgressbarVisibleShopManagement(false);
     }
 
     @Override
@@ -59,23 +65,13 @@ public class ShopManagementViewModel implements ShopManagementContract.ViewModel
     }
 
     @Override
-    public void onRequestShopInDomainSuccess() {
-        mPresenter.getListShopManagement();
+    public void onShowProgressBar() {
+        setProgressbarVisibleShopManagement(true);
     }
 
     @Override
-    public void onRequestShopInDomainError(BaseException exception) {
-        // Todo show dialog message
-    }
-
-    @Override
-    public void onCancelJoinDomainSuccess() {
-        mPresenter.getListShopManagement();
-    }
-
-    @Override
-    public void onCancelJoinDomainError(BaseException exception) {
-        // Todo show dialog message
+    public void onHideProgressBar() {
+        setProgressbarVisibleShopManagement(false);
     }
 
     @Override
@@ -91,5 +87,15 @@ public class ShopManagementViewModel implements ShopManagementContract.ViewModel
 
     public ListShopManagementAdapter getListShopManagementAdapter() {
         return mListShopManagementAdapter;
+    }
+
+    @Bindable
+    public boolean isProgressbarVisibleShopManagement() {
+        return mIsProgressbarVisibleShopManagement;
+    }
+
+    public void setProgressbarVisibleShopManagement(boolean progressbarVisibleShopManagement) {
+        mIsProgressbarVisibleShopManagement = progressbarVisibleShopManagement;
+        notifyPropertyChanged(BR.progressbarVisibleShopManagement);
     }
 }
