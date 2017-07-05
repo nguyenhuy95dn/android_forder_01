@@ -10,6 +10,7 @@
             name="viewModel"
             type="com.framgia.forder.screen.shopmanagement.ShopManagementViewModel"
             />
+        <import type="android.view.View"/>
 
     </data>
     <RelativeLayout
@@ -37,6 +38,13 @@
             android:layout_marginRight="@dimen/dp_20"
             android:onClick="@{() -> viewModel.onClickShopManagement()}"
             app:srcCompat="@drawable/ic_add"
+            />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="@{viewModel.progressbarVisibleShopManagement ? View.VISIBLE : View.GONE}"
             />
     </RelativeLayout>
 </layout>

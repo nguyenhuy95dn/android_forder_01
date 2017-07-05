@@ -6,12 +6,10 @@ import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
-import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
-import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
-import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -54,6 +52,18 @@ final class ShopManagementPresenter implements ShopManagementContract.Presenter 
         }
         Subscription subscription = mShopRepository.getListShopManagement(user.getId())
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressBar();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressBar();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<ShopManagement>>() {
                     @Override
@@ -66,47 +76,6 @@ final class ShopManagementPresenter implements ShopManagementContract.Presenter 
                         mViewModel.onGetListShopManagementError(error);
                     }
                 });
-        mCompositeSubscription.add(subscription);
-    }
-
-    @Override
-    public void onRequestJoinDomain(ApplyShopToDomainRequest applyShopToDomainRequest) {
-        applyShopToDomainRequest.setUserName(user.getName());
-        Subscription subscription =
-                mShopRepository.requestApplyShopToDomain(applyShopToDomainRequest)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Action1<ShopManagementResponse>() {
-                            @Override
-                            public void call(ShopManagementResponse response) {
-                                mViewModel.onRequestShopInDomainSuccess();
-                            }
-                        }, new SafetyError() {
-                            @Override
-                            public void onSafetyError(BaseException error) {
-                                mViewModel.onRequestShopInDomainError(error);
-                            }
-                        });
-        mCompositeSubscription.add(subscription);
-    }
-
-    @Override
-    public void onCancelJoinDomain(LeaveShopToDomainRequest leaveShopToDomainRequest) {
-        Subscription subscription =
-                mShopRepository.requestLeaveShopFromDomain(leaveShopToDomainRequest)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Action1<ShopManagementResponse>() {
-                            @Override
-                            public void call(ShopManagementResponse response) {
-                                mViewModel.onCancelJoinDomainSuccess();
-                            }
-                        }, new SafetyError() {
-                            @Override
-                            public void onSafetyError(BaseException error) {
-                                mViewModel.onCancelJoinDomainError(error);
-                            }
-                        });
         mCompositeSubscription.add(subscription);
     }
 }

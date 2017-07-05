@@ -2,6 +2,7 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
 
@@ -73,7 +74,6 @@
                         android:textStyle="bold"
                         />
                     <ImageView
-                        android:background="@drawable/ic_open_shop"
                         android:id="@+id/image_status"
                         android:layout_width="@dimen/dp_35"
                         android:layout_height="@dimen/dp_35"
@@ -81,6 +81,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginLeft="@dimen/dp_3"
                         android:layout_marginStart="@dimen/dp_3"
+                        bind:background="@{viewModel.statusShop}"
                         tools:ignore="ContentDescription"
                         />
                 </RelativeLayout>
@@ -132,45 +133,21 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal"
-                    android:weightSum="2"
                     >
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <RatingBar
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:orientation="horizontal"
-                        >
-                        <RatingBar
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginEnd="@dimen/dp_3"
-                            android:layout_marginLeft="@dimen/dp_3"
-                            android:layout_marginRight="@dimen/dp_3"
-                            android:layout_marginStart="@dimen/dp_3"
-                            android:progressTint="@color/colorAccent"
-                            android:rating="@{viewModel.rating}"
-                            tools:ignore="UnusedAttribute"
-                            style="?android:attr/ratingBarStyleSmall"
-                            />
-                    </LinearLayout>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/dp_3"
                         android:layout_marginLeft="@dimen/dp_3"
                         android:layout_marginRight="@dimen/dp_3"
                         android:layout_marginStart="@dimen/dp_3"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="@{viewModel.status}"
-                        android:textAllCaps="true"
-                        android:textColor="@color/color_green"
-                        android:textStyle="bold"
+                        android:progressTint="@color/colorAccent"
+                        android:rating="@{viewModel.rating}"
+                        tools:ignore="UnusedAttribute"
+                        style="?android:attr/ratingBarStyleSmall"
                         />
                 </LinearLayout>
             </LinearLayout>
