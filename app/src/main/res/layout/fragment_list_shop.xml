@@ -10,14 +10,27 @@
             name="viewModel"
             type="com.framgia.forder.screen.listshop.ListShopViewModel"
             />
+        <import type="android.view.View"/>
 
     </data>
-
-    <android.support.v7.widget.RecyclerView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_gray_white"
-        app:layoutManager="LinearLayoutManager"
-        app:recyclerAdapter="@{viewModel.adapter}"
-        />
+        >
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_gray_white"
+            app:layoutManager="LinearLayoutManager"
+            app:recyclerAdapter="@{viewModel.adapter}"
+            />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="@{viewModel.progressbarVisibleListAllShop? View.VISIBLE : View.GONE}"
+            />
+    </RelativeLayout>
 </layout>

@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.mainpage;
 
+import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Category;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.Product;
@@ -8,8 +9,11 @@ import com.framgia.forder.data.source.CategoryRepository;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ProductRepository;
 import com.framgia.forder.data.source.ShopRepository;
+import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
+import com.framgia.forder.data.source.remote.api.request.OrderRequest;
+import com.framgia.forder.data.source.remote.api.response.OrderCartResponse;
 import java.util.List;
 import rx.Subscriber;
 import rx.Subscription;
@@ -27,18 +31,20 @@ final class MainPagePresenter implements MainPageContract.Presenter {
     private final ShopRepository mShopRepository;
     private final DomainRepository mDomainRepository;
     private final CategoryRepository mCategoryRepository;
+    private final UserRepository mUserRepository;
     private static final int START_SUB_LIST = 0;
     private static final int END_SUB_LIST = 6;
 
     MainPagePresenter(MainPageContract.ViewModel viewModel, ProductRepository productRepository,
             DomainRepository domainRepository, ShopRepository shopRepository,
-            CategoryRepository categoryRepository) {
+            CategoryRepository categoryRepository, UserRepository userRepository) {
         mViewModel = viewModel;
         mProductRepository = productRepository;
         mCompositeSubscription = new CompositeSubscription();
         mDomainRepository = domainRepository;
         mShopRepository = shopRepository;
         mCategoryRepository = categoryRepository;
+        mUserRepository = userRepository;
     }
 
     @Override
@@ -164,6 +170,41 @@ final class MainPagePresenter implements MainPageContract.Presenter {
                     @Override
                     public void onSafetyError(BaseException error) {
                         mViewModel.onGetListCategoryError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void orderProduct(final OrderRequest orderRequest) {
+        for (Cart cart : orderRequest.getCartList()) {
+            cart.setUserId(mUserRepository.getUser().getId());
+            cart.setDomainId(mDomainRepository.getCurrentDomain().getId());
+        }
+        Subscription subscription = mProductRepository.orderCart(orderRequest)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressDialog();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressDialog();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<OrderCartResponse>() {
+                    @Override
+                    public void call(OrderCartResponse orderCartResponse) {
+                        mViewModel.onOrderProductSuccess();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onOrderProductError(error);
                     }
                 });
         mCompositeSubscription.add(subscription);

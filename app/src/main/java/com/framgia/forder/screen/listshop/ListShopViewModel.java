@@ -1,5 +1,8 @@
 package com.framgia.forder.screen.listshop;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
@@ -7,23 +10,26 @@ import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.shopDetail.ShopDetailFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
-import java.util.Observable;
 
 /**
  * Exposes the data to be used in the ShopFragment screen.
  */
 
-public class ListShopViewModel extends Observable implements ListShopContract.ViewModel,
+public class ListShopViewModel extends BaseObservable implements ListShopContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
+
+    private static final String TAG = "ListShopViewModel";
 
     private ListShopContract.Presenter mPresenter;
     private final ListShopAdapter mAdapter;
     private final Navigator mNavigator;
+    private boolean mIsProgressbarVisibleListAllShop;
 
     ListShopViewModel(Navigator navigator, ListShopAdapter adapter) {
         mNavigator = navigator;
         mAdapter = adapter;
         mAdapter.setItemClickListener(this);
+        setProgressbarVisibleListAllShop(false);
     }
 
     @Override
@@ -52,16 +58,36 @@ public class ListShopViewModel extends Observable implements ListShopContract.Vi
     }
 
     @Override
+    public void onShowProgressBar() {
+        setProgressbarVisibleListAllShop(true);
+    }
+
+    @Override
+    public void onHideProgressBar() {
+        setProgressbarVisibleListAllShop(false);
+    }
+
+    @Override
     public void onItemRecyclerViewClick(Object item) {
         if (!(item instanceof Shop)) {
             return;
         }
         Shop shop = (Shop) item;
         mNavigator.goNextChildFragment(R.id.layout_content, ShopDetailFragment.newInstance(shop),
-                true, Navigator.RIGHT_LEFT, "ShopDetailFragment");
+                true, Navigator.LEFT_RIGHT, TAG);
     }
 
     public ListShopAdapter getAdapter() {
         return mAdapter;
+    }
+
+    @Bindable
+    public boolean isProgressbarVisibleListAllShop() {
+        return mIsProgressbarVisibleListAllShop;
+    }
+
+    public void setProgressbarVisibleListAllShop(boolean progressbarVisibleListAllShop) {
+        mIsProgressbarVisibleListAllShop = progressbarVisibleListAllShop;
+        notifyPropertyChanged(BR.progressbarVisibleListAllShop);
     }
 }

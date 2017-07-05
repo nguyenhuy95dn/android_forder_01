@@ -14,9 +14,14 @@ interface ListShopContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
+
         void onGetListAllShopError(BaseException exception);
 
         void onGetListAllShopSuccess(List<Shop> shops);
+
+        void onShowProgressBar();
+
+        void onHideProgressBar();
     }
 
     /**
