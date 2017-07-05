@@ -4,6 +4,7 @@ import com.framgia.forder.data.model.Category;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BasePresenter;
 import com.framgia.forder.screen.BaseViewModel;
 import java.util.List;
@@ -43,6 +44,14 @@ interface MainPageContract {
         void onShowProgressbarCategory();
 
         void onHideProgressbarCategory();
+
+        void onOrderProductSuccess();
+
+        void onOrderProductError(BaseException error);
+
+        void onShowProgressDialog();
+
+        void onHideProgressDialog();
     }
 
     /**
@@ -56,5 +65,7 @@ interface MainPageContract {
         void getListShop();
 
         void getListCategory();
+
+        void orderProduct(OrderRequest orderRequest);
     }
 }

@@ -6,10 +6,13 @@ import android.databinding.Bindable;
 import android.support.annotation.NonNull;
 import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.Cart;
+import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.model.Category;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.listProduct.ListProductFragment;
 import com.framgia.forder.screen.listshop.ListShopFragment;
@@ -18,7 +21,10 @@ import com.framgia.forder.screen.mainpage.product.OrderListener;
 import com.framgia.forder.screen.mainpage.product.ProductAdapter;
 import com.framgia.forder.screen.mainpage.shop.ShopPageAdapter;
 import com.framgia.forder.screen.productdetail.ProductDetailFragment;
+import com.framgia.forder.screen.quickorder.QuickOrderListener;
 import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +32,8 @@ import java.util.List;
  */
 
 public class MainPageViewModel extends BaseObservable implements MainPageContract.ViewModel,
-        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener {
+        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener,
+        QuickOrderListener {
 
     private static final String TAG = "ListProductFragment";
 
@@ -39,10 +46,12 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
     private boolean mIsProgressBarVisibleCategory;
     private boolean mIsProgressBarVisibleProduct;
     private ShopPageAdapter mShopPageAdapter;
+    private DialogManager mDialogManager;
     private int mPageLimit = 6;
 
     MainPageViewModel(@NonNull Context context, ProductAdapter productAdapter, Navigator navigator,
-            CategoryAdapter categoryAdapter, ShopPageAdapter shopPageAdapter) {
+            CategoryAdapter categoryAdapter, ShopPageAdapter shopPageAdapter,
+            DialogManager dialogManager) {
         this.mContext = context;
         mProductAdapter = productAdapter;
         mProductAdapter.setOrderListener(this);
@@ -50,6 +59,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
         mNavigator = navigator;
         mCategoryAdapter = categoryAdapter;
         mCategoryAdapter.setItemClickListener(this);
+        mDialogManager = dialogManager;
         setProgressBarVisibleShop(false);
         setProgressBarVisibleCategory(false);
         setProgressBarVisibleProduct(false);
@@ -93,7 +103,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
 
     @Override
     public void onQuickOrder(Product product) {
-
+        mNavigator.showQuickOrderDialog(TAG, product, this);
     }
 
     @Override
@@ -166,14 +176,34 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
         setProgressBarVisibleCategory(false);
     }
 
+    @Override
+    public void onOrderProductSuccess() {
+        mNavigator.showToastCustomActivity(R.string.order_successful);
+    }
+
+    @Override
+    public void onOrderProductError(BaseException error) {
+        mNavigator.showToastCustom(error.getMessage());
+    }
+
+    @Override
+    public void onShowProgressDialog() {
+        mDialogManager.showProgressDialog();
+    }
+
+    @Override
+    public void onHideProgressDialog() {
+        mDialogManager.dismissProgressDialog();
+    }
+
     public void onSeeMoreShopClick() {
         mNavigator.goNextChildFragment(R.id.layout_content, ListShopFragment.newInstance(), true,
-                Navigator.RIGHT_LEFT, TAG);
+                Navigator.LEFT_RIGHT, TAG);
     }
 
     public void onSeeMoreProductClick() {
         mNavigator.goNextChildFragment(R.id.layout_content, ListProductFragment.newInstance(), true,
-                Navigator.RIGHT_LEFT, TAG);
+                Navigator.LEFT_RIGHT, TAG);
     }
 
     public ProductAdapter getProductAdapter() {
@@ -220,5 +250,31 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
 
     public int getPageLimit() {
         return mPageLimit;
+    }
+
+    @Override
+    public void onRequestOrderNow(Product product, double totalPrice, int quantity, String note) {
+        OrderRequest request = new OrderRequest();
+
+        CartItem cartItem = new CartItem();
+        cartItem.setProductId(product.getId());
+        cartItem.setPrice(totalPrice);
+        cartItem.setQuantity(quantity);
+        cartItem.setNotes(note);
+
+        List<CartItem> cartItems = new ArrayList<>();
+        cartItems.add(cartItem);
+
+        Cart cart = new Cart();
+        cart.setShopId(product.getShop().getId());
+        cart.setTotal((int) totalPrice);
+        cart.setCartItemList(cartItems);
+
+        List<Cart> carts = new ArrayList<>();
+        carts.add(cart);
+
+        request.setCartList(carts);
+
+        mPresenter.orderProduct(request);
     }
 }
