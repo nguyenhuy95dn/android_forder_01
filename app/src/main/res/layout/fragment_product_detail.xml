@@ -142,6 +142,7 @@
                             android:background="@drawable/border_button_next"
                             android:backgroundTint="@color/color_orange_mos"
                             android:scaleType="centerCrop"
+                            android:visibility="@{viewModel.productTimeOut ? View.GONE : View.VISIBLE}"
                             android:src="@drawable/ic_add_product_cart"
                             app:onClickShowPopupMenuOrder="@{viewModel::onMenuItemClick}"
                             tools:ignore="ContentDescription,UnusedAttribute,VectorDrawableCompat"

@@ -1,6 +1,9 @@
 package com.framgia.forder.screen.listProduct;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.util.Log;
+import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
@@ -13,15 +16,15 @@ import com.framgia.forder.screen.mainpage.product.OrderListener;
 import com.framgia.forder.screen.productdetail.ProductDetailFragment;
 import com.framgia.forder.screen.quickorder.QuickOrderListener;
 import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 /**
  * Exposes the data to be used in the Productpage screen.
  */
 
-public class ListProductViewModel extends Observable implements ListProductContract.ViewModel,
+public class ListProductViewModel extends BaseObservable implements ListProductContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener,
         QuickOrderListener {
     private static final String TAG = "ListProductFragment";
@@ -29,13 +32,18 @@ public class ListProductViewModel extends Observable implements ListProductContr
     private final Navigator mNavigator;
     private ListProductContract.Presenter mPresenter;
     private final ListProductAdapter mListProductAdapter;
+    private boolean mIsProgressBarListProductVisible;
+    private final DialogManager mDialogManager;
 
-    ListProductViewModel(ListProductAdapter listProductAdapter, Navigator navigator) {
+    ListProductViewModel(ListProductAdapter listProductAdapter, Navigator navigator,
+            DialogManager dialogManager) {
 
         mListProductAdapter = listProductAdapter;
         mNavigator = navigator;
+        mDialogManager = dialogManager;
         mListProductAdapter.setItemClickListener(this);
         mListProductAdapter.setOrderListener(this);
+        setProgressBarListProductVisible(false);
     }
 
     @Override
@@ -82,6 +90,26 @@ public class ListProductViewModel extends Observable implements ListProductContr
     @Override
     public void onOrderProductError(BaseException error) {
         mNavigator.showToastCustom(error.getMessage());
+    }
+
+    @Override
+    public void onShowProgressBar() {
+        setProgressBarListProductVisible(true);
+    }
+
+    @Override
+    public void onHideProgressBar() {
+        setProgressBarListProductVisible(false);
+    }
+
+    @Override
+    public void onShowProgressDialog() {
+        mDialogManager.showProgressDialog();
+    }
+
+    @Override
+    public void onHideProgressDialog() {
+        mDialogManager.dismissProgressDialog();
     }
 
     @Override
@@ -135,5 +163,15 @@ public class ListProductViewModel extends Observable implements ListProductContr
         request.setCartList(carts);
 
         mPresenter.orderProduct(request);
+    }
+
+    @Bindable
+    public boolean isProgressBarListProductVisible() {
+        return mIsProgressBarListProductVisible;
+    }
+
+    public void setProgressBarListProductVisible(boolean progressBarListProductVisible) {
+        mIsProgressBarListProductVisible = progressBarListProductVisible;
+        notifyPropertyChanged(BR.progressBarListProductVisible);
     }
 }

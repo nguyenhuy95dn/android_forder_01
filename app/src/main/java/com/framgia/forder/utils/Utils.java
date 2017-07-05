@@ -24,8 +24,6 @@ public class Utils {
     public static final String OUTPUT_DATE_FORMAT = "dd-MM-yyyy";
     public static final String FORMAT_PRICE = "%1$,.0f";
     public static final String TWO_DOT = ":";
-    public static final int WRONG_TIME = 11;
-    public static final int HOUR_OF_DAY = 24;
 
     public static class DateTimeUntils {
         public static String convertUiFormatToDataFormat(String time, String inputFormat,
@@ -44,11 +42,8 @@ public class Utils {
 
         public static boolean isProductTimeOut(String start, String end) {
             Calendar now = Calendar.getInstance();
-            int hour = now.get(Calendar.HOUR_OF_DAY) + WRONG_TIME;
+            int hour = now.get(Calendar.HOUR_OF_DAY);
             int minute = now.get(Calendar.MINUTE);
-            if (hour >= 24) {
-                hour = hour - HOUR_OF_DAY;
-            }
             Date currentHour = convertStringToDate(hour + TWO_DOT + minute);
             Date startHour = convertStringToDate(start);
             Date endHour = convertStringToDate(end);

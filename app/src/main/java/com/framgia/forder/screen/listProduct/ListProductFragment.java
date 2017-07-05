@@ -25,6 +25,7 @@ import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentListproductBinding;
 import com.framgia.forder.screen.listProduct.adapter.ListProductAdapter;
 import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +46,8 @@ public class ListProductFragment extends Fragment {
         List<Product> products = new ArrayList<>();
         ListProductAdapter productAdapter = new ListProductAdapter(getActivity(), products);
         Navigator navigator = new Navigator(getParentFragment());
-        mViewModel = new ListProductViewModel(productAdapter, navigator);
+        DialogManager dialogManager = new DialogManager(getActivity());
+        mViewModel = new ListProductViewModel(productAdapter, navigator, dialogManager);
         RealmApi realmApi = new RealmApi();
 
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());

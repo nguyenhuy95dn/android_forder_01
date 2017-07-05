@@ -5,6 +5,7 @@ import android.view.MenuItem;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
+import com.framgia.forder.utils.Utils;
 
 /**
  * Created by Duong on 4/13/2017.
@@ -74,6 +75,11 @@ public class ItemProductViewModel extends BaseObservable {
 
     public void addCart() {
         //        TODO Edit Later
+    }
+
+    public boolean isProductTimeOut() {
+        return Utils.DateTimeUntils.isProductTimeOut(mProduct.getStartHour(),
+                mProduct.getEndHour());
     }
 
     public boolean onMenuItemClick(MenuItem item) {
