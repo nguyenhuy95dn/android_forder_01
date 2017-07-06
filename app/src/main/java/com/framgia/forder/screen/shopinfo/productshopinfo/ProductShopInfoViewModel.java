@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.shopinfo.productshopinfo;
 
+import android.content.DialogInterface;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import com.android.databinding.library.baseAdapters.BR;
@@ -95,6 +96,18 @@ public class ProductShopInfoViewModel extends BaseObservable
         mNavigator.goNextChildFragment(R.id.layout_content,
                 UpdateProductFragment.newInstance(product), true, Navigator.RIGHT_LEFT,
                 "UpdateProductFragment");
+    }
+
+    @Override
+    public void onDeleteProduct(final int productId) {
+        mDialogManager.dialogwithNoTitleTwoButton(R.string.msg_delete_domain,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.deleteProduct(productId, mShopManagement.getShop().getId());
+                    }
+                });
+        mDialogManager.show();
     }
 
     @Override

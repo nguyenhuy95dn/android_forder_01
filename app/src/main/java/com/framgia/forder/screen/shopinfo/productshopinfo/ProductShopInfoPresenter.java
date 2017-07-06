@@ -46,12 +46,14 @@ final class ProductShopInfoPresenter implements ProductShopInfoContract.Presente
     @Override
     public void getListAllProductShopInformation(int shopId) {
         Subscription subscription = mProductRepository.getListProductInShopInformation(shopId)
-                .subscribeOn(Schedulers.io()).doOnSubscribe(new Action0() {
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
                         mViewModel.onShowProgressBar();
                     }
-                }).doAfterTerminate(new Action0() {
+                })
+                .doAfterTerminate(new Action0() {
                     @Override
                     public void call() {
                         mViewModel.onHideProgressBar();
@@ -73,8 +75,8 @@ final class ProductShopInfoPresenter implements ProductShopInfoContract.Presente
     }
 
     @Override
-    public void deleteProduct(int shopId) {
-        Subscription subscription = mProductRepository.requestDeleteProductInShop(shopId)
+    public void deleteProduct(int productId, int shopId) {
+        Subscription subscription = mProductRepository.requestDeleteProductInShop(productId, shopId)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Action0() {
                     @Override
