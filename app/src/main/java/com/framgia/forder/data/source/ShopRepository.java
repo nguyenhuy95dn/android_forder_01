@@ -70,4 +70,8 @@ public class ShopRepository {
             int shopId) {
         return mRemoteDataSource.requestDeleteShopInDomain(domainId, shopId);
     }
+
+    public Observable<Void> requestChangeStatusShopManagement(int shopId) {
+        return mRemoteDataSource.requestChangeStatusShopManagement(shopId);
+    }
 }

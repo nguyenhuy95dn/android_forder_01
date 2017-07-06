@@ -10,6 +10,7 @@ import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.createshop.CreateshopFragment;
 import com.framgia.forder.screen.shopinfo.ShopInformationPageContainerFragment;
 import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.List;
 
 /**
@@ -26,10 +27,13 @@ public class ShopManagementViewModel extends BaseObservable
     private final ListShopManagementAdapter mListShopManagementAdapter;
     private ShopManagementContract.Presenter mPresenter;
     private boolean mIsProgressbarVisibleShopManagement;
+    private final DialogManager mDialogManager;
 
-    ShopManagementViewModel(Navigator navigator, ListShopManagementAdapter adapter) {
+    ShopManagementViewModel(Navigator navigator, ListShopManagementAdapter adapter,
+            DialogManager dialogManager) {
         mNavigator = navigator;
         mListShopManagementAdapter = adapter;
+        mDialogManager = dialogManager;
         mListShopManagementAdapter.setItemClickListener(this);
         setProgressbarVisibleShopManagement(false);
     }
@@ -55,7 +59,7 @@ public class ShopManagementViewModel extends BaseObservable
     }
 
     @Override
-    public void onGetListShopManagementError(BaseException exception) {
+    public void onShowMessageError(BaseException exception) {
         mNavigator.showToast(exception.getMessage());
     }
 
@@ -72,6 +76,26 @@ public class ShopManagementViewModel extends BaseObservable
     @Override
     public void onHideProgressBar() {
         setProgressbarVisibleShopManagement(false);
+    }
+
+    @Override
+    public void onShowProgressDialog() {
+        mDialogManager.showProgressDialog();
+    }
+
+    @Override
+    public void onHideProgressDialog() {
+        mDialogManager.dismissProgressDialog();
+    }
+
+    @Override
+    public void onChangeStatusShopSuccess() {
+        onReLoadData();
+    }
+
+    @Override
+    public void onReLoadData() {
+        mPresenter.getListShopManagement();
     }
 
     @Override
@@ -94,7 +118,7 @@ public class ShopManagementViewModel extends BaseObservable
         return mIsProgressbarVisibleShopManagement;
     }
 
-    public void setProgressbarVisibleShopManagement(boolean progressbarVisibleShopManagement) {
+    private void setProgressbarVisibleShopManagement(boolean progressbarVisibleShopManagement) {
         mIsProgressbarVisibleShopManagement = progressbarVisibleShopManagement;
         notifyPropertyChanged(BR.progressbarVisibleShopManagement);
     }

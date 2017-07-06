@@ -15,13 +15,21 @@ interface ShopManagementContract {
      */
     interface ViewModel extends BaseViewModel<Presenter> {
 
-        void onGetListShopManagementError(BaseException exception);
+        void onShowMessageError(BaseException exception);
 
         void onGetListShopManagementSuccess(List<ShopManagement> shopManagements);
 
         void onShowProgressBar();
 
         void onHideProgressBar();
+
+        void onShowProgressDialog();
+
+        void onHideProgressDialog();
+
+        void onChangeStatusShopSuccess();
+
+        void onReLoadData();
     }
 
     /**
@@ -30,5 +38,7 @@ interface ShopManagementContract {
     interface Presenter extends BasePresenter {
 
         void getListShopManagement();
+
+        void requestChangeStatusShop(int shopId);
     }
 }

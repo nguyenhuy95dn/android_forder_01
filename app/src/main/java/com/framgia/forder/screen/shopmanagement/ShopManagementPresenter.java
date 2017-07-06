@@ -73,7 +73,38 @@ final class ShopManagementPresenter implements ShopManagementContract.Presenter 
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
-                        mViewModel.onGetListShopManagementError(error);
+                        mViewModel.onShowMessageError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void requestChangeStatusShop(int shopId) {
+        Subscription subscription = mShopRepository.requestChangeStatusShopManagement(shopId)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressBar();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressBar();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        mViewModel.onChangeStatusShopSuccess();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onShowMessageError(error);
                     }
                 });
         mCompositeSubscription.add(subscription);

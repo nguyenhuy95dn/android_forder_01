@@ -24,12 +24,14 @@ import java.util.List;
 
 public class MainViewModel extends BaseObservable implements MainContract.ViewModel {
 
+    private static final String TAG = "MainPageContainerFragment";
     private static final int POP_BACK_STACK_CLEAR_TASK = 0;
+    private static final int PAGE_LIMIT = 5;
+
     private MainContract.Presenter mPresenter;
-    private MainViewPagerAdapter mViewPagerAdapter;
+    private final MainViewPagerAdapter mViewPagerAdapter;
     private String mCurrentDomain;
-    private int mPageLimit = 5;
-    private AlertDialog.Builder mDialogChangeDomain;
+    private final AlertDialog.Builder mDialogChangeDomain;
 
     @Tab
     private int mCurrentTab;
@@ -61,7 +63,7 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
         return mCurrentTab;
     }
 
-    public void setCurrentTab(@Tab int tab) {
+    private void setCurrentTab(@Tab int tab) {
         mCurrentTab = tab;
         notifyPropertyChanged(BR.currentTab);
     }
@@ -165,12 +167,13 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     }
 
     public int getPageLimit() {
-        return mPageLimit;
+        return PAGE_LIMIT;
     }
 
-    public void reloadData() {
+    private void reloadData() {
+        setCurrentTab(Tab.TAB_HOME);
         Navigator navigator = new Navigator(mViewPagerAdapter.getFragment(Tab.TAB_HOME));
-        navigator.goBackFragmentByTag("MainPageContainerFragment", POP_BACK_STACK_CLEAR_TASK);
+        navigator.goBackFragmentByTag(TAG, POP_BACK_STACK_CLEAR_TASK);
         MainPageContainerFragment fragment =
                 (MainPageContainerFragment) mViewPagerAdapter.getFragment(Tab.TAB_HOME)
                         .getChildFragmentManager()
