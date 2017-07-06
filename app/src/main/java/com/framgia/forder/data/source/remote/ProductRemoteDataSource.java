@@ -107,4 +107,9 @@ public class ProductRemoteDataSource extends BaseRemoteDataSource
             UpdateProductRequest updateProductRequest) {
         return mFOrderApi.requestUpdateProduct(productId, updateProductRequest);
     }
+
+    @Override
+    public Observable<BaseResponse> requestDeleteProductInShop(int shopId) {
+        return mFOrderApi.requestDeleteProductInShop(shopId);
+    }
 }

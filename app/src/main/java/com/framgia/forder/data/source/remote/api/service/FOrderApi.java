@@ -203,4 +203,7 @@ public interface FOrderApi {
     Observable<ChangeRuleOfUserResponse> requestChangeRuleOfUserInDomain(
             @Query("domain_id") int domainId, @Query("user_id") int userId,
             @Query("role") String role);
+
+    @DELETE("v1/dashboard/products/2")
+    Observable<BaseResponse> requestDeleteProductInShop(@Query("shop_id") int shopId);
 }
