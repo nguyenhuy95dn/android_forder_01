@@ -60,4 +60,11 @@ public class ItemProductShopInformationViewModel extends BaseObservable {
         }
         mUpdateProductListener.onItemRecyclerViewClick(mProduct);
     }
+
+    public void onClickDeleteProduct() {
+        if (mUpdateProductListener == null) {
+            return;
+        }
+        mUpdateProductListener.onDeleteProduct(mProduct.getId());
+    }
 }

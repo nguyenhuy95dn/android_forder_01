@@ -116,7 +116,7 @@ public class ProductRepository {
         return mRemoteDataSource.requestUpdateProduct(productId, updateProductRequest);
     }
 
-    public Observable<BaseResponse> requestDeleteProductInShop(int shopId) {
-        return mRemoteDataSource.requestDeleteProductInShop(shopId);
+    public Observable<BaseResponse> requestDeleteProductInShop(int productId, int shopId) {
+        return mRemoteDataSource.requestDeleteProductInShop(productId, shopId);
     }
 }

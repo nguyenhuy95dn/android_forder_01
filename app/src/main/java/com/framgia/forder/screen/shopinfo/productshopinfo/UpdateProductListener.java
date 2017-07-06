@@ -10,4 +10,6 @@ import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 public interface UpdateProductListener
         extends BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Product> {
     void onUpdateProduct(Product product);
+
+    void onDeleteProduct(int productId);
 }

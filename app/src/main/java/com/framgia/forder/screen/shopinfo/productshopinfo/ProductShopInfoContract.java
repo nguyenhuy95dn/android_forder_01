@@ -37,6 +37,6 @@ interface ProductShopInfoContract {
 
         void getListAllProductShopInformation(int shopId);
 
-        void deleteProduct(int shopId);
+        void deleteProduct(int productId, int shopId);
     }
 }

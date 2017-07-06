@@ -142,6 +142,7 @@
                     android:layout_gravity="bottom"
                     android:background="@drawable/ic_reject"
                     android:contentDescription="@string/mgs_delete_product"
+                    android:onClick="@{()-> viewModel.onClickDeleteProduct()}"
                     />
             </RelativeLayout>
         </LinearLayout>

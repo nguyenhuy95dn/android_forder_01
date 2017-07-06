@@ -204,6 +204,7 @@ public interface FOrderApi {
             @Query("domain_id") int domainId, @Query("user_id") int userId,
             @Query("role") String role);
 
-    @DELETE("v1/dashboard/products/2")
-    Observable<BaseResponse> requestDeleteProductInShop(@Query("shop_id") int shopId);
+    @DELETE("v1/dashboard/products/{product_id}")
+    Observable<BaseResponse> requestDeleteProductInShop(@Path("product_id") int productId,
+            @Query("shop_id") int shopId);
 }
