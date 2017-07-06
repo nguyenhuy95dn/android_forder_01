@@ -15,9 +15,19 @@ interface ProductShopInfoContract {
      */
     interface ViewModel extends BaseViewModel<Presenter> {
 
-        void onGetListAllProductShopInformationError(BaseException exception);
+        void onErrorMessage(BaseException exception);
 
         void onGetListAllProductShopInformationSuccess(List<Product> products);
+
+        void onShowProgressDialog();
+
+        void onHideProgressDialog();
+
+        void onDeleteProductSuccess();
+
+        void onShowProgressBar();
+
+        void onHideProgressBar();
     }
 
     /**
@@ -26,5 +36,7 @@ interface ProductShopInfoContract {
     interface Presenter extends BasePresenter {
 
         void getListAllProductShopInformation(int shopId);
+
+        void deleteProduct(int shopId);
     }
 }

@@ -1,6 +1,8 @@
 package com.framgia.forder.screen.shopinfo.productshopinfo;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.ShopManagement;
@@ -9,6 +11,7 @@ import com.framgia.forder.screen.createProduct.CreateProductFragment;
 import com.framgia.forder.screen.productdetail.ProductDetailFragment;
 import com.framgia.forder.screen.updateProduct.UpdateProductFragment;
 import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.List;
 
 /**
@@ -21,14 +24,18 @@ public class ProductShopInfoViewModel extends BaseObservable
     private final Navigator mNavigator;
     private final ProductShopInformationAdapter mAdapter;
     private final ShopManagement mShopManagement;
+    private final DialogManager mDialogManager;
+    private boolean mIsProgressBarListProductVisible;
     private ProductShopInfoContract.Presenter mPresenter;
 
     ProductShopInfoViewModel(Navigator navigator, ProductShopInformationAdapter adapter,
-            ShopManagement shopManagement) {
+            ShopManagement shopManagement, DialogManager dialogManager) {
         mNavigator = navigator;
         mAdapter = adapter;
         mShopManagement = shopManagement;
+        mDialogManager = dialogManager;
         mAdapter.setUpdateProductListener(this);
+        setProgressBarListProductVisible(false);
     }
 
     @Override
@@ -49,7 +56,7 @@ public class ProductShopInfoViewModel extends BaseObservable
     }
 
     @Override
-    public void onGetListAllProductShopInformationError(BaseException exception) {
+    public void onErrorMessage(BaseException exception) {
         mNavigator.showToast(exception.getMessage());
     }
 
@@ -58,14 +65,29 @@ public class ProductShopInfoViewModel extends BaseObservable
         mAdapter.updateData(products);
     }
 
-    public ProductShopInformationAdapter getAdapter() {
-        return mAdapter;
+    @Override
+    public void onShowProgressDialog() {
+        mDialogManager.showProgressDialog();
     }
 
-    public void onClickCreateProduct() {
-        mNavigator.goNextChildFragment(R.id.layout_content,
-                CreateProductFragment.newInstance(mShopManagement), true, Navigator.RIGHT_LEFT,
-                "CreateProductFragment");
+    @Override
+    public void onHideProgressDialog() {
+        mDialogManager.dismissProgressDialog();
+    }
+
+    @Override
+    public void onDeleteProductSuccess() {
+        mNavigator.showToastCustomActivity(R.string.delete_success);
+    }
+
+    @Override
+    public void onShowProgressBar() {
+        setProgressBarListProductVisible(true);
+    }
+
+    @Override
+    public void onHideProgressBar() {
+        setProgressBarListProductVisible(false);
     }
 
     @Override
@@ -80,5 +102,25 @@ public class ProductShopInfoViewModel extends BaseObservable
         mNavigator.goNextChildFragment(R.id.layout_content,
                 ProductDetailFragment.newInstance(product), true, Navigator.RIGHT_LEFT,
                 "ProductDetailFragment");
+    }
+
+    public ProductShopInformationAdapter getAdapter() {
+        return mAdapter;
+    }
+
+    public void onClickCreateProduct() {
+        mNavigator.goNextChildFragment(R.id.layout_content,
+                CreateProductFragment.newInstance(mShopManagement), true, Navigator.RIGHT_LEFT,
+                "CreateProductFragment");
+    }
+
+    @Bindable
+    public boolean isProgressBarListProductVisible() {
+        return mIsProgressBarListProductVisible;
+    }
+
+    public void setProgressBarListProductVisible(boolean progressBarListProductVisible) {
+        mIsProgressBarListProductVisible = progressBarListProductVisible;
+        notifyPropertyChanged(BR.progressBarListProductVisible);
     }
 }

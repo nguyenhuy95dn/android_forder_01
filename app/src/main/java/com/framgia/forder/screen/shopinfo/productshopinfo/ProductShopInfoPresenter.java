@@ -4,9 +4,11 @@ import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.ProductRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
+import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -44,7 +46,17 @@ final class ProductShopInfoPresenter implements ProductShopInfoContract.Presente
     @Override
     public void getListAllProductShopInformation(int shopId) {
         Subscription subscription = mProductRepository.getListProductInShopInformation(shopId)
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io()).doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressBar();
+                    }
+                }).doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressBar();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Product>>() {
                     @Override
@@ -54,7 +66,38 @@ final class ProductShopInfoPresenter implements ProductShopInfoContract.Presente
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
-                        mViewModel.onGetListAllProductShopInformationError(error);
+                        mViewModel.onErrorMessage(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void deleteProduct(int shopId) {
+        Subscription subscription = mProductRepository.requestDeleteProductInShop(shopId)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressDialog();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressDialog();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<BaseResponse>() {
+                    @Override
+                    public void call(BaseResponse baseRespone) {
+                        mViewModel.onDeleteProductSuccess();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onErrorMessage(error);
                     }
                 });
         mCompositeSubscription.add(subscription);

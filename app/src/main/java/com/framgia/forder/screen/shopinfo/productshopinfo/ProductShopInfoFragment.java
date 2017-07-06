@@ -16,6 +16,7 @@ import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentProductShopInfoBinding;
 import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
 
 /**
  * ProductShopInfo Screen.
@@ -39,7 +40,9 @@ public class ProductShopInfoFragment extends Fragment {
         Navigator navigator = new Navigator(getParentFragment().getParentFragment());
         ShopManagement shopManagement = (ShopManagement) getArguments().get(EXTRA_SHOPMANAGEMENT);
         ProductShopInformationAdapter adapter = new ProductShopInformationAdapter(getActivity());
-        mViewModel = new ProductShopInfoViewModel(navigator, adapter, shopManagement);
+        DialogManager dialogManager = new DialogManager(getActivity());
+        mViewModel =
+                new ProductShopInfoViewModel(navigator, adapter, shopManagement, dialogManager);
 
         RealmApi realmApi = new RealmApi();
         ProductRepository productRepository = new ProductRepository(

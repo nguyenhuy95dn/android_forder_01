@@ -10,7 +10,7 @@
             name="viewModel"
             type="com.framgia.forder.screen.shopinfo.productshopinfo.ProductShopInfoViewModel"
             />
-
+        <import type="android.view.View"/>
     </data>
 
     <RelativeLayout
@@ -33,6 +33,14 @@
             android:onClick="@{()-> viewModel.onClickCreateProduct()}"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_add"
+            />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="@{viewModel.progressBarListProductVisible ? View.VISIBLE : View.GONE}"
+            style="?android:attr/progressBarPadding"
             />
     </RelativeLayout>
 </layout>
