@@ -310,7 +310,7 @@ public class ProductDetailViewModel extends BaseObservable
     }
 
     public boolean isProductTimeOut() {
-        return Utils.DateTimeUntils.isProductTimeOut(mProduct.getStartHour(),
-                mProduct.getEndHour());
+        return Utils.DateTimeUntils.isProductTimeOut(mProduct.getFormatStartHour(),
+                mProduct.getFormatEndHour());
     }
 }

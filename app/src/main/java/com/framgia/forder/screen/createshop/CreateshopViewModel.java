@@ -49,7 +49,8 @@ public class CreateshopViewModel extends BaseObservable
     CreateshopViewModel(Context context, DialogManager dialogManager,
             Navigator navigatorForStartGallery, Navigator navigator) {
         mContext = context;
-        mDialogManager = dialogManager.dialogTimePicker(this);
+        mDialogManager = dialogManager;
+        mDialogManager.dialogTimePicker(this);
         mNavigatorForStartGallery = navigatorForStartGallery;
         mNavigator = navigator;
         isChecked = true;
@@ -103,6 +104,16 @@ public class CreateshopViewModel extends BaseObservable
     public void setImageAvatar(String imageAvatar) {
         mImageAvatar = imageAvatar;
         notifyPropertyChanged(BR.imageAvatar);
+    }
+
+    @Override
+    public void onShowProgressDialog() {
+        mDialogManager.showProgressDialog();
+    }
+
+    @Override
+    public void onHideProgressDialog() {
+        mDialogManager.dismissProgressDialog();
     }
 
     @Override
