@@ -43,5 +43,7 @@ public interface ShopDataSource {
         Observable<List<ShopInDomain>> getListShopInDomain(int domainId);
 
         Observable<DeleteShopInDomainResponse> requestDeleteShopInDomain(int domainId, int shopId);
+
+        Observable<Void> requestChangeStatusShopManagement(int shopId);
     }
 }

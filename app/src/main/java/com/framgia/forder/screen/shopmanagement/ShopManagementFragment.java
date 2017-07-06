@@ -17,6 +17,7 @@ import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentShopmanagementBinding;
 import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
 
 /**
  * ShopManagement Screen.
@@ -34,10 +35,13 @@ public class ShopManagementFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Navigator navigator = new Navigator(getParentFragment());
+        DialogManager dialogManager = new DialogManager(getActivity());
         ListShopManagementAdapter listShopManagementAdapter =
                 new ListShopManagementAdapter(getActivity().getApplicationContext());
-        mViewModel = new ShopManagementViewModel(navigator, listShopManagementAdapter);
+        mViewModel =
+                new ShopManagementViewModel(navigator, listShopManagementAdapter, dialogManager);
 
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity().getApplicationContext());
         UserRepository userRepository = new UserRepository(null, new UserLocalDataSource(prefsApi));
@@ -63,5 +67,14 @@ public class ShopManagementFragment extends Fragment {
     public void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!isAdded() || !isVisibleToUser) {
+            return;
+        }
+        mViewModel.onReLoadData();
     }
 }
