@@ -112,4 +112,9 @@ public class ProductRemoteDataSource extends BaseRemoteDataSource
     public Observable<BaseResponse> requestDeleteProductInShop(int productId, int shopId) {
         return mFOrderApi.requestDeleteProductInShop(productId, shopId);
     }
+
+    @Override
+    public Observable<BaseResponse> deleteCommentInProduct(int commentId) {
+        return mFOrderApi.deleteCommentInProduct(commentId);
+    }
 }

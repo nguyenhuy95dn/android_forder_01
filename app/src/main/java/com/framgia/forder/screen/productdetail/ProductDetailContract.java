@@ -2,6 +2,7 @@ package com.framgia.forder.screen.productdetail;
 
 import com.framgia.forder.data.model.Comment;
 import com.framgia.forder.data.model.Product;
+import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.CommentRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
@@ -30,9 +31,9 @@ interface ProductDetailContract {
 
         void onCommentSuccess();
 
-        void onShowProgressBarComment();
+        void onShowProgressDialog();
 
-        void onHideProgressBarComment();
+        void onHideProgressDialog();
 
         void onShowProgressBarListProduct();
 
@@ -43,6 +44,10 @@ interface ProductDetailContract {
         void onHideProgressBarListComment();
 
         void onReLoadData();
+
+        void onGetUser(User user);
+
+        void onDeleteCommentSuccess();
     }
 
     /**
@@ -58,5 +63,7 @@ interface ProductDetailContract {
         void sendComment(CommentRequest request);
 
         void orderNow(OrderRequest orderRequest);
+
+        void deleteCommentInProduct(int commentId);
     }
 }

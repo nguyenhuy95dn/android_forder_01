@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.productdetail;
 
+import android.content.DialogInterface;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.model.Comment;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.RegisterSendComment;
+import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.CommentRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
@@ -33,7 +35,7 @@ import java.util.List;
 public class ProductDetailViewModel extends BaseObservable
         implements ProductDetailContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener,
-        QuickOrderListener {
+        QuickOrderListener, CommentAdapter.DeleteCommentListener {
 
     private static final String TAG = "ProductDetailViewModel";
 
@@ -43,6 +45,7 @@ public class ProductDetailViewModel extends BaseObservable
     private final ProductShopAdapter mProductShopAdapter;
     private final CommentAdapter mCommentInProductAdapter;
     private String mComment;
+    private User mUser;
     private boolean mIsProgressBarListProductVisible;
     private boolean mIsProgressBarListCommentVisible;
     private final DialogManager mDialogManager;
@@ -56,6 +59,7 @@ public class ProductDetailViewModel extends BaseObservable
         mDialogManager = dialogManager;
         mCommentInProductAdapter = commentInProductAdapter;
         mProductShopAdapter.setItemClickListener(this);
+        mCommentInProductAdapter.setDeleteCommentListener(this);
         setProgressBarListCommentVisible(false);
         setProgressBarListProductVisible(false);
     }
@@ -89,7 +93,7 @@ public class ProductDetailViewModel extends BaseObservable
 
     @Override
     public void onGetListCommentInProductSusscess(List<Comment> comments) {
-        mCommentInProductAdapter.updateData(comments);
+        mCommentInProductAdapter.updateData(comments, mUser);
     }
 
     @Override
@@ -118,12 +122,12 @@ public class ProductDetailViewModel extends BaseObservable
     }
 
     @Override
-    public void onShowProgressBarComment() {
+    public void onShowProgressDialog() {
         mDialogManager.showProgressDialog();
     }
 
     @Override
-    public void onHideProgressBarComment() {
+    public void onHideProgressDialog() {
         mDialogManager.dismissProgressDialog();
     }
 
@@ -150,6 +154,16 @@ public class ProductDetailViewModel extends BaseObservable
     @Override
     public void onReLoadData() {
         onGetListComment();
+    }
+
+    @Override
+    public void onGetUser(User user) {
+        mUser = user;
+    }
+
+    @Override
+    public void onDeleteCommentSuccess() {
+        onReLoadData();
     }
 
     @Override
@@ -312,5 +326,18 @@ public class ProductDetailViewModel extends BaseObservable
     public boolean isProductTimeOut() {
         return Utils.DateTimeUntils.isProductTimeOut(mProduct.getFormatStartHour(),
                 mProduct.getFormatEndHour());
+    }
+
+    @Override
+    public void onDeleteComment(final int commentId) {
+        mDialogManager.dialogwithNoTitleTwoButton(R.string.msg_delete_domain,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.deleteCommentInProduct(commentId);
+                    }
+                });
+        mDialogManager.show();
     }
 }

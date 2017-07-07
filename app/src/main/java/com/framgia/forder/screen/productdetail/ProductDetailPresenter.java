@@ -42,6 +42,7 @@ final class ProductDetailPresenter implements ProductDetailContract.Presenter {
         mProductRepository = productRepository;
         mUserRepository = userRepository;
         mDomainRepository = domainRepository;
+        mViewModel.onGetUser(mUserRepository.getUser());
         mCompositeSubscription = new CompositeSubscription();
     }
 
@@ -142,13 +143,13 @@ final class ProductDetailPresenter implements ProductDetailContract.Presenter {
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
-                        mViewModel.onShowProgressBarComment();
+                        mViewModel.onShowProgressDialog();
                     }
                 })
                 .doAfterTerminate(new Action0() {
                     @Override
                     public void call() {
-                        mViewModel.onHideProgressBarComment();
+                        mViewModel.onHideProgressDialog();
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -179,6 +180,37 @@ final class ProductDetailPresenter implements ProductDetailContract.Presenter {
                     @Override
                     public void call(OrderCartResponse orderCartResponse) {
                         mViewModel.onOrderNowSuccess();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onShowMessageError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void deleteCommentInProduct(int commentId) {
+        Subscription subscription = mProductRepository.deleteCommentInProduct(commentId)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressDialog();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressDialog();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<BaseResponse>() {
+                    @Override
+                    public void call(BaseResponse baseResponse) {
+                        mViewModel.onDeleteCommentSuccess();
                     }
                 }, new SafetyError() {
                     @Override
