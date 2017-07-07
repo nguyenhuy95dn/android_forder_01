@@ -5,11 +5,17 @@ import android.databinding.ObservableField;
 import android.view.View;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Order;
+import com.framgia.forder.data.model.OrderDetail;
 import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.screen.listacceptorder.ListAcceptOrderFragment;
 import com.framgia.forder.utils.navigator.Navigator;
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.framgia.forder.data.model.OrderDetail.StatusOders.Accepted;
+import static com.framgia.forder.data.model.OrderDetail.StatusOders.Pending;
 
 /**
  * Exposes the data to be used in the OrderShop screen.
@@ -24,18 +30,19 @@ public class OrderShopViewModel
     private final OrderShopAdapter mOrderShopAdapter;
     private final ShopManagement mShopManagement;
     private final int mShopId;
+    private List<Order> mOrders;
     private final ObservableField<Integer> mProgressBarVisibilityListOrder =
             new ObservableField<>();
 
     public OrderShopViewModel(Context context, Navigator navigator,
-            OrderShopAdapter orderShopAdapter,
-            ShopManagement shopManagement) {
+            OrderShopAdapter orderShopAdapter, ShopManagement shopManagement) {
         mContext = context;
         mNavigator = navigator;
         mOrderShopAdapter = orderShopAdapter;
         mShopManagement = shopManagement;
         mOrderShopAdapter.setOrderManagementListener(this);
         mShopId = mShopManagement.getShop().getId();
+        mOrders = new ArrayList<>();
         mProgressBarVisibilityListOrder.set(View.GONE);
     }
 
@@ -57,6 +64,7 @@ public class OrderShopViewModel
 
     @Override
     public void onGetListOrderManagementShopSuccess(List<Order> orders) {
+        mOrders = orders;
         mOrderShopAdapter.updateData(orders);
     }
 
@@ -72,17 +80,6 @@ public class OrderShopViewModel
 
     @Override
     public void onAcceptOrRejectOrderManageError(Exception exception) {
-        mNavigator.showToast(exception.getMessage());
-    }
-
-    @Override
-    public void onOrderSuccess() {
-        mNavigator.showToast(R.string.close_order_success);
-        onReLoadData();
-    }
-
-    @Override
-    public void onOrderError(Exception exception) {
         mNavigator.showToast(exception.getMessage());
     }
 
@@ -108,8 +105,7 @@ public class OrderShopViewModel
     @Override
     public void onAcceptOrRejectOrderManager(
             OrderManagement acceptAndRejectOrdermanagementRequest) {
-        mPresenter.acceptAndRejectOrder(mShopId,
-                acceptAndRejectOrdermanagementRequest);
+        mPresenter.acceptAndRejectOrder(mShopId, acceptAndRejectOrdermanagementRequest);
         onReLoadData();
     }
 
@@ -130,8 +126,56 @@ public class OrderShopViewModel
     }
 
     public void onClickCloseOrder() {
-        mPresenter.notifyDoneOrderToServer(mShopId);
-        onReLoadData();
+        mNavigator.goNextChildFragment(R.id.layout_content,
+                ListAcceptOrderFragment.newInstance(getListAcceptOrder(), mShopId), true,
+                Navigator.RIGHT_LEFT, "ListAcceptOrderFragment");
+    }
+
+    private List<OrderDetail> getListAcceptOrder() {
+        List<OrderDetail> orderAccepts = new ArrayList<>();
+        for (Order order : mOrders) {
+            checkItemAccept(order, orderAccepts);
+        }
+        return orderAccepts;
+    }
+
+    private void checkItemAccept(Order order, List<OrderDetail> orderAccepts) {
+        List<OrderDetail> orderDetails = order.getOrderDetails();
+        if (!isHaveStatusPending(orderDetails)) {
+            checkAccept(orderDetails, orderAccepts);
+        }
+    }
+
+    private void checkAccept(List<OrderDetail> orderDetails, List<OrderDetail> orderAccepts) {
+        for (OrderDetail orderDetail : orderDetails) {
+            if (orderDetail.getStatusOrder() == Accepted) {
+                addItemAcceptOrder(orderDetail, orderAccepts);
+            }
+        }
+    }
+
+    private void addItemAcceptOrder(OrderDetail orderDetail, List<OrderDetail> orderAccepts) {
+        boolean isExist = false;
+        for (OrderDetail orderAccept : orderAccepts) {
+            if (orderAccept.getProductId() == orderDetail.getProductId()) {
+                isExist = true;
+                orderAccept.setQuantity(orderAccept.getQuantity() + orderDetail.getQuantity());
+                orderAccept.setPrice(orderAccept.getPrice() + orderDetail.getPrice());
+                break;
+            }
+        }
+        if (!isExist) {
+            orderAccepts.add(orderDetail);
+        }
+    }
+
+    private boolean isHaveStatusPending(List<OrderDetail> orderDetails) {
+        for (OrderDetail orderDetail : orderDetails) {
+            if (orderDetail.getStatusOrder() == Pending) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public ObservableField<Integer> getProgressBarVisibilityListOrder() {

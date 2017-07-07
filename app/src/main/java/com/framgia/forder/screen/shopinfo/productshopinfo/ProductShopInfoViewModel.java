@@ -79,6 +79,7 @@ public class ProductShopInfoViewModel extends BaseObservable
     @Override
     public void onDeleteProductSuccess() {
         mNavigator.showToastCustomActivity(R.string.delete_success);
+        mPresenter.getListAllProductShopInformation(mShopManagement.getShop().getId());
     }
 
     @Override

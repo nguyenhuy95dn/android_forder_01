@@ -89,23 +89,4 @@ final class OrderShopPresenter implements OrderShopContract.Presenter {
                         });
         mCompositeSubscription.add(subscription);
     }
-
-    @Override
-    public void notifyDoneOrderToServer(int shopId) {
-        Subscription subscription = mOrderRepository.notifyDoneOrderToServer(shopId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Void>() {
-                    @Override
-                    public void call(Void aVoid) {
-                        mViewModel.onOrderSuccess();
-                    }
-                }, new SafetyError() {
-                    @Override
-                    public void onSafetyError(BaseException error) {
-                        mViewModel.onOrderError(error);
-                    }
-                });
-        mCompositeSubscription.add(subscription);
-    }
 }

@@ -24,10 +24,6 @@ interface OrderShopContract {
 
         void onAcceptOrRejectOrderManageError(Exception exception);
 
-        void onOrderSuccess();
-
-        void onOrderError(Exception exception);
-
         void onReLoadData();
 
         void onShowProgressBarListOrder();
@@ -43,8 +39,6 @@ interface OrderShopContract {
         void getListOrderManagementShop(int shopId);
 
         void acceptAndRejectOrder(int shopId, OrderManagement acceptAndRejectInOrder);
-
-        void notifyDoneOrderToServer(int shopId);
 
     }
 }
