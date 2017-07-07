@@ -4,6 +4,7 @@
     <string name="mgs_this_order">Would you like this order?</string>
     <string name="mgs_order_all">Would you like order all?</string>
     <string name="mgs_delete_product">Would you like delete this product?</string>
+    <string name="mgs_accept_order">Do you really want to close the order?</string>
     <string name="action_yes">Yes</string>
     <string name="action_no">No</string>
     <string name="OK">OK</string>
@@ -156,7 +157,7 @@
     <string name="leave">Leave</string>
     <string name="close_order">Close Order</string>
     <string name="close_order_success">Close Order Success</string>
-    <string name="done_orders">Done Orders</string>
+    <string name="done_orders">Done Order</string>
     <string name="rejected_orders">Rejected Orders</string>
     <string name="name_domain">Name Domain</string>
     <string name="secret">secret</string>
