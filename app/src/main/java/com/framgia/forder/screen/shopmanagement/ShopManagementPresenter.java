@@ -6,6 +6,7 @@ import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
+import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -80,33 +81,34 @@ final class ShopManagementPresenter implements ShopManagementContract.Presenter 
     }
 
     @Override
-    public void requestChangeStatusShop(int shopId) {
-        Subscription subscription = mShopRepository.requestChangeStatusShopManagement(shopId)
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onShowProgressBar();
-                    }
-                })
-                .doAfterTerminate(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onHideProgressBar();
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Void>() {
-                    @Override
-                    public void call(Void aVoid) {
-                        mViewModel.onChangeStatusShopSuccess();
-                    }
-                }, new SafetyError() {
-                    @Override
-                    public void onSafetyError(BaseException error) {
-                        mViewModel.onShowMessageError(error);
-                    }
-                });
+    public void requestChangeStatusShop(int shopId, String status) {
+        Subscription subscription =
+                mShopRepository.requestChangeStatusShopManagement(shopId, status)
+                        .subscribeOn(Schedulers.io())
+                        .doOnSubscribe(new Action0() {
+                            @Override
+                            public void call() {
+                                mViewModel.onShowProgressDialog();
+                            }
+                        })
+                        .doAfterTerminate(new Action0() {
+                            @Override
+                            public void call() {
+                                mViewModel.onHideProgressDialog();
+                            }
+                        })
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Action1<BaseResponse>() {
+                            @Override
+                            public void call(BaseResponse baseResponse) {
+                                mViewModel.onChangeStatusShopSuccess();
+                            }
+                        }, new SafetyError() {
+                            @Override
+                            public void onSafetyError(BaseException error) {
+                                mViewModel.onShowMessageError(error);
+                            }
+                        });
         mCompositeSubscription.add(subscription);
     }
 }

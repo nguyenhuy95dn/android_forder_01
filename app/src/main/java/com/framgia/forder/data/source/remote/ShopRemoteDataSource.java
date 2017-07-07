@@ -146,13 +146,8 @@ public class ShopRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<Void> requestChangeStatusShopManagement(final int shopId) {
-        return mFOrderApi.requestChangeStatusShopManagement(shopId)
-                .flatMap(new Func1<BaseResponse, Observable<Void>>() {
-                    @Override
-                    public Observable<Void> call(BaseResponse baseResponse) {
-                        return Observable.just(null);
-                    }
-                });
+    public Observable<BaseResponse> requestChangeStatusShopManagement(final int shopId,
+            final String status) {
+        return mFOrderApi.requestChangeStatusShopManagement(shopId, status);
     }
 }

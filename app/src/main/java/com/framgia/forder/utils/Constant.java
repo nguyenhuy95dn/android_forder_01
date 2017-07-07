@@ -28,6 +28,10 @@ public final class Constant {
 
     public static final String VERTICAL_COLUMN = " | ";
 
+    public static final String STATUS_ON = "on";
+
+    public static final String STATUS_OFF = "off";
+
     public static final int DEFAULT_QUANTITY = 1;
 
     public static final int NUMBER_COMPRESS = 100;

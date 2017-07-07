@@ -8,6 +8,7 @@ import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainReques
 import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateShopRequest;
+import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteShopInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
@@ -44,6 +45,6 @@ public interface ShopDataSource {
 
         Observable<DeleteShopInDomainResponse> requestDeleteShopInDomain(int domainId, int shopId);
 
-        Observable<Void> requestChangeStatusShopManagement(int shopId);
+        Observable<BaseResponse> requestChangeStatusShopManagement(int shopId, String status);
     }
 }

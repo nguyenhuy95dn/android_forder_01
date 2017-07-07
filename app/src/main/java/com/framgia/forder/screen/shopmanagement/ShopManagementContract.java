@@ -39,6 +39,6 @@ interface ShopManagementContract {
 
         void getListShopManagement();
 
-        void requestChangeStatusShop(int shopId);
+        void requestChangeStatusShop(int shopId, String status);
     }
 }

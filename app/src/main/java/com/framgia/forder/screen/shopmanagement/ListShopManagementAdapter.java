@@ -24,6 +24,7 @@ public class ListShopManagementAdapter
     private final List<ShopManagement> mShopManagements;
     private OnRecyclerViewItemClickListener<Object> mItemClickListener;
     private final AnimationManager mAnimationManager;
+    private ChangeStatusShopManagement mChangeStatusShopManagement;
 
     ListShopManagementAdapter(@NonNull Context context) {
         super(context);
@@ -37,7 +38,8 @@ public class ListShopManagementAdapter
         ItemShopManagementBinding binding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                         R.layout.item_shop_management, parent, false);
-        return new ListShopManagementAdapter.ItemViewHolder(binding, mItemClickListener);
+        return new ListShopManagementAdapter.ItemViewHolder(binding, mItemClickListener,
+                mChangeStatusShopManagement);
     }
 
     @Override
@@ -68,18 +70,31 @@ public class ListShopManagementAdapter
 
         private final ItemShopManagementBinding mBinding;
         private final OnRecyclerViewItemClickListener<Object> mItemClickListener;
+        private final ChangeStatusShopManagement mChangeStatusShopManagement;
 
         ItemViewHolder(ItemShopManagementBinding binding,
-                OnRecyclerViewItemClickListener<Object> listener) {
+                OnRecyclerViewItemClickListener<Object> listener,
+                ChangeStatusShopManagement changeStatusShopManagement) {
             super(binding.getRoot());
             mBinding = binding;
             mItemClickListener = listener;
+            mChangeStatusShopManagement = changeStatusShopManagement;
         }
 
         void bind(ShopManagement shopManagement) {
             mBinding.setViewModel(
-                    new ItemShopManagementViewModel(shopManagement, mItemClickListener));
+                    new ItemShopManagementViewModel(shopManagement, mItemClickListener,
+                            mChangeStatusShopManagement));
             mBinding.executePendingBindings();
         }
+    }
+
+    public interface ChangeStatusShopManagement {
+        void onChangeStatusShop(int shopId, String status);
+    }
+
+    public void setChangeStatusShopManagement(
+            ChangeStatusShopManagement changeStatusShopManagement) {
+        mChangeStatusShopManagement = changeStatusShopManagement;
     }
 }
