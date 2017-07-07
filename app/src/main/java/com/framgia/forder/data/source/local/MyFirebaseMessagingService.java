@@ -24,7 +24,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String PREF_NOTIFICATION_NUMBER = "PREF_NOTIFICATION_NUMBER";
     private static final String MESSAGE = "message";
-    private int mNumberNotification = 0;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -55,10 +54,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         SharedPreferences sharedPreferences =
                 getSharedPreferences(MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
-        notificationManager.notify(mNumberNotification, notificationBuilder.build());
+        int numberNotification = sharedPreferences.getInt(PREF_NOTIFICATION_NUMBER, DEFAULT_VALUE);
+        notificationManager.notify(numberNotification, notificationBuilder.build());
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        mNumberNotification++;
-        editor.putInt(PREF_NOTIFICATION_NUMBER, mNumberNotification);
+        numberNotification++;
+        editor.putInt(PREF_NOTIFICATION_NUMBER, numberNotification);
         editor.apply();
     }
 }

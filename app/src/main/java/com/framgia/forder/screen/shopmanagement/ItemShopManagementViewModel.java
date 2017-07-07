@@ -11,13 +11,16 @@ public class ItemShopManagementViewModel {
 
     private final ShopManagement mShopManagement;
     private final BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mListener;
-    private boolean mStatusShop;
+    private final boolean mStatusShop;
+    private final ListShopManagementAdapter.ChangeStatusShopManagement mChangeStatusShopManagement;
 
     ItemShopManagementViewModel(ShopManagement shopManagements,
-            BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> listener) {
+            BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> listener,
+            ListShopManagementAdapter.ChangeStatusShopManagement changeStatusShopManagement) {
         mShopManagement = shopManagements;
         mStatusShop = mShopManagement.getShop().isFormatStatus();
         mListener = listener;
+        mChangeStatusShopManagement = changeStatusShopManagement;
     }
 
     public String getShopImage() {
@@ -43,13 +46,6 @@ public class ItemShopManagementViewModel {
         return "";
     }
 
-    public String getTimeAutoRejcet() {
-        if (mShopManagement.getShop() != null) {
-            return mShopManagement.getShop().getTimeAutoReject();
-        }
-        return "";
-    }
-
     public void onItemClicked() {
         if (mListener == null) {
             return;
@@ -62,6 +58,15 @@ public class ItemShopManagementViewModel {
     }
 
     public void checked() {
-        mStatusShop = !mStatusShop;
+        //Todo edit later
+        //        if (mStatusShop) {
+        //            mChangeStatusShopManagement.onChangeStatusShop(mShopManagement.getShop()
+        // .getId(),
+        //                    STATUS_OFF);
+        //        } else {
+        //            mChangeStatusShopManagement.onChangeStatusShop(mShopManagement.getShop()
+        // .getId(),
+        //                    STATUS_ON);
+        //        }
     }
 }

@@ -205,9 +205,13 @@ public interface FOrderApi {
             @Query("role") String role);
 
     @GET("v1/dashboard/shops/{shop_id}/edit")
-    Observable<BaseResponse> requestChangeStatusShopManagement(@Path("shop_id") int shopId);
+    Observable<BaseResponse> requestChangeStatusShopManagement(@Path("shop_id") int shopId,
+            @Query("status") String status);
 
     @DELETE("v1/dashboard/products/{product_id}")
     Observable<BaseResponse> requestDeleteProductInShop(@Path("product_id") int productId,
             @Query("shop_id") int shopId);
+
+    @DELETE("v1/comments/{comment_id}")
+    Observable<BaseResponse> deleteCommentInProduct(@Path("comment_id") int commentId);
 }
