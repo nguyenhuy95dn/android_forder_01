@@ -193,4 +193,5 @@
     <string name="product_description">Description</string>
     <string name="function_is_being_processed">Function is being processed!</string>
     <string name="view_shop">View Shop</string>
+    <string name="cancel_manager">Cancel Manager</string>
 </resources>

@@ -9,4 +9,6 @@ public interface UserInDomainListener {
     void onClickDeleteUser(int userId);
 
     void onClickAddManager(int userId);
+
+    void onClickCancelManager(int userId);
 }

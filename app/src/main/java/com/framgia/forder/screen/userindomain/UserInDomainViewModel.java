@@ -20,6 +20,7 @@ public class UserInDomainViewModel extends BaseObservable
         implements UserInDomainContract.ViewModel, UserInDomainListener {
 
     private static final String MANAGER = "manager";
+    private static final String MEMBER = "member";
 
     private UserInDomainContract.Presenter mPresenter;
     private final UserInDomainAdapter mAdapter;
@@ -128,6 +129,11 @@ public class UserInDomainViewModel extends BaseObservable
     @Override
     public void onClickAddManager(int userId) {
         mPresenter.changeRuleOfUserInDomain(mDomainManagement.getId(), userId, MANAGER);
+    }
+
+    @Override
+    public void onClickCancelManager(int userId) {
+        mPresenter.changeRuleOfUserInDomain(mDomainManagement.getId(), userId, MEMBER);
     }
 
     @Bindable
