@@ -112,7 +112,7 @@ public class QuickOrderViewModel extends BaseObservable implements QuickOrderCon
     }
 
     public void onClickOrderNow() {
-        mQuickOrderListener.onRequestOrderNow(mProduct, mTotalPrice, mQuantity, mNote);
+        mQuickOrderListener.onRequestOrderNow(mProduct, mPrice * mQuantity, mQuantity, mNote);
         mDismissDialogListener.onDialogDismiss();
     }
 }
