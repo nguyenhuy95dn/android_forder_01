@@ -1,5 +1,7 @@
 package com.framgia.forder.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.framgia.forder.R;
 import com.framgia.forder.utils.Utils;
 import com.google.gson.annotations.Expose;
@@ -9,7 +11,20 @@ import static com.framgia.forder.utils.Constant.FORMAT_PRICE;
 import static com.framgia.forder.utils.Constant.UNIT_MONEY;
 import static com.framgia.forder.utils.Constant.VERTICAL_COLUMN;
 
-public class OrderDetail {
+public class OrderDetail implements Parcelable {
+
+    public static final Creator<OrderDetail> CREATOR = new Creator<OrderDetail>() {
+        @Override
+        public OrderDetail createFromParcel(Parcel in) {
+            return new OrderDetail(in);
+        }
+
+        @Override
+        public OrderDetail[] newArray(int size) {
+            return new OrderDetail[size];
+        }
+    };
+
     @Expose
     @SerializedName("id")
     private int mId;
@@ -50,6 +65,39 @@ public class OrderDetail {
     private int mStatus;
     //Todo edit later
     private boolean mCheckBoxStatus;
+
+    public OrderDetail() {
+    }
+
+    private OrderDetail(Parcel in) {
+        mId = in.readInt();
+        mShopId = in.readInt();
+        mQuantity = in.readInt();
+        mPrice = in.readDouble();
+        mNotes = in.readString();
+        mUserId = in.readInt();
+        mProductId = in.readInt();
+        mProductName = in.readString();
+        mTimeCreateOrder = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mId);
+        dest.writeInt(mShopId);
+        dest.writeInt(mQuantity);
+        dest.writeDouble(mPrice);
+        dest.writeString(mNotes);
+        dest.writeInt(mUserId);
+        dest.writeInt(mProductId);
+        dest.writeString(mProductName);
+        dest.writeString(mTimeCreateOrder);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
     public int getId() {
         return mId;
