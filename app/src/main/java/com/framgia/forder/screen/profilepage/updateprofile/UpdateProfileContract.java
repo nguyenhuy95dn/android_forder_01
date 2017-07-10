@@ -19,13 +19,20 @@ interface UpdateProfileContract {
         void onUpdateProfileSuccess();
 
         void onUpdateProfileError(BaseException throwable);
+
+        void setAvatar(String image);
+
+        void onShowProgressDialog();
+
+        void onHideProgressDialog();
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
-        void updateProfile(UpdateProfileRequest updateProfileRequest);
+        void updateProfile(UpdateProfileRequest updateProfileRequest, String name,
+                String chatworkId, String description);
 
         void getUserProfile();
 

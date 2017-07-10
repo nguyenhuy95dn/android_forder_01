@@ -1,6 +1,9 @@
 package com.framgia.forder.screen.profilepage.updateprofile;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +19,9 @@ import com.framgia.forder.data.source.remote.UserRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentProfileUpdateBinding;
 import com.framgia.forder.utils.navigator.Navigator;
+import com.framgia.forder.widgets.dialog.DialogManager;
+
+import static com.framgia.forder.utils.Constant.REQUEST_SELECT_IMAGE;
 
 /**
  * ProfileUpdate Screen.
@@ -32,7 +38,10 @@ public class UpdateProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Navigator navigator = new Navigator(getParentFragment());
-        mViewModel = new UpdateProfileViewModel(navigator);
+        Navigator navigatorForStartGallery = new Navigator(this);
+        DialogManager dialogManager = new DialogManager(getActivity());
+        mViewModel = new UpdateProfileViewModel(getActivity().getApplicationContext(), navigator,
+                navigatorForStartGallery, dialogManager);
         SharedPrefsApi sharedPrefsApi = new SharedPrefsImpl(getActivity().getApplicationContext());
         UserRepository userRepository =
                 new UserRepository(new UserRemoteDataSource(FOrderServiceClient.getInstance()),
@@ -64,5 +73,17 @@ public class UpdateProfileFragment extends Fragment {
     public void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_CANCELED) {
+            return;
+        }
+        if (requestCode == REQUEST_SELECT_IMAGE) {
+            Uri selectedImage = data.getData();
+            mViewModel.setAvatar(selectedImage.toString());
+        }
     }
 }
