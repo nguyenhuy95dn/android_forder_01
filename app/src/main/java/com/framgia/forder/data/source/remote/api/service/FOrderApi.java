@@ -78,8 +78,7 @@ public interface FOrderApi {
     @GET("v1/products")
     Observable<ProductResponse> getRelativeShops(@Query("domain_id") int id);
 
-    // TODO edit later: There is no api profile link yet
-    @POST("v1/profile")
+    @PUT("v1/users/0")
     Observable<UpdateProfileResponse> updateUserInformation(
             @Body UpdateProfileRequest updateProfileRequest);
 

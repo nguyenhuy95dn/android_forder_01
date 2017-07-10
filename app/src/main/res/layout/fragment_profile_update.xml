@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     >
 
     <data>
@@ -25,23 +27,21 @@
             <RelativeLayout
                 android:id="@+id/contain_profile_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_130"
+                android:layout_height="@dimen/dp_150"
                 android:background="@drawable/img_header_profile"
                 android:orientation="horizontal"
                 >
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-
-                <ImageView
                     android:id="@+id/image_user_profile_photo"
-                    android:layout_width="@dimen/dp_100"
-                    android:layout_height="@dimen/dp_100"
+                    android:layout_width="@dimen/dp_130"
+                    android:layout_height="@dimen/dp_130"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/border_profile_imageview"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{viewModel.avatar}"
+                    tools:ignore="ContentDescription"
                     />
 
                 <ImageView
@@ -50,14 +50,19 @@
                     android:layout_alignBottom="@+id/image_user_profile_photo"
                     android:layout_alignEnd="@+id/image_user_profile_photo"
                     android:layout_alignRight="@+id/image_user_profile_photo"
-                    android:src="@drawable/ic_camera"
+                    android:background="@drawable/ic_camera_black"
+                    android:backgroundTint="@color/color_orange_mos"
+                    android:onClick="@{() -> viewModel.onClickChooseAvatar()}"
+                    tools:ignore="ContentDescription,UnusedAttribute"
                     />
                 <ImageView
                     android:layout_width="@dimen/dp_40"
                     android:layout_height="@dimen/dp_40"
                     android:layout_marginLeft="@dimen/dp_2"
+                    android:layout_marginStart="@dimen/dp_2"
                     android:onClick="@{() -> viewModel.onClickBack()}"
                     android:src="@drawable/ic_arrow_back"
+                    tools:ignore="ContentDescription"
                     />
             </RelativeLayout>
 
@@ -86,15 +91,18 @@
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_email"
+                        tools:ignore="ContentDescription"
                         />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:orientation="vertical"
                         >
                         <TextView
@@ -104,8 +112,10 @@
                             android:layout_marginBottom="@dimen/dp_3"
                             android:layout_marginTop="@dimen/dp_3"
                             android:paddingLeft="@dimen/dp_3"
+                            android:paddingStart="@dimen/dp_3"
                             android:text="@string/email"
                             android:textSize="@dimen/sp_16"
+                            tools:ignore="RtlSymmetry"
                             />
                         <TextView
                             android:layout_width="match_parent"
@@ -114,8 +124,10 @@
                             android:layout_marginBottom="@dimen/dp_3"
                             android:layout_marginTop="@dimen/dp_3"
                             android:paddingLeft="@dimen/dp_3"
+                            android:paddingStart="@dimen/dp_3"
                             android:text="@{viewModel.email}"
                             android:textSize="@dimen/sp_16"
+                            tools:ignore="RtlSymmetry"
                             />
                     </LinearLayout>
                 </LinearLayout>
@@ -135,14 +147,17 @@
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_user_name"
+                        tools:ignore="ContentDescription"
                         />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:orientation="vertical"
                         >
                         <TextView
@@ -152,8 +167,10 @@
                             android:layout_marginBottom="@dimen/dp_3"
                             android:layout_marginTop="@dimen/dp_3"
                             android:paddingLeft="@dimen/dp_3"
+                            android:paddingStart="@dimen/dp_3"
                             android:text="@string/username"
                             android:textSize="@dimen/sp_16"
+                            tools:ignore="RtlSymmetry"
                             />
                         <EditText
                             android:layout_width="match_parent"
@@ -180,15 +197,18 @@
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_id"
+                        tools:ignore="ContentDescription"
                         />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:orientation="vertical"
                         >
                         <TextView
@@ -198,8 +218,10 @@
                             android:layout_marginBottom="@dimen/dp_3"
                             android:layout_marginTop="@dimen/dp_3"
                             android:paddingLeft="@dimen/dp_3"
+                            android:paddingStart="@dimen/dp_3"
                             android:text="@string/chatwork_id"
                             android:textSize="@dimen/sp_16"
+                            tools:ignore="RtlSymmetry"
                             />
                         <EditText
                             android:layout_width="match_parent"
@@ -226,15 +248,18 @@
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_description"
+                        tools:ignore="ContentDescription"
                         />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:orientation="vertical"
                         >
                         <TextView
@@ -244,8 +269,10 @@
                             android:layout_marginBottom="@dimen/dp_3"
                             android:layout_marginTop="@dimen/dp_3"
                             android:paddingLeft="@dimen/dp_3"
+                            android:paddingStart="@dimen/dp_3"
                             android:text="@string/description"
                             android:textSize="@dimen/sp_16"
+                            tools:ignore="RtlSymmetry"
                             />
                         <EditText
                             android:layout_width="match_parent"
