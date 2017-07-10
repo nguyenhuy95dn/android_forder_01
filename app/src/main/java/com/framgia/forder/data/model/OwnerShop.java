@@ -38,6 +38,9 @@ public final class OwnerShop implements Parcelable {
     @Expose
     @SerializedName("user_name")
     private String mUserName;
+    @Expose
+    @SerializedName("avatar")
+    private CollectionAvatar mAvatar;
 
     private OwnerShop(Parcel in) {
         mId = in.readInt();
@@ -45,6 +48,7 @@ public final class OwnerShop implements Parcelable {
         mShopId = in.readInt();
         mRole = in.readString();
         mUserName = in.readString();
+        mAvatar = in.readParcelable(Image.class.getClassLoader());
     }
 
     public int getId() {
@@ -87,6 +91,14 @@ public final class OwnerShop implements Parcelable {
         mUserName = userName;
     }
 
+    public CollectionAvatar getAvatar() {
+        return mAvatar;
+    }
+
+    public void setAvatar(CollectionAvatar avatar) {
+        mAvatar = avatar;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -99,5 +111,6 @@ public final class OwnerShop implements Parcelable {
         dest.writeInt(mShopId);
         dest.writeString(mRole);
         dest.writeString(mUserName);
+        dest.writeParcelable(mAvatar, flags);
     }
 }

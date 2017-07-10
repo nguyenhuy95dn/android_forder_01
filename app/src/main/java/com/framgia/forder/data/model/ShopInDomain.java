@@ -1,5 +1,6 @@
 package com.framgia.forder.data.model;
 
+import com.framgia.forder.R;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
@@ -20,10 +21,10 @@ public class ShopInDomain {
     private String mDescription;
     @Expose
     @SerializedName("status")
-    private String mStatus;
+    private StatusShop mStatus;
     @Expose
     @SerializedName("avatar")
-    private String mAvatar;
+    private CollectionAvatar mAvatar;
     @Expose
     @SerializedName("averate_rating")
     private float mAverateRating;
@@ -45,6 +46,9 @@ public class ShopInDomain {
     @Expose
     @SerializedName("total_products")
     private int mTotalProduct;
+    @Expose
+    @SerializedName("cover_image")
+    private CollectionAvatar mCoverImage;
     private boolean mIsOwner;
 
     public int getId() {
@@ -71,20 +75,20 @@ public class ShopInDomain {
         mDescription = description;
     }
 
-    public String getStatus() {
-        return mStatus;
-    }
-
-    public void setStatus(String status) {
-        mStatus = status;
-    }
-
-    public String getAvatar() {
+    public CollectionAvatar getAvatar() {
         return mAvatar;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(CollectionAvatar avatar) {
         mAvatar = avatar;
+    }
+
+    public CollectionAvatar getCoverImage() {
+        return mCoverImage;
+    }
+
+    public void setCoverImage(CollectionAvatar coverImage) {
+        mCoverImage = coverImage;
     }
 
     public float getAverateRating() {
@@ -119,6 +123,14 @@ public class ShopInDomain {
         mCollectionAvatar = collectionAvatar;
     }
 
+    public StatusShop getStatus() {
+        return mStatus;
+    }
+
+    public void setStatus(StatusShop status) {
+        mStatus = status;
+    }
+
     public List<OwnerShop> getOwnerShops() {
         return mOwnerShops;
     }
@@ -149,5 +161,41 @@ public class ShopInDomain {
 
     public void setOwner(boolean owner) {
         mIsOwner = owner;
+    }
+
+    public int getStatusColor() {
+        if (mStatus == StatusShop.Active) {
+            return R.color.color_green;
+        } else if (mStatus == StatusShop.Pending) {
+            return R.color.color_blue;
+        }
+        return 0;
+    }
+
+    public enum StatusShop {
+        @Expose
+        @SerializedName("active")
+        Active("active"), @Expose
+        @SerializedName("pending")
+        Pending("pending");
+
+        private final String mValue;
+
+        StatusShop(String value) {
+            mValue = value;
+        }
+
+        public static ShopInDomain.StatusShop getStatusShop(String value) {
+            if ("active".equals(value)) {
+                return Active;
+            } else if ("pending".equals(value)) {
+                return Pending;
+            }
+            return null;
+        }
+
+        public String getValue() {
+            return mValue;
+        }
     }
 }
