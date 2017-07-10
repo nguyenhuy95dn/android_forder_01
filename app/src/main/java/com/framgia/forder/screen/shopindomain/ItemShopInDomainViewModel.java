@@ -31,11 +31,18 @@ public class ItemShopInDomainViewModel {
     }
 
     public String getImageShop() {
-        return mShop.getAvatar();
+        if (mShop.getAvatar() != null && mShop.getAvatar().getImage() != null) {
+            return mShop.getAvatar().getImage().getUrl();
+        }
+        return "";
     }
 
     public String getStatus() {
-        return mShop.getStatus();
+        return String.valueOf(mShop.getStatus());
+    }
+
+    public int getStatusColor() {
+        return mShop.getStatusColor();
     }
 
     public void onClickSeeAllManager() {

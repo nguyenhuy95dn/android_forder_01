@@ -9,9 +9,6 @@ import com.framgia.forder.data.model.OwnerShop;
 
 public class ItemManagerInShopViewModel extends BaseObservable {
 
-    private static final String DEFAULT_AVATAR_LINK =
-            "http://res.cloudinary.com/hoangmirs/image/upload/c_fill,g_north,h_100,"
-                    + "w_100/tgklvf8yxofaosrpxj0o.png";
     private final OwnerShop mOwnerShop;
 
     ItemManagerInShopViewModel(OwnerShop ownerShop) {
@@ -19,8 +16,10 @@ public class ItemManagerInShopViewModel extends BaseObservable {
     }
 
     public String getManagerImage() {
-        //To do fix later when fix api
-        return DEFAULT_AVATAR_LINK;
+        if (mOwnerShop.getAvatar() != null && mOwnerShop.getAvatar().getImage() != null) {
+            return mOwnerShop.getAvatar().getImage().getUrl();
+        }
+        return "";
     }
 
     public String getName() {

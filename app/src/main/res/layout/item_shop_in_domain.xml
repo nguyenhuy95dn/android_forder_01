@@ -31,7 +31,9 @@
             <ImageView
                 android:layout_width="@dimen/dp_100"
                 android:layout_height="@dimen/dp_100"
+                android:adjustViewBounds="true"
                 android:padding="@dimen/dp_3"
+                android:scaleType="centerCrop"
                 app:imageUrl="@{viewModel.imageShop}"
                 tools:ignore="ContentDescription"
                 />
@@ -101,6 +103,7 @@
                                     android:textAllCaps="true"
                                     android:textColor="@color/color_green"
                                     android:textStyle="bold"
+                                    app:colorText="@{viewModel.statusColor}"
                                     tools:ignore="RelativeOverlap"
                                     />
                             </RelativeLayout>
