@@ -6,13 +6,11 @@ import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
-import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateShopRequest;
 import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteShopInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
-import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
 import java.util.List;
 import rx.Observable;
 
@@ -39,14 +37,14 @@ public class ShopRepository {
         return mRemoteDataSource.getListShopManagement(userId);
     }
 
-    public Observable<ShopManagementResponse> requestApplyShopToDomain(
+    public Observable<BaseResponse> requestApplyShopToDomain(
             ApplyShopToDomainRequest applyShopToDomainRequest) {
         return mRemoteDataSource.requestApplyShopToDomain(applyShopToDomainRequest);
     }
 
-    public Observable<ShopManagementResponse> requestLeaveShopFromDomain(
-            LeaveShopToDomainRequest leaveShopToDomainRequest) {
-        return mRemoteDataSource.requestLeaveShopFromDomain(leaveShopToDomainRequest);
+    public Observable<BaseResponse> requestLeaveShopFromDomain(int domainId, int shopId,
+            boolean leaveDomain) {
+        return mRemoteDataSource.requestLeaveShopFromDomain(domainId, shopId, leaveDomain);
     }
 
     public Observable<RegisterShopResponse> requestRegisterShop(

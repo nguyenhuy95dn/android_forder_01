@@ -1,12 +1,12 @@
 package com.framgia.forder.screen.shopinfo;
 
+import android.util.Log;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
-import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
-import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
+import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -90,24 +90,25 @@ final class ShopinfoPresenter implements ShopinfoContract.Presenter {
                             }
                         })
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Action1<ShopManagementResponse>() {
+                        .subscribe(new Action1<BaseResponse>() {
                             @Override
-                            public void call(ShopManagementResponse response) {
+                            public void call(BaseResponse response) {
                                 mViewModel.onApplyToDomainSuccess();
                             }
                         }, new SafetyError() {
                             @Override
                             public void onSafetyError(BaseException error) {
                                 mViewModel.onApplyOrLeaveToDomainError(error);
+                                Log.e(TAG, "onSafetyError: ", error);
                             }
                         });
         mCompositeSubscription.add(subscription);
     }
 
     @Override
-    public void onLeaveToDomain(LeaveShopToDomainRequest leaveShopToDomainRequest) {
+    public void onLeaveToDomain(int domainId, int shopId, boolean leaveDomain) {
         Subscription subscription =
-                mShopRepository.requestLeaveShopFromDomain(leaveShopToDomainRequest)
+                mShopRepository.requestLeaveShopFromDomain(domainId, shopId, leaveDomain)
                         .subscribeOn(Schedulers.io())
                         .doOnSubscribe(new Action0() {
                             @Override
@@ -122,9 +123,9 @@ final class ShopinfoPresenter implements ShopinfoContract.Presenter {
                             }
                         })
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Action1<ShopManagementResponse>() {
+                        .subscribe(new Action1<BaseResponse>() {
                             @Override
-                            public void call(ShopManagementResponse response) {
+                            public void call(BaseResponse response) {
                                 mViewModel.onLeaveToDomainSuccess();
                             }
                         }, new SafetyError() {

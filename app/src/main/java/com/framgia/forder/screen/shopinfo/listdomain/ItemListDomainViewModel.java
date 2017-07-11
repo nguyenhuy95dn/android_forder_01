@@ -8,7 +8,6 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.ShopInfo;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
-import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.widgets.dialog.DialogManager;
 
 /**
@@ -123,8 +122,6 @@ public class ItemListDomainViewModel {
     }
 
     private void onLeaveToDomain() {
-        LeaveShopToDomainRequest leaveShopToDomainRequest = new LeaveShopToDomainRequest();
-        leaveShopToDomainRequest.setDomainId(mShopInfo.getDomainId());
-        mDomainManagementListener.onLeaveToDomain(leaveShopToDomainRequest);
+        mDomainManagementListener.onLeaveToDomain(mShopInfo.getDomainId());
     }
 }
