@@ -34,8 +34,8 @@ public class OrderShopViewModel
     private final ObservableField<Integer> mProgressBarVisibilityListOrder =
             new ObservableField<>();
 
-    public OrderShopViewModel(Context context, Navigator navigator,
-            OrderShopAdapter orderShopAdapter, ShopManagement shopManagement) {
+    OrderShopViewModel(Context context, Navigator navigator, OrderShopAdapter orderShopAdapter,
+            ShopManagement shopManagement) {
         mContext = context;
         mNavigator = navigator;
         mOrderShopAdapter = orderShopAdapter;
@@ -160,7 +160,6 @@ public class OrderShopViewModel
             if (orderAccept.getProductId() == orderDetail.getProductId()) {
                 isExist = true;
                 orderAccept.setQuantity(orderAccept.getQuantity() + orderDetail.getQuantity());
-                orderAccept.setPrice(orderAccept.getPrice() + orderDetail.getPrice());
                 break;
             }
         }

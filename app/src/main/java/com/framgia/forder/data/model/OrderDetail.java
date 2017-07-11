@@ -211,7 +211,7 @@ public class OrderDetail implements Parcelable {
     }
 
     public String getTotalPriceFormat() {
-        return String.format(FORMAT_PRICE, mPrice) + UNIT_MONEY;
+        return String.format(FORMAT_PRICE, mPrice * mQuantity) + UNIT_MONEY;
     }
 
     public String getTimeOrderFormat() {

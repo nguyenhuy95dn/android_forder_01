@@ -16,7 +16,7 @@ public class ProfileDetailViewModel implements ProfileDetailContract.ViewModel {
     private Navigator mNavigator;
     private User mUser;
 
-    public ProfileDetailViewModel(Navigator navigator) {
+    ProfileDetailViewModel(Navigator navigator) {
         mNavigator = navigator;
     }
 
@@ -46,6 +46,21 @@ public class ProfileDetailViewModel implements ProfileDetailContract.ViewModel {
 
     public String getEmail() {
         return mUser != null ? mUser.getEmail() : "";
+    }
+
+    public String getChatworkId() {
+        return mUser.getChatworkId();
+    }
+
+    public String getDescription() {
+        return mUser.getDescription();
+    }
+
+    public String getAvatar() {
+        if (mUser.getAvatar() != null && mUser.getAvatar().getImage() != null) {
+            return mUser.getAvatar().getImage().getUrl();
+        }
+        return "";
     }
 
     public String getCreatedAt() {

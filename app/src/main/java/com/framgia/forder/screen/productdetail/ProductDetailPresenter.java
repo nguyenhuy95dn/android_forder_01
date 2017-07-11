@@ -13,6 +13,7 @@ import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderCartResponse;
 import java.util.List;
+import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
@@ -59,15 +60,20 @@ final class ProductDetailPresenter implements ProductDetailContract.Presenter {
     @Override
     public void addToCart(Product product) {
         Subscription subscription =
-                mProductRepository.addToCart(product).subscribe(new Action1<Void>() {
+                mProductRepository.addToCart(product).subscribe(new Subscriber<Void>() {
                     @Override
-                    public void call(Void aVoid) {
+                    public void onCompleted() {
                         mViewModel.onAddToCartSuccess();
                     }
-                }, new SafetyError() {
+
                     @Override
-                    public void onSafetyError(BaseException error) {
-                        mViewModel.onShowMessageError(error);
+                    public void onError(Throwable e) {
+                        mViewModel.onAddToCartError(e);
+                    }
+
+                    @Override
+                    public void onNext(Void aVoid) {
+                        // No-Op
                     }
                 });
         mCompositeSubscription.add(subscription);
