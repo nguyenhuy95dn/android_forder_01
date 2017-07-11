@@ -3,7 +3,6 @@ package com.framgia.forder.data.source.remote.api.service;
 import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.CommentRequest;
-import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterProductRequest;
@@ -113,13 +112,13 @@ public interface FOrderApi {
     @GET("v1/dashboard/shops")
     Observable<ShopManagementResponse> getLitShopManagement(@Query("user_id") int userId);
 
-    @POST("v1/dashboard/shops")
-    Observable<ShopManagementResponse> requestApplyShopToDomain(
+    @POST("v1/shop_domains")
+    Observable<BaseResponse> requestApplyShopToDomain(
             @Body ApplyShopToDomainRequest requestApplyShopToDomain);
 
-    @POST("v1/dashboard/shops")
-    Observable<ShopManagementResponse> requestLeaveShopFromDomain(
-            @Body LeaveShopToDomainRequest requestLeaveShopFromDomain);
+    @DELETE("v1/shop_domains/1")
+    Observable<BaseResponse> requestLeaveShopFromDomain(@Query("domain_id") int domainId,
+            @Query("shop_id") int shopId, @Query("leave_domain") boolean leaveDomain);
 
     @POST("v1/dashboard/shops")
     Observable<RegisterShopResponse> requestRegisterShop(

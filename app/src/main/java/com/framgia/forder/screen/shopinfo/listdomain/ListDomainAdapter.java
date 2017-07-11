@@ -10,7 +10,6 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.ShopInfo;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
-import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.databinding.ItemListDomainBinding;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.widgets.animation.AnimationManager;
@@ -94,7 +93,7 @@ public class ListDomainAdapter extends BaseRecyclerViewAdapter<ListDomainAdapter
 
         void onApplyToDomain(ApplyShopToDomainRequest applyShopToDomainRequest);
 
-        void onLeaveToDomain(LeaveShopToDomainRequest leaveShopToDomainRequest);
+        void onLeaveToDomain(int domainId);
     }
 
     public void setDomainManagementListener(ShopDomainManagementListener domainManagementListener) {

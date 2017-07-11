@@ -6,7 +6,6 @@ import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
-import com.framgia.forder.data.source.remote.api.request.LeaveShopToDomainRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.managerdetail.ManagerDetailFragment;
 import com.framgia.forder.screen.orderhistoryshop.OrderHistoryShopFragment;
@@ -179,8 +178,7 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
     }
 
     @Override
-    public void onLeaveToDomain(LeaveShopToDomainRequest leaveShopToDomainRequest) {
-        leaveShopToDomainRequest.setShopId(mShopManagement.getShop().getId());
-        mPresenter.onLeaveToDomain(leaveShopToDomainRequest);
+    public void onLeaveToDomain(int domainId) {
+        mPresenter.onLeaveToDomain(domainId, mShopManagement.getShop().getId(), true);
     }
 }
