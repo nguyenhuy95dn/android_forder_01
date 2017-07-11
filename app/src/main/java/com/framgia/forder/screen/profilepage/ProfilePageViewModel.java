@@ -21,7 +21,7 @@ public class ProfilePageViewModel implements ProfilePageContract.ViewModel {
     private ProfilePageContract.Presenter mPresenter;
     private User mUser;
 
-    public ProfilePageViewModel(Navigator navigator) {
+    ProfilePageViewModel(Navigator navigator) {
         mNavigator = navigator;
     }
 
@@ -46,6 +46,13 @@ public class ProfilePageViewModel implements ProfilePageContract.ViewModel {
             return;
         }
         mUser = user;
+    }
+
+    public String getAvatar() {
+        if (mUser.getAvatar() != null && mUser.getAvatar().getImage() != null) {
+            return mUser.getAvatar().getImage().getUrl();
+        }
+        return "";
     }
 
     public String getUsername() {

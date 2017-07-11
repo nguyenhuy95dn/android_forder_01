@@ -48,6 +48,8 @@ interface ProductDetailContract {
         void onGetUser(User user);
 
         void onDeleteCommentSuccess();
+
+        void onAddToCartError(Throwable e);
     }
 
     /**

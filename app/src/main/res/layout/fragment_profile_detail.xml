@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     >
 
     <data>
@@ -25,7 +27,6 @@
             >
 
             <RelativeLayout
-                android:id="@+id/profile_detail_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_130"
                 android:background="@drawable/img_header_profile"
@@ -36,22 +37,25 @@
                     android:id="@+id/header_cover_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    tools:ignore="ContentDescription"
                     />
 
-                <ImageView
+                <com.framgia.forder.widgets.CircleImageView
                     android:id="@+id/user_profile_photo"
                     android:layout_width="@dimen/dp_100"
                     android:layout_height="@dimen/dp_100"
-                    android:layout_centerHorizontal="true"
+                    app:imageUrl="@{viewModel.avatar}"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/border_profile_imageview"
+                    android:layout_centerHorizontal="true"
                     />
                 <ImageView
                     android:layout_width="@dimen/dp_40"
                     android:layout_height="@dimen/dp_40"
                     android:layout_marginLeft="@dimen/dp_2"
+                    android:layout_marginStart="@dimen/dp_2"
                     android:onClick="@{() -> viewModel.onClickBack()}"
                     android:src="@drawable/ic_arrow_back"
+                    tools:ignore="ContentDescription"
                     />
                 <ImageView
                     android:layout_width="@dimen/dp_40"
@@ -61,6 +65,7 @@
                     android:layout_below="@+id/header_cover_image"
                     android:onClick="@{() -> viewModel.onClickUpdateProfile()}"
                     android:src="@drawable/ic_edit"
+                    tools:ignore="ContentDescription"
                     />
             </RelativeLayout>
 
@@ -72,6 +77,7 @@
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/dp_5"
                 android:paddingRight="@dimen/dp_5"
+                tools:ignore="ObsoleteLayoutParam"
                 >
 
                 <LinearLayout
@@ -89,14 +95,17 @@
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_user_name"
+                        tools:ignore="ContentDescription"
                         />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:orientation="vertical"
                         >
                         <TextView
@@ -135,15 +144,18 @@
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_email"
+                        tools:ignore="ContentDescription"
                         />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:orientation="vertical"
                         >
                         <TextView
@@ -182,15 +194,18 @@
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_id"
+                        tools:ignore="ContentDescription"
                         />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:orientation="vertical"
                         >
                         <TextView
@@ -208,6 +223,7 @@
                             android:layout_margin="@dimen/dp_2"
                             android:layout_marginBottom="@dimen/dp_3"
                             android:layout_marginTop="@dimen/dp_3"
+                            android:text="@{viewModel.chatworkId}"
                             android:textSize="@dimen/sp_16"
                             />
                     </LinearLayout>
@@ -228,15 +244,18 @@
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_join_date"
+                        tools:ignore="ContentDescription"
                         />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:orientation="vertical"
                         >
                         <TextView
@@ -275,15 +294,18 @@
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_status"
+                        tools:ignore="ContentDescription"
                         />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:orientation="vertical"
                         >
                         <TextView
@@ -321,15 +343,18 @@
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_description"
+                        tools:ignore="ContentDescription"
                         />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:orientation="vertical"
                         >
                         <TextView
@@ -347,6 +372,7 @@
                             android:layout_margin="@dimen/dp_2"
                             android:layout_marginBottom="@dimen/dp_3"
                             android:layout_marginTop="@dimen/dp_3"
+                            android:text="@{viewModel.description}"
                             android:textSize="@dimen/sp_16"
                             />
                     </LinearLayout>

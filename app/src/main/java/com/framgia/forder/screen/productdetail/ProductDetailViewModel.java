@@ -167,6 +167,11 @@ public class ProductDetailViewModel extends BaseObservable
     }
 
     @Override
+    public void onAddToCartError(Throwable e) {
+        mNavigator.showToastCustom(e.getMessage());
+    }
+
+    @Override
     public void onRequestOrderNow(Product product, double totalPrice, int quantity, String note) {
         OrderRequest request = new OrderRequest();
         CartItem cartItem = new CartItem();
