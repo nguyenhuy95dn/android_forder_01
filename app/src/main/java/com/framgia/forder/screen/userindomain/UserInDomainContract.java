@@ -46,5 +46,7 @@ interface UserInDomainContract {
         void deleteUserInDomain(int domainId, int userId);
 
         void changeRuleOfUserInDomain(int domainId, int userId, String role);
+
+        boolean getRule(int ownerId);
     }
 }

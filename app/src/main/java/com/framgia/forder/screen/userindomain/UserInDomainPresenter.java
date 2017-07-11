@@ -140,4 +140,10 @@ final class UserInDomainPresenter implements UserInDomainContract.Presenter {
                         });
         mCompositeSubscription.add(subscription);
     }
+
+    @Override
+    public boolean getRule(int ownerId) {
+        User user = mUserRepository.getUser();
+        return (user.getId() == ownerId);
+    }
 }
