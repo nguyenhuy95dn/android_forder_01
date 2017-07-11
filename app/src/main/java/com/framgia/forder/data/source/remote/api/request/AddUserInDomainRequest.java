@@ -20,7 +20,7 @@ public class AddUserInDomainRequest {
         mUserInDomain = userInDomain;
     }
 
-    public class UserInDomain {
+    public static class UserInDomain {
         @Expose
         @SerializedName("domain_id")
         private int mDomainId;

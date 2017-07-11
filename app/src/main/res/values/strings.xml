@@ -194,4 +194,7 @@
     <string name="function_is_being_processed">Function is being processed!</string>
     <string name="view_shop">View Shop</string>
     <string name="cancel_manager">Cancel Manager</string>
+    <string name="add_user">Add User</string>
+    <string name="add">+Add</string>
+    <string name="add_user_success">Add User Successful!</string>
 </resources>

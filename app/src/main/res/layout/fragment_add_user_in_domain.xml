@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
     <data>
@@ -9,12 +10,42 @@
             name="viewModel"
             type="com.framgia.forder.screen.adduserindomain.AddUserInDomainViewModel"
             />
-
+        <import type="android.view.View"/>
     </data>
-
-    <android.support.v7.widget.RecyclerView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_white"
-        />
+        >
+        <TextView
+            android:id="@+id/text_user_in_domain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_15"
+            android:text="@string/add_user"
+            android:textAllCaps="true"
+            android:textColor="@color/color_orange"
+            android:textSize="@dimen/sp_15"
+            android:textStyle="bold"
+            />
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/text_user_in_domain"
+            android:background="@color/color_white"
+            android:padding="@dimen/dp_2"
+            app:layoutManager="LinearLayoutManager"
+            app:recyclerAdapter="@{viewModel.adapter}"
+            />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="@{viewModel.progressBarListUser ? View.VISIBLE : View.GONE}"
+            style="?android:attr/progressBarPadding"
+            />
+    </RelativeLayout>
 </layout>
