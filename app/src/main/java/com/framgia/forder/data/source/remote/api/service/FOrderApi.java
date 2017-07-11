@@ -1,6 +1,7 @@
 package com.framgia.forder.data.source.remote.api.service;
 
 import com.framgia.forder.data.model.OrderManagement;
+import com.framgia.forder.data.source.remote.api.request.AddUserInDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.CommentRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
@@ -212,4 +213,10 @@ public interface FOrderApi {
 
     @DELETE("v1/comments/{comment_id}")
     Observable<BaseResponse> deleteCommentInProduct(@Path("comment_id") int commentId);
+
+    @GET("v1/list_members/new")
+    Observable<UserInDomainResponse> getListUserToAddInDomain(@Query("domain_id") int domainId);
+
+    @POST("v1/user_domains")
+    Observable<BaseResponse> requestAddUserInDomain(@Body AddUserInDomainRequest orderRequest);
 }
