@@ -12,6 +12,7 @@ import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.listProduct.adapter.ListProductAdapter;
+import com.framgia.forder.screen.main.LoadCartListener;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
 import com.framgia.forder.screen.productdetail.ProductDetailFragment;
 import com.framgia.forder.screen.quickorder.QuickOrderListener;
@@ -34,13 +35,15 @@ public class ListProductViewModel extends BaseObservable implements ListProductC
     private final ListProductAdapter mListProductAdapter;
     private boolean mIsProgressBarListProductVisible;
     private final DialogManager mDialogManager;
+    private final LoadCartListener mLoadCartListener;
 
     ListProductViewModel(ListProductAdapter listProductAdapter, Navigator navigator,
-            DialogManager dialogManager) {
+            DialogManager dialogManager, LoadCartListener loadCartListener) {
 
         mListProductAdapter = listProductAdapter;
         mNavigator = navigator;
         mDialogManager = dialogManager;
+        mLoadCartListener = loadCartListener;
         mListProductAdapter.setItemClickListener(this);
         mListProductAdapter.setOrderListener(this);
         setProgressBarListProductVisible(false);
@@ -80,6 +83,7 @@ public class ListProductViewModel extends BaseObservable implements ListProductC
     @Override
     public void onAddToCartSuccess() {
         mNavigator.showToastCustomActivity(R.string.add_to_cart_success);
+        mLoadCartListener.onReloadCart();
     }
 
     @Override

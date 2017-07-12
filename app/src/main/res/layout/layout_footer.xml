@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     >
 
     <data>
@@ -8,6 +9,7 @@
             name="viewModel"
             type="com.framgia.forder.screen.main.MainViewModel"
             />
+        <import type="android.view.View"/>
     </data>
 
     <RelativeLayout
@@ -16,6 +18,7 @@
         android:layout_height="@dimen/dp_65"
         android:layout_alignParentBottom="true"
         android:background="@android:color/transparent"
+        tools:ignore="ObsoleteLayoutParam"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,11 +31,13 @@
                 android:id="@+id/layout_home"
                 android:onClick="@{viewModel::onFooterClicked}"
                 app:selected="@{true}"
+                tools:ignore="UseCompoundDrawables"
                 style="@style/StyleTabFooter"
                 >
                 <ImageView
                     android:src="@drawable/selected_ic_home"
                     app:srcCompat="@drawable/ic_home"
+                    tools:ignore="ContentDescription"
                     style="@style/StyleImageViewTabFooter"
                     />
                 <TextView
@@ -43,11 +48,13 @@
             <LinearLayout
                 android:id="@+id/layout_seach"
                 android:onClick="@{viewModel::onFooterClicked}"
+                tools:ignore="UseCompoundDrawables"
                 style="@style/StyleTabFooter"
                 >
                 <ImageView
                     android:src="@drawable/selected_ic_search"
                     app:srcCompat="@drawable/ic_search"
+                    tools:ignore="ContentDescription"
                     style="@style/StyleImageViewTabFooter"
                     />
                 <TextView
@@ -61,11 +68,13 @@
             <LinearLayout
                 android:id="@+id/layout_notify"
                 android:onClick="@{viewModel::onFooterClicked}"
+                tools:ignore="UseCompoundDrawables"
                 style="@style/StyleTabFooter"
                 >
                 <ImageView
                     android:src="@drawable/selected_ic_notifications"
                     app:srcCompat="@drawable/ic_notifications"
+                    tools:ignore="ContentDescription"
                     style="@style/StyleImageViewTabFooter"
                     />
                 <TextView
@@ -76,11 +85,13 @@
             <LinearLayout
                 android:id="@+id/layout_profile"
                 android:onClick="@{viewModel::onFooterClicked}"
+                tools:ignore="UseCompoundDrawables"
                 style="@style/StyleTabFooter"
                 >
                 <ImageView
                     android:src="@drawable/selected_ic_profile"
                     app:srcCompat="@drawable/ic_person"
+                    tools:ignore="ContentDescription"
                     style="@style/StyleImageViewTabFooter"
                     />
                 <TextView
@@ -89,19 +100,46 @@
                     />
             </LinearLayout>
         </LinearLayout>
-
-        <ImageView
+        <FrameLayout
             android:id="@+id/img_top"
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_60"
             android:layout_centerInParent="true"
-            android:background="@drawable/center_tab_footer"
             android:onClick="@{viewModel::onFooterClicked}"
-            android:scaleType="center"
-            android:src="@drawable/selected_ic_cart"
-            app:srcCompat="@drawable/ic_cart"
-            />
-
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/center_tab_footer"
+                android:scaleType="center"
+                android:src="@drawable/selected_ic_cart"
+                app:srcCompat="@drawable/ic_cart"
+                tools:ignore="ContentDescription,ObsoleteLayoutParam"
+                />
+            <TextView
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/dp_1"
+                android:layout_marginLeft="@dimen/dp_1"
+                android:layout_marginRight="@dimen/dp_1"
+                android:layout_marginStart="@dimen/dp_1"
+                android:background="@drawable/circle_number_of_product"
+                android:backgroundTint="@color/color_orange_mos"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@{viewModel.numberOfCart}"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp_12"
+                android:textStyle="bold"
+                android:visibility="@{viewModel.noCart ? View.GONE : View.VISIBLE}"
+                tools:ignore="ObsoleteLayoutParam,UnusedAttribute"
+                />
+        </FrameLayout>
     </RelativeLayout>
 
 </layout>

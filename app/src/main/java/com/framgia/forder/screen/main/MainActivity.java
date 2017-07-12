@@ -7,11 +7,15 @@ import android.os.Handler;
 import android.widget.Toast;
 import com.framgia.forder.R;
 import com.framgia.forder.data.source.DomainRepository;
+import com.framgia.forder.data.source.ProductRepository;
 import com.framgia.forder.data.source.local.DomainLocalDataSource;
+import com.framgia.forder.data.source.local.ProductLocalDataSource;
 import com.framgia.forder.data.source.local.UserLocalDataSource;
+import com.framgia.forder.data.source.local.realm.RealmApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
 import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
+import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.ActivityMainBinding;
 import com.framgia.forder.screen.BaseActivity;
@@ -19,7 +23,7 @@ import com.framgia.forder.screen.BaseActivity;
 /**
  * Main Screen.
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements LoadCartListener{
 
     private static final int DELAY_TIME_TWO_TAP_BACK_BUTTON = 2000;
 
@@ -36,12 +40,18 @@ public class MainActivity extends BaseActivity {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         mViewModel = new MainViewModel(adapter, alertDialog);
 
+        RealmApi realmApi = new RealmApi();
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getApplicationContext());
         DomainRepository domainRepository =
                 new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
                         new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
+        int currentDomainId = domainRepository.getCurrentDomain().getId();
+        ProductRepository productRepository = new ProductRepository(
+                new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
+                new ProductLocalDataSource(realmApi), currentDomainId);
 
-        MainContract.Presenter presenter = new MainPresenter(mViewModel, domainRepository);
+        MainContract.Presenter presenter =
+                new MainPresenter(mViewModel, domainRepository, productRepository);
         mViewModel.setPresenter(presenter);
 
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
@@ -82,5 +92,10 @@ public class MainActivity extends BaseActivity {
         Toast.makeText(this, getString(R.string.please_click_back_again_to_exit),
                 Toast.LENGTH_SHORT).show();
         mHandler.postDelayed(mRunnable, DELAY_TIME_TWO_TAP_BACK_BUTTON);
+    }
+
+    @Override
+    public void onReloadCart() {
+        mViewModel.onReloadCart();
     }
 }

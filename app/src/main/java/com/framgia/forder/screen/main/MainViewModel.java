@@ -8,9 +8,11 @@ import android.support.annotation.IntDef;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import com.framgia.forder.BR;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.mainpage.MainPageContainerFragment;
@@ -32,6 +34,7 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     private final MainViewPagerAdapter mViewPagerAdapter;
     private String mCurrentDomain;
     private final AlertDialog.Builder mDialogChangeDomain;
+    private List<Cart> mCarts;
 
     @Tab
     private int mCurrentTab;
@@ -40,6 +43,7 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
             AlertDialog.Builder alertDialog) {
         mViewPagerAdapter = mainViewPagerAdapter;
         mDialogChangeDomain = alertDialog;
+        mCarts = new ArrayList<>();
     }
 
     @Override
@@ -94,6 +98,9 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     private void setTabSelected(View view) {
         ViewGroup viewGroup = null;
         if (view instanceof ImageView && !view.isSelected()) {
+            view.setSelected(!view.isSelected());
+            viewGroup = (ViewGroup) ((ViewGroup) view.getParent()).getChildAt(0);
+        } else if (view instanceof FrameLayout && !view.isSelected()) {
             view.setSelected(!view.isSelected());
             viewGroup = (ViewGroup) ((ViewGroup) view.getParent()).getChildAt(0);
         } else if (!(view instanceof ImageView)) {
@@ -157,9 +164,30 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
 
     }
 
+    @Override
+    public void onGetListCartSuccess(List<Cart> carts) {
+        mCarts = carts;
+        notifyPropertyChanged(BR.numberOfCart);
+        notifyPropertyChanged(BR.noCart);
+    }
+
+    @Override
+    public void onGetListCartError(BaseException error) {
+    }
+
     @Bindable
     public String getCurrentDomain() {
         return mCurrentDomain;
+    }
+
+    @Bindable
+    public String getNumberOfCart() {
+        return String.valueOf(mCarts.size());
+    }
+
+    @Bindable
+    public boolean isNoCart() {
+        return mCarts.size() == 0;
     }
 
     public void onChangeDomainClick() {
@@ -180,6 +208,11 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
                         .getFragments()
                         .get(Tab.TAB_HOME);
         fragment.reloadData();
+    }
+
+    @Override
+    public void onReloadCart() {
+        mPresenter.getListCart();
     }
 
     @IntDef({ Tab.TAB_HOME, Tab.TAB_SEARCH, Tab.TAB_CART, Tab.TAB_NOTIFICATION, Tab.TAB_PROFILE })
