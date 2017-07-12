@@ -1,7 +1,9 @@
 package com.framgia.forder.screen.main;
 
+import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.source.DomainRepository;
+import com.framgia.forder.data.source.ProductRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import java.util.List;
@@ -19,21 +21,27 @@ final class MainPresenter implements MainContract.Presenter {
     private static final String TAG = MainPresenter.class.getName();
     private final CompositeSubscription mCompositeSubscription;
     private final MainContract.ViewModel mViewModel;
+    private final ProductRepository mProductRepository;
     protected DomainRepository mDomainRepository;
 
-    MainPresenter(MainContract.ViewModel viewModel, DomainRepository domainRepository) {
+    MainPresenter(MainContract.ViewModel viewModel, DomainRepository domainRepository,
+            ProductRepository productRepository) {
         mViewModel = viewModel;
         mDomainRepository = domainRepository;
+        mProductRepository = productRepository;
         mCompositeSubscription = new CompositeSubscription();
     }
 
     @Override
     public void onStart() {
+        mProductRepository.openTransaction();
+        getListCart();
     }
 
     @Override
     public void onStop() {
         mCompositeSubscription.clear();
+        mProductRepository.closeTransaction();
     }
 
     @Override
@@ -72,6 +80,23 @@ final class MainPresenter implements MainContract.Presenter {
             }
         }
         return 0;
+    }
+
+    @Override
+    public void getListCart() {
+        Subscription subscriptions =
+                mProductRepository.getAllShoppingCart().subscribe(new Action1<List<Cart>>() {
+                    @Override
+                    public void call(List<Cart> carts) {
+                        mViewModel.onGetListCartSuccess(carts);
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onGetListCartError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscriptions);
     }
 
     @Override

@@ -9,6 +9,7 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.screen.main.LoadCartListener;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
@@ -31,13 +32,15 @@ public class ShoppingCartViewModel extends BaseObservable
     private double mTotalPrice;
     private List<Cart> mCartList;
     private Cart mCart;
+    private LoadCartListener mLoadCartListener;
 
     ShoppingCartViewModel(ShoppingCartAdapter shoppingCartAdapter, DialogManager dialogManager,
-            Navigator navigator) {
+            Navigator navigator, LoadCartListener loadCartListener) {
         mShoppingCartAdapter = shoppingCartAdapter;
         shoppingCartAdapter.setOrderItemListener(this);
         mDialogManager = dialogManager;
         mNavigator = navigator;
+        mLoadCartListener = loadCartListener;
     }
 
     @Override
@@ -139,6 +142,7 @@ public class ShoppingCartViewModel extends BaseObservable
     @Override
     public void onDownQuantitySuccess() {
         reloadData();
+        mLoadCartListener.onReloadCart();
     }
 
     @Override
@@ -149,6 +153,7 @@ public class ShoppingCartViewModel extends BaseObservable
     @Override
     public void onDeleteProductSuccess() {
         reloadData();
+        mLoadCartListener.onReloadCart();
     }
 
     @Override
@@ -191,6 +196,7 @@ public class ShoppingCartViewModel extends BaseObservable
         mNavigator.showToast(R.string.order_successful);
         mPresenter.removeAllShop();
         reloadData();
+        mLoadCartListener.onReloadCart();
     }
 
     @Override
@@ -203,6 +209,7 @@ public class ShoppingCartViewModel extends BaseObservable
         mNavigator.showToast(R.string.order_successful);
         mPresenter.removeOneShop(mCart);
         reloadData();
+        mLoadCartListener.onReloadCart();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.main;
 
+import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BasePresenter;
@@ -21,6 +22,12 @@ interface MainContract {
         void onGetListDomainSuccess(List<Domain> domains);
 
         void onGetListDomainError(BaseException e);
+
+        void onGetListCartSuccess(List<Cart> carts);
+
+        void onGetListCartError(BaseException error);
+
+        void onReloadCart();
     }
 
     /**
@@ -32,6 +39,8 @@ interface MainContract {
         void getListDomain();
 
         int getCurrentDomainPosition(List<Domain> domains);
+
+        void getListCart();
 
         void saveCurrentDomain(Domain domain);
     }

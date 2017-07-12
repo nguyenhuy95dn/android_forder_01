@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.cart;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
 import com.framgia.forder.data.source.remote.UserRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentShoppingcartBinding;
+import com.framgia.forder.screen.main.LoadCartListener;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ import java.util.List;
  */
 public class ShoppingCartFragment extends Fragment {
     private ShoppingCartContract.ViewModel mViewModel;
+    private LoadCartListener mLoadCartListener;
 
     public static ShoppingCartFragment newInstance() {
         return new ShoppingCartFragment();
@@ -47,7 +50,8 @@ public class ShoppingCartFragment extends Fragment {
         DialogManager dialogManager = new DialogManager(getActivity());
         Navigator navigator = new Navigator(getParentFragment());
 
-        mViewModel = new ShoppingCartViewModel(adapter, dialogManager, navigator);
+        mViewModel =
+                new ShoppingCartViewModel(adapter, dialogManager, navigator, mLoadCartListener);
 
         RealmApi realmApi = new RealmApi();
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
@@ -96,5 +100,16 @@ public class ShoppingCartFragment extends Fragment {
             return;
         }
         mViewModel.reloadData();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mLoadCartListener = (LoadCartListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(
+                    activity.toString() + " must implement OnHeadlineSelectedListener");
+        }
     }
 }
