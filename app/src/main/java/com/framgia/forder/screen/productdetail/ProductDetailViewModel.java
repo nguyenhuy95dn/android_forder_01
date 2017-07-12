@@ -18,6 +18,7 @@ import com.framgia.forder.data.source.remote.api.request.CommentRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.listProduct.ListProductFragment;
+import com.framgia.forder.screen.main.LoadCartListener;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
 import com.framgia.forder.screen.productdetail.adapter.CommentAdapter;
 import com.framgia.forder.screen.productdetail.adapter.ProductShopAdapter;
@@ -49,14 +50,16 @@ public class ProductDetailViewModel extends BaseObservable
     private boolean mIsProgressBarListProductVisible;
     private boolean mIsProgressBarListCommentVisible;
     private final DialogManager mDialogManager;
+    private final LoadCartListener mLoadCartListener;
 
     ProductDetailViewModel(Product product, ProductShopAdapter productShopAdapter,
             CommentAdapter commentInProductAdapter, Navigator navigator,
-            DialogManager dialogManager) {
+            DialogManager dialogManager, LoadCartListener loadCartListener) {
         mProduct = product;
         mNavigator = navigator;
         mProductShopAdapter = productShopAdapter;
         mDialogManager = dialogManager;
+        mLoadCartListener = loadCartListener;
         mCommentInProductAdapter = commentInProductAdapter;
         mProductShopAdapter.setItemClickListener(this);
         mCommentInProductAdapter.setDeleteCommentListener(this);
@@ -99,6 +102,7 @@ public class ProductDetailViewModel extends BaseObservable
     @Override
     public void onAddToCartSuccess() {
         mNavigator.showToastCustomActivity(R.string.add_to_cart_success);
+        mLoadCartListener.onReloadCart();
     }
 
     @Override
