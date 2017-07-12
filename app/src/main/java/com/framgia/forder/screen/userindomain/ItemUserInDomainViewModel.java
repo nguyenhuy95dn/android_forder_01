@@ -76,24 +76,26 @@ public class ItemUserInDomainViewModel extends BaseObservable {
         switch (item.getItemId()) {
             case R.id.action_delete:
                 mUserInDomainListener.onClickDeleteUser(mUser.getId());
+                return true;
             case R.id.action_set_manager:
                 mUserInDomainListener.onClickAddManager(mUser.getId());
+                return true;
             default:
         }
-        return (item.getItemId() == R.id.action_delete
-                || item.getItemId() == R.id.action_set_manager);
+        return false;
     }
 
     public boolean onMenuItemClickCancelManager(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_delete:
                 mUserInDomainListener.onClickDeleteUser(mUser.getId());
+                return true;
             case R.id.action_cancel_manager:
                 mUserInDomainListener.onClickCancelManager(mUser.getId());
+                return true;
             default:
         }
-        return (item.getItemId() == R.id.action_delete
-                || item.getItemId() == R.id.action_cancel_manager);
+        return false;
     }
 
     public boolean isMember() {

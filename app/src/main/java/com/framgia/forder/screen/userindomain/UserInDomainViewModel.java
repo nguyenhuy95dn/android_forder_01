@@ -8,6 +8,7 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.DomainManagement;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.screen.adduserindomain.AddUserInDomainFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.List;
@@ -18,6 +19,8 @@ import java.util.List;
 
 public class UserInDomainViewModel extends BaseObservable
         implements UserInDomainContract.ViewModel, UserInDomainListener {
+
+    private static final String TAG = "UserInDomainViewModel";
 
     private static final String MANAGER = "manager";
     private static final String MEMBER = "member";
@@ -147,6 +150,12 @@ public class UserInDomainViewModel extends BaseObservable
     }
 
     public void onClickAddUserInDomain() {
-        //Todo dev later when have API
+        mNavigator.goNextChildFragment(R.id.layout_content,
+                AddUserInDomainFragment.newInstance(mDomainManagement), true, Navigator.RIGHT_LEFT,
+                TAG);
+    }
+
+    public boolean isOwner() {
+        return mPresenter.getRule(mDomainManagement.getOwner());
     }
 }
