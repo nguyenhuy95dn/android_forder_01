@@ -16,6 +16,7 @@ import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.listProduct.ListProductFragment;
 import com.framgia.forder.screen.listshop.ListShopFragment;
+import com.framgia.forder.screen.main.LoadCartListener;
 import com.framgia.forder.screen.mainpage.category.CategoryAdapter;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
 import com.framgia.forder.screen.mainpage.product.ProductAdapter;
@@ -48,10 +49,11 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
     private ShopPageAdapter mShopPageAdapter;
     private DialogManager mDialogManager;
     private int mPageLimit = 6;
+    private final LoadCartListener mLoadCartListener;
 
     MainPageViewModel(@NonNull Context context, ProductAdapter productAdapter, Navigator navigator,
             CategoryAdapter categoryAdapter, ShopPageAdapter shopPageAdapter,
-            DialogManager dialogManager) {
+            DialogManager dialogManager, LoadCartListener loadCartListener) {
         this.mContext = context;
         mProductAdapter = productAdapter;
         mProductAdapter.setOrderListener(this);
@@ -60,6 +62,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
         mCategoryAdapter = categoryAdapter;
         mCategoryAdapter.setItemClickListener(this);
         mDialogManager = dialogManager;
+        mLoadCartListener = loadCartListener;
         setProgressBarVisibleShop(false);
         setProgressBarVisibleCategory(false);
         setProgressBarVisibleProduct(false);
@@ -134,6 +137,7 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
     @Override
     public void onAddToCartSuccess() {
         mNavigator.showToastCustom((mContext.getString(R.string.add_to_cart_success)));
+        mLoadCartListener.onReloadCart();
     }
 
     @Override

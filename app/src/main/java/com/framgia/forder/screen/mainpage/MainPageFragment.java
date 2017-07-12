@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.mainpage;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +29,7 @@ import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
 import com.framgia.forder.data.source.remote.UserRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentMainPageBinding;
+import com.framgia.forder.screen.main.LoadCartListener;
 import com.framgia.forder.screen.mainpage.category.CategoryAdapter;
 import com.framgia.forder.screen.mainpage.product.ProductAdapter;
 import com.framgia.forder.screen.mainpage.shop.ShopPageAdapter;
@@ -42,6 +44,7 @@ import java.util.List;
 
 public class MainPageFragment extends Fragment {
     private MainPageContract.ViewModel mViewModel;
+    private LoadCartListener mLoadCartListener;
 
     public static MainPageFragment newInstance() {
         return new MainPageFragment();
@@ -59,7 +62,7 @@ public class MainPageFragment extends Fragment {
         DialogManager dialogManager = new DialogManager(getActivity());
 
         mViewModel = new MainPageViewModel(getContext().getApplicationContext(), productAdapter,
-                navigator, categoryAdapter, shopPageAdapter, dialogManager);
+                navigator, categoryAdapter, shopPageAdapter, dialogManager, mLoadCartListener);
 
         RealmApi realmApi = new RealmApi();
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
@@ -100,5 +103,15 @@ public class MainPageFragment extends Fragment {
     public void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mLoadCartListener = (LoadCartListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement LoadCartListener");
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.productdetail;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,6 +25,7 @@ import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
 import com.framgia.forder.data.source.remote.UserRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentProductDetailBinding;
+import com.framgia.forder.screen.main.LoadCartListener;
 import com.framgia.forder.screen.productdetail.adapter.CommentAdapter;
 import com.framgia.forder.screen.productdetail.adapter.ProductShopAdapter;
 import com.framgia.forder.utils.navigator.Navigator;
@@ -39,6 +41,7 @@ public class ProductDetailFragment extends Fragment {
     private static final String EXTRA_PRODUCT = "EXTRA_PRODUCT";
 
     private ProductDetailContract.ViewModel mViewModel;
+    private LoadCartListener mLoadCartListener;
 
     public static ProductDetailFragment newInstance(Product product) {
         ProductDetailFragment productDetailFragment = new ProductDetailFragment();
@@ -61,7 +64,7 @@ public class ProductDetailFragment extends Fragment {
         CommentAdapter commentInProductAdapter = new CommentAdapter(getActivity(), comments);
         Navigator navigator = new Navigator(getParentFragment());
         mViewModel = new ProductDetailViewModel(product, productAdapter, commentInProductAdapter,
-                navigator, dialogManager);
+                navigator, dialogManager, mLoadCartListener);
         RealmApi realmApi = new RealmApi();
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
         DomainRepository domainRepository =
@@ -105,5 +108,15 @@ public class ProductDetailFragment extends Fragment {
             return;
         }
         mViewModel.onReLoadData();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mLoadCartListener = (LoadCartListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement LoadCartListener");
+        }
     }
 }
