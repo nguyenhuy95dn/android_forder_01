@@ -8,17 +8,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
-import com.framgia.forder.data.model.Domain;
-import com.framgia.forder.data.model.ShopInfo;
 import com.framgia.forder.data.model.ShopManagement;
+import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ShopRepository;
+import com.framgia.forder.data.source.local.DomainLocalDataSource;
+import com.framgia.forder.data.source.local.UserLocalDataSource;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
+import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
 import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentShopinfoBinding;
 import com.framgia.forder.screen.shopinfo.listdomain.ListDomainAdapter;
 import com.framgia.forder.utils.navigator.Navigator;
-import java.util.ArrayList;
-import java.util.List;
+import com.framgia.forder.widgets.dialog.DialogManager;
 
 /**
  * Shopinfo Screen.
@@ -47,19 +50,19 @@ public class ShopinfoFragment extends Fragment {
         ManagerShopInfoAdapter adapter = new ManagerShopInfoAdapter(getActivity());
         ShopManagement shopManagement = (ShopManagement) getArguments().get(EXTRA_SHOP);
         ListDomainAdapter domainAdapter = new ListDomainAdapter(getActivity());
-        List<Domain> domain = new ArrayList<>();
-        List<ShopInfo> shopInfo = new ArrayList<>();
-        if (shopManagement != null) {
-            shopInfo = shopManagement.getShopInfos();
-            domain = shopManagement.getShopDomains();
-        }
-        domainAdapter.updateData(shopInfo, domain);
+        DialogManager dialogManager = new DialogManager(getActivity());
 
-        mViewModel = new ShopinfoViewModel(navigator, shopManagement, adapter, domainAdapter);
+        mViewModel = new ShopinfoViewModel(navigator, shopManagement, adapter, domainAdapter,
+                dialogManager);
 
         ShopRepository shopRepository =
                 new ShopRepository(new ShopRemoteDataSource(FOrderServiceClient.getInstance()));
-        ShopinfoContract.Presenter presenter = new ShopinfoPresenter(mViewModel, shopRepository);
+        SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity().getApplicationContext());
+        DomainRepository domainRepository =
+                new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
+                        new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
+        ShopinfoContract.Presenter presenter =
+                new ShopinfoPresenter(mViewModel, shopRepository, domainRepository);
         mViewModel.setPresenter(presenter);
 
         FragmentShopinfoBinding binding =

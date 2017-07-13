@@ -7,9 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
-import com.framgia.forder.data.model.Domain;
-import com.framgia.forder.data.model.ShopInfo;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
+import com.framgia.forder.data.source.remote.api.response.DomainToRequestShopResponse;
 import com.framgia.forder.databinding.ItemListDomainBinding;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.widgets.animation.AnimationManager;
@@ -23,8 +22,7 @@ import java.util.List;
 public class ListDomainAdapter extends BaseRecyclerViewAdapter<ListDomainAdapter.ItemViewHolder> {
 
     private final Context mContext;
-    private final List<Domain> mDomains;
-    private final List<ShopInfo> mShopInfos;
+    private final List<DomainToRequestShopResponse.DomainToRequest> mDomains;
     private final AnimationManager mAnimationManager;
     private ShopDomainManagementListener mDomainManagementListener;
 
@@ -32,7 +30,6 @@ public class ListDomainAdapter extends BaseRecyclerViewAdapter<ListDomainAdapter
         super(context);
         mContext = context;
         mDomains = new ArrayList<>();
-        mShopInfos = new ArrayList<>();
         mAnimationManager = new AnimationManager(context);
     }
 
@@ -46,7 +43,7 @@ public class ListDomainAdapter extends BaseRecyclerViewAdapter<ListDomainAdapter
 
     @Override
     public void onBindViewHolder(ListDomainAdapter.ItemViewHolder holder, int position) {
-        holder.bind(mShopInfos.get(position), mDomains.get(position));
+        holder.bind(mDomains.get(position));
         mAnimationManager.animationSlideInLeft(holder.itemView, position);
     }
 
@@ -55,16 +52,12 @@ public class ListDomainAdapter extends BaseRecyclerViewAdapter<ListDomainAdapter
         return mDomains.size();
     }
 
-    public void updateData(List<ShopInfo> shopInfos, List<Domain> domains) {
+    public void updateData(List<DomainToRequestShopResponse.DomainToRequest> domains) {
         if (domains == null) {
-            return;
-        }
-        if (shopInfos == null) {
             return;
         }
         mDomains.clear();
         mDomains.addAll(domains);
-        mShopInfos.addAll(shopInfos);
         notifyDataSetChanged();
     }
 
@@ -82,9 +75,9 @@ public class ListDomainAdapter extends BaseRecyclerViewAdapter<ListDomainAdapter
             mBinding = binding;
         }
 
-        void bind(ShopInfo shopInfo, Domain domain) {
-            mBinding.setViewModel(new ItemListDomainViewModel(mContext, shopInfo, domain,
-                    mDomainManagementListener));
+        void bind(DomainToRequestShopResponse.DomainToRequest domain) {
+            mBinding.setViewModel(
+                    new ItemListDomainViewModel(mContext, domain, mDomainManagementListener));
             mBinding.executePendingBindings();
         }
     }
