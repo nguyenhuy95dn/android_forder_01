@@ -193,10 +193,9 @@ public class ShoppingCartViewModel extends BaseObservable
 
     @Override
     public void onOrderAllShopSuccess() {
-        mNavigator.showToast(R.string.order_successful);
+        mNavigator.showToastCustomActivity(R.string.order_successful);
         mPresenter.removeAllShop();
         reloadData();
-        mLoadCartListener.onReloadCart();
     }
 
     @Override
@@ -206,15 +205,15 @@ public class ShoppingCartViewModel extends BaseObservable
 
     @Override
     public void onOrderOneShopSuccess() {
-        mNavigator.showToast(R.string.order_successful);
+        mNavigator.showToastCustomActivity(R.string.order_successful);
         mPresenter.removeOneShop(mCart);
         reloadData();
-        mLoadCartListener.onReloadCart();
     }
 
     @Override
     public void onRemoveShopSuccessful() {
         reloadData();
+        mLoadCartListener.onReloadCart();
     }
 
     @Override

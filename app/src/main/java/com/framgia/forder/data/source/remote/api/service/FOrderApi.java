@@ -21,6 +21,7 @@ import com.framgia.forder.data.source.remote.api.response.DeleteShopInDomainResp
 import com.framgia.forder.data.source.remote.api.response.DeleteUserInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
+import com.framgia.forder.data.source.remote.api.response.DomainToRequestShopResponse;
 import com.framgia.forder.data.source.remote.api.response.EditDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
 import com.framgia.forder.data.source.remote.api.response.NotificationResponse;
@@ -219,4 +220,7 @@ public interface FOrderApi {
 
     @POST("v1/user_domains")
     Observable<BaseResponse> requestAddUserInDomain(@Body AddUserInDomainRequest orderRequest);
+
+    @GET("v1/dashboard/shops/{shop_id}")
+    Observable<DomainToRequestShopResponse> getListDomainToRequestShop(@Path("shop_id") int shopId);
 }

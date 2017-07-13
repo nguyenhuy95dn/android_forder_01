@@ -12,6 +12,7 @@ import com.framgia.forder.data.source.remote.api.response.DeleteDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteUserInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainManagementResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainResponse;
+import com.framgia.forder.data.source.remote.api.response.DomainToRequestShopResponse;
 import com.framgia.forder.data.source.remote.api.response.EditDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.UserInDomainResponse;
@@ -128,5 +129,24 @@ public class DomainRemoteDataSource implements DomainDataSource.RemoteDataSource
                         return Observable.error(new NullPointerException());
                     }
                 });
+    }
+
+    @Override
+    public Observable<List<DomainToRequestShopResponse.DomainToRequest>> getListDomainToRequestShop(
+            int shopId) {
+        return mFOrderApi.getListDomainToRequestShop(shopId)
+                .flatMap(
+                        new Func1<DomainToRequestShopResponse,
+                                Observable<List<DomainToRequestShopResponse.DomainToRequest>>>() {
+                            @Override
+                            public Observable<List<DomainToRequestShopResponse.DomainToRequest>>
+                            call(
+                                    DomainToRequestShopResponse response) {
+                                if (response != null) {
+                                    return Observable.just(response.getDomainToRequestList());
+                                }
+                                return Observable.error(new NullPointerException());
+                            }
+                        });
     }
 }
