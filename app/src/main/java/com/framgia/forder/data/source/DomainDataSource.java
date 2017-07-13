@@ -9,6 +9,7 @@ import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import com.framgia.forder.data.source.remote.api.response.ChangeRuleOfUserResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteUserInDomainResponse;
+import com.framgia.forder.data.source.remote.api.response.DomainToRequestShopResponse;
 import com.framgia.forder.data.source.remote.api.response.EditDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterDomainResponse;
 import java.util.List;
@@ -50,5 +51,8 @@ public class DomainDataSource {
                 AddUserInDomainRequest addUserInDomainRequest);
 
         Observable<List<User>> getListUserToAddInDomain(int domainId);
+
+        Observable<List<DomainToRequestShopResponse.DomainToRequest>> getListDomainToRequestShop(
+                int shopId);
     }
 }
