@@ -93,6 +93,7 @@ public class CreateProductViewModel extends BaseObservable
         if (categories == null) {
             return;
         }
+        mAdapter.clear();
         mCategories.clear();
         mCategories.addAll(categories);
         for (Category category : categories) {
@@ -215,12 +216,10 @@ public class CreateProductViewModel extends BaseObservable
     public void onSwitchChange() {
         if (isSwitched) {
             isSwitched = false;
-            mStatus = mContext.getString(R.string.active);
-            mNavigator.showToastCustomActivity(R.string.active);
+            mStatus = mContext.getString(R.string.inactive);
         } else {
             isSwitched = true;
-            mStatus = mContext.getString(R.string.inactive);
-            mNavigator.showToastCustomActivity(R.string.inactive);
+            mStatus = mContext.getString(R.string.active);
         }
     }
 
@@ -286,5 +285,13 @@ public class CreateProductViewModel extends BaseObservable
 
     public void setSelectedTypePosition(int selectedTypePosition) {
         mSelectedTypePosition = selectedTypePosition;
+    }
+
+    public boolean isCheckActive() {
+        return isSwitched;
+    }
+
+    public boolean isCheckInActive() {
+        return !isSwitched;
     }
 }

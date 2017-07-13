@@ -11,5 +11,7 @@ import rx.Observable;
 public interface CategoryDataSource {
     interface RemoteDataSource {
         Observable<List<Category>> getListCategory(int domainId);
+
+        Observable<List<Category>> getListAllCategory();
     }
 }

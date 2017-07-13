@@ -57,4 +57,5 @@
     <dimen name="dp_270">270dp</dimen>
     <dimen name="dp_34">34dp</dimen>
     <dimen name="dp_55">55dp</dimen>
+    <dimen name="dp_9">9dp</dimen>
 </resources>

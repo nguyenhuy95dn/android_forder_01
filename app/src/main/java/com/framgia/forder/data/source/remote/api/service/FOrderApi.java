@@ -143,6 +143,9 @@ public interface FOrderApi {
     @GET("v1/categories")
     Observable<CategoryResponse> getCategories(@Query("domain_id") int domainId);
 
+    @GET("v1/categories")
+    Observable<CategoryResponse> getListAllCategory();
+
     @PUT("v1/dashboard/products/{id}")
     Observable<UpdateProductResponse> requestUpdateProduct(@Path("id") int productId,
             @Body UpdateProductRequest updateProductRequest);

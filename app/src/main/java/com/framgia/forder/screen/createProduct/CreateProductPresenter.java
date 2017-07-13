@@ -62,8 +62,7 @@ final class CreateProductPresenter implements CreateProductContract.Presenter {
     }
 
     private void getListCategory() {
-        int currentDomain = mDomainRepository.getCurrentDomain().getId();
-        Subscription subscription = mCategoryRepository.getListCategory(currentDomain)
+        Subscription subscription = mCategoryRepository.getListAllCategory()
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Action0() {
                     @Override
