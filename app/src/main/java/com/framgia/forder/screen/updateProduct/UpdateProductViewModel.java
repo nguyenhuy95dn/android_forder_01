@@ -191,11 +191,9 @@ public class UpdateProductViewModel extends BaseObservable
         if (isSwitched) {
             isSwitched = false;
             mStatus = mContext.getString(R.string.active);
-            mNavigator.showToast(R.string.active);
         } else {
             isSwitched = true;
             mStatus = mContext.getString(R.string.inactive);
-            mNavigator.showToast(R.string.inactive);
         }
     }
 
@@ -208,6 +206,7 @@ public class UpdateProductViewModel extends BaseObservable
         if (categories == null) {
             return;
         }
+        mAdapter.clear();
         mCategories.clear();
         mCategories.addAll(categories);
         for (Category category : categories) {

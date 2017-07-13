@@ -93,6 +93,7 @@ public class CreateProductViewModel extends BaseObservable
         if (categories == null) {
             return;
         }
+        mAdapter.clear();
         mCategories.clear();
         mCategories.addAll(categories);
         for (Category category : categories) {
@@ -216,11 +217,9 @@ public class CreateProductViewModel extends BaseObservable
         if (isSwitched) {
             isSwitched = false;
             mStatus = mContext.getString(R.string.active);
-            mNavigator.showToastCustomActivity(R.string.active);
         } else {
             isSwitched = true;
             mStatus = mContext.getString(R.string.inactive);
-            mNavigator.showToastCustomActivity(R.string.inactive);
         }
     }
 

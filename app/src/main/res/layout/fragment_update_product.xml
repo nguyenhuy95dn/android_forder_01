@@ -143,6 +143,7 @@
                                 android:textSize="@dimen/sp_18"
                                 />
                             <android.support.v7.widget.AppCompatSpinner
+                                android:id="@+id/appCompatSpinner"
                                 android:layout_width="@dimen/dp_200"
                                 android:layout_height="@dimen/dp_30"
                                 android:layout_marginEnd="@dimen/dp_10"
@@ -152,6 +153,7 @@
                                 android:layout_marginTop="@dimen/dp_11"
                                 android:selectedItemPosition="@={viewModel.selectedTypePosition}"
                                 android:spinnerMode="dropdown"
+                                app:selected="@{viewModel.position}"
                                 app:spinnerAdapter="@{viewModel.adapterCategory}"
                                 />
                         </LinearLayout>
