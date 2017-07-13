@@ -11,6 +11,7 @@
             name="viewModel"
             type="com.framgia.forder.screen.shopinfo.ShopinfoViewModel"
             />
+        <import type="android.view.View"/>
     </data>
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/coordinator_Layout"
@@ -281,17 +282,29 @@
                     android:background="@color/color_gray_white"
                     />
 
-                <android.support.v7.widget.RecyclerView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dp_10"
                     android:layout_marginTop="@dimen/dp_10"
                     android:background="@color/color_white"
-                    android:orientation="horizontal"
-                    app:layoutManager="LinearLayoutManager"
-                    app:recyclerAdapter="@{viewModel.adapter}"
-                    />
-
+                    >
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layoutManager="LinearLayoutManager"
+                        app:recyclerAdapter="@{viewModel.adapter}"
+                        />
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:visibility="@{viewModel.progressBarListManager ? View.VISIBLE : View.GONE}"
+                        style="@android:style/Widget.ProgressBar.Small"
+                        />
+                </RelativeLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -310,15 +323,27 @@
                     android:layout_margin="@dimen/dp_5"
                     android:background="@color/color_gray_white"
                     />
-                <android.support.v7.widget.RecyclerView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_3"
-                    android:orientation="vertical"
-                    app:layoutManager="LinearLayoutManager"
-                    app:recyclerAdapter="@{viewModel.domainAdapter}"
-                    />
-
+                    >
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layoutManager="LinearLayoutManager"
+                        app:recyclerAdapter="@{viewModel.domainAdapter}"
+                        />
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:visibility="@{viewModel.progressBarListDomain ? View.VISIBLE : View.GONE}"
+                        style="?android:attr/progressBarPadding"
+                        />
+                </RelativeLayout>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>

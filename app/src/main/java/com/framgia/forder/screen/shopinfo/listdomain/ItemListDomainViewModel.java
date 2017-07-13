@@ -5,9 +5,8 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import com.framgia.forder.R;
-import com.framgia.forder.data.model.Domain;
-import com.framgia.forder.data.model.ShopInfo;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
+import com.framgia.forder.data.source.remote.api.response.DomainToRequestShopResponse;
 import com.framgia.forder.widgets.dialog.DialogManager;
 
 /**
@@ -16,17 +15,16 @@ import com.framgia.forder.widgets.dialog.DialogManager;
 
 public class ItemListDomainViewModel {
 
-    private final ShopInfo mShopInfo;
-    private final Domain mDomain;
+    private final DomainToRequestShopResponse.DomainToRequest mDomain;
     private int mButtonJoinDomain;
     private int mTextButton;
     private int mTextStatusColor;
     private final DialogManager mDialogManager;
     private final ListDomainAdapter.ShopDomainManagementListener mDomainManagementListener;
 
-    ItemListDomainViewModel(@NonNull Context context, ShopInfo shopInfo, Domain domain,
+    ItemListDomainViewModel(@NonNull Context context,
+            DomainToRequestShopResponse.DomainToRequest domain,
             ListDomainAdapter.ShopDomainManagementListener domainManagementListener) {
-        mShopInfo = shopInfo;
         mDomain = domain;
         mDialogManager = new DialogManager(context);
         mDomainManagementListener = domainManagementListener;
@@ -34,19 +32,19 @@ public class ItemListDomainViewModel {
     }
 
     public String getDomainName() {
-        return mShopInfo.getDomainName();
+        return mDomain.getDomainName();
     }
 
     public String getNumberUser() {
-        return String.valueOf(mShopInfo.getNumberUser());
+        return String.valueOf(mDomain.getNumberOfUsers());
     }
 
     public String getNumberShop() {
-        return String.valueOf(mShopInfo.getNumberShop());
+        return String.valueOf(mDomain.getNumberOfShops());
     }
 
     public String getNumberProduct() {
-        return String.valueOf(mShopInfo.getNumberProduct());
+        return String.valueOf(mDomain.getNumberOfProducts());
     }
 
     public String getStatus() {
@@ -100,10 +98,12 @@ public class ItemListDomainViewModel {
     }
 
     public void onClickRequestOrCancelDomain() {
-        if (mDomain.getStatus() == Domain.Status.NONE) {
+        if (mDomain.getStatus() == DomainToRequestShopResponse.DomainToRequest.Status.NONE) {
             onApplyToDomain();
-        } else if (mDomain.getStatus() == Domain.Status.APPROVED
-                || mDomain.getStatus() == Domain.Status.PENDING) {
+        } else if (mDomain.getStatus()
+                == DomainToRequestShopResponse.DomainToRequest.Status.APPROVED
+                || mDomain.getStatus()
+                == DomainToRequestShopResponse.DomainToRequest.Status.PENDING) {
             mDialogManager.dialogwithNoTitleTwoButton(R.string.are_you_sure_you_want_to_cancel,
                     new DialogInterface.OnClickListener() {
                         @Override
@@ -117,11 +117,11 @@ public class ItemListDomainViewModel {
 
     private void onApplyToDomain() {
         ApplyShopToDomainRequest applyShopToDomainRequest = new ApplyShopToDomainRequest();
-        applyShopToDomainRequest.setDomainId(mShopInfo.getDomainId());
+        applyShopToDomainRequest.setDomainId(mDomain.getDomainId());
         mDomainManagementListener.onApplyToDomain(applyShopToDomainRequest);
     }
 
     private void onLeaveToDomain() {
-        mDomainManagementListener.onLeaveToDomain(mShopInfo.getDomainId());
+        mDomainManagementListener.onLeaveToDomain(mDomain.getDomainId());
     }
 }

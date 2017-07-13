@@ -2,11 +2,13 @@ package com.framgia.forder.screen.shopinfo;
 
 import android.util.Log;
 import com.framgia.forder.data.model.User;
+import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.response.BaseResponse;
+import com.framgia.forder.data.source.remote.api.response.DomainToRequestShopResponse;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -25,10 +27,13 @@ final class ShopinfoPresenter implements ShopinfoContract.Presenter {
     private final ShopinfoContract.ViewModel mViewModel;
     private final CompositeSubscription mCompositeSubscription;
     private final ShopRepository mShopRepository;
+    private final DomainRepository mDomainRepository;
 
-    ShopinfoPresenter(ShopinfoContract.ViewModel viewModel, ShopRepository shopRepository) {
+    ShopinfoPresenter(ShopinfoContract.ViewModel viewModel, ShopRepository shopRepository,
+            DomainRepository domainRepository) {
         mViewModel = viewModel;
         mShopRepository = shopRepository;
+        mDomainRepository = domainRepository;
         mCompositeSubscription = new CompositeSubscription();
     }
 
@@ -48,13 +53,13 @@ final class ShopinfoPresenter implements ShopinfoContract.Presenter {
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
-                        mViewModel.onShowProgressBar();
+                        mViewModel.onShowProgressBarListManager();
                     }
                 })
                 .doAfterTerminate(new Action0() {
                     @Override
                     public void call() {
-                        mViewModel.onHideProgressBar();
+                        mViewModel.onHideProgressBarListManager();
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -80,13 +85,13 @@ final class ShopinfoPresenter implements ShopinfoContract.Presenter {
                         .doOnSubscribe(new Action0() {
                             @Override
                             public void call() {
-                                mViewModel.onShowProgressBar();
+                                mViewModel.onShowProgressBarDialog();
                             }
                         })
                         .doAfterTerminate(new Action0() {
                             @Override
                             public void call() {
-                                mViewModel.onHideProgressBar();
+                                mViewModel.onHideProgressBarDialog();
                             }
                         })
                         .observeOn(AndroidSchedulers.mainThread())
@@ -113,13 +118,13 @@ final class ShopinfoPresenter implements ShopinfoContract.Presenter {
                         .doOnSubscribe(new Action0() {
                             @Override
                             public void call() {
-                                mViewModel.onShowProgressBar();
+                                mViewModel.onShowProgressBarDialog();
                             }
                         })
                         .doAfterTerminate(new Action0() {
                             @Override
                             public void call() {
-                                mViewModel.onHideProgressBar();
+                                mViewModel.onHideProgressBarDialog();
                             }
                         })
                         .observeOn(AndroidSchedulers.mainThread())
@@ -134,6 +139,37 @@ final class ShopinfoPresenter implements ShopinfoContract.Presenter {
                                 mViewModel.onApplyOrLeaveToDomainError(error);
                             }
                         });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void getListDomainToRequestShop(int shopId) {
+        Subscription subscription = mDomainRepository.getListDomainToRequestShop(shopId)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressBarListDomain();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressBarListDomain();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<List<DomainToRequestShopResponse.DomainToRequest>>() {
+                    @Override
+                    public void call(List<DomainToRequestShopResponse.DomainToRequest> domains) {
+                        mViewModel.onGetListDomainSuccess(domains);
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onApplyOrLeaveToDomainError(error);
+                    }
+                });
         mCompositeSubscription.add(subscription);
     }
 }

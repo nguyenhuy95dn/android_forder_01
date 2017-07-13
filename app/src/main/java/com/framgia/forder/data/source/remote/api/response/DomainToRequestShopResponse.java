@@ -49,10 +49,10 @@ public class DomainToRequestShopResponse {
         private int mDomainId;
         @Expose
         @SerializedName("status")
-        private int mStatus;
+        private Status mStatus;
         @Expose
         @SerializedName("domain_name")
-        private int mDomainName;
+        private String mDomainName;
         @Expose
         @SerializedName("number_of_users")
         private int mNumberOfUsers;
@@ -71,19 +71,19 @@ public class DomainToRequestShopResponse {
             mDomainId = domainId;
         }
 
-        public int getStatus() {
+        public Status getStatus() {
             return mStatus;
         }
 
-        public void setStatus(int status) {
+        public void setStatus(Status status) {
             mStatus = status;
         }
 
-        public int getDomainName() {
+        public String getDomainName() {
             return mDomainName;
         }
 
-        public void setDomainName(int domainName) {
+        public void setDomainName(String domainName) {
             mDomainName = domainName;
         }
 
@@ -109,6 +109,39 @@ public class DomainToRequestShopResponse {
 
         public void setNumberOfProducts(int numberOfProducts) {
             mNumberOfProducts = numberOfProducts;
+        }
+
+        public enum Status {
+            @Expose
+            @SerializedName("")
+            NONE(""),
+            @Expose
+            @SerializedName("pending")
+            PENDING("pending"),
+            @Expose
+            @SerializedName("approved")
+            APPROVED("approved");
+
+            private final String mValue;
+
+            Status(String value) {
+                mValue = value;
+            }
+
+            public String getValue() {
+                return mValue;
+            }
+
+            public static DomainToRequest.Status getStatus(String value) {
+                if (value.isEmpty()) {
+                    return NONE;
+                } else if ("pending".equals(value)) {
+                    return PENDING;
+                } else if ("approved".equals(value)) {
+                    return APPROVED;
+                }
+                return NONE;
+            }
         }
     }
 }

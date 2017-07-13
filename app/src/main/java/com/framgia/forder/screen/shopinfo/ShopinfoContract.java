@@ -3,6 +3,7 @@ package com.framgia.forder.screen.shopinfo;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
+import com.framgia.forder.data.source.remote.api.response.DomainToRequestShopResponse;
 import com.framgia.forder.screen.BasePresenter;
 import com.framgia.forder.screen.BaseViewModel;
 import java.util.List;
@@ -26,9 +27,19 @@ interface ShopinfoContract {
 
         void onApplyOrLeaveToDomainError(BaseException exception);
 
-        void onShowProgressBar();
+        void onShowProgressBarDialog();
 
-        void onHideProgressBar();
+        void onHideProgressBarDialog();
+
+        void onGetListDomainSuccess(List<DomainToRequestShopResponse.DomainToRequest> domains);
+
+        void onShowProgressBarListManager();
+
+        void onHideProgressBarListManager();
+
+        void onShowProgressBarListDomain();
+
+        void onHideProgressBarListDomain();
     }
 
     /**
@@ -41,5 +52,7 @@ interface ShopinfoContract {
         void onApplyToDomain(ApplyShopToDomainRequest applyShopToDomainRequest);
 
         void onLeaveToDomain(int domainId, int shopId, boolean leaveDomain);
+
+        void getListDomainToRequestShop(int shopId);
     }
 }
