@@ -67,6 +67,7 @@ public class CreateProductViewModel extends BaseObservable
         mShopManagement = shopManagement;
         mCategories = new ArrayList<>();
         isSwitched = true;
+        mStatus = mContext.getString(R.string.active);
     }
 
     @Override
@@ -93,6 +94,7 @@ public class CreateProductViewModel extends BaseObservable
         if (categories == null) {
             return;
         }
+        mAdapter.clear();
         mCategories.clear();
         mCategories.addAll(categories);
         for (Category category : categories) {
@@ -212,15 +214,19 @@ public class CreateProductViewModel extends BaseObservable
         mEndHour = endHour;
     }
 
-    public void onSwitchChange() {
+    public void onSwitchChangeActive() {
         if (isSwitched) {
             isSwitched = false;
-            mStatus = mContext.getString(R.string.active);
-            mNavigator.showToastCustomActivity(R.string.active);
-        } else {
-            isSwitched = true;
             mStatus = mContext.getString(R.string.inactive);
             mNavigator.showToastCustomActivity(R.string.inactive);
+        }
+    }
+
+    public void onSwitchChangeInActive() {
+        if (!isSwitched) {
+            isSwitched = true;
+            mStatus = mContext.getString(R.string.active);
+            mNavigator.showToastCustomActivity(R.string.active);
         }
     }
 
@@ -286,5 +292,13 @@ public class CreateProductViewModel extends BaseObservable
 
     public void setSelectedTypePosition(int selectedTypePosition) {
         mSelectedTypePosition = selectedTypePosition;
+    }
+
+    public boolean isCheckActive() {
+        return isSwitched;
+    }
+
+    public boolean isCheckInActive() {
+        return !isSwitched;
     }
 }

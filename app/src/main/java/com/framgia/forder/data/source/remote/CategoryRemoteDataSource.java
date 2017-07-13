@@ -32,4 +32,18 @@ public class CategoryRemoteDataSource extends BaseRemoteDataSource
                     }
                 });
     }
+
+    @Override
+    public Observable<List<Category>> getListAllCategory() {
+        return mFOrderApi.getListAllCategory()
+                .flatMap(new Func1<CategoryResponse, Observable<List<Category>>>() {
+                    @Override
+                    public Observable<List<Category>> call(CategoryResponse categoryResponse) {
+                        if (categoryResponse != null) {
+                            return Observable.just(categoryResponse.getCategories());
+                        }
+                        return Observable.error(new NullPointerException());
+                    }
+                });
+    }
 }
