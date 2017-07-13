@@ -23,10 +23,12 @@ import com.framgia.forder.widgets.dialog.DialogManager;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static com.framgia.forder.screen.createProduct.CreateProductFragment.REQUEST_SELECT_IMAGE;
 import static com.framgia.forder.utils.Constant.FLAG_END_HOUR;
 import static com.framgia.forder.utils.Constant.FLAG_OPEN_HOUR;
+import static com.framgia.forder.utils.Constant.FORMAT_PRICE;
 
 /**
  * Exposes the data to be used in the UpdateProduct screen.
@@ -187,13 +189,19 @@ public class UpdateProductViewModel extends BaseObservable
         return isClickChooseImage;
     }
 
-    public void onSwitchChange() {
+    public void onSwitchChangeActive() {
         if (isSwitched) {
             isSwitched = false;
-            mStatus = mContext.getString(R.string.active);
-        } else {
-            isSwitched = true;
             mStatus = mContext.getString(R.string.inactive);
+            mNavigator.showToastCustomActivity(R.string.inactive);
+        }
+    }
+
+    public void onSwitchChangeInActive() {
+        if (!isSwitched) {
+            isSwitched = true;
+            mStatus = mContext.getString(R.string.active);
+            mNavigator.showToastCustomActivity(R.string.active);
         }
     }
 
@@ -325,9 +333,12 @@ public class UpdateProductViewModel extends BaseObservable
         mDescriptionError = descriptionError;
     }
 
-    @Bindable
-    public Boolean getOnChangeSwitch() {
+    public boolean isCheckActive() {
         return isSwitched;
+    }
+
+    public boolean isCheckInActive() {
+        return !isSwitched;
     }
 
     @Bindable
@@ -345,12 +356,10 @@ public class UpdateProductViewModel extends BaseObservable
                 && product.getCollectionImage().getImage().getUrl() != null) {
             mImage = product.getCollectionImage().getImage().getUrl();
         }
-        if (product.getStatus().equals(mContext.getString(R.string.active))) {
-            isSwitched = true;
-        }
+        isSwitched = product.getStatus().equals(mContext.getString(R.string.active));
         mName = product.getName();
         mDescription = product.getDescription();
-        mPrice = String.valueOf(product.getPrice());
+        mPrice = String.format(Locale.ENGLISH, FORMAT_PRICE, product.getPrice());
         mStartHour = product.getFormatStartHour();
         mEndHour = product.getFormatEndHour();
         mStatus = product.getStatus();

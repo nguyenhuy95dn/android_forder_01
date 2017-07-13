@@ -173,19 +173,33 @@
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="@dimen/sp_18"
                                 />
-                            <ToggleButton
-                                android:id="@+id/button_status_shop"
-                                android:layout_width="@dimen/dp_50"
-                                android:layout_height="@dimen/dp_25"
+                            <RadioGroup
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_60"
                                 android:layout_marginStart="@dimen/dp_60"
-                                android:layout_marginTop="@dimen/dp_1"
-                                android:background="@drawable/toggle_active_item"
-                                android:checked="@{viewModel.onChangeSwitch}"
-                                android:onCheckedChanged="@{() -> viewModel.onSwitchChange()}"
-                                android:textOff="@null"
-                                android:textOn="@null"
-                                />
+                                android:layout_marginTop="@dimen/dp_9"
+                                android:orientation="horizontal"
+                                >
+                                <RadioButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{viewModel.checkActive}"
+                                    android:onCheckedChanged="@{() -> viewModel.onSwitchChangeActive()}"
+                                    android:text="@string/active"
+                                    style="@style/Base.Widget.AppCompat.CompoundButton.RadioButton"
+                                    />
+                                <RadioButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/dp_5"
+                                    android:layout_marginStart="@dimen/dp_5"
+                                    android:checked="@{viewModel.checkInActive}"
+                                    android:onCheckedChanged="@{() -> viewModel.onSwitchChangeInActive()}"
+                                    android:text="@string/inactive"
+                                    style="@style/Base.Widget.AppCompat.CompoundButton.RadioButton"
+                                    />
+                            </RadioGroup>
                         </LinearLayout>
                         <RelativeLayout
                             android:layout_width="match_parent"
