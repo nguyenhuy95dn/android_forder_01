@@ -72,6 +72,10 @@ public interface FOrderApi {
     @GET("v1/products")
     Observable<ProductResponse> getListProduct(@Query("domain_id") int id);
 
+    @GET("v1/products")
+    Observable<ProductResponse> getListProductByCategory(@Query("domain_id") int domainId,
+            @Query("category_id") int categoryId);
+
     @GET("v1/shops")
     Observable<ShopResponse> getListShop(@Query("domain_id") int id);
 

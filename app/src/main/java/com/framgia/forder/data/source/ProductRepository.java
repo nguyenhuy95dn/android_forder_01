@@ -38,6 +38,10 @@ public class ProductRepository {
         return mRemoteDataSource.getListProduct(mCurrentDomainId);
     }
 
+    public Observable<List<Product>> getListProductByCategory(int categoryId) {
+        return mRemoteDataSource.getListProductByCategory(mCurrentDomainId, categoryId);
+    }
+
     public Observable<OrderCartResponse> orderCart(OrderRequest orderRequest) {
         return mRemoteDataSource.orderProduct(mCurrentDomainId, orderRequest);
     }
