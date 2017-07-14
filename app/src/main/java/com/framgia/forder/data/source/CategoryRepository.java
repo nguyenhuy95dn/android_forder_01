@@ -19,4 +19,8 @@ public class CategoryRepository {
     public Observable<List<Category>> getListCategory(int currentDomainId) {
         return mRemoteDataSource.getListCategory(currentDomainId);
     }
+
+    public Observable<List<Category>> getListAllCategory() {
+        return mRemoteDataSource.getListAllCategory();
+    }
 }

@@ -187,15 +187,17 @@ public class UpdateProductViewModel extends BaseObservable
         return isClickChooseImage;
     }
 
-    public void onSwitchChange() {
+    public void onSwitchChangeActive() {
         if (isSwitched) {
             isSwitched = false;
-            mStatus = mContext.getString(R.string.active);
-            mNavigator.showToast(R.string.active);
-        } else {
-            isSwitched = true;
             mStatus = mContext.getString(R.string.inactive);
-            mNavigator.showToast(R.string.inactive);
+        }
+    }
+
+    public void onSwitchChangeInActive() {
+        if (!isSwitched) {
+            isSwitched = true;
+            mStatus = mContext.getString(R.string.active);
         }
     }
 
@@ -208,6 +210,7 @@ public class UpdateProductViewModel extends BaseObservable
         if (categories == null) {
             return;
         }
+        mAdapter.clear();
         mCategories.clear();
         mCategories.addAll(categories);
         for (Category category : categories) {
@@ -326,9 +329,12 @@ public class UpdateProductViewModel extends BaseObservable
         mDescriptionError = descriptionError;
     }
 
-    @Bindable
-    public Boolean getOnChangeSwitch() {
+    public boolean isCheckActive() {
         return isSwitched;
+    }
+
+    public boolean isCheckInActive() {
+        return !isSwitched;
     }
 
     @Bindable
@@ -346,9 +352,7 @@ public class UpdateProductViewModel extends BaseObservable
                 && product.getCollectionImage().getImage().getUrl() != null) {
             mImage = product.getCollectionImage().getImage().getUrl();
         }
-        if (product.getStatus().equals(mContext.getString(R.string.active))) {
-            isSwitched = true;
-        }
+        isSwitched = product.getStatus().equals(mContext.getString(R.string.active));
         mName = product.getName();
         mDescription = product.getDescription();
         mPrice = String.valueOf(product.getPrice());
