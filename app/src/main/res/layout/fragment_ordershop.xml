@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     >
     <data>
         <variable
@@ -32,8 +32,8 @@
             android:layout_alignParentBottom="true"
             >
             <RelativeLayout
-                android:layout_height="@dimen/dp_40"
                 android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
                 android:background="@drawable/border_item"
                 android:orientation="horizontal"
                 android:padding="@dimen/dp_5"
@@ -55,10 +55,10 @@
                     android:id="@+id/text_reject"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:layout_marginEnd="@dimen/dp_3"
                     android:layout_marginRight="@dimen/dp_3"
+                    android:layout_toLeftOf="@+id/text_accept"
+                    android:layout_toStartOf="@+id/text_accept"
                     android:drawableLeft="@drawable/ic_reject"
                     android:drawablePadding="@dimen/dp_2"
                     android:drawableStart="@drawable/ic_reject"
@@ -74,10 +74,11 @@
                     tools:ignore="RelativeOverlap"
                     />
                 <TextView
+                    android:id="@+id/text_accept"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_toLeftOf="@id/text_reject"
-                    android:layout_toStartOf="@id/text_reject"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:drawableLeft="@drawable/ic_accept"
                     android:drawableStart="@drawable/ic_accept"
                     android:gravity="center_vertical"

@@ -22,6 +22,7 @@ public class ShopInDomainAdapter
 
     private ShopInDomainListener mShopInDomainListener;
     private List<ShopInDomain> mShops;
+    private boolean mIsAuthority;
 
     ShopInDomainAdapter(@NonNull Context context) {
         super(context);
@@ -38,7 +39,7 @@ public class ShopInDomainAdapter
 
     @Override
     public void onBindViewHolder(ShopInDomainAdapter.ItemViewHolder holder, int position) {
-        holder.bind(mShops.get(position));
+        holder.bind(mShops.get(position), mIsAuthority);
     }
 
     public void setShopInDomainListener(ShopInDomainListener shopInDomainListener) {
@@ -50,10 +51,11 @@ public class ShopInDomainAdapter
         return mShops.size();
     }
 
-    public void updateData(List<ShopInDomain> shops) {
+    public void updateData(List<ShopInDomain> shops, boolean authority) {
         if (shops == null) {
             return;
         }
+        mIsAuthority = authority;
         mShops.clear();
         mShops.addAll(shops);
         notifyDataSetChanged();
@@ -70,8 +72,9 @@ public class ShopInDomainAdapter
             mShopInDomainListener = shopInDomainListener;
         }
 
-        void bind(ShopInDomain shop) {
-            mBinding.setViewModel(new ItemShopInDomainViewModel(shop, mShopInDomainListener));
+        void bind(ShopInDomain shop, boolean authority) {
+            mBinding.setViewModel(
+                    new ItemShopInDomainViewModel(shop, authority, mShopInDomainListener));
             mBinding.executePendingBindings();
         }
     }

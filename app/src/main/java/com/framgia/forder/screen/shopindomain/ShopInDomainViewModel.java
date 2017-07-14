@@ -60,7 +60,7 @@ public class ShopInDomainViewModel extends BaseObservable
 
     @Override
     public void onGetListShopInDomainSuccess(List<ShopInDomain> shops, int userId) {
-        mAdapter.updateData(shops);
+        mAdapter.updateData(shops, mDomainManagement.getOwner() == userId);
     }
 
     @Override
