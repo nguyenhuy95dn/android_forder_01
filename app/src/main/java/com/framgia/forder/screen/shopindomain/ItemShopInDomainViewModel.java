@@ -12,9 +12,12 @@ public class ItemShopInDomainViewModel {
 
     private final ShopInDomain mShop;
     private final ShopInDomainListener mShopInDomainListener;
+    private final boolean mIsAuthority;
 
-    ItemShopInDomainViewModel(ShopInDomain shop, ShopInDomainListener shopInDomainListener) {
+    ItemShopInDomainViewModel(ShopInDomain shop, boolean authority,
+            ShopInDomainListener shopInDomainListener) {
         mShop = shop;
+        mIsAuthority = authority;
         mShopInDomainListener = shopInDomainListener;
     }
 
@@ -54,6 +57,6 @@ public class ItemShopInDomainViewModel {
     }
 
     public boolean isOwner() {
-        return mShop.isOwner();
+        return mIsAuthority;
     }
 }
