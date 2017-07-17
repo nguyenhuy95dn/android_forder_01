@@ -44,6 +44,8 @@ public interface ProductDataSource {
     interface RemoteDataSource {
         Observable<List<Product>> getListProduct(int domainId);
 
+        Observable<List<Product>> getListProductByCategory(int domainId, int categoryId);
+
         Observable<List<Product>> getListProductInShop(int shopId, int domainId);
 
         Observable<OrderCartResponse> orderProduct(int domainId, OrderRequest orderRequest);

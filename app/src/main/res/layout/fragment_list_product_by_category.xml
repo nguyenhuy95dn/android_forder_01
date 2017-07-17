@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.framgia.forder.screen.listproductbycategory.ListProductByCategoryViewModel"
+            />
+        <import type="android.view.View"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_gray_white"
+            android:foregroundGravity="center_horizontal"
+            android:orientation="vertical"
+            app:layoutManager="GridLayoutManager"
+            app:recyclerAdapter="@{viewModel.listProductAdapter}"
+            app:reverseLayout="false"
+            app:spanCount="2"
+            />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="@{viewModel.progressBarListProductVisible ? View.VISIBLE : View.GONE}"
+            style="?android:attr/progressBarPadding"
+            />
+    </RelativeLayout>
+</layout>
