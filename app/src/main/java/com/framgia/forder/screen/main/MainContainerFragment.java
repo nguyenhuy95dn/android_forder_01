@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.screen.cart.ShoppingCartFragment;
-import com.framgia.forder.screen.mainpage.MainPageContainerFragment;
+import com.framgia.forder.screen.mainpage.MainPageFragment;
 import com.framgia.forder.screen.notification.NotificationPageFragment;
 import com.framgia.forder.screen.profilepage.ProfilePageFragment;
 import com.framgia.forder.screen.searchpage.SearchContainerFragment;
@@ -45,9 +45,8 @@ public class MainContainerFragment extends Fragment {
         @MainViewModel.Tab int tab = getArguments().getInt(EXTRA_TAB_FOOTER);
         switch (tab) {
             case TAB_HOME:
-                mNavigator.goNextChildFragment(R.id.layout_content,
-                        MainPageContainerFragment.newInstance(), true, Navigator.NONE,
-                        "MainPageContainerFragment");
+                mNavigator.goNextChildFragment(R.id.layout_content, MainPageFragment.newInstance(),
+                        true, Navigator.NONE, "MainPageFragment");
                 break;
             case TAB_SEARCH:
                 mNavigator.goNextChildFragment(R.id.layout_content,

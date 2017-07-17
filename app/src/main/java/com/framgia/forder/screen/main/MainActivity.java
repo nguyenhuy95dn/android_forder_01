@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.framgia.forder.R;
 import com.framgia.forder.data.source.DomainRepository;
@@ -23,7 +25,7 @@ import com.framgia.forder.screen.BaseActivity;
 /**
  * Main Screen.
  */
-public class MainActivity extends BaseActivity implements LoadCartListener{
+public class MainActivity extends BaseActivity implements LoadCartListener, ChangeDomainListener {
 
     private static final int DELAY_TIME_TWO_TAP_BACK_BUTTON = 2000;
 
@@ -31,6 +33,7 @@ public class MainActivity extends BaseActivity implements LoadCartListener{
     private Handler mHandler;
     private Runnable mRunnable;
     private boolean mIsDoubleTapBack = false;
+    private View mView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,7 @@ public class MainActivity extends BaseActivity implements LoadCartListener{
 
         MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager());
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        mViewModel = new MainViewModel(adapter, alertDialog);
+        mViewModel = new MainViewModel(adapter, alertDialog, this);
 
         RealmApi realmApi = new RealmApi();
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getApplicationContext());
@@ -56,6 +59,9 @@ public class MainActivity extends BaseActivity implements LoadCartListener{
 
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setViewModel((MainViewModel) mViewModel);
+
+        LinearLayout view = (LinearLayout) findViewById(R.id.layout_contain_item);
+        mView = view.getChildAt(0);
 
         mHandler = new Handler();
         mRunnable = new Runnable() {
@@ -97,5 +103,10 @@ public class MainActivity extends BaseActivity implements LoadCartListener{
     @Override
     public void onReloadCart() {
         mViewModel.onReloadCart();
+    }
+
+    @Override
+    public void reloadData() {
+        mViewModel.reloadData(mView);
     }
 }

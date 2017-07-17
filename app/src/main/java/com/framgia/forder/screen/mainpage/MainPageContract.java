@@ -52,6 +52,8 @@ interface MainPageContract {
         void onShowProgressDialog();
 
         void onHideProgressDialog();
+
+        void reloadData();
     }
 
     /**

@@ -21,6 +21,7 @@
         tools:ignore="ObsoleteLayoutParam"
         >
         <LinearLayout
+            android:id="@+id/layout_contain_item"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_48"
             android:layout_alignParentBottom="true"
