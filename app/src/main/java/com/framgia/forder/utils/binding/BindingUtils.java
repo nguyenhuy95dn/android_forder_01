@@ -72,6 +72,19 @@ public final class BindingUtils {
                 .into(imageView);
     }
 
+    @BindingAdapter("imageUrlUser")
+    public static void loadImageUser(ImageView imageView, String url) {
+        if (TextUtils.isEmpty(url)) {
+            url = "";
+        }
+        Uri uri = Uri.parse(url);
+        Glide.with(imageView.getContext())
+                .load(uri)
+                .placeholder(R.drawable.ic_users)
+                .dontAnimate()
+                .into(imageView);
+    }
+
     @BindingAdapter({ "spinnerAdapter" })
     public static void setAdapterForSpinner(AppCompatSpinner spinner,
             ArrayAdapter<String> adapter) {
