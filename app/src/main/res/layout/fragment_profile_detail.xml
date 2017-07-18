@@ -70,7 +70,6 @@
                     tools:ignore="ContentDescription,VectorDrawableCompat"
                     />
             </RelativeLayout>
-
             <LinearLayout
                 android:id="@+id/contain_profile_detail"
                 android:layout_width="match_parent"
@@ -120,13 +119,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dp_2"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:text="@{viewModel.name}"
                             android:textSize="@dimen/sp_16"
                             android:textStyle="bold"
 
                             />
                     </LinearLayout>
-
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -174,13 +174,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dp_2"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:text="@{viewModel.email}"
                             android:textSize="@dimen/sp_16"
                             android:textStyle="bold"
-
                             />
                     </LinearLayout>
-
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -227,13 +227,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dp_2"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:text="@{viewModel.chatworkId}"
                             android:textSize="@dimen/sp_16"
                             android:textStyle="bold"
-
                             />
                     </LinearLayout>
-
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -280,20 +280,19 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dp_2"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:text="@{viewModel.createdAt}"
                             android:textSize="@dimen/sp_16"
                             android:textStyle="bold"
-
                             />
                     </LinearLayout>
-
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
                     android:background="@color/color_gray_white"
                     />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -333,9 +332,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dp_2"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{viewModel.status}"
+                            android:textColor="@{viewModel.statusColor}"
                             android:textSize="@dimen/sp_16"
                             android:textStyle="bold"
-
                             />
                     </LinearLayout>
 
@@ -353,7 +355,6 @@
                     android:orientation="horizontal"
                     android:padding="@dimen/dp_5"
                     >
-
                     <ImageView
                         android:layout_width="@dimen/dp_30"
                         android:layout_height="@dimen/dp_30"
@@ -385,6 +386,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dp_2"
+                            android:ellipsize="end"
+                            android:maxLines="2"
                             android:text="@{viewModel.description}"
                             android:textSize="@dimen/sp_16"
                             android:textStyle="bold"

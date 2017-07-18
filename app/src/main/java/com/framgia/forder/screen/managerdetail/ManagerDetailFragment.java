@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.databinding.FragmentManagerdetailBinding;
+import com.framgia.forder.utils.navigator.Navigator;
 
 /**
  * ManagerDetail Screen.
@@ -30,8 +31,9 @@ public class ManagerDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Navigator navigator = new Navigator(getParentFragment());
         User user = (User) getArguments().get(EXTRA_MANAGER);
-        mViewModel = new ManagerDetailViewModel(user);
+        mViewModel = new ManagerDetailViewModel(navigator, user);
 
         ManagerDetailContract.Presenter presenter = new ManagerDetailPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
