@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.searchproduct;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
 import com.framgia.forder.data.source.remote.UserRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentProductSearchResultBinding;
+import com.framgia.forder.screen.main.LoadCartListener;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,7 @@ import java.util.List;
 public class ProductSearchResultFragment extends Fragment {
 
     private ProductSearchResultContract.ViewModel mViewModel;
+    private LoadCartListener mLoadCartListener;
 
     public static ProductSearchResultFragment newInstance() {
         return new ProductSearchResultFragment();
@@ -45,7 +48,7 @@ public class ProductSearchResultFragment extends Fragment {
         List<Product> products = new ArrayList<>();
         ProductSearchResultAdapter adapter = new ProductSearchResultAdapter(getContext(), products);
         Navigator navigator = new Navigator(getParentFragment().getParentFragment());
-        mViewModel = new ProductSearchResultViewModel(adapter, navigator);
+        mViewModel = new ProductSearchResultViewModel(adapter, navigator, mLoadCartListener);
 
         RealmApi realmApi = new RealmApi();
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
@@ -87,5 +90,15 @@ public class ProductSearchResultFragment extends Fragment {
     public void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mLoadCartListener = (LoadCartListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement LoadCartListener");
+        }
     }
 }

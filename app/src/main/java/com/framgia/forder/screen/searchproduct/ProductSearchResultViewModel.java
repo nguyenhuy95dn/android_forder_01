@@ -8,6 +8,7 @@ import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
+import com.framgia.forder.screen.main.LoadCartListener;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
 import com.framgia.forder.screen.productdetail.ProductDetailFragment;
 import com.framgia.forder.screen.quickorder.QuickOrderListener;
@@ -26,10 +27,13 @@ public class ProductSearchResultViewModel extends BaseObservable
     private ProductSearchResultContract.Presenter mPresenter;
     private ProductSearchResultAdapter mAdapter;
     private Navigator mNavigator;
+    private LoadCartListener mLoadCartListener;
 
-    ProductSearchResultViewModel(ProductSearchResultAdapter adapter, Navigator navigator) {
+    ProductSearchResultViewModel(ProductSearchResultAdapter adapter, Navigator navigator,
+            LoadCartListener loadCartListener) {
         mAdapter = adapter;
         mNavigator = navigator;
+        mLoadCartListener = loadCartListener;
         mAdapter.setOrderListener(this);
         mAdapter.setItemClickListener(this);
     }
@@ -99,6 +103,7 @@ public class ProductSearchResultViewModel extends BaseObservable
     @Override
     public void onAddToCartSuccess() {
         mNavigator.showToastCustomActivity(R.string.add_to_cart_success);
+        mLoadCartListener.onReloadCart();
     }
 
     @Override
