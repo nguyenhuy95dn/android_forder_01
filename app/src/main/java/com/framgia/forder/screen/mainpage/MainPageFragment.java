@@ -57,7 +57,7 @@ public class MainPageFragment extends Fragment {
         ProductAdapter productAdapter = new ProductAdapter(getActivity(), products);
         List<Category> categories = new ArrayList<>();
         CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), categories);
-        Navigator navigator = new Navigator(getParentFragment().getParentFragment());
+        Navigator navigator = new Navigator(getParentFragment());
         ShopPageAdapter shopPageAdapter = new ShopPageAdapter(getFragmentManager());
         DialogManager dialogManager = new DialogManager(getActivity());
 
@@ -113,5 +113,9 @@ public class MainPageFragment extends Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement LoadCartListener");
         }
+    }
+
+    public void reloadData() {
+        mViewModel.reloadData();
     }
 }

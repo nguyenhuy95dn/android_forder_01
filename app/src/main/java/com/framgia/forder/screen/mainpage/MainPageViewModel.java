@@ -15,6 +15,7 @@ import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.listProduct.ListProductFragment;
+import com.framgia.forder.screen.listproductbycategory.ListProductByCategoryFragment;
 import com.framgia.forder.screen.listshop.ListShopFragment;
 import com.framgia.forder.screen.main.LoadCartListener;
 import com.framgia.forder.screen.mainpage.category.CategoryAdapter;
@@ -93,6 +94,13 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
             Product product = (Product) item;
             mNavigator.goNextChildFragment(R.id.layout_content,
                     ProductDetailFragment.newInstance(product), true, Navigator.RIGHT_LEFT, TAG);
+        }
+
+        if (item instanceof Category) {
+            Category category = (Category) item;
+            mNavigator.goNextChildFragment(R.id.layout_content,
+                    ListProductByCategoryFragment.newInstance(category.getId()), true,
+                    Navigator.RIGHT_LEFT, TAG);
         }
     }
 
@@ -198,6 +206,13 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
     @Override
     public void onHideProgressDialog() {
         mDialogManager.dismissProgressDialog();
+    }
+
+    @Override
+    public void reloadData() {
+        mPresenter.getListShop();
+        mPresenter.getListCategory();
+        mPresenter.getListProduct();
     }
 
     public void onSeeMoreShopClick() {

@@ -15,7 +15,7 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
-import com.framgia.forder.screen.mainpage.MainPageContainerFragment;
+import com.framgia.forder.screen.mainpage.MainPageFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +35,16 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     private String mCurrentDomain;
     private final AlertDialog.Builder mDialogChangeDomain;
     private List<Cart> mCarts;
+    private ChangeDomainListener mChangeDomainListener;
 
     @Tab
     private int mCurrentTab;
 
-    public MainViewModel(MainViewPagerAdapter mainViewPagerAdapter,
-            AlertDialog.Builder alertDialog) {
+    public MainViewModel(MainViewPagerAdapter mainViewPagerAdapter, AlertDialog.Builder alertDialog,
+            ChangeDomainListener changeDomainListener) {
         mViewPagerAdapter = mainViewPagerAdapter;
         mDialogChangeDomain = alertDialog;
+        mChangeDomainListener = changeDomainListener;
         mCarts = new ArrayList<>();
     }
 
@@ -149,7 +151,7 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
                     public void onClick(DialogInterface dialog, int item) {
                         mPresenter.saveCurrentDomain(domains.get(item));
                         mPresenter.getCurrentDomain();
-                        reloadData();
+                        mChangeDomainListener.reloadData();
                         dialog.cancel();
                     }
                 });
@@ -198,16 +200,17 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
         return PAGE_LIMIT;
     }
 
-    private void reloadData() {
+    @Override
+    public void reloadData(View view) {
         setCurrentTab(Tab.TAB_HOME);
         Navigator navigator = new Navigator(mViewPagerAdapter.getFragment(Tab.TAB_HOME));
         navigator.goBackFragmentByTag(TAG, POP_BACK_STACK_CLEAR_TASK);
-        MainPageContainerFragment fragment =
-                (MainPageContainerFragment) mViewPagerAdapter.getFragment(Tab.TAB_HOME)
-                        .getChildFragmentManager()
-                        .getFragments()
-                        .get(Tab.TAB_HOME);
+        MainPageFragment fragment = (MainPageFragment) mViewPagerAdapter.getFragment(Tab.TAB_HOME)
+                .getChildFragmentManager()
+                .getFragments()
+                .get(Tab.TAB_HOME);
         fragment.reloadData();
+        setTabSelected(view);
     }
 
     @Override

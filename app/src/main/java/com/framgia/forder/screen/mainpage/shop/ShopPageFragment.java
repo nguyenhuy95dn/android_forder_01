@@ -32,7 +32,7 @@ public class ShopPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         Shop shop = (Shop) getArguments().get(EXTRA_SHOPPAGE);
-        Navigator navigator = new Navigator(getParentFragment().getParentFragment());
+        Navigator navigator = new Navigator(getParentFragment());
         mViewModel = new ShopPageViewModel(shop, navigator);
         ShopPageContract.Presenter presenter = new ShopPagePresenter(mViewModel);
         mViewModel.setPresenter(presenter);

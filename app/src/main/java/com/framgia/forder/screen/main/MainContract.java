@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.main;
 
+import android.view.View;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
@@ -26,6 +27,8 @@ interface MainContract {
         void onGetListCartSuccess(List<Cart> carts);
 
         void onGetListCartError(BaseException error);
+
+        void reloadData(View view);
 
         void onReloadCart();
     }
