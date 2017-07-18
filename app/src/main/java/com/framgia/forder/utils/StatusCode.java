@@ -14,6 +14,7 @@ public class StatusCode {
     public static final String ACTIVE_STATUS_COLOR = "#367517";
     public static final String WAIT_STATUS_COLOR = "#1C86EE";
     public static final String BLOCKED_STATUS_COLOR = "#C50023";
+    public static final String COLOR_NOTIFICATION = "#ECECEC";
 
     //Role
     public static final String ROLE_OWNER = "owner";
