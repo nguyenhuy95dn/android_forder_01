@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <data>
         <variable
@@ -7,14 +8,12 @@
             type="com.framgia.forder.screen.shopinfo.ItemManagerShopInfoViewModel"
             />
     </data>
-    <!--Image Manager-->
     <ImageView
         android:id="@+id/circleImageView"
         android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"
         android:contentDescription="@string/avatar"
         android:onClick="@{() -> viewModel.onClickManagerDetail()}"
-        android:src="@drawable/ic_person_red_500"
+        app:imageUrlUser="@{viewModel.avatar}"
         />
-
 </layout>
