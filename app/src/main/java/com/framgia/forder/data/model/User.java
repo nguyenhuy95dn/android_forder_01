@@ -45,7 +45,7 @@ public class User implements Parcelable {
     private String mRole;
     @Expose
     @SerializedName("status")
-    private int mStatus;
+    private String mStatus;
     @Expose
     @SerializedName("role_of_member")
     private int mRoleOfMember;
@@ -60,7 +60,7 @@ public class User implements Parcelable {
         mChatworkId = in.readString();
         mDescription = in.readString();
         mRole = in.readString();
-        mStatus = in.readInt();
+        mStatus = in.readString();
         mRoleOfMember = in.readInt();
     }
 
@@ -81,7 +81,7 @@ public class User implements Parcelable {
         dest.writeString(mChatworkId);
         dest.writeString(mDescription);
         dest.writeString(mRole);
-        dest.writeInt(mStatus);
+        dest.writeString(mStatus);
         dest.writeInt(mRoleOfMember);
     }
 
@@ -178,11 +178,11 @@ public class User implements Parcelable {
         return mRole;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return mStatus;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         mStatus = status;
     }
 

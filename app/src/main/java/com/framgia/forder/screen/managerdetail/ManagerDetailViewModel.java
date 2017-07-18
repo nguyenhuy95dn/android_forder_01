@@ -1,18 +1,28 @@
 package com.framgia.forder.screen.managerdetail;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import com.framgia.forder.data.model.User;
+import com.framgia.forder.utils.navigator.Navigator;
+
+import static com.framgia.forder.utils.StatusCode.ROLE_OWNER;
 
 /**
  * Exposes the data to be used in the ManagerDetail screen.
  */
 
-public class ManagerDetailViewModel implements ManagerDetailContract.ViewModel {
+public class ManagerDetailViewModel extends BaseObservable
+        implements ManagerDetailContract.ViewModel {
 
     private ManagerDetailContract.Presenter mPresenter;
+    private final Navigator mNavigator;
     private final User mUser;
+    private boolean mIsVisibleRole;
 
-    ManagerDetailViewModel(User user) {
+    ManagerDetailViewModel(Navigator navigator, User user) {
+        mNavigator = navigator;
         mUser = user;
+        setRoleManager();
     }
 
     @Override
@@ -31,45 +41,27 @@ public class ManagerDetailViewModel implements ManagerDetailContract.ViewModel {
     }
 
     public String getUserName() {
-        if (mUser != null) {
-            return mUser.getName();
-        }
-        return "";
+        return mUser.getName();
     }
 
     public String getEmail() {
-        if (mUser != null) {
-            return mUser.getEmail();
-        }
-        return "";
+        return mUser.getEmail();
     }
 
     public String getChatWorkId() {
-        if (mUser != null) {
-            return mUser.getChatworkId();
-        }
-        return "";
+        return mUser.getChatworkId();
     }
 
     public String getJoinDate() {
-        if (mUser != null) {
-            return mUser.getFormatDate();
-        }
-        return "";
+        return mUser.getFormatDate();
     }
 
     public String getDescription() {
-        if (mUser != null) {
-            return mUser.getDescription();
-        }
-        return "";
+        return mUser.getDescription();
     }
 
     public String getRole() {
-        if (mUser != null) {
-            return mUser.getRole();
-        }
-        return "";
+        return mUser.getRole();
     }
 
     public String getAvatar() {
@@ -79,15 +71,31 @@ public class ManagerDetailViewModel implements ManagerDetailContract.ViewModel {
         return "";
     }
 
-    public boolean isWaitStatus() {
-        return mUser.getStatus() == ManagerStatusCode.WAIT_CODE;
+    public String getStatus() {
+        //Todo edit later
+        return "";
     }
 
-    public boolean isActiveStatus() {
-        return mUser.getStatus() == ManagerStatusCode.ACTIVE_CODE;
+    @Bindable
+    public boolean isVisibleRole() {
+        return mIsVisibleRole;
     }
 
-    public boolean isBlockedStatus() {
-        return mUser.getStatus() == ManagerStatusCode.BLOCKED_CODE;
+    private void setVisibleRole(boolean visibleRole) {
+        mIsVisibleRole = visibleRole;
+    }
+
+    private void setRoleManager() {
+        if (mUser != null) {
+            if (mUser.getRole().equals(ROLE_OWNER)) {
+                setVisibleRole(true);
+            }
+        } else {
+            setVisibleRole(false);
+        }
+    }
+
+    public void onClickBack() {
+        mNavigator.goBackChildFragment();
     }
 }

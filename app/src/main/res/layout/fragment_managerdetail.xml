@@ -25,158 +25,270 @@
             >
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_250"
-                android:background="@drawable/background_item"
+                android:layout_height="@dimen/dp_270"
+                android:background="@drawable/img_header_profile"
                 >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/layout_role"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:gravity="center"
-                    android:text="@{viewModel.userName}"
-                    android:textColor="@color/color_white"
-                    android:textSize="@dimen/sp_24"
-                    android:textStyle="bold"
+                <ImageView
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    android:onClick="@{() -> viewModel.onClickBack()}"
+                    android:padding="@dimen/dp_10"
+                    android:src="@drawable/ic_arrow_back"
+                    tools:ignore="ContentDescription"
                     />
-                <LinearLayout
-                    android:id="@+id/layout_role"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/image_user_profile_photo"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:orientation="vertical"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@drawable/border_pedding"
-                        android:gravity="center"
-                        android:paddingEnd="@dimen/dp_7"
-                        android:paddingLeft="@dimen/dp_7"
-                        android:paddingRight="@dimen/dp_7"
-                        android:paddingStart="@dimen/dp_7"
-                        android:text="@{viewModel.role}"
-                        android:textColor="@color/color_white"
-                        android:textSize="@dimen/sp_18"
-                        />
-                </LinearLayout>
                 <ImageView
                     android:id="@+id/image_user_profile_photo"
-                    android:layout_width="@dimen/dp_100"
-                    android:layout_height="@dimen/dp_100"
-                    android:layout_alignParentBottom="true"
+                    android:layout_width="@dimen/dp_150"
+                    android:layout_height="@dimen/dp_150"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/ic_username"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:background="@drawable/ic_users"
                     tools:ignore="ContentDescription,ContentDescription"
                     />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image_user_profile_photo"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables"
+                    >
+                    <ImageView
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_manager_in_domain"
+                        android:visibility="@{viewModel.visibleRole ? View.VISIBLE : View.GONE}"
+                        tools:ignore="ContentDescription,VectorDrawableCompat"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:gravity="center"
+                        android:text="@{viewModel.userName}"
+                        android:textColor="@color/color_orange_mos"
+                        android:textSize="@dimen/sp_20"
+                        android:textStyle="bold"
+                        />
+                </LinearLayout>
             </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/border_layout"
                 android:orientation="vertical"
                 android:padding="@dimen/dp_10"
                 >
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/email"
-                    android:textColor="@color/color_blue"
-                    android:textStyle="bold"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.email}"
-                    style="@style/Widget.AppCompat.EditText"
-                    />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:text="@string/chatwork_id"
-                    android:textColor="@color/color_blue"
-                    android:textStyle="bold"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.chatWorkId}"
-                    style="@style/Widget.AppCompat.EditText"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:text="@string/join_date"
-                    android:textColor="@color/color_blue"
-                    android:textStyle="bold"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.joinDate}"
-                    style="@style/Widget.AppCompat.EditText"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:text="@string/status"
-                    android:textColor="@color/color_blue"
-                    android:textStyle="bold"
-                    />
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     >
-
-                    <TextView
+                    <ImageView
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_circle_email"
+                        tools:ignore="ContentDescription"
+                        />
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/wait"
-                        android:textColor="@color/color_yellow_dark"
-                        android:visibility="@{viewModel.waitStatus ? View.VISIBLE : View.GONE}"
-                        style="@style/Widget.AppCompat.EditText"
-                        />
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginStart="@dimen/dp_5"
+                        android:orientation="vertical"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/email"
+                            android:textColor="@color/color_gray_mos"
+                            android:textStyle="bold"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{viewModel.email}"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/active"
-                        android:textColor="@color/color_green"
-                        android:visibility="@{viewModel.activeStatus ? View.VISIBLE : View.GONE}"
-                        style="@style/Widget.AppCompat.EditText"
-                        />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/blocked"
-                        android:textColor="@color/color_red_mos"
-                        android:visibility="@{viewModel.blockedStatus ? View.VISIBLE : View.GONE}"
-                        style="@style/Widget.AppCompat.EditText"
-                        />
-
-                </FrameLayout>
-                <TextView
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:text="@string/description"
-                    android:textColor="@color/color_blue"
-                    android:textStyle="bold"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.description}"
-                    style="@style/Widget.AppCompat.EditText"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_margin="@dimen/dp_5"
+                    android:background="@color/color_gray_white"
                     />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <ImageView
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_id_card"
+                        tools:ignore="ContentDescription"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginStart="@dimen/dp_5"
+                        android:orientation="vertical"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chatwork_id"
+                            android:textColor="@color/color_gray_mos"
+                            android:textStyle="bold"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{viewModel.chatWorkId}"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_margin="@dimen/dp_5"
+                    android:background="@color/color_gray_white"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <ImageView
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_date"
+                        tools:ignore="ContentDescription"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginStart="@dimen/dp_5"
+                        android:orientation="vertical"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/join_date"
+                            android:textColor="@color/color_gray_mos"
+                            android:textStyle="bold"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{viewModel.joinDate}"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_margin="@dimen/dp_5"
+                    android:background="@color/color_gray_white"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <ImageView
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_accept"
+                        tools:ignore="ContentDescription"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginStart="@dimen/dp_5"
+                        android:orientation="vertical"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/status"
+                            android:textColor="@color/color_gray_mos"
+                            android:textStyle="bold"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.status}"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_margin="@dimen/dp_5"
+                    android:background="@color/color_gray_white"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <ImageView
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_descriptions"
+                        android:backgroundTint="@color/color_orange_mos"
+                        tools:ignore="ContentDescription,UnusedAttribute"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginStart="@dimen/dp_5"
+                        android:orientation="vertical"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/description"
+                            android:textColor="@color/color_gray_mos"
+                            android:textStyle="bold"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="@{viewModel.description}"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_margin="@dimen/dp_5"
+                    android:background="@color/color_gray_white"
+                    />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

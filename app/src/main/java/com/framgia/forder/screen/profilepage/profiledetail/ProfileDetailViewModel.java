@@ -1,20 +1,31 @@
 package com.framgia.forder.screen.profilepage.profiledetail;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.graphics.Color;
+import com.framgia.forder.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.screen.profilepage.updateprofile.UpdateProfileFragment;
+import com.framgia.forder.utils.StatusCode;
 import com.framgia.forder.utils.navigator.Navigator;
+
+import static com.framgia.forder.utils.StatusCode.ACTIVE_STATUS;
+import static com.framgia.forder.utils.StatusCode.BLOCKED_STATUS;
+import static com.framgia.forder.utils.StatusCode.WAIT_STATUS;
 
 /**
  * Exposes the data to be used in the ProfileDetail screen.
  */
 
-public class ProfileDetailViewModel implements ProfileDetailContract.ViewModel {
+public class ProfileDetailViewModel extends BaseObservable
+        implements ProfileDetailContract.ViewModel {
     private static final String TAG = "UpdateProfileFragment";
 
     private ProfileDetailContract.Presenter mPresenter;
     private Navigator mNavigator;
     private User mUser;
+    private int mStatusColor;
 
     ProfileDetailViewModel(Navigator navigator) {
         mNavigator = navigator;
@@ -74,5 +85,42 @@ public class ProfileDetailViewModel implements ProfileDetailContract.ViewModel {
 
     public void onClickBack() {
         mNavigator.goBackChildFragment();
+    }
+
+    @Bindable
+    public int getStatusColor() {
+        initValueStatus();
+        return mStatusColor;
+    }
+
+    public String getStatus() {
+        return mUser.getStatus();
+    }
+
+    private void setStatusColor(int statusColor) {
+        mStatusColor = statusColor;
+        notifyPropertyChanged(BR.statusColor);
+    }
+
+    public void setStatus(String status) {
+        switch (status) {
+            case ACTIVE_STATUS:
+                setStatusColor(Color.parseColor(StatusCode.ACTIVE_STATUS_COLOR));
+                break;
+            case WAIT_STATUS:
+                setStatusColor(Color.parseColor(StatusCode.WAIT_STATUS_COLOR));
+                break;
+            case BLOCKED_STATUS:
+                setStatusColor(Color.parseColor(StatusCode.BLOCKED_STATUS_COLOR));
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void initValueStatus() {
+        if (mUser != null) {
+            setStatus(mUser.getStatus());
+        }
     }
 }
