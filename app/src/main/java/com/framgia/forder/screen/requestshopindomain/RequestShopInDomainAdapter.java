@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
-import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.remote.api.response.ShopRequestResponse;
 import com.framgia.forder.databinding.ItemRequestShopInDomainBinding;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
@@ -81,8 +80,8 @@ public class RequestShopInDomainAdapter
 
     public interface RequestShopInDomainListener {
 
-        void onClickRejectShop(Shop shop);
+        void onClickAcceptShop(ShopRequestResponse.ShopContain shopContain);
 
-        void onClickAcceptShop(Shop shop);
+        void onClickRejectShop(ShopRequestResponse.ShopContain shopContain);
     }
 }

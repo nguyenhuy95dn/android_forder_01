@@ -9,6 +9,7 @@ import com.framgia.forder.data.model.DomainManagement;
 import com.framgia.forder.data.model.OwnerShop;
 import com.framgia.forder.data.model.ShopInDomain;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.screen.requestshopindomain.RequestShopInDomainFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.List;
@@ -123,5 +124,15 @@ public class ShopInDomainViewModel extends BaseObservable
     public void setProgressBarListShopInDomain(boolean progressBarListShopInDomain) {
         mIsProgressBarListShopInDomain = progressBarListShopInDomain;
         notifyPropertyChanged(BR.progressBarListShopInDomain);
+    }
+
+    public void onClickAddShopInDomain() {
+        mNavigator.goNextChildFragment(R.id.layout_content,
+                RequestShopInDomainFragment.newInstance(mDomainManagement), true,
+                Navigator.RIGHT_LEFT, "RequestShopInDomainFragment");
+    }
+
+    public boolean isOwner() {
+        return mPresenter.checkOwner(mDomainManagement.getOwner());
     }
 }

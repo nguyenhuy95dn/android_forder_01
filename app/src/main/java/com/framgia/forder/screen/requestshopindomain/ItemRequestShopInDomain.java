@@ -40,18 +40,17 @@ public class ItemRequestShopInDomain {
 
     public String getShopImage() {
         if (mShopContain.getShop() != null
-                && mShopContain.getShop().getCollectionAvatar() != null
-                && mShopContain.getShop().getCollectionAvatar().getImage() != null) {
-            return mShopContain.getShop().getCollectionAvatar().getImage().getUrl();
+                && mShopContain.getShop().getCollectionAvatar() != null) {
+            return mShopContain.getShop().getCollectionAvatar().getUrl();
         }
         return "";
     }
 
     public void onClickAcceptShop() {
-        mListener.onClickAcceptShop(mShopContain.getShop());
+        mListener.onClickAcceptShop(mShopContain);
     }
 
     public void onClickRejectShop() {
-        mListener.onClickRejectShop(mShopContain.getShop());
+        mListener.onClickRejectShop(mShopContain);
     }
 }

@@ -202,4 +202,8 @@ public class User implements Parcelable {
         return Utils.DateTimeUntils.convertUiFormatToDataFormat(mCreatedAt, Utils.INPUT_TIME_FORMAT,
                 Utils.OUTPUT_DATE_FORMAT);
     }
+
+    public boolean isOwner(int ownerId) {
+        return mId == ownerId;
+    }
 }
