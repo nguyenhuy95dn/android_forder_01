@@ -186,7 +186,7 @@
                                     android:layout_height="wrap_content"
                                     android:checked="@{viewModel.checkActive}"
                                     android:onCheckedChanged="@{() -> viewModel.onSwitchChangeActive()}"
-                                    android:text="@string/active"
+                                    android:text="@string/active_status"
                                     style="@style/Base.Widget.AppCompat.CompoundButton.RadioButton"
                                     />
                                 <RadioButton
@@ -196,7 +196,7 @@
                                     android:layout_marginStart="@dimen/dp_5"
                                     android:checked="@{viewModel.checkInActive}"
                                     android:onCheckedChanged="@{() -> viewModel.onSwitchChangeInActive()}"
-                                    android:text="@string/inactive"
+                                    android:text="@string/inactive_status"
                                     style="@style/Base.Widget.AppCompat.CompoundButton.RadioButton"
                                     />
                             </RadioGroup>

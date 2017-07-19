@@ -10,13 +10,10 @@
     <string name="OK">OK</string>
     <string name="action_order_all">Order All</string>
     <string name="title_total">Total :\u0020 </string>
-    <string name="action_order_this">Order this</string>
     <string name="title_tab_home">Home</string>
     <string name="title_tab_search">Search</string>
     <string name="title_tab_nitofy">Notifications</string>
     <string name="title_tab_profile">Profile</string>
-    <string name="title_featured_shop">Featured shops</string>
-    <string name="title_featured_product">Featured products</string>
     <string name="action_see_more">See more</string>
     <string name="username"> Username</string>
     <string name="password"> Password</string>
@@ -175,7 +172,6 @@
     <string name="order_now">Order Now</string>
     <string name="hint_notes">Any specific note like less spicy, no pickles mention here…</string>
     <string name="quick_order">Quick Order</string>
-    <string name="owners_more">Owners More</string>
     <string name="list_domain">List Domain</string>
     <string name="list_order">List Order</string>
     <string name="manager_in_shop">Manager</string>
@@ -201,4 +197,10 @@
     <string name="cancel_success">Cancel Successful!</string>
     <string name="add_manager_in_shop">Add Manager In Shop</string>
     <string name="add_manager">Add Manager</string>
+    <string name="secret_status">Secret</string>
+    <string name="professed_status">Professed</string>
+    <string name="active_status">Active</string>
+    <string name="inactive_status">Inactive</string>
+    <string name="reject_status">Reject</string>
+    <string name="accept_status">Accept</string>
 </resources>
