@@ -38,5 +38,7 @@ interface ShopInDomainContract {
         void getListShopInDomain(int domainId);
 
         void deleteShop(int domainId, int shopId);
+
+        boolean checkOwner(int ownerId);
     }
 }

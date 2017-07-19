@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.model.DomainManagement;
 import com.framgia.forder.databinding.FragmentRequestShopInDomainBinding;
 
 /**
@@ -15,10 +16,16 @@ import com.framgia.forder.databinding.FragmentRequestShopInDomainBinding;
  */
 public class RequestShopInDomainFragment extends Fragment {
 
+    private static final String EXTRA_DOMAIN = "EXTRA_DOMAIN";
+
     private RequestShopInDomainContract.ViewModel mViewModel;
 
-    public static RequestShopInDomainFragment newInstance() {
-        return new RequestShopInDomainFragment();
+    public static RequestShopInDomainFragment newInstance(DomainManagement domainManagement) {
+        RequestShopInDomainFragment fragment = new RequestShopInDomainFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(EXTRA_DOMAIN, domainManagement);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Nullable

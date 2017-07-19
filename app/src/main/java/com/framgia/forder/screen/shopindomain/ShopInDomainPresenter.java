@@ -107,4 +107,10 @@ final class ShopInDomainPresenter implements ShopInDomainContract.Presenter {
                 });
         mCompositeSubscription.add(subscription);
     }
+
+    @Override
+    public boolean checkOwner(int ownerId) {
+        User user = mUserRepository.getUser();
+        return user.isOwner(ownerId);
+    }
 }

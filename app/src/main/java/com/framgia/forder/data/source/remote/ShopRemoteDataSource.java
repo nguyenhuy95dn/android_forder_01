@@ -16,6 +16,7 @@ import com.framgia.forder.data.source.remote.api.response.ProductResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
+import com.framgia.forder.data.source.remote.api.response.ShopRequestResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopResponse;
 import com.framgia.forder.data.source.remote.api.service.FOrderApi;
 import java.util.ArrayList;
@@ -148,5 +149,28 @@ public class ShopRemoteDataSource extends BaseRemoteDataSource
     public Observable<BaseResponse> requestChangeStatusShopManagement(final int shopId,
             final String status) {
         return mFOrderApi.requestChangeStatusShopManagement(shopId, status);
+    }
+
+    @Override
+    public Observable<List<ShopRequestResponse.ShopContain>> getListShopRequest(int domainId) {
+        return mFOrderApi.getListShopRequest(domainId)
+                .flatMap(
+                        new Func1<ShopRequestResponse, Observable<List<ShopRequestResponse
+                                .ShopContain>>>() {
+                            @Override
+                            public Observable<List<ShopRequestResponse.ShopContain>> call(
+                                    ShopRequestResponse shopResponse) {
+                                if (shopResponse != null) {
+                                    return Observable.just(shopResponse.getShopContains());
+                                }
+                                return Observable.error(new NullPointerException());
+                            }
+                        });
+    }
+
+    @Override
+    public Observable<BaseResponse> requestToAcceptRejectShopToDomain(int domainId, int shopId,
+            String status) {
+        return mFOrderApi.requestToAcceptRejectShopToDomain(domainId, shopId, status);
     }
 }

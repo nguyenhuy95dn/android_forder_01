@@ -37,6 +37,7 @@ import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
 import com.framgia.forder.data.source.remote.api.response.SearchResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopManagementResponse;
+import com.framgia.forder.data.source.remote.api.response.ShopRequestResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopResponse;
 import com.framgia.forder.data.source.remote.api.response.UpdateProductResponse;
 import com.framgia.forder.data.source.remote.api.response.UpdateProfileResponse;
@@ -230,4 +231,11 @@ public interface FOrderApi {
 
     @GET("v1/dashboard/shops/{shop_id}")
     Observable<DomainToRequestShopResponse> getListDomainToRequestShop(@Path("shop_id") int shopId);
+
+    @GET("v1/shop_domains/0")
+    Observable<ShopRequestResponse> getListShopRequest(@Query("domain_id") int domainId);
+
+    @PUT("v1/shop_domains/0")
+    Observable<BaseResponse> requestToAcceptRejectShopToDomain(@Query("domain_id") int domainId,
+            @Query("shop_id") int shopId, @Query("status") String status);
 }
