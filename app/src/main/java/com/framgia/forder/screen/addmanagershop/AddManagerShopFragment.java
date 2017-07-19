@@ -8,7 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.source.DomainRepository;
+import com.framgia.forder.data.source.local.DomainLocalDataSource;
+import com.framgia.forder.data.source.local.UserLocalDataSource;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
+import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentAddManagerShopBinding;
+import com.framgia.forder.utils.navigator.Navigator;
 
 /**
  * Addmanagershop Screen.
@@ -24,9 +32,16 @@ public class AddManagerShopFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new AddManagerShopViewModel();
+        Navigator navigator = new Navigator(getParentFragment());
+        AddManagerShopAdapter adapter = new AddManagerShopAdapter(getContext());
+        mViewModel = new AddManagerShopViewModel(navigator, adapter);
 
-        AddManagerShopContract.Presenter presenter = new AddManagerShopPresenter(mViewModel);
+        SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity().getApplicationContext());
+        DomainRepository domainRepository =
+                new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
+                        new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
+        AddManagerShopContract.Presenter presenter =
+                new AddManagerShopPresenter(mViewModel, domainRepository);
         mViewModel.setPresenter(presenter);
     }
 
