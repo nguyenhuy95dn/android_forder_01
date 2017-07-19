@@ -82,6 +82,9 @@ public class Shop implements Parcelable {
     @Expose
     @SerializedName("owner_avatar")
     private CollectionAvatar mOwnerAvatar;
+    @Expose
+    @SerializedName("products")
+    private int mProducts;
 
     public Shop() {
     }
@@ -136,6 +139,7 @@ public class Shop implements Parcelable {
         mNameOwner = in.readString();
         mEmailOwner = in.readString();
         mOwnerAvatar = in.readParcelable(Image.class.getClassLoader());
+        mProducts = in.readInt();
     }
 
     public int getDomainId() {
@@ -313,6 +317,14 @@ public class Shop implements Parcelable {
         mEmailOwner = emailOwner;
     }
 
+    public int getProducts() {
+        return mProducts;
+    }
+
+    public void setProducts(int products) {
+        mProducts = products;
+    }
+
     public boolean isFormatStatus() {
         if ("on".equals(mStatusShop)) {
             return true;
@@ -351,5 +363,6 @@ public class Shop implements Parcelable {
         dest.writeString(mNameOwner);
         dest.writeString(mEmailOwner);
         dest.writeParcelable(mOwnerAvatar, flags);
+        dest.writeInt(mProducts);
     }
 }
