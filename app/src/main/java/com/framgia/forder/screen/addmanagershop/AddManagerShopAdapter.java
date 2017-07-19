@@ -21,6 +21,7 @@ public class AddManagerShopAdapter
         extends BaseRecyclerViewAdapter<AddManagerShopAdapter.ItemViewHolder> {
 
     private final List<User> mUsers;
+    private int mUserId;
 
     AddManagerShopAdapter(@NonNull Context context) {
         super(context);
@@ -37,7 +38,7 @@ public class AddManagerShopAdapter
 
     @Override
     public void onBindViewHolder(AddManagerShopAdapter.ItemViewHolder holder, int position) {
-        holder.bind(mUsers.get(position));
+        holder.bind(mUsers.get(position), mUserId);
     }
 
     @Override
@@ -45,10 +46,11 @@ public class AddManagerShopAdapter
         return mUsers.size();
     }
 
-    public void updateData(List<User> users) {
+    public void updateData(List<User> users, int userId) {
         if (users == null) {
             return;
         }
+        mUserId = userId;
         mUsers.clear();
         mUsers.addAll(users);
         notifyDataSetChanged();
@@ -63,8 +65,8 @@ public class AddManagerShopAdapter
             mBinding = binding;
         }
 
-        void bind(User user) {
-            mBinding.setViewModel(new ItemAddManagerInShopViewModel(user));
+        void bind(User user, int userId) {
+            mBinding.setViewModel(new ItemAddManagerInShopViewModel(user, userId));
             mBinding.executePendingBindings();
         }
     }

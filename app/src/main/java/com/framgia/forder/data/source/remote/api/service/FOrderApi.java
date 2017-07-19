@@ -238,4 +238,8 @@ public interface FOrderApi {
     @PUT("v1/shop_domains/0")
     Observable<BaseResponse> requestToAcceptRejectShopToDomain(@Query("domain_id") int domainId,
             @Query("shop_id") int shopId, @Query("status") String status);
+
+    @POST("v1/shop_managers")
+    Observable<BaseResponse> requestAddManagerInShop(@Query("shop_id") int shopId,
+            @Query("domain_id") int domainId, @Query("user_id") int userId);
 }

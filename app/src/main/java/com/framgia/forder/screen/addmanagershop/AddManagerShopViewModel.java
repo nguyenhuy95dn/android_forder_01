@@ -16,11 +16,11 @@ public class AddManagerShopViewModel extends BaseObservable
         implements AddManagerShopContract.ViewModel {
 
     private AddManagerShopContract.Presenter mPresenter;
-    private AddManagerShopAdapter mAdapter;
-    private Navigator mNavigator;
+    private final AddManagerShopAdapter mAdapter;
+    private final Navigator mNavigator;
     private boolean mIsVisibleListUser;
 
-    public AddManagerShopViewModel(Navigator navigator, AddManagerShopAdapter adapter) {
+    AddManagerShopViewModel(Navigator navigator, AddManagerShopAdapter adapter) {
         mNavigator = navigator;
         mAdapter = adapter;
         setVisibleListUser(false);
@@ -43,8 +43,8 @@ public class AddManagerShopViewModel extends BaseObservable
     }
 
     @Override
-    public void onGetListUserSuccess(List<User> userList) {
-        mAdapter.updateData(userList);
+    public void onGetListUserSuccess(List<User> userList, int userId) {
+        mAdapter.updateData(userList, userId);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class AddManagerShopViewModel extends BaseObservable
         return mIsVisibleListUser;
     }
 
-    public void setVisibleListUser(boolean visibleListUser) {
+    private void setVisibleListUser(boolean visibleListUser) {
         mIsVisibleListUser = visibleListUser;
         notifyPropertyChanged(BR.visibleListUser);
     }

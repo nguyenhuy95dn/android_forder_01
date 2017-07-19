@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.source.DomainRepository;
+import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.local.DomainLocalDataSource;
 import com.framgia.forder.data.source.local.UserLocalDataSource;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
@@ -37,11 +38,12 @@ public class AddManagerShopFragment extends Fragment {
         mViewModel = new AddManagerShopViewModel(navigator, adapter);
 
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity().getApplicationContext());
+        UserRepository userRepository = new UserRepository(null, new UserLocalDataSource(prefsApi));
         DomainRepository domainRepository =
                 new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
                         new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
         AddManagerShopContract.Presenter presenter =
-                new AddManagerShopPresenter(mViewModel, domainRepository);
+                new AddManagerShopPresenter(mViewModel, domainRepository, userRepository);
         mViewModel.setPresenter(presenter);
     }
 
