@@ -1,19 +1,35 @@
 package com.framgia.forder.screen.addmanagershop;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import com.framgia.forder.BR;
+import com.framgia.forder.data.model.User;
+import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.utils.navigator.Navigator;
+import java.util.List;
+
 /**
  * Exposes the data to be used in the Addmanagershop screen.
  */
 
-public class AddManagerShopViewModel implements AddManagerShopContract.ViewModel {
+public class AddManagerShopViewModel extends BaseObservable
+        implements AddManagerShopContract.ViewModel {
 
     private AddManagerShopContract.Presenter mPresenter;
+    private AddManagerShopAdapter mAdapter;
+    private Navigator mNavigator;
+    private boolean mIsVisibleListUser;
 
-    public AddManagerShopViewModel() {
+    public AddManagerShopViewModel(Navigator navigator, AddManagerShopAdapter adapter) {
+        mNavigator = navigator;
+        mAdapter = adapter;
+        setVisibleListUser(false);
     }
 
     @Override
     public void onStart() {
         mPresenter.onStart();
+        mPresenter.getListUser();
     }
 
     @Override
@@ -24,5 +40,54 @@ public class AddManagerShopViewModel implements AddManagerShopContract.ViewModel
     @Override
     public void setPresenter(AddManagerShopContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public void onGetListUserSuccess(List<User> userList) {
+        mAdapter.updateData(userList);
+    }
+
+    @Override
+    public void onAddManagerInShopSuccess() {
+        //Todo edit later
+    }
+
+    @Override
+    public void onMessageError(BaseException exception) {
+        mNavigator.showToastCustom(exception.getMessage());
+    }
+
+    @Override
+    public void onShowProgressBar() {
+        setVisibleListUser(true);
+    }
+
+    @Override
+    public void onHideProgressBar() {
+        setVisibleListUser(false);
+    }
+
+    @Override
+    public void onShowProgressDialog() {
+        //Todo Show Dialog
+    }
+
+    @Override
+    public void onHideProgressDialog() {
+        //Todo Hide Dialog
+    }
+
+    public AddManagerShopAdapter getAdapter() {
+        return mAdapter;
+    }
+
+    @Bindable
+    public boolean isVisibleListUser() {
+        return mIsVisibleListUser;
+    }
+
+    public void setVisibleListUser(boolean visibleListUser) {
+        mIsVisibleListUser = visibleListUser;
+        notifyPropertyChanged(BR.visibleListUser);
     }
 }
