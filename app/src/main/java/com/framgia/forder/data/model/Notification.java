@@ -1,83 +1,113 @@
 package com.framgia.forder.data.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import com.framgia.forder.utils.Utils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import static com.framgia.forder.utils.Constant.VERTICAL_COLUMN;
 
 /**
  * Created by ASUS on 24-04-2017.
  */
 
-public class Notification implements Parcelable {
+public class Notification {
 
     @Expose
-    @SerializedName("title")
-    private String mTitle;
+    @SerializedName("id")
+    private int mId;
     @Expose
-    @SerializedName("time")
-    private String mTime;
+    @SerializedName("message")
+    private String mMessage;
     @Expose
-    @SerializedName("avatar")
-    private CollectionAvatar mCollectionAvatar;
+    @SerializedName("eventable_type")
+    private String mTypeEvenTable;
+    @Expose
+    @SerializedName("eventable_id")
+    private int mIdEvenTable;
+    @Expose
+    @SerializedName("read")
+    private boolean mRead;
+    @Expose
+    @SerializedName("user_id")
+    private int mIdUser;
+    @Expose
+    @SerializedName("created_at")
+    private String mTimeCreate;
+    @Expose
+    @SerializedName("updated_at")
+    private String mTimeUpdated;
 
-    public Notification(String title, String time, CollectionAvatar collectionAvatar) {
-        mTitle = title;
-        mTime = time;
-        mCollectionAvatar = collectionAvatar;
+    public int getId() {
+        return mId;
     }
 
-    protected Notification(Parcel in) {
-        mTitle = in.readString();
-        mTime = in.readString();
-        mCollectionAvatar = in.readParcelable(CollectionAvatar.class.getClassLoader());
+    public void setId(int id) {
+        mId = id;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mTitle);
-        dest.writeString(mTime);
-        dest.writeParcelable(mCollectionAvatar, flags);
+    public String getMessage() {
+        return mMessage = mMessage.replace("\n", "")
+                .replace("           ", " ")
+                .replace("          ", " ")
+                .replace("      ", " ")
+                .replace("  ", " ");
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public void setMessage(String message) {
+        mMessage = message;
     }
 
-    public static final Creator<Notification> CREATOR = new Creator<Notification>() {
-        @Override
-        public Notification createFromParcel(Parcel in) {
-            return new Notification(in);
-        }
-
-        @Override
-        public Notification[] newArray(int size) {
-            return new Notification[size];
-        }
-    };
-
-    public String getTitle() {
-        return mTitle;
+    public String getTypeEvenTable() {
+        return mTypeEvenTable;
     }
 
-    public void setTitle(String title) {
-        mTitle = title;
+    public void setTypeEvenTable(String typeEvenTable) {
+        mTypeEvenTable = typeEvenTable;
     }
 
-    public String getTime() {
-        return mTime;
+    public int getIdEvenTable() {
+        return mIdEvenTable;
     }
 
-    public void setTime(String time) {
-        mTime = time;
+    public void setIdEvenTable(int idEvenTable) {
+        mIdEvenTable = idEvenTable;
     }
 
-    public CollectionAvatar getCollectionAvatar() {
-        return mCollectionAvatar;
+    public boolean isRead() {
+        return mRead;
     }
 
-    public void setCollectionAvatar(CollectionAvatar collectionAvatar) {
-        mCollectionAvatar = collectionAvatar;
+    public void setRead(boolean read) {
+        mRead = read;
+    }
+
+    public int getIdUser() {
+        return mIdUser;
+    }
+
+    public void setIdUser(int idUser) {
+        mIdUser = idUser;
+    }
+
+    public String getTimeCreate() {
+        return mTimeCreate;
+    }
+
+    public void setTimeCreate(String timeCreate) {
+        mTimeCreate = timeCreate;
+    }
+
+    public String getTimeUpdated() {
+        return mTimeUpdated;
+    }
+
+    public void setTimeUpdated(String timeUpdated) {
+        mTimeUpdated = timeUpdated;
+    }
+
+    public String getTimeNotificationFormat() {
+        return Utils.DateTimeUntils.convertUiFormatToDataFormat(mTimeCreate,
+                Utils.INPUT_TIME_FORMAT,
+                Utils.OUTPUT_TIME_FORMAT + VERTICAL_COLUMN + Utils.OUTPUT_DATE_FORMAT);
     }
 }

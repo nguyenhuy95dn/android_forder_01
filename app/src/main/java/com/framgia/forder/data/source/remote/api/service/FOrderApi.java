@@ -91,7 +91,7 @@ public interface FOrderApi {
     Observable<SearchResponse> search(@Query("domain_id") int domainId,
             @Query("keyword") String keyWord);
 
-    @GET("v1/notifications")
+    @GET("v1/events")
     Observable<NotificationResponse> getListNotification();
 
     @GET("v1/products")

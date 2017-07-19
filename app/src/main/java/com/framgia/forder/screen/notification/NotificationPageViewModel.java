@@ -1,17 +1,21 @@
 package com.framgia.forder.screen.notification;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.graphics.Color;
+import com.framgia.forder.BR;
 import com.framgia.forder.data.model.Notification;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
+import com.framgia.forder.utils.StatusCode;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.List;
-import java.util.Observable;
 
 /**
  * Created by ASUS on 24-04-2017.
  */
 
-public class NotificationPageViewModel extends Observable
+public class NotificationPageViewModel extends BaseObservable
         implements NotificationPageContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
 
@@ -19,6 +23,7 @@ public class NotificationPageViewModel extends Observable
     private NotificationPageAdapter mNotificationPageAdapter;
     private Navigator mNavigator;
     private Notification mNotification;
+    private int mColorBackgroundNotification;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
     NotificationPageViewModel(NotificationPageAdapter notificationPageAdapter,
@@ -32,6 +37,7 @@ public class NotificationPageViewModel extends Observable
             BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> itemClickListener) {
         mNotification = notification;
         mItemClickListener = itemClickListener;
+        initColorNotification();
     }
 
     @Override
@@ -72,23 +78,38 @@ public class NotificationPageViewModel extends Observable
     }
 
     public String getNotificationImage() {
-        if (mNotification != null
-                && mNotification.getCollectionAvatar() != null
-                && mNotification.getCollectionAvatar().getImage() != null) {
-            return mNotification.getCollectionAvatar().getImage().getUrl();
-        }
         return "";
     }
 
     public String getNotificationTitle() {
-        return mNotification != null ? mNotification.getTitle() : "";
+        return mNotification.getMessage();
     }
 
     public String getNotificationTime() {
-        return mNotification != null ? mNotification.getTime() : "";
+        return mNotification.getTimeNotificationFormat();
+    }
+
+    private void initColorNotification() {
+        if (mNotification != null) {
+            if (mNotification.isRead()) {
+                setColorBackgroundNotification(Color.WHITE);
+            } else {
+                setColorBackgroundNotification(Color.parseColor(StatusCode.COLOR_NOTIFICATION));
+            }
+        }
     }
 
     public NotificationPageAdapter getNotificationPageAdapter() {
         return mNotificationPageAdapter;
+    }
+
+    @Bindable
+    public int getColorBackgroundNotification() {
+        return mColorBackgroundNotification;
+    }
+
+    public void setColorBackgroundNotification(int colorBackgroundNotification) {
+        mColorBackgroundNotification = colorBackgroundNotification;
+        notifyPropertyChanged(BR.colorBackgroundNotification);
     }
 }
