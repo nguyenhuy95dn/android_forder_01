@@ -18,12 +18,16 @@ public interface OrderHistoryContract {
         void onGetListAllOrderHistoryError(BaseException exception);
 
         void onGetListAllOrderHistorySuccess(List<Order> orderHistories);
+
+        void onReLoadData();
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
+        void getListOrderHistory();
+
         void onGetListOrderHistoryByDate(String startDate, String endDate);
     }
 }

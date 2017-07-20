@@ -202,4 +202,6 @@
     <string name="inactive_status">Không hoạt động</string>
     <string name="reject_status">Từ chối</string>
     <string name="accept_status">Chấp nhận</string>
+    <string name="user_unit">Thành viên</string>
+    <string name="shop_unit">Cửa hàng</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.domainmanagement;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.view.MenuItem;
@@ -8,8 +9,6 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.DomainManagement;
 
 import static com.framgia.forder.utils.Constant.FORMAT_PRODUCT;
-import static com.framgia.forder.utils.Constant.FORMAT_SHOP;
-import static com.framgia.forder.utils.Constant.FORMAT_USER;
 
 /**
  * Created by Age on 6/8/2017.
@@ -21,13 +20,15 @@ public class ItemDomainManagementViewModel extends BaseObservable {
     private static final String DEFAULT_STATUS = "default";
     private static final String MEMBER = "member";
 
+    private final Context mContext;
     private final DomainManagement mDomainManagement;
     private final DomainManagementListener mDomainManagementListener;
     private int mImageStatus;
     private boolean mIsMember;
 
-    ItemDomainManagementViewModel(DomainManagement domainManagement,
+    ItemDomainManagementViewModel(Context context, DomainManagement domainManagement,
             DomainManagementListener domainManagementListener) {
+        mContext = context;
         mDomainManagement = domainManagement;
         mDomainManagementListener = domainManagementListener;
         mIsMember = false;
@@ -98,11 +99,11 @@ public class ItemDomainManagementViewModel extends BaseObservable {
     }
 
     public String getTotalUser() {
-        return mDomainManagement.getCountUser() + FORMAT_USER;
+        return mDomainManagement.getCountUser() + " " + mContext.getString(R.string.user_unit);
     }
 
     public String getTotalShop() {
-        return mDomainManagement.getCountShop() + FORMAT_SHOP;
+        return mDomainManagement.getCountShop() + " " + mContext.getString(R.string.shop_unit);
     }
 
     public String getTotalProduct() {
