@@ -10,6 +10,7 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.Notification;
 import com.framgia.forder.databinding.ItemListNotificationBinding;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
+import com.framgia.forder.utils.navigator.Navigator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +21,14 @@ import java.util.List;
 public class NotificationPageAdapter
         extends BaseRecyclerViewAdapter<NotificationPageAdapter.ItemViewHolder> {
 
+    private final Navigator mNavigator;
     private OnRecyclerViewItemClickListener<Object> mItemClickListener;
-    private List<Notification> mNotifications;
+    private final List<Notification> mNotifications;
 
-    NotificationPageAdapter(@NonNull Context context, List<Notification> notifications) {
+    NotificationPageAdapter(@NonNull Context context, Navigator navigator,
+            List<Notification> notifications) {
         super(context);
+        mNavigator = navigator;
         mNotifications = new ArrayList<>();
         if (notifications == null) {
             return;
@@ -37,7 +41,7 @@ public class NotificationPageAdapter
         ItemListNotificationBinding itemListNotificationBinding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                         R.layout.item_list_notification, parent, false);
-        return new NotificationPageAdapter.ItemViewHolder(itemListNotificationBinding,
+        return new NotificationPageAdapter.ItemViewHolder(mNavigator, itemListNotificationBinding,
                 mItemClickListener);
     }
 
@@ -65,18 +69,21 @@ public class NotificationPageAdapter
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
-        private ItemListNotificationBinding mBinding;
-        private OnRecyclerViewItemClickListener<Object> mItemClickListener;
+        private final Navigator mNavigator;
+        private final ItemListNotificationBinding mBinding;
+        private final OnRecyclerViewItemClickListener<Object> mItemClickListener;
 
-        ItemViewHolder(ItemListNotificationBinding binding,
+        ItemViewHolder(Navigator navigator, ItemListNotificationBinding binding,
                 BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> listener) {
             super(binding.getRoot());
+            mNavigator = navigator;
             mBinding = binding;
             mItemClickListener = listener;
         }
 
         void bind(Notification notification) {
-            mBinding.setViewModel(new NotificationPageViewModel(notification, mItemClickListener));
+            mBinding.setViewModel(
+                    new ItemNotificationViewModel(mNavigator, notification, mItemClickListener));
             mBinding.executePendingBindings();
         }
     }

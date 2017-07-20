@@ -33,9 +33,10 @@ public class NotificationPageFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         List<Notification> notifications = new ArrayList<>();
-        NotificationPageAdapter notificationPageAdapter =
-                new NotificationPageAdapter(getActivity(), notifications);
         Navigator navigator = new Navigator(getParentFragment());
+        NotificationPageAdapter notificationPageAdapter =
+                new NotificationPageAdapter(getActivity(), navigator, notifications);
+
         mViewModel = new NotificationPageViewModel(notificationPageAdapter, navigator);
         NotificationRepository notificationRepository = new NotificationRepository(
                 new NotificationRemoteDataSource(FOrderServiceClient.getInstance()));

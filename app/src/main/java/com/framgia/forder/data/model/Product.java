@@ -87,6 +87,9 @@ public class Product implements Parcelable {
         mNotes = in.readString();
     }
 
+    public Product() {
+    }
+
     public int getShopId() {
         return mShopId;
     }

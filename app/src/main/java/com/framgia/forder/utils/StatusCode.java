@@ -22,4 +22,13 @@ public class StatusCode {
 
     //Role
     public static final String ROLE_OWNER = "owner";
+
+    //Type Notification
+    public static final String NOTIFICATION_SHOP = "Shop";
+    public static final String NOTIFICATION_ORDER = "Order";
+    public static final String NOTIFICATION_ORDER_PRODUCT = "OrderProduct";
+    public static final String NOTIFICATION_USER = "User";
+    public static final String NOTIFICATION_PRODUCT = "Product";
+    public static final String NOTIFICATION_USER_DOMAIN = "UserDomain";
+    public static final String NOTIFICATION_SHOP_DOMAIN = "ShopDomain";
 }
