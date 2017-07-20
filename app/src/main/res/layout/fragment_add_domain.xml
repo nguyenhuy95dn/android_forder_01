@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:checked="@{viewModel.isCheckedSecret}"
                 android:onCheckedChanged="@{() -> viewModel.onCheckedSecret()}"
-                android:text="@string/secret"
+                android:text="@string/secret_status"
                 style="@style/Base.Widget.AppCompat.CompoundButton.RadioButton"
                 />
             <RadioButton
@@ -54,7 +54,7 @@
                 android:layout_marginLeft="@dimen/dp_5"
                 android:layout_marginStart="@dimen/dp_5"
                 android:checked="@{viewModel.isCheckedProfessed}"
-                android:text="@string/professed"
+                android:text="@string/professed_status"
                 style="@style/Base.Widget.AppCompat.CompoundButton.RadioButton"
                 />
         </RadioGroup>
