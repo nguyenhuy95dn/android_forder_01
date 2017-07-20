@@ -168,7 +168,7 @@ public class Order {
 
     public int getStatusColor() {
         if (mStatusOrder == StatusOders.Done) {
-            return R.drawable.button_blue;
+            return R.drawable.button_green;
         } else if (mStatusOrder == StatusOders.Rejected) {
             return R.drawable.button_red;
         } else if (mStatusOrder == StatusOders.Pending) {

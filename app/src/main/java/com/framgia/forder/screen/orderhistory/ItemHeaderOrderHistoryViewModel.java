@@ -34,6 +34,6 @@ public class ItemHeaderOrderHistoryViewModel extends BaseObservable {
     }
 
     public String getStatus() {
-        return mOrder.getStatusOrder().getValue();
+        return String.valueOf(mOrder.getStatusOrder());
     }
 }
