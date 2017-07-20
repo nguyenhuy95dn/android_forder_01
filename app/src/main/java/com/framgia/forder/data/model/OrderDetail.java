@@ -1,8 +1,9 @@
 package com.framgia.forder.data.model;
 
+import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
-import com.framgia.forder.R;
+import com.framgia.forder.utils.StatusCode;
 import com.framgia.forder.utils.Utils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -222,13 +223,13 @@ public class OrderDetail implements Parcelable {
 
     public int getStatusColor() {
         if (mStatusOrder == StatusOders.Done) {
-            return R.drawable.button_blue;
+            return Color.parseColor(StatusCode.COLOR_GREEN);
         } else if (mStatusOrder == StatusOders.Rejected) {
-            return R.drawable.button_red;
+            return Color.parseColor(StatusCode.COLOR_RED);
         } else if (mStatusOrder == StatusOders.Pending) {
-            return R.drawable.button_blue;
+            return Color.parseColor(StatusCode.COLOR_BLUE);
         } else if (mStatusOrder == StatusOders.Accepted) {
-            return R.drawable.button_orange;
+            return Color.parseColor(StatusCode.COLOR_ORANGE);
         }
         return 0;
     }

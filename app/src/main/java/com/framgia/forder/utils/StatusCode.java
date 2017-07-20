@@ -15,6 +15,10 @@ public class StatusCode {
     public static final String WAIT_STATUS_COLOR = "#1C86EE";
     public static final String BLOCKED_STATUS_COLOR = "#C50023";
     public static final String COLOR_NOTIFICATION = "#ECECEC";
+    public static final String COLOR_GREEN = "#009900";
+    public static final String COLOR_BLUE = "#017afa";
+    public static final String COLOR_ORANGE = "#FF9400";
+    public static final String COLOR_RED = "#FF0000";
 
     //Role
     public static final String ROLE_OWNER = "owner";

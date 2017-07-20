@@ -2,6 +2,7 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     >
 
     <data>
@@ -14,57 +15,74 @@
         <import type="android.view.View"/>
 
     </data>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_yellow_mos"
-        android:descendantFocusability="blocksDescendants"
-        android:padding="@dimen/dp_10"
         >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:background="@color/color_white"
+            android:descendantFocusability="blocksDescendants"
+            >
 
-        <TextView
-            android:layout_width="@dimen/dp_80"
-            android:layout_height="@dimen/dp_30"
-            android:layout_marginLeft="@dimen/dp_24"
-            android:layout_marginStart="@dimen/dp_24"
-            android:gravity="center"
-            android:text="@{viewModel.status}"
-            android:textColor="@android:color/white"
-            app:background="@{viewModel.statusColor}"
-            />
+            <TextView
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_30"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_marginStart="@dimen/dp_30"
+                android:gravity="center"
+                android:text="@{viewModel.status}"
+                android:textColor="@android:color/white"
+                app:background="@{viewModel.statusColor}"
+                />
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_marginStart="@dimen/dp_5"
+                android:textStyle="bold"
+                android:text="@{viewModel.formatOrderDate}"
+                android:textColor="@color/color_orange_light"
+                android:textSize="@dimen/sp_15"
+                />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/dp_5"
-            android:layout_marginStart="@dimen/dp_5"
-            android:text="@{viewModel.formatOrderDate}"
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="@dimen/sp_15"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            tools:ignore="RelativeOverlap"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/title_total"
+                android:textColor="@android:color/black"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:textStyle="bold"
+                android:text="@{viewModel.totalPrice}"
+                android:textColor="@color/color_orange_light"
+                tools:ignore="RtlHardcoded"
+                />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_gray_white"
             />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/dp_5"
-            android:layout_marginStart="@dimen/dp_5"
-            android:text="@string/title_total"
-            android:textColor="@android:color/black"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/dp_5"
-            android:layout_marginStart="@dimen/dp_5"
-            android:gravity="right"
-            android:text="@{viewModel.totalPrice}"
-            android:textColor="@android:color/holo_red_light"
-            />
-
-    </LinearLayout>
+    </RelativeLayout>
 </layout>
