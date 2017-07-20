@@ -39,7 +39,8 @@ public class OrderHistoryPresenter implements OrderHistoryContract.Presenter {
         mCompositeSubscription.clear();
     }
 
-    private void getListOrderHistory() {
+    @Override
+    public void getListOrderHistory() {
         Subscription subscription = mOrderRepository.getOrderHistory()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

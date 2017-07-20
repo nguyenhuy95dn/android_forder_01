@@ -66,6 +66,11 @@ public class OrderHistoryViewModel extends BaseObservable
         mOrderHistoryAdapter.updateData(orderHistories);
     }
 
+    @Override
+    public void onReLoadData() {
+        mPresenter.getListOrderHistory();
+    }
+
     public OrderHistoryAdapter getOrderHistoryAdapter() {
         return mOrderHistoryAdapter;
     }

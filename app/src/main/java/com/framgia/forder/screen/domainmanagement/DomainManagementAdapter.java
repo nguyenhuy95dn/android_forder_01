@@ -34,7 +34,8 @@ public class DomainManagementAdapter
         ItemDomainManagementBinding binding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                         R.layout.item_domain_management, parent, false);
-        return new DomainManagementAdapter.ItemViewHolder(binding, mDomainManagementListener);
+        return new DomainManagementAdapter.ItemViewHolder(getContext(), binding,
+                mDomainManagementListener);
     }
 
     @Override
@@ -62,19 +63,21 @@ public class DomainManagementAdapter
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
+        private final Context mContext;
         private final DomainManagementListener mDomainManagementListener;
         private final ItemDomainManagementBinding mBinding;
 
-        ItemViewHolder(ItemDomainManagementBinding binding,
+        ItemViewHolder(Context context, ItemDomainManagementBinding binding,
                 DomainManagementListener domainManagementListener) {
             super(binding.getRoot());
+            mContext = context;
             mBinding = binding;
             mDomainManagementListener = domainManagementListener;
         }
 
         void bind(DomainManagement domainManagement) {
-            mBinding.setViewModel(
-                    new ItemDomainManagementViewModel(domainManagement, mDomainManagementListener));
+            mBinding.setViewModel(new ItemDomainManagementViewModel(mContext, domainManagement,
+                    mDomainManagementListener));
             mBinding.executePendingBindings();
         }
     }

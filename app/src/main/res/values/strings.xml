@@ -203,4 +203,6 @@
     <string name="inactive_status">Inactive</string>
     <string name="reject_status">Reject</string>
     <string name="accept_status">Accept</string>
+    <string name="user_unit">User</string>
+    <string name="shop_unit">Shop</string>
 </resources>
