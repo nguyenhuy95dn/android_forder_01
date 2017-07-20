@@ -2,6 +2,7 @@ package com.framgia.forder.screen.addmanagershop;
 
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.DomainRepository;
+import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import java.util.List;
@@ -22,12 +23,14 @@ final class AddManagerShopPresenter implements AddManagerShopContract.Presenter 
 
     private final AddManagerShopContract.ViewModel mViewModel;
     private final DomainRepository mDomainRepository;
-    private CompositeSubscription mCompositeSubscription;
+    private final UserRepository mUserRepository;
+    private final CompositeSubscription mCompositeSubscription;
 
     AddManagerShopPresenter(AddManagerShopContract.ViewModel viewModel,
-            DomainRepository domainRepository) {
+            DomainRepository domainRepository, UserRepository userRepository) {
         mViewModel = viewModel;
         mDomainRepository = domainRepository;
+        mUserRepository = userRepository;
         mCompositeSubscription = new CompositeSubscription();
     }
 
@@ -42,6 +45,7 @@ final class AddManagerShopPresenter implements AddManagerShopContract.Presenter 
 
     @Override
     public void getListUser() {
+        final int userId = mUserRepository.getUser().getId();
         Subscription subscription =
                 mDomainRepository.getListUserInDomain(mDomainRepository.getCurrentDomain().getId())
                         .subscribeOn(Schedulers.io())
@@ -61,7 +65,7 @@ final class AddManagerShopPresenter implements AddManagerShopContract.Presenter 
                         .subscribe(new Action1<List<User>>() {
                             @Override
                             public void call(List<User> users) {
-                                mViewModel.onGetListUserSuccess(users);
+                                mViewModel.onGetListUserSuccess(users, userId);
                             }
                         }, new SafetyError() {
                             @Override

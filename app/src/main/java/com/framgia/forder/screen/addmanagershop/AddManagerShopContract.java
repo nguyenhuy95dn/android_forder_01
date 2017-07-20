@@ -15,7 +15,7 @@ interface AddManagerShopContract {
      */
     interface ViewModel extends BaseViewModel<Presenter> {
 
-        void onGetListUserSuccess(List<User> userList);
+        void onGetListUserSuccess(List<User> userList, int userId);
 
         void onAddManagerInShopSuccess();
 
