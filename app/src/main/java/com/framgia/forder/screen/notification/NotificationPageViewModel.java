@@ -29,6 +29,7 @@ public class NotificationPageViewModel extends BaseObservable
     @Override
     public void onStart() {
         mPresenter.onStart();
+        mPresenter.getListNotification();
     }
 
     @Override

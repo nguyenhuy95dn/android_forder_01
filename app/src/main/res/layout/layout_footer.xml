@@ -72,12 +72,35 @@
                 tools:ignore="UseCompoundDrawables"
                 style="@style/StyleTabFooter"
                 >
-                <ImageView
-                    android:src="@drawable/selected_ic_notifications"
-                    app:srcCompat="@drawable/ic_notifications"
-                    tools:ignore="ContentDescription"
-                    style="@style/StyleImageViewTabFooter"
-                    />
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageView
+                        android:src="@drawable/selected_ic_notifications"
+                        app:srcCompat="@drawable/ic_notifications"
+                        tools:ignore="ContentDescription"
+                        style="@style/StyleImageViewTabFooter"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="end"
+                        android:background="@drawable/circle_number_of_product"
+                        android:backgroundTint="@color/color_red_mos"
+                        android:ellipsize="marquee"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@{viewModel.numberNotification}"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/sp_12"
+                        android:textStyle="bold"
+                        android:visibility="@{viewModel.notification ? View.GONE : View.VISIBLE}"
+                        tools:ignore="ObsoleteLayoutParam,UnusedAttribute"
+                        />
+                </FrameLayout>
                 <TextView
                     android:text="@string/title_tab_nitofy"
                     style="@style/StyleTitleTabFooter"

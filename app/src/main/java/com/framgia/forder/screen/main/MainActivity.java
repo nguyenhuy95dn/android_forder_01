@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.framgia.forder.R;
 import com.framgia.forder.data.source.DomainRepository;
+import com.framgia.forder.data.source.NotificationRepository;
 import com.framgia.forder.data.source.ProductRepository;
 import com.framgia.forder.data.source.local.DomainLocalDataSource;
 import com.framgia.forder.data.source.local.ProductLocalDataSource;
@@ -17,6 +18,7 @@ import com.framgia.forder.data.source.local.realm.RealmApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
 import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
+import com.framgia.forder.data.source.remote.NotificationRemoteDataSource;
 import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.ActivityMainBinding;
@@ -25,7 +27,8 @@ import com.framgia.forder.screen.BaseActivity;
 /**
  * Main Screen.
  */
-public class MainActivity extends BaseActivity implements LoadCartListener, ChangeDomainListener {
+public class MainActivity extends BaseActivity
+        implements LoadCartListener, ChangeDomainListener, LoadNotificationListener {
 
     private static final int DELAY_TIME_TWO_TAP_BACK_BUTTON = 2000;
 
@@ -52,9 +55,12 @@ public class MainActivity extends BaseActivity implements LoadCartListener, Chan
         ProductRepository productRepository = new ProductRepository(
                 new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
                 new ProductLocalDataSource(realmApi), currentDomainId);
+        NotificationRepository notificationRepository = new NotificationRepository(
+                new NotificationRemoteDataSource(FOrderServiceClient.getInstance()));
 
         MainContract.Presenter presenter =
-                new MainPresenter(mViewModel, domainRepository, productRepository);
+                new MainPresenter(mViewModel, domainRepository, productRepository,
+                        notificationRepository);
         mViewModel.setPresenter(presenter);
 
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
@@ -108,5 +114,10 @@ public class MainActivity extends BaseActivity implements LoadCartListener, Chan
     @Override
     public void reloadData() {
         mViewModel.reloadData(mView);
+    }
+
+    @Override
+    public void onReloadNotification() {
+        mViewModel.onReloadNotification();
     }
 }

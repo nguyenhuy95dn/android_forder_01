@@ -242,4 +242,7 @@ public interface FOrderApi {
     @POST("v1/shop_managers")
     Observable<BaseResponse> requestAddManagerInShop(@Query("shop_id") int shopId,
             @Query("domain_id") int domainId, @Query("user_id") int userId);
+
+    @PUT("v1/events/0")
+    Observable<BaseResponse> readAllNotification(@Query("read_all") boolean readAll);
 }

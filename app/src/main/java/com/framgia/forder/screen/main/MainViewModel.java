@@ -14,6 +14,7 @@ import com.framgia.forder.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Domain;
+import com.framgia.forder.data.model.Notification;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.mainpage.MainPageFragment;
 import com.framgia.forder.utils.navigator.Navigator;
@@ -36,6 +37,7 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     private String mCurrentDomain;
     private final AlertDialog.Builder mDialogChangeDomain;
     private List<Cart> mCarts;
+    private List<Notification> mNotifications;
     private ChangeDomainListener mChangeDomainListener;
 
     @Tab
@@ -47,6 +49,7 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
         mDialogChangeDomain = alertDialog;
         mChangeDomainListener = changeDomainListener;
         mCarts = new ArrayList<>();
+        mNotifications = new ArrayList<>();
     }
 
     @Override
@@ -96,6 +99,8 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
                 break;
             case R.id.layout_notify:
                 setCurrentTab(Tab.TAB_NOTIFICATION);
+                mPresenter.readAllNotification();
+                onReloadNotification();
                 break;
             case R.id.layout_profile:
                 setCurrentTab(Tab.TAB_PROFILE);
@@ -186,6 +191,18 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     public void onGetListCartError(BaseException error) {
     }
 
+    @Override
+    public void onGetListNotificationSuccess(List<Notification> notifications) {
+        mNotifications = notifications;
+        notifyPropertyChanged(BR.numberNotification);
+        notifyPropertyChanged(BR.notification);
+    }
+
+    @Override
+    public void onGetListNotificationError(BaseException exception) {
+
+    }
+
     @Bindable
     public String getCurrentDomain() {
         return mCurrentDomain;
@@ -194,6 +211,28 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     @Bindable
     public String getNumberOfCart() {
         return String.valueOf(mCarts.size());
+    }
+
+    @Bindable
+    public String getNumberNotification() {
+        int count = 0;
+        for (int i = 0; i < mNotifications.size(); i++) {
+            if (!mNotifications.get(i).isRead()) {
+                count++;
+            }
+        }
+        return String.valueOf(count);
+    }
+
+    @Bindable
+    public boolean isNotification() {
+        int count = 0;
+        for (int i = 0; i < mNotifications.size(); i++) {
+            if (!mNotifications.get(i).isRead()) {
+                count++;
+            }
+        }
+        return count == 0;
     }
 
     @Bindable
@@ -225,6 +264,21 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     @Override
     public void onReloadCart() {
         mPresenter.getListCart();
+    }
+
+    @Override
+    public void onReloadNotification() {
+        mPresenter.getListNotification();
+    }
+
+    @Override
+    public void readAllNotificationSuccess() {
+        //TOdo show message
+    }
+
+    @Override
+    public void readAllNotificationError(BaseException exception) {
+        //TOdo show message
     }
 
     @IntDef({ Tab.TAB_HOME, Tab.TAB_SEARCH, Tab.TAB_CART, Tab.TAB_NOTIFICATION, Tab.TAB_PROFILE })

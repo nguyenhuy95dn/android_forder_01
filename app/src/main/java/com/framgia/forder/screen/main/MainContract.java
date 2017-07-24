@@ -3,6 +3,7 @@ package com.framgia.forder.screen.main;
 import android.view.View;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Domain;
+import com.framgia.forder.data.model.Notification;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BasePresenter;
 import com.framgia.forder.screen.BaseViewModel;
@@ -28,9 +29,19 @@ interface MainContract {
 
         void onGetListCartError(BaseException error);
 
+        void onGetListNotificationSuccess(List<Notification> notifications);
+
+        void onGetListNotificationError(BaseException exception);
+
         void reloadData(View view);
 
         void onReloadCart();
+
+        void onReloadNotification();
+
+        void readAllNotificationSuccess();
+
+        void readAllNotificationError(BaseException exception);
     }
 
     /**
@@ -46,5 +57,9 @@ interface MainContract {
         void getListCart();
 
         void saveCurrentDomain(Domain domain);
+
+        void getListNotification();
+
+        void readAllNotification();
     }
 }
