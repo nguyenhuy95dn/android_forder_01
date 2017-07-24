@@ -58,6 +58,7 @@
                 android:fontFamily="@string/font_serif"
                 android:hint="@string/email"
                 android:inputType="textCapWords"
+                android:textAllCaps="false"
                 android:paddingEnd="@dimen/dp_5"
                 android:paddingLeft="@dimen/dp_10"
                 android:paddingRight="@dimen/dp_5"

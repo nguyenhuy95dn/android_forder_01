@@ -196,7 +196,6 @@
     <string name="request_success">Request Successful!</string>
     <string name="cancel_success">Cancel Successful!</string>
     <string name="add_manager_in_shop">Add Manager In Shop</string>
-    <string name="add_manager">Add Manager</string>
     <string name="secret_status">Secret</string>
     <string name="professed_status">Professed</string>
     <string name="active_status">Active</string>
