@@ -24,5 +24,6 @@ public interface NotificationPageContract {
      * Presenter.
      */
     interface Presenter extends BasePresenter {
+        void getListNotification();
     }
 }

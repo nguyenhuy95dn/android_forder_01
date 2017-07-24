@@ -2,10 +2,13 @@ package com.framgia.forder.screen.main;
 
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Domain;
+import com.framgia.forder.data.model.Notification;
 import com.framgia.forder.data.source.DomainRepository;
+import com.framgia.forder.data.source.NotificationRepository;
 import com.framgia.forder.data.source.ProductRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
+import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -23,12 +26,14 @@ final class MainPresenter implements MainContract.Presenter {
     private final MainContract.ViewModel mViewModel;
     private final ProductRepository mProductRepository;
     protected DomainRepository mDomainRepository;
+    private final NotificationRepository mNotificationRepository;
 
     MainPresenter(MainContract.ViewModel viewModel, DomainRepository domainRepository,
-            ProductRepository productRepository) {
+            ProductRepository productRepository, NotificationRepository notificationRepository) {
         mViewModel = viewModel;
         mDomainRepository = domainRepository;
         mProductRepository = productRepository;
+        mNotificationRepository = notificationRepository;
         mCompositeSubscription = new CompositeSubscription();
     }
 
@@ -36,6 +41,7 @@ final class MainPresenter implements MainContract.Presenter {
     public void onStart() {
         mProductRepository.openTransaction();
         getListCart();
+        getListNotification();
     }
 
     @Override
@@ -102,5 +108,42 @@ final class MainPresenter implements MainContract.Presenter {
     @Override
     public void saveCurrentDomain(Domain domain) {
         mDomainRepository.saveCurrentDomain(domain);
+    }
+
+    @Override
+    public void getListNotification() {
+        Subscription subscription = mNotificationRepository.getListNotification()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<List<Notification>>() {
+                    @Override
+                    public void call(List<Notification> notifications) {
+                        mViewModel.onGetListNotificationSuccess(notifications);
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onGetListNotificationError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void readAllNotification() {
+        Subscription subscription = mNotificationRepository.readAllNotification(true)
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Action1<BaseResponse>() {
+                    @Override
+                    public void call(BaseResponse baseResponse) {
+                        mViewModel.readAllNotificationSuccess();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.readAllNotificationError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
     }
 }

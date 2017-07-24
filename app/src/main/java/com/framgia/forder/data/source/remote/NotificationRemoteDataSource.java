@@ -2,6 +2,7 @@ package com.framgia.forder.data.source.remote;
 
 import com.framgia.forder.data.model.Notification;
 import com.framgia.forder.data.source.NotificationDataSource;
+import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import com.framgia.forder.data.source.remote.api.response.NotificationResponse;
 import com.framgia.forder.data.source.remote.api.service.FOrderApi;
 import java.util.List;
@@ -32,5 +33,10 @@ public class NotificationRemoteDataSource extends BaseRemoteDataSource
                         return Observable.error(new NullPointerException());
                     }
                 });
+    }
+
+    @Override
+    public Observable<BaseResponse> readAllNotification(boolean readAll) {
+        return mFOrderApi.readAllNotification(readAll);
     }
 }

@@ -27,7 +27,6 @@ public class NotificationPagePresenter implements NotificationPageContract.Prese
         mViewModel = viewModel;
         mNotificationRepository = notificationRepository;
         mCompositeSubscription = new CompositeSubscription();
-        getListNotification();
     }
 
     @Override
@@ -39,7 +38,8 @@ public class NotificationPagePresenter implements NotificationPageContract.Prese
         mCompositeSubscription.clear();
     }
 
-    private void getListNotification() {
+    @Override
+    public void getListNotification() {
         Subscription subscription = mNotificationRepository.getListNotification()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -17,6 +17,7 @@ import com.framgia.forder.screen.ordershop.OrderShopFragment;
 import com.framgia.forder.screen.productdetail.ProductDetailFragment;
 import com.framgia.forder.screen.shopinfo.ShopinfoFragment;
 import com.framgia.forder.screen.shopmanagement.ShopManagementFragment;
+import com.framgia.forder.utils.StatusCode;
 import com.framgia.forder.utils.navigator.Navigator;
 
 import static com.framgia.forder.utils.StatusCode.NOTIFICATION_ORDER;
@@ -54,7 +55,7 @@ public class ItemNotificationViewModel extends BaseObservable {
             if (mNotification.isRead()) {
                 setColorBackgroundNotification(Color.WHITE);
             } else {
-                setColorBackgroundNotification(Color.WHITE);
+                setColorBackgroundNotification(Color.parseColor(StatusCode.COLOR_NOTIFICATION));
             }
         }
     }

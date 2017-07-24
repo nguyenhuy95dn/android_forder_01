@@ -2,6 +2,7 @@ package com.framgia.forder.data.source;
 
 import com.framgia.forder.data.model.Notification;
 import com.framgia.forder.data.source.remote.NotificationRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import java.util.List;
 import rx.Observable;
 
@@ -18,5 +19,9 @@ public class NotificationRepository {
 
     public Observable<List<Notification>> getListNotification() {
         return mRemoteDataSource.getListNotification();
+    }
+
+    public Observable<BaseResponse> readAllNotification(boolean readAll) {
+        return mRemoteDataSource.readAllNotification(readAll);
     }
 }
