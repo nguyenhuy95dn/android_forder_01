@@ -1,7 +1,12 @@
 package com.framgia.forder.screen.shopmanagement;
 
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
+
+import static com.framgia.forder.utils.Constant.STATUS_OFF;
+import static com.framgia.forder.utils.Constant.STATUS_ON;
 
 /**
  * Created by levutantuan on 5/3/17.
@@ -57,16 +62,18 @@ public class ItemShopManagementViewModel {
         return mStatusShop;
     }
 
-    public void checked() {
-        //Todo edit later
-        //        if (mStatusShop) {
-        //            mChangeStatusShopManagement.onChangeStatusShop(mShopManagement.getShop()
-        // .getId(),
-        //                    STATUS_OFF);
-        //        } else {
-        //            mChangeStatusShopManagement.onChangeStatusShop(mShopManagement.getShop()
-        // .getId(),
-        //                    STATUS_ON);
-        //        }
+    public ToggleButton.OnCheckedChangeListener getChecked() {
+        return new ToggleButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (mStatusShop) {
+                    mChangeStatusShopManagement.onChangeStatusShop(
+                            mShopManagement.getShop().getId(), STATUS_OFF);
+                    return;
+                }
+                mChangeStatusShopManagement.onChangeStatusShop(mShopManagement.getShop().getId(),
+                        STATUS_ON);
+            }
+        };
     }
 }

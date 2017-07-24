@@ -162,7 +162,7 @@
     <string name="add_domain">Thêm miền</string>
     <string name="add_domain_success">Thêm miền thành công!</string>
     <string name="quantity_order_history">Số lượng: </string>
-    <string name="msg_delete_domain">Bạn có thật sự muốn xóa miền này?</string>
+    <string name="msg_delete_domain">Bạn có thật sự muốn xóa?</string>
     <string name="msg_leave_domain">Bạn thực sự muốn rời miền?</string>
     <string name="delete_the_domain_success">Xóa miền thành công!</string>
     <string name="leave_the_domain_successful">Rời khỏi miền thành công!</string>
