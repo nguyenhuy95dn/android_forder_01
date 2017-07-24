@@ -2,6 +2,7 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools"
     >
 
     <data>
@@ -110,11 +111,10 @@
                 android:layout_marginStart="@dimen/dp_1"
                 android:background="@drawable/toggle_item"
                 android:checked="@{viewModel.statusShop}"
-                android:onCheckedChanged="@{() -> viewModel.checked()}"
                 android:textOff="@null"
                 android:textOn="@null"
+                bind:setOnCheckedChangeListener="@{viewModel.checked}"
                 />
-
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </layout>

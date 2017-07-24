@@ -85,18 +85,6 @@ final class ShopManagementPresenter implements ShopManagementContract.Presenter 
         Subscription subscription =
                 mShopRepository.requestChangeStatusShopManagement(shopId, status)
                         .subscribeOn(Schedulers.io())
-                        .doOnSubscribe(new Action0() {
-                            @Override
-                            public void call() {
-                                mViewModel.onShowProgressDialog();
-                            }
-                        })
-                        .doAfterTerminate(new Action0() {
-                            @Override
-                            public void call() {
-                                mViewModel.onHideProgressDialog();
-                            }
-                        })
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Action1<BaseResponse>() {
                             @Override

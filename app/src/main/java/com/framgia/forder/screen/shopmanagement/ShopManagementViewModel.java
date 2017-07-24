@@ -19,7 +19,8 @@ import java.util.List;
 
 public class ShopManagementViewModel extends BaseObservable
         implements ShopManagementContract.ViewModel,
-        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
+        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>,
+        ListShopManagementAdapter.ChangeStatusShopManagement {
 
     private static final String TAG = "ShopDetailFragment";
 
@@ -35,6 +36,7 @@ public class ShopManagementViewModel extends BaseObservable
         mListShopManagementAdapter = adapter;
         mDialogManager = dialogManager;
         mListShopManagementAdapter.setItemClickListener(this);
+        mListShopManagementAdapter.setChangeStatusShopManagement(this);
         setProgressbarVisibleShopManagement(false);
     }
 
@@ -121,5 +123,10 @@ public class ShopManagementViewModel extends BaseObservable
     private void setProgressbarVisibleShopManagement(boolean progressbarVisibleShopManagement) {
         mIsProgressbarVisibleShopManagement = progressbarVisibleShopManagement;
         notifyPropertyChanged(BR.progressbarVisibleShopManagement);
+    }
+
+    @Override
+    public void onChangeStatusShop(int shopId, String status) {
+        mPresenter.requestChangeStatusShop(shopId, status);
     }
 }
