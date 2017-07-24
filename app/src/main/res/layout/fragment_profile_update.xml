@@ -118,7 +118,7 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="@{viewModel.email}"
+                            android:text="@={viewModel.email}"
                             android:textSize="@dimen/sp_16"
                             tools:ignore="RtlSymmetry"
                             style="@style/Base.V7.Widget.AppCompat.EditText"
@@ -166,7 +166,7 @@
                             android:layout_height="wrap_content"
                             android:maxLength="50"
                             android:maxLines="1"
-                            android:text="@{viewModel.username}"
+                            android:text="@={viewModel.username}"
                             android:textSize="@dimen/sp_16"
                             tools:ignore="RtlSymmetry,TextFields"
                             />
@@ -213,7 +213,7 @@
                             android:layout_height="wrap_content"
                             android:maxLength="50"
                             android:maxLines="1"
-                            android:text="@{viewModel.chatworkId}"
+                            android:text="@={viewModel.chatworkId}"
                             android:textSize="@dimen/sp_16"
                             tools:ignore="RtlSymmetry,TextFields"
                             />
@@ -259,7 +259,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:text="@{viewModel.description}"
+                            android:text="@={viewModel.description}"
                             android:textSize="@dimen/sp_16"
                             tools:ignore="RtlSymmetry,TextFields"
                             />

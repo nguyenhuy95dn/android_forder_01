@@ -17,11 +17,11 @@ final class ProfileDetailPresenter implements ProfileDetailContract.Presenter {
             UserRepository userRepository) {
         mViewModel = viewModel;
         mUserRepository = userRepository;
-        mViewModel.onGetProfileDetail(mUserRepository.getUser());
     }
 
     @Override
     public void onStart() {
+        mViewModel.onGetProfileDetail(mUserRepository.getUser());
     }
 
     @Override

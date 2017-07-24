@@ -72,12 +72,14 @@ final class UpdateProfilePresenter implements UpdateProfileContract.Presenter {
                         return mUserRepository.updateProfile(updateProfileRequest);
                     }
                 })
-                .subscribeOn(Schedulers.io()).doOnSubscribe(new Action0() {
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
                         mViewModel.onShowProgressDialog();
                     }
-                }).doAfterTerminate(new Action0() {
+                })
+                .doAfterTerminate(new Action0() {
                     @Override
                     public void call() {
                         mViewModel.onHideProgressDialog();
@@ -87,7 +89,6 @@ final class UpdateProfilePresenter implements UpdateProfileContract.Presenter {
                 .subscribe(new Action1<UpdateProfileResponse>() {
                     @Override
                     public void call(UpdateProfileResponse updateProfileRespone) {
-                        mUserRepository.clearData();
                         mUserRepository.saveUser(user);
                         mViewModel.onUpdateProfileSuccess();
                     }
