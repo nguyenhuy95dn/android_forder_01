@@ -29,6 +29,7 @@ public class ListProductViewModel extends BaseObservable implements ListProductC
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener,
         QuickOrderListener {
     private static final String TAG = "ListProductFragment";
+    private static final int DEFAULT_QUANTITY = 1;
 
     private final Navigator mNavigator;
     private ListProductContract.Presenter mPresenter;
@@ -36,12 +37,9 @@ public class ListProductViewModel extends BaseObservable implements ListProductC
     private boolean mIsProgressBarListProductVisible;
     private final DialogManager mDialogManager;
     private final LoadCartListener mLoadCartListener;
-    private int mProductIncart;
-    private int mTotalProductInCart;
 
     ListProductViewModel(ListProductAdapter listProductAdapter, Navigator navigator,
             DialogManager dialogManager, LoadCartListener loadCartListener) {
-
         mListProductAdapter = listProductAdapter;
         mNavigator = navigator;
         mDialogManager = dialogManager;
@@ -49,9 +47,6 @@ public class ListProductViewModel extends BaseObservable implements ListProductC
         mListProductAdapter.setItemClickListener(this);
         mListProductAdapter.setOrderListener(this);
         setProgressBarListProductVisible(false);
-        //Todo edit later
-        mProductIncart = 0;
-        mTotalProductInCart = 0;
     }
 
     @Override
@@ -86,9 +81,10 @@ public class ListProductViewModel extends BaseObservable implements ListProductC
     }
 
     @Override
-    public void onAddToCartSuccess() {
+    public void onAddToCartSuccess(Product product) {
         mNavigator.showToastCustomActivity(R.string.add_to_cart_success);
         mLoadCartListener.onReloadCart();
+        mPresenter.getListCart(product);
     }
 
     @Override
@@ -122,14 +118,22 @@ public class ListProductViewModel extends BaseObservable implements ListProductC
     }
 
     @Override
+    public void onGetListCartSuccess(List<Cart> carts, Product product) {
+        mNavigator.showAddToCartDialog("AddToCartFragment", product, getTotalProductInCart(carts),
+                getQuantityProduct(carts, product));
+    }
+
+    @Override
+    public void onGetListCartError(BaseException error) {
+        Log.e(TAG, "onGetListCartError: ", error);
+    }
+
+    @Override
     public void onAddToCart(Product product) {
         if (product == null) {
             return;
         }
         mPresenter.addToCart(product);
-        //Todo edit later
-        mNavigator.showAddToCartDialog("AddToCartFragment", product, mProductIncart,
-                mTotalProductInCart);
     }
 
     @Override
@@ -182,8 +186,29 @@ public class ListProductViewModel extends BaseObservable implements ListProductC
         return mIsProgressBarListProductVisible;
     }
 
-    public void setProgressBarListProductVisible(boolean progressBarListProductVisible) {
+    private void setProgressBarListProductVisible(boolean progressBarListProductVisible) {
         mIsProgressBarListProductVisible = progressBarListProductVisible;
         notifyPropertyChanged(BR.progressBarListProductVisible);
+    }
+
+    private int getTotalProductInCart(List<Cart> carts) {
+        int productNumber = 0;
+        for (Cart cart : carts) {
+            for (CartItem cartItem : cart.getCartItemList()) {
+                productNumber++;
+            }
+        }
+        return productNumber;
+    }
+
+    private int getQuantityProduct(List<Cart> carts, Product product) {
+        for (Cart cart : carts) {
+            for (CartItem cartItem : cart.getCartItemList()) {
+                if (cartItem.getProductId() == product.getId()) {
+                    return cartItem.getQuantity();
+                }
+            }
+        }
+        return DEFAULT_QUANTITY;
     }
 }

@@ -249,10 +249,10 @@ public class Navigator {
     }
 
     public void showAddToCartDialog(String tag, Product product, int productInCart,
-            int totalProductInCart) {
+            int quantity) {
         FragmentManager fragmentManager = mFragment.getFragmentManager();
         AddToCartFragment fragment =
-                AddToCartFragment.newInstance(product, productInCart, totalProductInCart);
+                AddToCartFragment.newInstance(product, productInCart, quantity);
         fragment.show(fragmentManager, tag);
     }
 
