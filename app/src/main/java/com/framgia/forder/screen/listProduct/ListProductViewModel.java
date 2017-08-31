@@ -36,6 +36,8 @@ public class ListProductViewModel extends BaseObservable implements ListProductC
     private boolean mIsProgressBarListProductVisible;
     private final DialogManager mDialogManager;
     private final LoadCartListener mLoadCartListener;
+    private int mProductIncart;
+    private int mTotalProductInCart;
 
     ListProductViewModel(ListProductAdapter listProductAdapter, Navigator navigator,
             DialogManager dialogManager, LoadCartListener loadCartListener) {
@@ -47,6 +49,9 @@ public class ListProductViewModel extends BaseObservable implements ListProductC
         mListProductAdapter.setItemClickListener(this);
         mListProductAdapter.setOrderListener(this);
         setProgressBarListProductVisible(false);
+        //Todo edit later
+        mProductIncart = 0;
+        mTotalProductInCart = 0;
     }
 
     @Override
@@ -122,6 +127,9 @@ public class ListProductViewModel extends BaseObservable implements ListProductC
             return;
         }
         mPresenter.addToCart(product);
+        //Todo edit later
+        mNavigator.showAddToCartDialog("AddToCartFragment", product, mProductIncart,
+                mTotalProductInCart);
     }
 
     @Override

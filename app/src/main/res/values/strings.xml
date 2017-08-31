@@ -204,4 +204,10 @@
     <string name="accept_status">Accept</string>
     <string name="user_unit">User</string>
     <string name="shop_unit">Shop</string>
+    <string name="your_cart">Your Cart</string>
+    <string name="number_of_product">Number Of Product:</string>
+    <string name="all">All:</string>
+    <string name="continue_shopping">Continue shopping</string>
+    <string name="count">Count:</string>
+    <string name="update_cart_successful">Update Cart Successfully!</string>
 </resources>

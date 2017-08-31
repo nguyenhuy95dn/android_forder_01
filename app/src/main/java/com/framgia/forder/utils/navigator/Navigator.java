@@ -22,6 +22,7 @@ import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.model.DomainManagement;
 import com.framgia.forder.data.model.OwnerShop;
 import com.framgia.forder.data.model.Product;
+import com.framgia.forder.screen.addtocart.AddToCartFragment;
 import com.framgia.forder.screen.cart.notecart.NoteCartFragment;
 import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainFragment;
 import com.framgia.forder.screen.domainmanagement.adddomain.AddDomainListener;
@@ -244,6 +245,14 @@ public class Navigator {
     public void showManagerInShopDialog(String tag, List<OwnerShop> ownerShops) {
         FragmentManager fragmentManager = mFragment.getFragmentManager();
         ManagerInShopFragment fragment = ManagerInShopFragment.newInstance(ownerShops);
+        fragment.show(fragmentManager, tag);
+    }
+
+    public void showAddToCartDialog(String tag, Product product, int productInCart,
+            int totalProductInCart) {
+        FragmentManager fragmentManager = mFragment.getFragmentManager();
+        AddToCartFragment fragment =
+                AddToCartFragment.newInstance(product, productInCart, totalProductInCart);
         fragment.show(fragmentManager, tag);
     }
 
