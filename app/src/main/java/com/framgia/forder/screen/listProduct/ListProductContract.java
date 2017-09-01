@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.listProduct;
 
+import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
@@ -21,7 +22,7 @@ interface ListProductContract {
 
         void onAddToCartError(Throwable throwable);
 
-        void onAddToCartSuccess();
+        void onAddToCartSuccess(Product product);
 
         void onOrderProductSuccess();
 
@@ -34,6 +35,10 @@ interface ListProductContract {
         void onShowProgressDialog();
 
         void onHideProgressDialog();
+
+        void onGetListCartSuccess(List<Cart> carts, Product product);
+
+        void onGetListCartError(BaseException error);
     }
 
     /**
@@ -45,5 +50,7 @@ interface ListProductContract {
         void getListAllProduct();
 
         void orderProduct(OrderRequest orderRequest);
+
+        void getListCart(Product product);
     }
 }
