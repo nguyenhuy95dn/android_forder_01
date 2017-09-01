@@ -1,7 +1,7 @@
 package com.framgia.forder.screen.listproductbycategory;
 
-import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.util.Log;
 import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Cart;
@@ -12,6 +12,7 @@ import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.listProduct.adapter.ListProductAdapter;
 import com.framgia.forder.screen.main.LoadCartListener;
+import com.framgia.forder.screen.mainpage.ordercart.BaseOrderCartViewModel;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
 import com.framgia.forder.screen.productdetail.ProductDetailFragment;
 import com.framgia.forder.screen.quickorder.QuickOrderListener;
@@ -24,10 +25,12 @@ import java.util.List;
  * Exposes the data to be used in the Listproductbycategory screen.
  */
 
-public class ListProductByCategoryViewModel extends BaseObservable
+public class ListProductByCategoryViewModel extends BaseOrderCartViewModel
         implements ListProductByCategoryContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener,
         QuickOrderListener {
+
+    private static final String TAG = "ListProductByCategory";
 
     private final Navigator mNavigator;
     private final ListProductAdapter mListProductAdapter;
@@ -86,9 +89,10 @@ public class ListProductByCategoryViewModel extends BaseObservable
     }
 
     @Override
-    public void onAddToCartSuccess() {
+    public void onAddToCartSuccess(Product product) {
         mNavigator.showToastCustomActivity(R.string.add_to_cart_success);
         mLoadCartListener.onReloadCart();
+        mPresenter.getListCart(product);
     }
 
     @Override
@@ -111,12 +115,23 @@ public class ListProductByCategoryViewModel extends BaseObservable
         mNavigator.showToastCustomActivity(R.string.order_successful);
     }
 
+    @Override
+    public void onGetListCartSuccess(List<Cart> carts, Product product) {
+        mNavigator.showAddToCartDialog("AddToCartFragment", product, getTotalProductInCart(carts),
+                getQuantityProduct(carts, product));
+    }
+
+    @Override
+    public void onGetListCartError(BaseException error) {
+        Log.e(TAG, "onGetListCartError: ", error);
+    }
+
     @Bindable
     public boolean isProgressBarListProductVisible() {
         return mIsProgressBarListProductVisible;
     }
 
-    public void setProgressBarListProductVisible(boolean progressBarListProductVisible) {
+    private void setProgressBarListProductVisible(boolean progressBarListProductVisible) {
         mIsProgressBarListProductVisible = progressBarListProductVisible;
         notifyPropertyChanged(BR.progressBarListProductVisible);
     }

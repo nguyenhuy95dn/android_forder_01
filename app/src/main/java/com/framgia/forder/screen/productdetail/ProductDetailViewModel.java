@@ -1,9 +1,9 @@
 package com.framgia.forder.screen.productdetail;
 
 import android.content.DialogInterface;
-import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
@@ -19,6 +19,7 @@ import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.listProduct.ListProductFragment;
 import com.framgia.forder.screen.main.LoadCartListener;
+import com.framgia.forder.screen.mainpage.ordercart.BaseOrderCartViewModel;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
 import com.framgia.forder.screen.productdetail.adapter.CommentAdapter;
 import com.framgia.forder.screen.productdetail.adapter.ProductShopAdapter;
@@ -33,7 +34,7 @@ import java.util.List;
  * Exposes the data to be used in the Detailproduct screen.
  */
 
-public class ProductDetailViewModel extends BaseObservable
+public class ProductDetailViewModel extends BaseOrderCartViewModel
         implements ProductDetailContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener,
         QuickOrderListener, CommentAdapter.DeleteCommentListener {
@@ -100,9 +101,10 @@ public class ProductDetailViewModel extends BaseObservable
     }
 
     @Override
-    public void onAddToCartSuccess() {
+    public void onAddToCartSuccess(Product product) {
         mNavigator.showToastCustomActivity(R.string.add_to_cart_success);
         mLoadCartListener.onReloadCart();
+        mPresenter.getListCart(product);
     }
 
     @Override
@@ -173,6 +175,17 @@ public class ProductDetailViewModel extends BaseObservable
     @Override
     public void onAddToCartError(Throwable e) {
         mNavigator.showToastCustom(e.getMessage());
+    }
+
+    @Override
+    public void onGetListCartSuccess(List<Cart> carts, Product product) {
+        mNavigator.showAddToCartDialog("AddToCartFragment", product, getTotalProductInCart(carts),
+                getQuantityProduct(carts, product));
+    }
+
+    @Override
+    public void onGetListCartError(BaseException error) {
+        Log.e(TAG, "onGetListCartError: ", error);
     }
 
     @Override
