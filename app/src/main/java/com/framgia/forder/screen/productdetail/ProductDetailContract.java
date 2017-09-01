@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.productdetail;
 
+import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Comment;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.User;
@@ -25,7 +26,7 @@ interface ProductDetailContract {
 
         void onGetListCommentInProductSusscess(List<Comment> commentsList);
 
-        void onAddToCartSuccess();
+        void onAddToCartSuccess(Product product);
 
         void onOrderNowSuccess();
 
@@ -50,6 +51,10 @@ interface ProductDetailContract {
         void onDeleteCommentSuccess();
 
         void onAddToCartError(Throwable e);
+
+        void onGetListCartSuccess(List<Cart> carts, Product product);
+
+        void onGetListCartError(BaseException error);
     }
 
     /**
@@ -67,5 +72,7 @@ interface ProductDetailContract {
         void orderNow(OrderRequest orderRequest);
 
         void deleteCommentInProduct(int commentId);
+
+        void getListCart(Product product);
     }
 }

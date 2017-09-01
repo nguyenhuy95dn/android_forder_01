@@ -48,7 +48,7 @@ final class MainPagePresenter implements MainPageContract.Presenter {
     }
 
     @Override
-    public void addToCart(Product product) {
+    public void addToCart(final Product product) {
         if (product == null) {
             return;
         }
@@ -56,7 +56,7 @@ final class MainPagePresenter implements MainPageContract.Presenter {
                 mProductRepository.addToCart(product).subscribe(new Subscriber<Void>() {
                     @Override
                     public void onCompleted() {
-                        mViewModel.onAddToCartSuccess();
+                        mViewModel.onAddToCartSuccess(product);
                     }
 
                     @Override
@@ -208,6 +208,23 @@ final class MainPagePresenter implements MainPageContract.Presenter {
                     }
                 });
         mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void getListCart(final Product product) {
+        Subscription subscriptions =
+                mProductRepository.getAllShoppingCart().subscribe(new Action1<List<Cart>>() {
+                    @Override
+                    public void call(List<Cart> carts) {
+                        mViewModel.onGetListCartSuccess(carts, product);
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onGetListCartError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscriptions);
     }
 
     @Override

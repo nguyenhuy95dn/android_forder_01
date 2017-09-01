@@ -1,6 +1,5 @@
 package com.framgia.forder.screen.listProduct;
 
-import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.util.Log;
 import com.android.databinding.library.baseAdapters.BR;
@@ -13,6 +12,7 @@ import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.listProduct.adapter.ListProductAdapter;
 import com.framgia.forder.screen.main.LoadCartListener;
+import com.framgia.forder.screen.mainpage.ordercart.BaseOrderCartViewModel;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
 import com.framgia.forder.screen.productdetail.ProductDetailFragment;
 import com.framgia.forder.screen.quickorder.QuickOrderListener;
@@ -25,7 +25,8 @@ import java.util.List;
  * Exposes the data to be used in the Productpage screen.
  */
 
-public class ListProductViewModel extends BaseObservable implements ListProductContract.ViewModel,
+public class ListProductViewModel extends BaseOrderCartViewModel
+        implements ListProductContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener,
         QuickOrderListener {
     private static final String TAG = "ListProductFragment";
@@ -189,26 +190,5 @@ public class ListProductViewModel extends BaseObservable implements ListProductC
     private void setProgressBarListProductVisible(boolean progressBarListProductVisible) {
         mIsProgressBarListProductVisible = progressBarListProductVisible;
         notifyPropertyChanged(BR.progressBarListProductVisible);
-    }
-
-    private int getTotalProductInCart(List<Cart> carts) {
-        int productNumber = 0;
-        for (Cart cart : carts) {
-            for (CartItem cartItem : cart.getCartItemList()) {
-                productNumber++;
-            }
-        }
-        return productNumber;
-    }
-
-    private int getQuantityProduct(List<Cart> carts, Product product) {
-        for (Cart cart : carts) {
-            for (CartItem cartItem : cart.getCartItemList()) {
-                if (cartItem.getProductId() == product.getId()) {
-                    return cartItem.getQuantity();
-                }
-            }
-        }
-        return DEFAULT_QUANTITY;
     }
 }

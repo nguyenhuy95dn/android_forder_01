@@ -1,6 +1,6 @@
 package com.framgia.forder.screen.searchproduct;
 
-import android.databinding.BaseObservable;
+import android.util.Log;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
@@ -9,6 +9,7 @@ import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.main.LoadCartListener;
+import com.framgia.forder.screen.mainpage.ordercart.BaseOrderCartViewModel;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
 import com.framgia.forder.screen.productdetail.ProductDetailFragment;
 import com.framgia.forder.screen.quickorder.QuickOrderListener;
@@ -20,14 +21,17 @@ import java.util.List;
  * Exposes the data to be used in the Searchproduct screen.
  */
 
-public class ProductSearchResultViewModel extends BaseObservable
+public class ProductSearchResultViewModel extends BaseOrderCartViewModel
         implements ProductSearchResultContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener,
         QuickOrderListener {
+
+    private static final String TAG = "ProductSearchResult";
+
     private ProductSearchResultContract.Presenter mPresenter;
-    private ProductSearchResultAdapter mAdapter;
-    private Navigator mNavigator;
-    private LoadCartListener mLoadCartListener;
+    private final ProductSearchResultAdapter mAdapter;
+    private final Navigator mNavigator;
+    private final LoadCartListener mLoadCartListener;
 
     ProductSearchResultViewModel(ProductSearchResultAdapter adapter, Navigator navigator,
             LoadCartListener loadCartListener) {
@@ -73,6 +77,17 @@ public class ProductSearchResultViewModel extends BaseObservable
     }
 
     @Override
+    public void onGetListCartSuccess(List<Cart> carts, Product product) {
+        mNavigator.showAddToCartDialog("AddToCartFragment", product, getTotalProductInCart(carts),
+                getQuantityProduct(carts, product));
+    }
+
+    @Override
+    public void onGetListCartError(BaseException error) {
+        Log.e(TAG, "onGetListCartError: ", error);
+    }
+
+    @Override
     public void onOrderProductError(BaseException e) {
         mNavigator.showToastCustom(e.getMessage());
     }
@@ -101,9 +116,10 @@ public class ProductSearchResultViewModel extends BaseObservable
     }
 
     @Override
-    public void onAddToCartSuccess() {
+    public void onAddToCartSuccess(Product product) {
         mNavigator.showToastCustomActivity(R.string.add_to_cart_success);
         mLoadCartListener.onReloadCart();
+        mPresenter.getListCart(product);
     }
 
     @Override

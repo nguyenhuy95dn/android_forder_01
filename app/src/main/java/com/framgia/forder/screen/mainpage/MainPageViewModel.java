@@ -1,9 +1,9 @@
 package com.framgia.forder.screen.mainpage;
 
 import android.content.Context;
-import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Cart;
@@ -19,6 +19,7 @@ import com.framgia.forder.screen.listproductbycategory.ListProductByCategoryFrag
 import com.framgia.forder.screen.listshop.ListShopFragment;
 import com.framgia.forder.screen.main.LoadCartListener;
 import com.framgia.forder.screen.mainpage.category.CategoryAdapter;
+import com.framgia.forder.screen.mainpage.ordercart.BaseOrderCartViewModel;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
 import com.framgia.forder.screen.mainpage.product.ProductAdapter;
 import com.framgia.forder.screen.mainpage.shop.ShopPageAdapter;
@@ -33,7 +34,7 @@ import java.util.List;
  * Exposes the data to be used in the Main screen.
  */
 
-public class MainPageViewModel extends BaseObservable implements MainPageContract.ViewModel,
+public class MainPageViewModel extends BaseOrderCartViewModel implements MainPageContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener,
         QuickOrderListener {
 
@@ -47,9 +48,9 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
     private boolean mIsProgressBarVisibleShop;
     private boolean mIsProgressBarVisibleCategory;
     private boolean mIsProgressBarVisibleProduct;
-    private ShopPageAdapter mShopPageAdapter;
-    private DialogManager mDialogManager;
-    private int mPageLimit = 6;
+    private final ShopPageAdapter mShopPageAdapter;
+    private final DialogManager mDialogManager;
+    private final int mPageLimit = 6;
     private final LoadCartListener mLoadCartListener;
 
     MainPageViewModel(@NonNull Context context, ProductAdapter productAdapter, Navigator navigator,
@@ -143,9 +144,10 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
     }
 
     @Override
-    public void onAddToCartSuccess() {
-        mNavigator.showToastCustom((mContext.getString(R.string.add_to_cart_success)));
+    public void onAddToCartSuccess(Product product) {
+        mNavigator.showToastCustomActivity(R.string.add_to_cart_success);
         mLoadCartListener.onReloadCart();
+        mPresenter.getListCart(product);
     }
 
     @Override
@@ -213,6 +215,17 @@ public class MainPageViewModel extends BaseObservable implements MainPageContrac
         mPresenter.getListShop();
         mPresenter.getListCategory();
         mPresenter.getListProduct();
+    }
+
+    @Override
+    public void onGetListCartSuccess(List<Cart> carts, Product product) {
+        mNavigator.showAddToCartDialog("AddToCartFragment", product, getTotalProductInCart(carts),
+                getQuantityProduct(carts, product));
+    }
+
+    @Override
+    public void onGetListCartError(BaseException error) {
+        Log.e(TAG, "onGetListCartError: ", error);
     }
 
     public void onSeeMoreShopClick() {

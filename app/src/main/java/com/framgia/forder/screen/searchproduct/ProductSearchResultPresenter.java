@@ -9,6 +9,7 @@ import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.response.OrderCartResponse;
+import java.util.List;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -46,10 +47,11 @@ final class ProductSearchResultPresenter implements ProductSearchResultContract.
 
     @Override
     public void onStop() {
+        mCompositeSubscription.clear();
     }
 
     @Override
-    public void addToCart(Product product) {
+    public void addToCart(final Product product) {
         if (product == null) {
             return;
         }
@@ -57,7 +59,7 @@ final class ProductSearchResultPresenter implements ProductSearchResultContract.
                 mProductRepository.addToCart(product).subscribe(new Subscriber<Void>() {
                     @Override
                     public void onCompleted() {
-                        mViewModel.onAddToCartSuccess();
+                        mViewModel.onAddToCartSuccess(product);
                     }
 
                     @Override
@@ -94,5 +96,22 @@ final class ProductSearchResultPresenter implements ProductSearchResultContract.
                     }
                 });
         mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void getListCart(final Product product) {
+        Subscription subscriptions =
+                mProductRepository.getAllShoppingCart().subscribe(new Action1<List<Cart>>() {
+                    @Override
+                    public void call(List<Cart> carts) {
+                        mViewModel.onGetListCartSuccess(carts, product);
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onGetListCartError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscriptions);
     }
 }
