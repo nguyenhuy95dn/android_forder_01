@@ -194,6 +194,7 @@
                             android:layout_width="@dimen/dp_30"
                             android:layout_height="@dimen/dp_30"
                             android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dp_10"
                             android:adjustViewBounds="true"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_location"
@@ -210,6 +211,51 @@
                             android:onClick="@{() -> viewModel.onClickDomainManagement()}"
                             android:padding="@dimen/dp_2"
                             android:text="@string/domain_management"
+                            android:textSize="@dimen/sp_17"
+                            android:textStyle="bold"
+                            />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:background="@color/color_gray_white"
+                    />
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/border"
+                        android:backgroundTint="@color/color_white"
+                        android:orientation="vertical"
+                        tools:ignore="UnusedAttribute"
+                        >
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_30"
+                            android:layout_height="@dimen/dp_30"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_settings"
+                            android:tint="@color/color_orange_mos"
+                            tools:ignore="ContentDescription,VectorDrawableCompat"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_10"
+                            android:clickable="true"
+                            android:gravity="center_horizontal"
+                            android:onClick="@{() -> viewModel.onClickNotificationSetting()}"
+                            android:padding="@dimen/dp_2"
+                            android:text="@string/settings"
                             android:textSize="@dimen/sp_17"
                             android:textStyle="bold"
                             />

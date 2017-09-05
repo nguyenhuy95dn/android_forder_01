@@ -213,4 +213,15 @@
     <string name="from">From:</string>
     <string name="to">To:</string>
     <string name="all_category">All</string>
+    <string name="receive_all_notification">Receive All Notification</string>
+    <string name="new_order_request">New Order Request</string>
+    <string name="order_request_has_been_processed">Order Request Has Been Processed</string>
+    <string name="create_order_successfully">Create Order Successfully</string>
+    <string name="shop_open_close">Shop Open/Close</string>
+    <string name="notification_settings">Notification Settings</string>
+    <string name="notification">Notification</string>
+    <string name="email_setting">Email</string>
+    <string name="chatwork">Chatwork</string>
+    <string name="update">Update</string>
+    <string name="settings">Settings</string>
 </resources>

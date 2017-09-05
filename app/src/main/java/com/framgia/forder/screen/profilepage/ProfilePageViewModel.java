@@ -4,6 +4,7 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.screen.domainmanagement.DomainManagementFragment;
 import com.framgia.forder.screen.login.LoginActivity;
+import com.framgia.forder.screen.notificationsetting.NotificationSettingFragment;
 import com.framgia.forder.screen.orderhistory.OrderHistoryFragment;
 import com.framgia.forder.screen.ordermanagement.OrderManagementActivity;
 import com.framgia.forder.screen.profilepage.profiledetail.ProfileDetailFragment;
@@ -91,5 +92,11 @@ public class ProfilePageViewModel implements ProfilePageContract.ViewModel {
         mPresenter.clearData();
         mNavigator.startActivity(LoginActivity.class);
         mNavigator.finishActivity();
+    }
+
+    public void onClickNotificationSetting() {
+        mNavigator.goNextChildFragment(R.id.layout_content,
+                NotificationSettingFragment.newInstance(), true, Navigator.RIGHT_LEFT,
+                "NotificationSettingFragment");
     }
 }
