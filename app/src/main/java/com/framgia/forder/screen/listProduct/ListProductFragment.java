@@ -8,8 +8,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
+import com.framgia.forder.data.source.CategoryRepository;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ProductRepository;
 import com.framgia.forder.data.source.UserRepository;
@@ -19,6 +21,7 @@ import com.framgia.forder.data.source.local.UserLocalDataSource;
 import com.framgia.forder.data.source.local.realm.RealmApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
+import com.framgia.forder.data.source.remote.CategoryRemoteDataSource;
 import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
 import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
 import com.framgia.forder.data.source.remote.UserRemoteDataSource;
@@ -50,8 +53,22 @@ public class ListProductFragment extends Fragment {
         ListProductAdapter productAdapter = new ListProductAdapter(getActivity(), products);
         Navigator navigator = new Navigator(getParentFragment());
         DialogManager dialogManager = new DialogManager(getActivity());
+
+        String[] priceArray = getResources().getStringArray(R.array.price_fillter);
+        String[] sortByArray = getResources().getStringArray(R.array.sort_by);
+        List<String> categories = new ArrayList<>();
+        ArrayAdapter<String> adapterPrice =
+                new ArrayAdapter<>(getActivity(), android.R.layout.simple_selectable_list_item,
+                        priceArray);
+        ArrayAdapter<String> adapterCategory =
+                new ArrayAdapter<>(getActivity(), android.R.layout.simple_selectable_list_item,
+                        categories);
+        ArrayAdapter<String> adapterSort =
+                new ArrayAdapter<>(getActivity(), android.R.layout.simple_selectable_list_item,
+                        sortByArray);
+
         mViewModel = new ListProductViewModel(productAdapter, navigator, dialogManager,
-                mLoadCartListener);
+                mLoadCartListener, adapterPrice, adapterCategory, adapterSort);
         RealmApi realmApi = new RealmApi();
 
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
@@ -59,17 +76,19 @@ public class ListProductFragment extends Fragment {
                 new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
                         new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
         int currentDomainId = domainRepository.getCurrentDomain().getId();
+
         ProductRepository productRepository = new ProductRepository(
                 new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
                 new ProductLocalDataSource(realmApi), currentDomainId);
-
         UserRepository userRepository =
                 new UserRepository(new UserRemoteDataSource(FOrderServiceClient.getInstance()),
                         new UserLocalDataSource(prefsApi));
+        CategoryRepository categoryRepository = new CategoryRepository(
+                new CategoryRemoteDataSource(FOrderServiceClient.getInstance()));
 
         ListProductContract.Presenter presenter =
                 new ListProductPresenter(mViewModel, productRepository, userRepository,
-                        domainRepository);
+                        domainRepository, categoryRepository);
         mViewModel.setPresenter(presenter);
 
         FragmentListproductBinding binding =

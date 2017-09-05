@@ -1,7 +1,9 @@
 package com.framgia.forder.screen.listProduct;
 
 import com.framgia.forder.data.model.Cart;
+import com.framgia.forder.data.model.Category;
 import com.framgia.forder.data.model.Product;
+import com.framgia.forder.data.source.CategoryRepository;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ProductRepository;
 import com.framgia.forder.data.source.UserRepository;
@@ -30,20 +32,23 @@ final class ListProductPresenter implements ListProductContract.Presenter {
     private final ProductRepository mProductRepository;
     private final UserRepository mUserRepository;
     private final DomainRepository mDomainRepository;
+    private final CategoryRepository mCategoryRepository;
 
     ListProductPresenter(ListProductContract.ViewModel viewModel,
             ProductRepository productRepository, UserRepository userRepository,
-            DomainRepository domainRepository) {
+            DomainRepository domainRepository, CategoryRepository categoryRepository) {
         mViewModel = viewModel;
         mProductRepository = productRepository;
         mUserRepository = userRepository;
         mDomainRepository = domainRepository;
+        mCategoryRepository = categoryRepository;
         mCompositeSubscription = new CompositeSubscription();
     }
 
     @Override
     public void onStart() {
         mProductRepository.openTransaction();
+        getListCategory();
     }
 
     @Override
@@ -158,5 +163,35 @@ final class ListProductPresenter implements ListProductContract.Presenter {
                     }
                 });
         mCompositeSubscription.add(subscriptions);
+    }
+
+    private void getListCategory() {
+        Subscription subscription = mCategoryRepository.getListAllCategory()
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onShowProgressDialog();
+                    }
+                })
+                .doAfterTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        mViewModel.onHideProgressDialog();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<List<Category>>() {
+                    @Override
+                    public void call(List<Category> categories) {
+                        mViewModel.onGetCategoriesSuccess(categories);
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onGetCategoriesError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
     }
 }

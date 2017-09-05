@@ -210,4 +210,7 @@
     <string name="continue_shopping">Continue shopping</string>
     <string name="count">Count:</string>
     <string name="update_cart_successful">Update Cart Successfully!</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
+    <string name="all_category">All</string>
 </resources>
