@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="price_fillter">
+        <item>0 VNĐ</item>
+        <item>25000 VNĐ</item>
+        <item>50000 VNĐ</item>
+        <item>75000 VNĐ</item>
+        <item>100000 VNĐ</item>
+    </string-array>
+
+    <string-array name="sort_by">
+        <item>Price decreases</item>
+        <item>Price increases</item>
+    </string-array>
+</resources>

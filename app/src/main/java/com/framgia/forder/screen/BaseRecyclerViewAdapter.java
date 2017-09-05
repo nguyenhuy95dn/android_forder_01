@@ -20,7 +20,7 @@ public abstract class BaseRecyclerViewAdapter<V extends RecyclerView.ViewHolder>
         mContext = context;
     }
 
-    protected Context getContext() {
+    public Context getContext() {
         return mContext;
     }
 
