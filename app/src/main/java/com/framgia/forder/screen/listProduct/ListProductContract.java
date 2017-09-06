@@ -57,5 +57,7 @@ interface ListProductContract {
         void orderProduct(OrderRequest orderRequest);
 
         void getListCart(Product product);
+
+        void getListProductByFillter(int categoryId, String priceSort, int priceFrom, int priceTo);
     }
 }

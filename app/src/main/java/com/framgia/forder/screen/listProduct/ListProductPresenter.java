@@ -103,7 +103,7 @@ final class ListProductPresenter implements ListProductContract.Presenter {
                     @Override
                     public void call(List<Product> products) {
                         mViewModel.onGetListAllProductSuccess(products);
-                }
+                    }
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
@@ -192,6 +192,40 @@ final class ListProductPresenter implements ListProductContract.Presenter {
                         mViewModel.onGetCategoriesError(error);
                     }
                 });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void getListProductByFillter(int categoryId, String priceSort, int priceFrom,
+            int priceTo) {
+        Subscription subscription =
+                mProductRepository.getListProductByFillter(categoryId, priceSort, priceFrom,
+                        priceTo)
+                        .subscribeOn(Schedulers.io())
+                        .doOnSubscribe(new Action0() {
+                            @Override
+                            public void call() {
+                                mViewModel.onShowProgressBar();
+                            }
+                        })
+                        .doAfterTerminate(new Action0() {
+                            @Override
+                            public void call() {
+                                mViewModel.onHideProgressBar();
+                            }
+                        })
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Action1<List<Product>>() {
+                            @Override
+                            public void call(List<Product> products) {
+                                mViewModel.onGetListAllProductSuccess(products);
+                            }
+                        }, new SafetyError() {
+                            @Override
+                            public void onSafetyError(BaseException error) {
+                                mViewModel.onGetListAllProductError(error);
+                            }
+                        });
         mCompositeSubscription.add(subscription);
     }
 }
