@@ -32,6 +32,16 @@ public class ListProductViewModel extends BaseOrderCartViewModel
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object>, OrderListener,
         QuickOrderListener {
     private static final String TAG = "ListProductFragment";
+    private static final int POSITION_PRICE_ZERO = 0;
+    private static final int POSITION_PRICE_25000 = 1;
+    private static final int POSITION_PRICE_50000 = 2;
+    private static final int POSITION_PRICE_75000 = 3;
+    private static final int POSITION_PRICE_100000 = 4;
+
+    private static final int POSITION_PRICE_DECREASES = 0;
+    private static final int POSITION_PRICE_INCREASES = 1;
+    private static final String DECREASES = "desc";
+    private static final String INCREASES = "asc";
 
     private final List<Category> mCategories;
     private final Navigator mNavigator;
@@ -43,6 +53,12 @@ public class ListProductViewModel extends BaseOrderCartViewModel
     private final ArrayAdapter<String> mAdapterPrice;
     private final ArrayAdapter<String> mAdapterCategory;
     private final ArrayAdapter<String> mAdapterSortBy;
+    private int mSelectedPositionPriceFrom;
+    private int mSelectedPositionPriceTo;
+    private int mSelectedPositionCategory;
+    private int mSelectedPositionPriceSort;
+    private int mPositionPriceTo;
+    private final String[] mPrices;
 
     ListProductViewModel(ListProductAdapter listProductAdapter, Navigator navigator,
             DialogManager dialogManager, LoadCartListener loadCartListener,
@@ -59,6 +75,8 @@ public class ListProductViewModel extends BaseOrderCartViewModel
         mListProductAdapter.setOrderListener(this);
         setProgressBarListProductVisible(false);
         mCategories = new ArrayList<>();
+        setPositionPriceTo(POSITION_PRICE_100000);
+        mPrices = mListProductAdapter.getContext().getResources().getStringArray(R.array.price);
     }
 
     @Override
@@ -240,6 +258,112 @@ public class ListProductViewModel extends BaseOrderCartViewModel
     }
 
     public void onClickFillter() {
-        //Todo edit later
+        checkPriceTo();
+    }
+
+    public int getSelectedPositionPriceFrom() {
+        return mSelectedPositionPriceFrom;
+    }
+
+    public void setSelectedPositionPriceFrom(int selectedPositionPriceFrom) {
+        mSelectedPositionPriceFrom = selectedPositionPriceFrom;
+    }
+
+    public int getSelectedPositionPriceTo() {
+        return mSelectedPositionPriceTo;
+    }
+
+    public void setSelectedPositionPriceTo(int selectedPositionPriceTo) {
+        mSelectedPositionPriceTo = selectedPositionPriceTo;
+    }
+
+    public int getSelectedPositionCategory() {
+        return mSelectedPositionCategory;
+    }
+
+    public void setSelectedPositionCategory(int selectedPositionCategory) {
+        mSelectedPositionCategory = selectedPositionCategory;
+    }
+
+    public int getSelectedPositionPriceSort() {
+        return mSelectedPositionPriceSort;
+    }
+
+    public void setSelectedPositionPriceSort(int selectedPositionPriceSort) {
+        mSelectedPositionPriceSort = selectedPositionPriceSort;
+    }
+
+    @Bindable
+    public int getPositionPriceTo() {
+        return mPositionPriceTo;
+    }
+
+    private void setPositionPriceTo(int positionFromTo) {
+        mPositionPriceTo = positionFromTo;
+        notifyPropertyChanged(BR.positionPriceTo);
+    }
+
+    private void checkPriceTo() {
+        if (mSelectedPositionPriceFrom > mSelectedPositionPriceTo) {
+            mNavigator.showToastCustom(mListProductAdapter.getContext()
+                    .getString(R.string.you_can_not_choose_the_price_below_the_original_price));
+            setPositionPriceTo(POSITION_PRICE_100000);
+            return;
+        }
+        if (mSelectedPositionCategory == 0) {
+            mPresenter.getListAllProduct();
+            return;
+        }
+        mPresenter.getListProductByFillter(getCategory().getId(), getPriceSort(), getPriceFrom(),
+                getPriceTo());
+    }
+
+    private int getPriceFrom() {
+        switch (mSelectedPositionPriceFrom) {
+            case POSITION_PRICE_ZERO:
+                return Integer.parseInt(mPrices[POSITION_PRICE_ZERO]);
+            case POSITION_PRICE_25000:
+                return Integer.parseInt(mPrices[POSITION_PRICE_25000]);
+            case POSITION_PRICE_50000:
+                return Integer.parseInt(mPrices[POSITION_PRICE_50000]);
+            case POSITION_PRICE_75000:
+                return Integer.parseInt(mPrices[POSITION_PRICE_75000]);
+            case POSITION_PRICE_100000:
+                return Integer.parseInt(mPrices[POSITION_PRICE_100000]);
+            default:
+                return 0;
+        }
+    }
+
+    private int getPriceTo() {
+        switch (mSelectedPositionPriceTo) {
+            case POSITION_PRICE_ZERO:
+                return Integer.parseInt(mPrices[POSITION_PRICE_ZERO]);
+            case POSITION_PRICE_25000:
+                return Integer.parseInt(mPrices[POSITION_PRICE_25000]);
+            case POSITION_PRICE_50000:
+                return Integer.parseInt(mPrices[POSITION_PRICE_50000]);
+            case POSITION_PRICE_75000:
+                return Integer.parseInt(mPrices[POSITION_PRICE_75000]);
+            case POSITION_PRICE_100000:
+                return Integer.parseInt(mPrices[POSITION_PRICE_100000]);
+            default:
+                return 0;
+        }
+    }
+
+    private String getPriceSort() {
+        switch (mSelectedPositionPriceSort) {
+            case POSITION_PRICE_DECREASES:
+                return DECREASES;
+            case POSITION_PRICE_INCREASES:
+                return INCREASES;
+            default:
+                return "";
+        }
+    }
+
+    private Category getCategory() {
+        return mCategories.get(mSelectedPositionCategory - 1);
     }
 }

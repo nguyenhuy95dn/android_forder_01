@@ -42,6 +42,12 @@ public class ProductRepository {
         return mRemoteDataSource.getListProductByCategory(mCurrentDomainId, categoryId);
     }
 
+    public Observable<List<Product>> getListProductByFillter(int categoryId, String priceSort,
+            int priceFrom, int priceTo) {
+        return mRemoteDataSource.getListProductByFillter(mCurrentDomainId, categoryId, priceSort,
+                priceFrom, priceTo);
+    }
+
     public Observable<OrderCartResponse> orderCart(OrderRequest orderRequest) {
         return mRemoteDataSource.orderProduct(mCurrentDomainId, orderRequest);
     }
