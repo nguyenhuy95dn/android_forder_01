@@ -94,17 +94,23 @@
                         android:layout_gravity="end"
                         android:layout_marginEnd="@dimen/dp_20"
                         android:layout_marginRight="@dimen/dp_20"
+                        android:checked="@{viewModel.allNotification}"
+                        android:onClick="@{()-> viewModel.onClickCheckAllNotification()}"
                         />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/dp_25"
                         android:layout_marginRight="@dimen/dp_25"
+                        android:checked="@{viewModel.allEmail}"
+                        android:onClick="@{()-> viewModel.onClickCheckAllEmail()}"
                         />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
+                        android:checked="@{viewModel.allChatwork}"
+                        android:onClick="@{()-> viewModel.onClickCheckAllChatwork()}"
                         tools:ignore="RtlHardcoded"
                         />
                 </LinearLayout>
@@ -148,17 +154,22 @@
                         android:layout_gravity="end"
                         android:layout_marginEnd="@dimen/dp_20"
                         android:layout_marginRight="@dimen/dp_20"
+                        android:checked="@{viewModel.newOrderRequestNotification}"
+                        android:onClick="@{()-> viewModel.onClickCheckNewOrderRequest()}"
                         />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/dp_25"
                         android:layout_marginRight="@dimen/dp_25"
+                        android:checked="@{viewModel.newOrderRequestEmail}"
+                        android:onClick="@{()-> viewModel.onClickCheckNewOrderRequestEmail()}"
                         />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
+                        android:enabled="false"
                         tools:ignore="RtlHardcoded"
                         />
                 </LinearLayout>
@@ -202,17 +213,23 @@
                         android:layout_gravity="end"
                         android:layout_marginEnd="@dimen/dp_20"
                         android:layout_marginRight="@dimen/dp_20"
+                        android:checked="@{viewModel.requestProcessedNotification}"
+                        android:onClick="@{()-> viewModel.onClickRequestProcessedNotification()}"
                         />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/dp_25"
                         android:layout_marginRight="@dimen/dp_25"
+                        android:checked="@{viewModel.requestProcessedEmail}"
+                        android:onClick="@{()-> viewModel.onClickRequestProcessedEmail()}"
                         />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
+                        android:checked="@{viewModel.requestProcessedChatwork}"
+                        android:onClick="@{()-> viewModel.onClickRequestProcessedChatwork()}"
                         tools:ignore="RtlHardcoded"
                         />
                 </LinearLayout>
@@ -258,17 +275,22 @@
                         android:layout_gravity="end"
                         android:layout_marginEnd="@dimen/dp_20"
                         android:layout_marginRight="@dimen/dp_20"
+                        android:checked="@{viewModel.createOrderNotification}"
+                        android:onClick="@{()-> viewModel.onClickCreateOrderNotification()}"
                         />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/dp_25"
                         android:layout_marginRight="@dimen/dp_25"
+                        android:checked="@{viewModel.createOrderEmail}"
+                        android:onClick="@{()-> viewModel.onClickCreateOrderEmail()}"
                         />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
+                        android:enabled="false"
                         tools:ignore="RtlHardcoded"
                         />
                 </LinearLayout>
@@ -312,17 +334,21 @@
                         android:layout_gravity="end"
                         android:layout_marginEnd="@dimen/dp_20"
                         android:layout_marginRight="@dimen/dp_20"
+                        android:enabled="false"
                         />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/dp_25"
                         android:layout_marginRight="@dimen/dp_25"
+                        android:enabled="false"
                         />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
+                        android:checked="@{viewModel.openShopChatwork}"
+                        android:onClick="@{()-> viewModel.onClickOpenShopChatwork()}"
                         tools:ignore="RtlHardcoded"
                         />
                 </LinearLayout>
@@ -342,6 +368,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/color_orange_mos"
+            android:onClick="@{()-> viewModel.onClickUpdateNotificationSetting()}"
             android:text="@string/update"
             android:textColor="@color/color_white"
             android:textSize="@dimen/sp_15"

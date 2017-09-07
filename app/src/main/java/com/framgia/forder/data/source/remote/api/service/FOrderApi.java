@@ -4,6 +4,7 @@ import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.source.remote.api.request.AddUserInDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.CommentRequest;
+import com.framgia.forder.data.source.remote.api.request.NotificationSettingRequest;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterDomainRequest;
 import com.framgia.forder.data.source.remote.api.request.RegisterProductRequest;
@@ -25,6 +26,7 @@ import com.framgia.forder.data.source.remote.api.response.DomainToRequestShopRes
 import com.framgia.forder.data.source.remote.api.response.EditDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
 import com.framgia.forder.data.source.remote.api.response.NotificationResponse;
+import com.framgia.forder.data.source.remote.api.response.NotificationSettingResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderCartResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderHistoryShopResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderManagementResponse;
@@ -250,4 +252,11 @@ public interface FOrderApi {
 
     @PUT("v1/events/0")
     Observable<BaseResponse> readAllNotification(@Query("read_all") boolean readAll);
+
+    @GET("v1/user_settings")
+    Observable<NotificationSettingResponse> getNotificationSetting();
+
+    @PUT("v1/user_settings/0")
+    Observable<BaseResponse> updateNotificationSetting(
+            @Body NotificationSettingRequest notificationSettingRequest);
 }

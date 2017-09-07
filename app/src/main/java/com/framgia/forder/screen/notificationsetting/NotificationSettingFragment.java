@@ -8,7 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
+import com.framgia.forder.data.source.NotificationSettingRepository;
+import com.framgia.forder.data.source.remote.NotificationSettingRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentNotificationSettingBinding;
+import com.framgia.forder.utils.navigator.Navigator;
 
 /**
  * Notificationsetting Screen.
@@ -24,10 +28,14 @@ public class NotificationSettingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new NotificationSettingViewModel();
+        Navigator navigator = new Navigator(getParentFragment());
+        mViewModel = new NotificationSettingViewModel(navigator);
 
+        NotificationSettingRepository notificationSettingRepository =
+                new NotificationSettingRepository(
+                        new NotificationSettingRemoteDataSource(FOrderServiceClient.getInstance()));
         NotificationSettingContract.Presenter presenter =
-                new NotificationSettingPresenter(mViewModel);
+                new NotificationSettingPresenter(mViewModel, notificationSettingRepository);
         mViewModel.setPresenter(presenter);
     }
 
