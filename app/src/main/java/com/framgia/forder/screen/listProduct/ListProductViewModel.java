@@ -311,7 +311,7 @@ public class ListProductViewModel extends BaseOrderCartViewModel
             return;
         }
         if (mSelectedPositionCategory == 0) {
-            mPresenter.getListAllProduct();
+            mPresenter.getListAllProductByFillter(getPriceSort(), getPriceFrom(), getPriceTo());
             return;
         }
         mPresenter.getListProductByFillter(getCategory().getId(), getPriceSort(), getPriceFrom(),

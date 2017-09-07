@@ -16,7 +16,7 @@ public class ItemShopManagementViewModel {
 
     private final ShopManagement mShopManagement;
     private final BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> mListener;
-    private final boolean mStatusShop;
+    private boolean mStatusShop;
     private final ListShopManagementAdapter.ChangeStatusShopManagement mChangeStatusShopManagement;
 
     ItemShopManagementViewModel(ShopManagement shopManagements,
@@ -62,17 +62,16 @@ public class ItemShopManagementViewModel {
         return mStatusShop;
     }
 
+    public void setStatusShop(boolean statusShop) {
+        mStatusShop = statusShop;
+    }
+
     public ToggleButton.OnCheckedChangeListener getChecked() {
         return new ToggleButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (mStatusShop) {
-                    mChangeStatusShopManagement.onChangeStatusShop(
-                            mShopManagement.getShop().getId(), STATUS_OFF);
-                    return;
-                }
                 mChangeStatusShopManagement.onChangeStatusShop(mShopManagement.getShop().getId(),
-                        STATUS_ON);
+                        mStatusShop ? STATUS_OFF : STATUS_ON);
             }
         };
     }

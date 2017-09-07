@@ -92,7 +92,6 @@ public class ShopManagementViewModel extends BaseObservable
 
     @Override
     public void onChangeStatusShopSuccess() {
-        onReLoadData();
     }
 
     @Override
