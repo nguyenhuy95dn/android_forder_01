@@ -136,7 +136,7 @@
     <string name="start_hour">Giờ bắt đầu</string>
     <string name="end_hour">Giờ kết thúc</string>
     <string name="price">Giá</string>
-    <string name="update_success">CẬp nhật thành công</string>
+    <string name="update_success">Cập nhật thành công</string>
     <string name="top_shop">Cửa hàng nổi bật</string>
     <string name="categories">Thể loại</string>
     <string name="top_product">Sản phẩm nổi bật</string>
@@ -204,4 +204,26 @@
     <string name="accept_status">Chấp nhận</string>
     <string name="user_unit">Thành viên</string>
     <string name="shop_unit">Cửa hàng</string>
+    <string name="your_cart">Giỏ hàng</string>
+    <string name="number_of_product">Số lượng sản phẩm:</string>
+    <string name="all">Tất cả:</string>
+    <string name="continue_shopping">Tiếp tục mua sắm</string>
+    <string name="count">Số lượng:</string>
+    <string name="update_cart_successful">Cập nhật giỏ hàng thành công!</string>
+    <string name="from">Từ:</string>
+    <string name="to">Đến:</string>
+    <string name="all_category">Tất cả</string>
+    <string name="receive_all_notification">Nhận tất cả thông báo</string>
+    <string name="new_order_request">Nhận thông báo khi có đơn hàng mới</string>
+    <string name="order_request_has_been_processed">Nhận thông báo khi đơn hàng được xử lý</string>
+    <string name="create_order_successfully">Nhận thông báo khi tạo đơn hàng thành công</string>
+    <string name="shop_open_close">Nhận thông báo khi đóng/mở cửa hàng</string>
+    <string name="notification_settings">Cài đặt thông báo</string>
+    <string name="notification">Thông báo</string>
+    <string name="email_setting">Email</string>
+    <string name="chatwork">Chatwork</string>
+    <string name="update">Cập nhật</string>
+    <string name="settings">Cài đặt</string>
+    <string name="you_can_not_choose_the_price_below_the_original_price">Bạn không được chọn giá thấp hơn ban đầu!</string>
+    <string name="id_room_chatwork">Id Room Chatwork</string>
 </resources>
