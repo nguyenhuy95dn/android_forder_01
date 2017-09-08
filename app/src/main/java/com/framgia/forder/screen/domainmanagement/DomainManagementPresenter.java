@@ -179,33 +179,34 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
     }
 
     @Override
-    public void editDomain(int domainId, String name, String status) {
-        Subscription subscription = mDomainRepository.requestEditDomain(domainId, name, status)
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onShowProgressDialog();
-                    }
-                })
-                .doAfterTerminate(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onHideProgressDialog();
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<EditDomainResponse>() {
-                    @Override
-                    public void call(EditDomainResponse response) {
-                        mViewModel.onEditDomainSuccess();
-                    }
-                }, new SafetyError() {
-                    @Override
-                    public void onSafetyError(BaseException error) {
-                        mViewModel.onShowMessageError(error);
-                    }
-                });
+    public void editDomain(int domainId, String name, String status, String idRoomChatwork) {
+        Subscription subscription =
+                mDomainRepository.requestEditDomain(domainId, name, status, idRoomChatwork)
+                        .subscribeOn(Schedulers.io())
+                        .doOnSubscribe(new Action0() {
+                            @Override
+                            public void call() {
+                                mViewModel.onShowProgressDialog();
+                            }
+                        })
+                        .doAfterTerminate(new Action0() {
+                            @Override
+                            public void call() {
+                                mViewModel.onHideProgressDialog();
+                            }
+                        })
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Action1<EditDomainResponse>() {
+                            @Override
+                            public void call(EditDomainResponse response) {
+                                mViewModel.onEditDomainSuccess();
+                            }
+                        }, new SafetyError() {
+                            @Override
+                            public void onSafetyError(BaseException error) {
+                                mViewModel.onShowMessageError(error);
+                            }
+                        });
         mCompositeSubscription.add(subscription);
     }
 }

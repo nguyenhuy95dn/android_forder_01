@@ -49,6 +49,6 @@ interface DomainManagementContract {
 
         void deleteDomain(int domainId);
 
-        void editDomain(int domainId, String name, String status);
+        void editDomain(int domainId, String name, String status, String idRoomChatwork);
     }
 }

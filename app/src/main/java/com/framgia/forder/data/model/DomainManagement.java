@@ -45,6 +45,9 @@ public final class DomainManagement implements Parcelable {
     @SerializedName("owner")
     private int mOwner;
     @Expose
+    @SerializedName("room_chatwork")
+    private String mRoomChatwork;
+    @Expose
     @SerializedName("count_user")
     private int mCountUser;
     @Expose
@@ -66,6 +69,7 @@ public final class DomainManagement implements Parcelable {
         mSlug = in.readString();
         mStatus = in.readString();
         mOwner = in.readInt();
+        mRoomChatwork=in.readString();
         mCountUser = in.readInt();
         mCountShop = in.readInt();
         mCountProduct = in.readInt();
@@ -128,6 +132,14 @@ public final class DomainManagement implements Parcelable {
         mOwner = owner;
     }
 
+    public String getRoomChatwork() {
+        return mRoomChatwork;
+    }
+
+    public void setRoomChatwork(String roomChatwork) {
+        mRoomChatwork = roomChatwork;
+    }
+
     public int getCountUser() {
         return mCountUser;
     }
@@ -182,6 +194,7 @@ public final class DomainManagement implements Parcelable {
         dest.writeString(mSlug);
         dest.writeString(mStatus);
         dest.writeInt(mOwner);
+        dest.writeString(mRoomChatwork);
         dest.writeInt(mCountUser);
         dest.writeInt(mCountShop);
         dest.writeInt(mCountProduct);

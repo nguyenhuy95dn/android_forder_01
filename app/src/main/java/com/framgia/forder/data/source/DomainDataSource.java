@@ -40,7 +40,8 @@ public class DomainDataSource {
 
         Observable<DeleteDomainResponse> requestDeleteDomain(int domainId);
 
-        Observable<EditDomainResponse> requestEditDdomain(int domainId, String name, String status);
+        Observable<EditDomainResponse> requestEditDdomain(int domainId, String name, String status,
+                String idRoomChatwork);
 
         Observable<List<User>> getListUserInDomain(int domainId);
 

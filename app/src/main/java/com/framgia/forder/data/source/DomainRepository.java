@@ -69,8 +69,8 @@ public class DomainRepository {
     }
 
     public Observable<EditDomainResponse> requestEditDomain(int domainId, String name,
-            String status) {
-        return mRemoteDataSource.requestEditDdomain(domainId, name, status);
+            String status, String idRoomChatwork) {
+        return mRemoteDataSource.requestEditDdomain(domainId, name, status, idRoomChatwork);
     }
 
     public Observable<List<User>> getListUserInDomain(int domainId) {
