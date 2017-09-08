@@ -162,18 +162,20 @@ public class DomainManagementViewModel extends BaseObservable
     }
 
     @Override
-    public void onRequestRegisterDomain(String nameDomain, String status) {
+    public void onRequestRegisterDomain(String nameDomain, String status, String idRoomChatwork) {
         RegisterDomainRequest registerDomainRequest = new RegisterDomainRequest();
         RegisterDomain domain = new RegisterDomain();
         domain.setName(nameDomain);
         domain.setStatus(status);
+        domain.setRoomChatwork(idRoomChatwork);
         registerDomainRequest.setDomain(domain);
         mPresenter.registerDomain(registerDomainRequest);
     }
 
     @Override
-    public void onRequestEditDomain(int domainId, String nameDomain, String status) {
-        mPresenter.editDomain(domainId, nameDomain, status);
+    public void onRequestEditDomain(int domainId, String nameDomain, String status,
+            String idRoomChatwork) {
+        mPresenter.editDomain(domainId, nameDomain, status, idRoomChatwork);
     }
 
     @Override

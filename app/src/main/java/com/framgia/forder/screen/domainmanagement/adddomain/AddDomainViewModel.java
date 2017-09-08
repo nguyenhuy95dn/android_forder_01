@@ -15,6 +15,7 @@ public class AddDomainViewModel extends BaseObservable implements AddDomainContr
     private AddDomainContract.Presenter mPresenter;
     private final Context mContext;
     private String mNameDomain;
+    private String mIdRoomChatwork;
     private String mStatus;
     private boolean isChecked;
     private final AddDomainListener mAddDomainListener;
@@ -42,7 +43,7 @@ public class AddDomainViewModel extends BaseObservable implements AddDomainContr
 
     @Override
     public void onRequestRegisterDomain() {
-        mAddDomainListener.onRequestRegisterDomain(mNameDomain, mStatus);
+        mAddDomainListener.onRequestRegisterDomain(mNameDomain, mStatus, mIdRoomChatwork);
     }
 
     @Bindable
@@ -53,6 +54,16 @@ public class AddDomainViewModel extends BaseObservable implements AddDomainContr
     public void setNameDomain(String nameDomain) {
         mNameDomain = nameDomain;
         notifyPropertyChanged(BR.nameDomain);
+    }
+
+    @Bindable
+    public String getIdRoomChatwork() {
+        return mIdRoomChatwork;
+    }
+
+    public void setIdRoomChatwork(String idRoomChatwork) {
+        mIdRoomChatwork = idRoomChatwork;
+        notifyPropertyChanged(BR.idRoomChatwork);
     }
 
     public String getStatus() {

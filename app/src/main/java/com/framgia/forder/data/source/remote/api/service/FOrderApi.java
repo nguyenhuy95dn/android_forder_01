@@ -207,7 +207,8 @@ public interface FOrderApi {
 
     @GET("v1/domains/{domain_id}/edit")
     Observable<EditDomainResponse> requestEditDomain(@Path("domain_id") int domainId,
-            @Query("name") String name, @Query("status") String status);
+            @Query("name") String name, @Query("status") String status,
+            @Query("room_chatwork") String idRoomChatwork);
 
     @GET("v1/dashboard/shop_domains")
     Observable<ShopInDomainResponse> getListShopInDomain(@Query("domain_id") int domainId);

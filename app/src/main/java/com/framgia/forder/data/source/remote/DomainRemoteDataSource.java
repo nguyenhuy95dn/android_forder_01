@@ -87,8 +87,8 @@ public class DomainRemoteDataSource implements DomainDataSource.RemoteDataSource
 
     @Override
     public Observable<EditDomainResponse> requestEditDdomain(int domainId, String name,
-            String status) {
-        return mFOrderApi.requestEditDomain(domainId, name, status);
+            String status, String idRoomChatwork) {
+        return mFOrderApi.requestEditDomain(domainId, name, status, idRoomChatwork);
     }
 
     @Override

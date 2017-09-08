@@ -18,6 +18,7 @@ public class EditdomainViewModel extends BaseObservable implements EditdomainCon
     private final EditDomainListener mEditDomainListener;
     private EditdomainContract.Presenter mPresenter;
     private String mNameDomain;
+    private String mIdRoomChatwork;
     private String mStatus;
     private boolean isChecked;
 
@@ -46,7 +47,8 @@ public class EditdomainViewModel extends BaseObservable implements EditdomainCon
 
     @Override
     public void onRequestEditDomain() {
-        mEditDomainListener.onRequestEditDomain(mDomainManagement.getId(), mNameDomain, mStatus);
+        mEditDomainListener.onRequestEditDomain(mDomainManagement.getId(), mNameDomain, mStatus,
+                mIdRoomChatwork);
     }
 
     @Bindable
@@ -57,6 +59,16 @@ public class EditdomainViewModel extends BaseObservable implements EditdomainCon
     public void setNameDomain(String nameDomain) {
         mNameDomain = nameDomain;
         notifyPropertyChanged(BR.nameDomain);
+    }
+
+    @Bindable
+    public String getIdRoomChatwork() {
+        return String.valueOf(mIdRoomChatwork);
+    }
+
+    public void setIdRoomChatwork(String idRoomChatwork) {
+        mIdRoomChatwork = idRoomChatwork;
+        notifyPropertyChanged(BR.idRoomChatwork);
     }
 
     public boolean isCheckedSecret() {
@@ -70,6 +82,11 @@ public class EditdomainViewModel extends BaseObservable implements EditdomainCon
     private void getDomain(DomainManagement domainManagement) {
         mNameDomain = domainManagement.getName();
         mStatus = domainManagement.getStatus();
+        if (domainManagement.getRoomChatwork() != null) {
+            mIdRoomChatwork = String.valueOf(domainManagement.getRoomChatwork());
+        } else {
+            mIdRoomChatwork = "";
+        }
         if (mStatus.equals(mContext.getString(R.string.secret))) {
             isChecked = true;
         }

@@ -14,6 +14,9 @@ public class RegisterDomain {
     @Expose
     @SerializedName("status")
     private String mStatus;
+    @Expose
+    @SerializedName("room_chatwork")
+    private String mRoomChatwork;
 
     public String getName() {
         return mName;
@@ -29,5 +32,13 @@ public class RegisterDomain {
 
     public void setStatus(String status) {
         mStatus = status;
+    }
+
+    public String getRoomChatwork() {
+        return mRoomChatwork;
+    }
+
+    public void setRoomChatwork(String roomChatwork) {
+        mRoomChatwork = roomChatwork;
     }
 }
