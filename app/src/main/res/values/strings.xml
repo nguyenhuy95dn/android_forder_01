@@ -226,4 +226,7 @@
     <string name="settings">Settings</string>
     <string name="you_can_not_choose_the_price_below_the_original_price">You can not choose the price below the original price!</string>
     <string name="id_room_chatwork">Id Room Chatwork</string>
+    <string name="fillter_by_user">Fillter By User:</string>
+    <string name="enter_name_or_email">Enter name or email</string>
+    <string name="done">Done</string>
 </resources>
