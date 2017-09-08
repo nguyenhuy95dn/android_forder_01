@@ -49,6 +49,9 @@ public interface ProductDataSource {
         Observable<List<Product>> getListProductByFillter(int domainId, int categoryId,
                 String priceSort, int priceFrom, int priceTo);
 
+        Observable<List<Product>> getListAllProductByFillter(int domainId, String priceSort,
+                int priceFrom, int priceTo);
+
         Observable<List<Product>> getListProductInShop(int shopId, int domainId);
 
         Observable<OrderCartResponse> orderProduct(int domainId, OrderRequest orderRequest);

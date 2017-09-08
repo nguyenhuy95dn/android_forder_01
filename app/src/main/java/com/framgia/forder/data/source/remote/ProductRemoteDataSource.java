@@ -73,6 +73,21 @@ public class ProductRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
+    public Observable<List<Product>> getListAllProductByFillter(int domainId,
+            String priceSort, int priceFrom, int priceTo) {
+        return mFOrderApi.getListAllProductByFillter(domainId, priceSort, priceFrom,
+                priceTo).flatMap(new Func1<ProductResponse, Observable<List<Product>>>() {
+            @Override
+            public Observable<List<Product>> call(ProductResponse productResponse) {
+                if (productResponse != null) {
+                    return Observable.just(productResponse.getListProduct());
+                }
+                return Observable.error(new NullPointerException());
+            }
+        });
+    }
+
+    @Override
     public Observable<List<Product>> getListProductInShop(int shopId, int domainId) {
         return mFOrderApi.getListProductShop(shopId, domainId)
                 .flatMap(new Func1<ProductResponse, Observable<List<Product>>>() {
