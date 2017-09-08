@@ -15,7 +15,6 @@ import com.framgia.forder.screen.orderhistory.OrderHistoryFragment;
 import com.framgia.forder.screen.orderhistoryshop.OrderHistoryShopFragment;
 import com.framgia.forder.screen.ordershop.OrderShopFragment;
 import com.framgia.forder.screen.productdetail.ProductDetailFragment;
-import com.framgia.forder.screen.shopinfo.ShopinfoFragment;
 import com.framgia.forder.screen.shopmanagement.ShopManagementFragment;
 import com.framgia.forder.utils.StatusCode;
 import com.framgia.forder.utils.navigator.Navigator;
@@ -121,8 +120,7 @@ public class ItemNotificationViewModel extends BaseObservable {
                 break;
             case NOTIFICATION_SHOP_DOMAIN:
                 mNavigator.goNextChildFragment(R.id.layout_content,
-                        ShopinfoFragment.newInstance(shopManagement), true, Navigator.RIGHT_LEFT,
-                        TAG);
+                        ShopManagementFragment.newInstance(), true, Navigator.RIGHT_LEFT, TAG);
                 break;
             case NOTIFICATION_USER:
                 mNavigator.goNextChildFragment(R.id.layout_content,

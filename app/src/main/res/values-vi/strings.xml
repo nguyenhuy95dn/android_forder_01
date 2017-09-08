@@ -226,4 +226,7 @@
     <string name="settings">Cài đặt</string>
     <string name="you_can_not_choose_the_price_below_the_original_price">Bạn không được chọn giá thấp hơn ban đầu!</string>
     <string name="id_room_chatwork">Id Room Chatwork</string>
+    <string name="fillter_by_user">Lọc theo người dùng:</string>
+    <string name="enter_name_or_email">Nhập tên hoặc email</string>
+    <string name="done">Đã hoàn thành</string>
 </resources>
