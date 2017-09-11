@@ -265,4 +265,7 @@ public interface FOrderApi {
     @PUT("v1/user_settings/0")
     Observable<BaseResponse> updateNotificationSetting(
             @Body NotificationSettingRequest notificationSettingRequest);
+
+    @GET("v1/reset_passwords")
+    Observable<BaseResponse> sendEmail(@Query("user_email") String userEmail);
 }
