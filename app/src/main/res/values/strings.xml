@@ -229,4 +229,9 @@
     <string name="fillter_by_user">Fillter By User:</string>
     <string name="enter_name_or_email">Enter name or email</string>
     <string name="done">Done</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="send_email">Send Email</string>
+    <string name="enter_your_email_blow_and_we_will_send_email_for_you">Enter your email blow, and we will send email for you !</string>
+    <string name="forgot_the_password">Forgot the password</string>
+    <string name="please_check_your_email">Please check your email!</string>
 </resources>

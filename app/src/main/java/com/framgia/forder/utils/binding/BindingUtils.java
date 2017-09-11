@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.bumptech.glide.Glide;
 import com.framgia.forder.R;
+import com.framgia.forder.screen.forgotpassword.ForgotPasswordViewModel;
 import com.framgia.forder.screen.mainpage.shop.ShopPageAdapter;
 
 /**
@@ -226,6 +227,28 @@ public final class BindingUtils {
             @Override
             public void afterTextChanged(Editable s) {
                 //No-Op
+            }
+        });
+    }
+
+    @BindingAdapter({ "errorTextEmailFormat", "viewModel" })
+    public static void setErrorEmailFormat(final EditText editText, final String text,
+            final ForgotPasswordViewModel forgotPasswordViewModel) {
+        editText.setError(text);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //No-Op
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //No-Op
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                forgotPasswordViewModel.validateEmail(s.toString());
             }
         });
     }

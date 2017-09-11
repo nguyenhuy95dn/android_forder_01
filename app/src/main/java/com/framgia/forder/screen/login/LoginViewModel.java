@@ -9,6 +9,7 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.screen.chooseDomain.ChooseDomainActivity;
+import com.framgia.forder.screen.forgotpassword.ForgotPasswordActivity;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 
@@ -51,7 +52,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     @Override
     public void onForgotPasswordClick() {
-        mNavigator.showToastCustomActivity(R.string.function_is_being_processed);
+        mNavigator.startActivity(ForgotPasswordActivity.class);
     }
 
     @Override
