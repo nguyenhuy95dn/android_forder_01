@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.databinding.FragmentOrderHistoryShopBinding;
+import com.framgia.forder.widgets.dialog.DialogManager;
 
 /**
  * OrderHistoryShop Screen.
@@ -34,7 +36,13 @@ public class OrderHistoryShopFragment extends Fragment {
         OrderHistoryPageAdapter adapter =
                 new OrderHistoryPageAdapter(getActivity(), getChildFragmentManager(),
                         shopManagement);
-        mViewModel = new OrderHistoryShopViewModel(adapter);
+        DialogManager dialogManager = new DialogManager(getActivity());
+        String[] fillters = getResources().getStringArray(R.array.fillter_by);
+        ArrayAdapter<String> adapterFillterBy =
+                new ArrayAdapter<>(getActivity(), android.R.layout.simple_selectable_list_item,
+                        fillters);
+        mViewModel =
+                new OrderHistoryShopViewModel(adapter, dialogManager, adapterFillterBy, fillters);
 
         OrderHistoryShopContract.Presenter presenter = new OrderHistoryShopPresenter(mViewModel);
         mViewModel.setPresenter(presenter);

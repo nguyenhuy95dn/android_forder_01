@@ -234,4 +234,5 @@
     <string name="enter_your_email_blow_and_we_will_send_email_for_you">Nhập email của bạn tại đây, chúng tôi sẽ gởi email reset cho bạn!</string>
     <string name="forgot_the_password">Quên Mật Khẩu</string>
     <string name="please_check_your_email">Làm ơn kiểm tra email của bạn!</string>
+    <string name="fillter_order_by">Lọc đơn hàng theo:</string>
 </resources>

@@ -20,4 +20,11 @@
         <item>75000</item>
         <item>100000</item>
     </string-array>
+
+    <string-array name="fillter_by">
+        <item>Product</item>
+        <item>User</item>
+        <item>Group</item>
+        <item>Closed Time</item>
+    </string-array>
 </resources>

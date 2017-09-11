@@ -63,4 +63,9 @@
     <style name="TextLabelInputLayout" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">@dimen/sp_15</item>
     </style>
+
+    <style name="Hyperlink">
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:background">@drawable/hyperlink_underline</item>
+    </style>
 </resources>
