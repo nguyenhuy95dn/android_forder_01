@@ -15,12 +15,134 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
+            <LinearLayout
+                android:id="@+id/fillter_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:orientation="horizontal"
+                    bind:ignore="DisableBaselineAlignment"
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:onClick="@{()-> viewModel.onClickChooseDateFrom()}"
+                        android:orientation="horizontal"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/from"
+                            android:textColor="@color/color_white"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_5"
+                            android:layout_marginRight="@dimen/dp_5"
+                            android:gravity="center_horizontal"
+                            android:text="@{viewModel.dateFrom}"
+                            android:textSize="@dimen/sp_17"
+                            style="@style/Hyperlink"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/to"
+                            android:textColor="@color/color_white"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_5"
+                            android:layout_marginRight="@dimen/dp_5"
+                            android:gravity="center_horizontal"
+                            android:onClick="@{()-> viewModel.onClickChooseDateTo()}"
+                            android:text="@{viewModel.dateTo}"
+                            android:textSize="@dimen/sp_17"
+                            style="@style/Hyperlink"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_5"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/fillter_by"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/fillter_order_by"
+                        android:textColor="@color/color_white"
+                        />
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/fillter_by"
+                        android:layout_toLeftOf="@+id/search"
+                        android:layout_toRightOf="@+id/fillter_by"
+                        android:layout_toStartOf="@+id/search"
+                        >
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_35"
+                            android:layout_marginLeft="@dimen/dp_15"
+                            android:layout_marginRight="@dimen/dp_15"
+                            android:background="@drawable/border_button_next"
+                            android:selectedItemPosition="@={viewModel.selectedPositionFillterBy}"
+                            android:spinnerMode="dropdown"
+                            app:spinnerAdapter="@{viewModel.adapterFillterBy}"
+                            />
+                        <ImageView
+                            android:layout_width="@dimen/dp_25"
+                            android:layout_height="@dimen/dp_25"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="@dimen/dp_25"
+                            android:layout_marginRight="@dimen/dp_25"
+                            android:background="@drawable/ic_arrow_down"
+                            bind:ignore="ContentDescription"
+                            />
+                    </FrameLayout>
+                    <ImageButton
+                        android:id="@+id/search"
+                        android:layout_width="@dimen/dp_35"
+                        android:layout_height="@dimen/dp_35"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/ic_search_white"
+                        android:onClick="@{()-> viewModel.onClickSearch()}"
+                        bind:ignore="ContentDescription"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
             <android.support.design.widget.TabLayout
                 android:id="@+id/tab_layout_home"
                 android:layout_width="match_parent"
