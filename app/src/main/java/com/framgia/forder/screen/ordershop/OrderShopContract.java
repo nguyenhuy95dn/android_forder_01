@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.ordershop;
 
+import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.Order;
 import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
@@ -29,6 +30,14 @@ interface OrderShopContract {
         void onShowProgressBarListOrder();
 
         void onHideProgressBarListOrder();
+
+        void onGetListFilterSuccess(List<Order> orders, int idRadioButton);
+
+        void onGetListFilterError(BaseException error);
+
+        void onGetDomainSuccess(List<Domain> domains);
+
+        void onGetDomainError(BaseException error);
     }
 
     /**
@@ -37,6 +46,9 @@ interface OrderShopContract {
     interface Presenter extends BasePresenter {
 
         void getListOrderManagementShop(int shopId);
+
+        void getListOrderManagementShopFilter(int shopId, String userSearch, String domainId,
+                int idRadioButton);
 
         void acceptAndRejectOrder(int shopId, OrderManagement acceptAndRejectInOrder);
 

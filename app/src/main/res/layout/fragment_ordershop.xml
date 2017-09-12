@@ -43,7 +43,9 @@
                     >
                     <android.support.v7.widget.AppCompatSpinner
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_35"
+                        android:layout_height="@dimen/dp_40"
+                        android:selectedItemPosition="@={viewModel.selectedPositionDomain}"
+                        app:spinnerAdapter="@{viewModel.adapterDomain}"
                         android:background="@drawable/border_button_next"
                         android:spinnerMode="dropdown"
                         />
@@ -78,6 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_name_or_email"
+                    android:text="@={viewModel.nameOrEmail}"
                     android:maxLines="1"
                     android:textSize="@dimen/sp_15"
                     />
@@ -87,32 +90,38 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp_10"
                 android:orientation="horizontal"
+                app:OnCheckedChangeListener="@{viewModel.checkChangeListerner}"
                 >
                 <RadioButton
+                    android:id="@+id/rad_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/all_category"
                     />
                 <RadioButton
+                    android:id="@+id/rad_pending"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/pending"
                     />
                 <RadioButton
+                    android:id="@+id/rad_accepted"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/accepted"
                     />
                 <RadioButton
+                    android:id="@+id/rad_rejected"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/rejected"
                     />
                 <RadioButton
+                    android:id="@+id/rad_done"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

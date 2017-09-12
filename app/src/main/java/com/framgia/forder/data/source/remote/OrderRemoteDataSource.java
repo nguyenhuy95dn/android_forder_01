@@ -84,6 +84,22 @@ public class OrderRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
+    public Observable<List<Order>> getListOrderManagementShopFilter(int shopId, String userSearch,
+            String domainId) {
+        return mFOrderApi.getListOrderManagementShopFilter(shopId, userSearch, domainId)
+                .flatMap(new Func1<OrderManagementResponse, Observable<List<Order>>>() {
+                    @Override
+                    public Observable<List<Order>> call(
+                            OrderManagementResponse orderManagementResponse) {
+                        if (orderManagementResponse != null) {
+                            return Observable.just(orderManagementResponse.getOrders());
+                        }
+                        return Observable.error(new NullPointerException());
+                    }
+                });
+    }
+
+    @Override
     public Observable<OrderManagerShopReponse> acceptAndRejectInOrder(int shopId,
             OrderManagement acceptProductInOrderRequest) {
         return mFOrderApi.acceptAndRejectInOrder(shopId, acceptProductInOrderRequest);

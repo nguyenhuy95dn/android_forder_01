@@ -68,6 +68,11 @@ public class OrderRepository {
         return mRemoteDataSource.getListOrderManagementShop(shopId);
     }
 
+    public Observable<List<Order>> getListOrderManagementShopFilter(int shopId, String userSearch,
+            String domainId) {
+        return mRemoteDataSource.getListOrderManagementShopFilter(shopId, userSearch, domainId);
+    }
+
     public Observable<OrderManagerShopReponse> acceptAndRejectInOrder(int shopId,
             OrderManagement acceptProductInOrderRequest) {
         return mRemoteDataSource.acceptAndRejectInOrder(shopId, acceptProductInOrderRequest);
