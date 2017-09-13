@@ -221,6 +221,10 @@ public class OrderDetail implements Parcelable {
                 Utils.OUTPUT_TIME_FORMAT + VERTICAL_COLUMN + Utils.OUTPUT_DATE_FORMAT);
     }
 
+    public double getTotalPrice() {
+        return mPrice * mQuantity;
+    }
+
     public int getStatusColor() {
         if (mStatusOrder == StatusOders.Done) {
             return Color.parseColor(StatusCode.COLOR_GREEN);

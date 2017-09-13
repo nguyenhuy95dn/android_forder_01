@@ -21,6 +21,9 @@ public interface OrderDataSource {
 
         Observable<List<Order>> getListOrderManagementShop(int shopId);
 
+        Observable<List<Order>> getListOrderManagementShopFilter(int shopId, String userSearch,
+                String domainId);
+
         Observable<OrderManagerShopReponse> acceptAndRejectInOrder(int shopId,
                 OrderManagement acceptProductInOrderRequest);
 

@@ -170,6 +170,11 @@ public interface FOrderApi {
     @GET("v1/dashboard/orders")
     Observable<OrderManagementResponse> getListOrderManagementShop(@Query("shop_id") int shopId);
 
+    @GET("v1/dashboard/orders")
+    Observable<OrderManagementResponse> getListOrderManagementShopFilter(
+            @Query("shop_id") int shopId, @Query("user_search") String userSearch,
+            @Query("domain_id") String domainId);
+
     @POST("v1/orders_product_all")
     Observable<OrderCartResponse> requestOrderProduct(@Query("domain_id") int domainId,
             @Body OrderRequest orderRequest);
