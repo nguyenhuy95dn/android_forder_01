@@ -175,6 +175,10 @@ public interface FOrderApi {
             @Query("shop_id") int shopId, @Query("user_search") String userSearch,
             @Query("domain_id") String domainId);
 
+    @PUT("v1/dashboard/orders/{order_id}")
+    Observable<BaseResponse> requestPaymentOrder(@Path("order_id") int orderId,
+            @Query("paid") boolean paid);
+
     @POST("v1/orders_product_all")
     Observable<OrderCartResponse> requestOrderProduct(@Query("domain_id") int domainId,
             @Body OrderRequest orderRequest);

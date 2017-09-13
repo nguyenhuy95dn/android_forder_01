@@ -9,6 +9,7 @@ import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.OrderRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderHistoryShopResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderManagerShopReponse;
 import java.util.ArrayList;
@@ -94,5 +95,9 @@ public class OrderRepository {
     public Observable<OrderHistoryShopResponse> getListOrdersShopFilter(int shopId,
             String startDate, String endDate) {
         return mRemoteDataSource.getListOrdersShopFilter(shopId, startDate, endDate);
+    }
+
+    public Observable<BaseResponse> requestPaymentOrder(int orderId, boolean paid) {
+        return mRemoteDataSource.requestPaymentOrder(orderId, paid);
     }
 }

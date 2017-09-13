@@ -1,6 +1,9 @@
 package com.framgia.forder.screen.ordershop;
 
 import android.content.Context;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import com.framgia.forder.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Order;
 import com.framgia.forder.data.model.OrderManagement;
@@ -9,17 +12,19 @@ import com.framgia.forder.data.model.OrderManagement;
  * Created by levutantuan on 6/1/17.
  */
 
-public class ItemGroupOrderViewModel {
+public class ItemGroupOrderViewModel extends BaseObservable {
 
     private final Context mContext;
     private final Order mOrder;
     private final OrderShopAdapter.OrderManagementListener mOrderManagementListener;
+    private boolean mIsPaid;
 
     ItemGroupOrderViewModel(Context context, Order order,
             OrderShopAdapter.OrderManagementListener orderManagementListener) {
         mContext = context;
         mOrder = order;
         mOrderManagementListener = orderManagementListener;
+        mIsPaid = mOrder.isPaid();
     }
 
     public String getStatus() {
@@ -66,4 +71,18 @@ public class ItemGroupOrderViewModel {
         mOrderManagementListener.onAcceptOrRejectOrderManager(orderManagement);
     }
 
+    @Bindable
+    public boolean isPaid() {
+        return mIsPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        mIsPaid = paid;
+        notifyPropertyChanged(BR.paid);
+    }
+
+    public void onClickPaidOrder() {
+        setPaid(!mIsPaid);
+        mOrderManagementListener.onPaidOrder(mOrder.getId(), mIsPaid);
+    }
 }

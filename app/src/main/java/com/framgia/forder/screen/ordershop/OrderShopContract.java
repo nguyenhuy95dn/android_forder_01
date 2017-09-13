@@ -38,6 +38,8 @@ interface OrderShopContract {
         void onGetDomainSuccess(List<Domain> domains);
 
         void onGetDomainError(BaseException error);
+
+        void onRequestPaymentOrderSuccess();
     }
 
     /**
@@ -52,5 +54,6 @@ interface OrderShopContract {
 
         void acceptAndRejectOrder(int shopId, OrderManagement acceptAndRejectInOrder);
 
+        void requestPaymentOrder(int orderId, boolean paid);
     }
 }

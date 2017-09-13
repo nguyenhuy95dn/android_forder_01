@@ -236,6 +236,6 @@
     <string name="please_check_your_email">Làm ơn kiểm tra email của bạn!</string>
     <string name="fillter_order_by">Lọc đơn hàng theo:</string>
     <string name="follow">Theo dõi</string>
-    <string name="paid">Đã Thanh Toán</string>
+    <string name="paid">Thanh Toán</string>
     <string name="unfollow">Hủy theo dõi</string>
 </resources>
