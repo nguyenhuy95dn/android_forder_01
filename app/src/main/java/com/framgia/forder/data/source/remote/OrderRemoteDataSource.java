@@ -147,4 +147,10 @@ public class OrderRemoteDataSource extends BaseRemoteDataSource
                     }
                 });
     }
+
+    @Override
+    public Observable<OrderHistoryShopResponse> getListOrdersShopFilter(int shopId,
+            String startDate, String endDate) {
+        return mFOrderApi.getListOrderHistoryShopFilter(shopId, startDate, endDate);
+    }
 }

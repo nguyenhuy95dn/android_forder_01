@@ -3,12 +3,19 @@ package com.framgia.forder.screen.orderhistoryshop;
 import android.app.DatePickerDialog;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.widget.ArrayAdapter;
+import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.widget.DatePicker;
 import com.framgia.forder.BR;
+import com.framgia.forder.data.model.OrderHistory;
+import com.framgia.forder.data.model.ShopManagement;
+import com.framgia.forder.data.source.remote.api.error.BaseException;
+import com.framgia.forder.screen.orderhistoryshop.listdoneorders.ListDoneOrdersFragment;
+import com.framgia.forder.screen.orderhistoryshop.listrejectorders.ListRejectOrdersFragment;
 import com.framgia.forder.utils.Utils;
 import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Exposes the data to be used in the OrderHistoryShop screen.
@@ -17,28 +24,28 @@ import java.util.Calendar;
 public class OrderHistoryShopViewModel extends BaseObservable
         implements OrderHistoryShopContract.ViewModel, DatePickerDialog.OnDateSetListener {
 
+    private static final String TAG = "OrderHistoryShop";
+
     private static final int FLAG_DATE_FROM = 1;
     private static final int FLAG_DATE_TO = 2;
 
     private OrderHistoryShopContract.Presenter mPresenter;
     private final OrderHistoryPageAdapter mAdapter;
-    private DialogManager mDialogManager;
-    private Calendar mCalendar;
+    private final DialogManager mDialogManager;
+    private final Calendar mCalendar;
     private int mFlag;
     private String mDateFrom;
     private String mDateTo;
-    private ArrayAdapter<String> mAdapterFillterBy;
-    private int mSelectedPositionFillterBy;
-    private String[] mFillters;
+    private boolean mIsShowFilter;
+    private final ShopManagement mShopManagement;
 
     OrderHistoryShopViewModel(OrderHistoryPageAdapter adapter, DialogManager dialogManager,
-            ArrayAdapter<String> adapterFillterBy, String[] fillters) {
+            ShopManagement shopManagement) {
         mAdapter = adapter;
         mDialogManager = dialogManager;
-        mAdapterFillterBy = adapterFillterBy;
         mCalendar = Calendar.getInstance();
         mDialogManager.dialogDatePicker(this);
-        mFillters = fillters;
+        mShopManagement = shopManagement;
     }
 
     @Override
@@ -76,10 +83,10 @@ public class OrderHistoryShopViewModel extends BaseObservable
         mCalendar.set(Calendar.MONTH, month);
         mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         if (mFlag == FLAG_DATE_FROM) {
-            mDateFrom = Utils.DateTimeUntils.convertDateToStringOther(mCalendar.getTime());
+            mDateFrom = Utils.DateTimeUntils.convertDateToString(mCalendar.getTime());
             notifyPropertyChanged(BR.dateFrom);
         } else {
-            mDateTo = Utils.DateTimeUntils.convertDateToStringOther(mCalendar.getTime());
+            mDateTo = Utils.DateTimeUntils.convertDateToString(mCalendar.getTime());
             notifyPropertyChanged(BR.dateTo);
         }
     }
@@ -92,11 +99,6 @@ public class OrderHistoryShopViewModel extends BaseObservable
         return "";
     }
 
-    public void setDateFrom(String dateFrom) {
-        mDateFrom = dateFrom;
-        notifyPropertyChanged(BR.dateFrom);
-    }
-
     @Bindable
     public String getDateTo() {
         if (mDateTo != null) {
@@ -105,23 +107,36 @@ public class OrderHistoryShopViewModel extends BaseObservable
         return "";
     }
 
-    public void setDateTo(String dateTo) {
-        mDateTo = dateTo;
-        notifyPropertyChanged(BR.dateTo);
-    }
-
-    public ArrayAdapter<String> getAdapterFillterBy() {
-        return mAdapterFillterBy;
-    }
-
-    public int getSelectedPositionFillterBy() {
-        return mSelectedPositionFillterBy;
-    }
-
-    public void setSelectedPositionFillterBy(int selectedPositionFillterBy) {
-        mSelectedPositionFillterBy = selectedPositionFillterBy;
-    }
-
     public void onClickSearch() {
+        mPresenter.getListOrdersShopFilter(mShopManagement.getShop().getId(), mDateFrom, mDateTo);
+    }
+
+    public void onClickShowFilter() {
+        mIsShowFilter = !mIsShowFilter;
+        notifyPropertyChanged(BR.showFilter);
+    }
+
+    @Bindable
+    public boolean isShowFilter() {
+        return mIsShowFilter;
+    }
+
+    @Override
+    public void onFilterListDoneOrderSuccess(List<OrderHistory> listDoneOrders) {
+        Fragment fragment = mAdapter.getFragment(
+                OrderHistoryPageAdapter.OrderHistoryPageResultsTab.TAB_ORDER_REJECT);
+        ((ListDoneOrdersFragment) fragment).setOrders(listDoneOrders);
+    }
+
+    @Override
+    public void onFilterListRejectOrdeSuccess(List<OrderHistory> listRejectedOrder) {
+        Fragment fragment = mAdapter.getFragment(
+                OrderHistoryPageAdapter.OrderHistoryPageResultsTab.TAB_ORDER_ACCEPTED);
+        ((ListRejectOrdersFragment) fragment).setOrders(listRejectedOrder);
+    }
+
+    @Override
+    public void onFilterListOrderError(BaseException error) {
+        Log.e(TAG, "onFilterListOrderError: ", error);
     }
 }

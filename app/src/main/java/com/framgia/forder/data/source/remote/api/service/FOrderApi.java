@@ -192,6 +192,10 @@ public interface FOrderApi {
     @GET("v1/dashboard/order_managers")
     Observable<OrderHistoryShopResponse> getListOrderHistoryShop(@Query("shop_id") int shopId);
 
+    @GET("/v1/dashboard/order_managers")
+    Observable<OrderHistoryShopResponse> getListOrderHistoryShopFilter(@Query("shop_id") int shopId,
+            @Query("start_date") String startDate, @Query("end_date") String endDate);
+
     @POST("v1/domains")
     Observable<RegisterDomainResponse> requestRegisterDomain(
             @Body RegisterDomainRequest registerDomainRequest);

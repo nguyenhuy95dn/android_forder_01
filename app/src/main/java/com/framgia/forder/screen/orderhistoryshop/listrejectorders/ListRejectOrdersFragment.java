@@ -15,6 +15,7 @@ import com.framgia.forder.data.source.remote.OrderRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentListRejectOrdersBinding;
 import com.framgia.forder.utils.navigator.Navigator;
+import java.util.List;
 
 /**
  * ListRejectOrders Screen.
@@ -71,5 +72,9 @@ public class ListRejectOrdersFragment extends Fragment {
     public void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    public void setOrders(List<OrderHistory> listRejectedOrder) {
+        mViewModel.onGetListRejectOrdersSuccess(listRejectedOrder);
     }
 }
