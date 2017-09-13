@@ -78,7 +78,20 @@
                     android:text="@{viewModel.timeCreateOrder}"
                     tools:ignore="RelativeOverlap"
                     />
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_18"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="@dimen/dp_3"
+                    android:layout_marginRight="@dimen/dp_3"
+                    android:layout_toLeftOf="@id/text_reject"
+                    android:layout_toStartOf="@id/text_reject"
+                    android:text="@string/paid"
+                    android:textColor="@color/color_green"
+                    android:textStyle="bold"
+                    />
                 <TextView
+                    android:id="@id/text_reject"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"

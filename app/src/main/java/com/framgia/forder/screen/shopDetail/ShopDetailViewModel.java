@@ -24,10 +24,13 @@ public class ShopDetailViewModel extends BaseObservable implements ShopDetailCon
     private static final String TAG = "ProductDetailFragment";
 
     private ShopDetailContract.Presenter mPresenter;
-    private Shop mShop;
+    private final Shop mShop;
     private final ProductShopAdapter mProductShopAdapter;
     private final Navigator mNavigator;
     private boolean mIsProgressBarListProductVisible;
+    private int mButtonFollow;
+    private int mTextFollow;
+    private boolean mIsFollow;
 
     ShopDetailViewModel(Shop shop, ProductShopAdapter productShopAdapter, Navigator navigator) {
         mShop = shop;
@@ -35,6 +38,10 @@ public class ShopDetailViewModel extends BaseObservable implements ShopDetailCon
         mNavigator = navigator;
         mProductShopAdapter.setItemClickListener(this);
         setProgressBarListProductVisible(false);
+        //Todo remove later when api update we no need this variable
+        mIsFollow = true;
+        setButtonFollow(R.drawable.border_button_follow);
+        setTextFollow(R.string.follow);
     }
 
     @Override
@@ -64,8 +71,8 @@ public class ShopDetailViewModel extends BaseObservable implements ShopDetailCon
     }
 
     @Bindable
-    public String getAverageRating() {
-        return String.valueOf(mShop.getAverageRating());
+    public float getAverageRating() {
+        return mShop.getAverageRating();
     }
 
     @Bindable
@@ -142,7 +149,7 @@ public class ShopDetailViewModel extends BaseObservable implements ShopDetailCon
         return mIsProgressBarListProductVisible;
     }
 
-    public void setProgressBarListProductVisible(boolean progressBarListProductVisible) {
+    private void setProgressBarListProductVisible(boolean progressBarListProductVisible) {
         mIsProgressBarListProductVisible = progressBarListProductVisible;
         notifyPropertyChanged(BR.progressBarListProductVisible);
     }
@@ -154,5 +161,33 @@ public class ShopDetailViewModel extends BaseObservable implements ShopDetailCon
     public void onClickSeeAllProduct() {
         mNavigator.goNextChildFragment(R.id.layout_content, ListProductFragment.newInstance(), true,
                 Navigator.RIGHT_LEFT, TAG);
+    }
+
+    @Bindable
+    public int getButtonFollow() {
+        return mButtonFollow;
+    }
+
+    private void setButtonFollow(int buttonFollow) {
+        mButtonFollow = buttonFollow;
+        notifyPropertyChanged(BR.buttonFollow);
+    }
+
+    @Bindable
+    public int getTextFollow() {
+        return mTextFollow;
+    }
+
+    private void setTextFollow(int textFollow) {
+        mTextFollow = textFollow;
+        notifyPropertyChanged(BR.textFollow);
+    }
+
+    public void onClickFollow() {
+        //Todo call API in here!
+        mIsFollow = !mIsFollow;
+        setButtonFollow(
+                mIsFollow ? R.drawable.border_button_follow : R.drawable.border_button_unfollow);
+        setTextFollow(mIsFollow ? R.string.follow : R.string.unfollow);
     }
 }

@@ -235,4 +235,7 @@
     <string name="forgot_the_password">Forgot the password</string>
     <string name="please_check_your_email">Please check your email!</string>
     <string name="fillter_order_by">Fillter Order By:</string>
+    <string name="follow">Follow</string>
+    <string name="paid">Paid</string>
+    <string name="unfollow">Unfollow</string>
 </resources>

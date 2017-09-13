@@ -35,7 +35,7 @@
                 >
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_250"
+                    android:layout_height="@dimen/dp_230"
                     >
                     <ImageView
                         android:layout_width="match_parent"
@@ -68,7 +68,7 @@
                     <View
                         android:id="@+id/view_white"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_50"
+                        android:layout_height="@dimen/dp_70"
                         android:layout_alignParentBottom="true"
                         android:background="@color/color_white"
                         />
@@ -94,11 +94,10 @@
                         app:paddingStart="@dimen/dp_5"
                         tools:ignore="UnusedAttribute"
                         />
-
                     <ImageView
                         android:id="@+id/image_shop"
                         android:layout_width="@dimen/dp_170"
-                        android:layout_height="@dimen/dp_150"
+                        android:layout_height="@dimen/dp_170"
                         android:layout_alignParentBottom="true"
                         android:layout_marginLeft="@dimen/dp_20"
                         android:layout_marginStart="@dimen/dp_20"
@@ -108,26 +107,34 @@
                         android:scaleType="fitXY"
                         app:imageUrl="@{viewModel.shopAvatar}"
                         />
-                    <TextView
+                    <RatingBar
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dp_50"
+                        android:layout_height="@dimen/dp_25"
                         android:layout_alignParentBottom="true"
-                        android:layout_toEndOf="@+id/image_shop"
-                        android:layout_toRightOf="@+id/image_shop"
-                        android:drawableEnd="@drawable/ic_stars"
-                        android:drawablePadding="@dimen/dp_5"
-                        android:drawableRight="@drawable/ic_stars"
-                        android:ellipsize="marquee"
-                        android:gravity="center_vertical"
-                        android:maxLines="1"
-                        android:paddingEnd="@dimen/dp_10"
-                        android:paddingLeft="@dimen/dp_10"
-                        android:paddingRight="@dimen/dp_10"
-                        android:paddingStart="@dimen/dp_10"
-                        android:text="@{viewModel.averageRating}"
-                        android:textColor="@color/color_red_mos"
-                        android:textSize="@dimen/sp_20"
-                        tools:ignore="RelativeOverlap"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="@dimen/dp_80"
+                        android:layout_marginRight="@dimen/dp_80"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:numStars="5"
+                        android:progressDrawable="@drawable/custom_ratingbar"
+                        android:rating="@{viewModel.averageRating}"
+                        />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_35"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="@dimen/dp_30"
+                        android:layout_marginEnd="@dimen/dp_80"
+                        android:layout_marginRight="@dimen/dp_80"
+                        android:background="@drawable/border_button_follow"
+                        android:gravity="center"
+                        android:onClick="@{()-> viewModel.onClickFollow()}"
+                        android:textSize="@dimen/sp_12"
+                        app:background="@{viewModel.buttonFollow}"
+                        app:text="@{viewModel.textFollow}"
                         />
                 </RelativeLayout>
             </android.support.design.widget.CollapsingToolbarLayout>
