@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
+import com.framgia.forder.data.source.OrderRepository;
+import com.framgia.forder.data.source.remote.OrderRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentOrderHistoryShopBinding;
 import com.framgia.forder.widgets.dialog.DialogManager;
 
@@ -37,14 +39,12 @@ public class OrderHistoryShopFragment extends Fragment {
                 new OrderHistoryPageAdapter(getActivity(), getChildFragmentManager(),
                         shopManagement);
         DialogManager dialogManager = new DialogManager(getActivity());
-        String[] fillters = getResources().getStringArray(R.array.fillter_by);
-        ArrayAdapter<String> adapterFillterBy =
-                new ArrayAdapter<>(getActivity(), android.R.layout.simple_selectable_list_item,
-                        fillters);
-        mViewModel =
-                new OrderHistoryShopViewModel(adapter, dialogManager, adapterFillterBy, fillters);
+        mViewModel = new OrderHistoryShopViewModel(adapter, dialogManager, shopManagement);
 
-        OrderHistoryShopContract.Presenter presenter = new OrderHistoryShopPresenter(mViewModel);
+        OrderRepository orderRepository =
+                new OrderRepository(new OrderRemoteDataSource(FOrderServiceClient.getInstance()));
+        OrderHistoryShopContract.Presenter presenter =
+                new OrderHistoryShopPresenter(mViewModel, orderRepository);
         mViewModel.setPresenter(presenter);
     }
 

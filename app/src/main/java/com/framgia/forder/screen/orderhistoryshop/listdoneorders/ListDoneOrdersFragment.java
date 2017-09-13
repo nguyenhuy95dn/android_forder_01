@@ -15,6 +15,7 @@ import com.framgia.forder.data.source.remote.OrderRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentListDoneOrdersBinding;
 import com.framgia.forder.utils.navigator.Navigator;
+import java.util.List;
 
 /**
  * ListDoneOrders Screen.
@@ -41,8 +42,7 @@ public class ListDoneOrdersFragment extends Fragment {
         ListDoneOrderAdapter adapter = new ListDoneOrderAdapter(getActivity());
 
         mViewModel = new ListDoneOrdersViewModel(getContext().getApplicationContext(), navigator,
-                orderHistory, adapter,
-                shopManagement);
+                orderHistory, adapter, shopManagement);
 
         OrderRepository orderRepository =
                 new OrderRepository(new OrderRemoteDataSource(FOrderServiceClient.getInstance()));
@@ -73,5 +73,9 @@ public class ListDoneOrdersFragment extends Fragment {
     public void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    public void setOrders(List<OrderHistory> listDoneOrders) {
+        mViewModel.onGetListDoneOrdersSuccess(listDoneOrders);
     }
 }

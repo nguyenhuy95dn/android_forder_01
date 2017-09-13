@@ -3,6 +3,7 @@ package com.framgia.forder.data.source;
 import com.framgia.forder.data.model.Order;
 import com.framgia.forder.data.model.OrderHistory;
 import com.framgia.forder.data.model.OrderManagement;
+import com.framgia.forder.data.source.remote.api.response.OrderHistoryShopResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderManagerShopReponse;
 import java.util.List;
 import rx.Observable;
@@ -32,5 +33,8 @@ public interface OrderDataSource {
         Observable<List<OrderHistory>> getListDoneOrdersShop(int shopId);
 
         Observable<List<OrderHistory>> getListRejectOrdersShop(int shopId);
+
+        Observable<OrderHistoryShopResponse> getListOrdersShopFilter(int shopId, String startDate,
+                String endDate);
     }
 }
