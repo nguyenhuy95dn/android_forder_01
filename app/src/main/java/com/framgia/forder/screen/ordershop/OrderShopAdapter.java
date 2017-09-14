@@ -118,5 +118,7 @@ public class OrderShopAdapter extends BaseExpandableListAdapter {
 
     public interface OrderManagementListener {
         void onAcceptOrRejectOrderManager(OrderManagement acceptOrRejectOrdermanagementRequest);
+
+        void onPaidOrder(int orderId, boolean paid);
     }
 }

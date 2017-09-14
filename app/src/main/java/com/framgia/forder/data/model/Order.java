@@ -50,6 +50,9 @@ public class Order {
     @Expose
     @SerializedName("order_products")
     private List<OrderDetail> mOrderDetails;
+    @Expose
+    @SerializedName("is_paid")
+    private boolean mIsPaid;
 
     public int getId() {
         return mId;
@@ -158,6 +161,14 @@ public class Order {
 
     public String getTotalPriceFormat() {
         return String.format(FORMAT_PRICE, mTotalPay) + UNIT_MONEY;
+    }
+
+    public boolean isPaid() {
+        return mIsPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        mIsPaid = paid;
     }
 
     public String getTimeOrderFormat() {

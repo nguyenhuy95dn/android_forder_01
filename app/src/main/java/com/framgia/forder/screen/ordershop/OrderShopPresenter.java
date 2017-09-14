@@ -7,6 +7,7 @@ import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.OrderRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
+import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderManagerShopReponse;
 import java.util.List;
 import rx.Subscription;
@@ -141,6 +142,25 @@ final class OrderShopPresenter implements OrderShopContract.Presenter {
                     @Override
                     public void onSafetyError(BaseException error) {
                         mViewModel.onGetDomainError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void requestPaymentOrder(int orderId, boolean paid) {
+        Subscription subscription = mOrderRepository.requestPaymentOrder(orderId, paid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<BaseResponse>() {
+                    @Override
+                    public void call(BaseResponse response) {
+                        mViewModel.onRequestPaymentOrderSuccess();
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onAcceptOrRejectOrderManageError(error);
                     }
                 });
         mCompositeSubscription.add(subscription);

@@ -60,6 +60,7 @@ public class OrderShopViewModel extends BaseObservable
         mOrders = new ArrayList<>();
         mDomains = new ArrayList<>();
         mProgressBarVisibilityListOrder.set(View.GONE);
+        mRadioButtonChecked = R.id.rad_all;
     }
 
     @Override
@@ -158,6 +159,11 @@ public class OrderShopViewModel extends BaseObservable
         Log.e(TAG, "onGetDomainError: ", error);
     }
 
+    @Override
+    public void onRequestPaymentOrderSuccess() {
+        mNavigator.showToastCustomActivity(R.string.update_success);
+    }
+
     public OrderShopAdapter getOrderShopAdapter() {
         return mOrderShopAdapter;
     }
@@ -167,6 +173,11 @@ public class OrderShopViewModel extends BaseObservable
             OrderManagement acceptAndRejectOrdermanagementRequest) {
         mPresenter.acceptAndRejectOrder(mShopId, acceptAndRejectOrdermanagementRequest);
         onReLoadData();
+    }
+
+    @Override
+    public void onPaidOrder(int orderId, boolean paid) {
+        mPresenter.requestPaymentOrder(orderId, paid);
     }
 
     public void onClickAcceptAllOrder() {
@@ -293,6 +304,8 @@ public class OrderShopViewModel extends BaseObservable
         Order orderPending = new Order();
         orderPending.setOrderDetails(orderDetails);
         orderPending.setTotalPay(getTotalPrice(orderDetails));
+        orderPending.setPaid(order.isPaid());
+        orderPending.setId(order.getId());
         orderPending.setUserName(order.getUserName());
         orderPending.setTimeCreateOrder(order.getTimeCreateOrder());
         return orderPending;

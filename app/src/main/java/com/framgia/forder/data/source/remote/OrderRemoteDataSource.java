@@ -4,6 +4,7 @@ import com.framgia.forder.data.model.Order;
 import com.framgia.forder.data.model.OrderHistory;
 import com.framgia.forder.data.model.OrderManagement;
 import com.framgia.forder.data.source.OrderDataSource;
+import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import com.framgia.forder.data.source.remote.api.response.CloseOrderResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderHistoryShopResponse;
 import com.framgia.forder.data.source.remote.api.response.OrderManagementResponse;
@@ -97,6 +98,11 @@ public class OrderRemoteDataSource extends BaseRemoteDataSource
                         return Observable.error(new NullPointerException());
                     }
                 });
+    }
+
+    @Override
+    public Observable<BaseResponse> requestPaymentOrder(int orderId, boolean paid) {
+        return mFOrderApi.requestPaymentOrder(orderId, paid);
     }
 
     @Override
