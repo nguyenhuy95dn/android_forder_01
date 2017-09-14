@@ -25,6 +25,7 @@ import com.framgia.forder.data.source.remote.UserRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentShoppingcartBinding;
 import com.framgia.forder.screen.main.LoadCartListener;
+import com.framgia.forder.screen.main.LoadOrderHistoryListener;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import java.util.List;
 public class ShoppingCartFragment extends Fragment {
     private ShoppingCartContract.ViewModel mViewModel;
     private LoadCartListener mLoadCartListener;
+    private LoadOrderHistoryListener mLoadOrderHistoryListener;
 
     public static ShoppingCartFragment newInstance() {
         return new ShoppingCartFragment();
@@ -50,8 +52,8 @@ public class ShoppingCartFragment extends Fragment {
         DialogManager dialogManager = new DialogManager(getActivity());
         Navigator navigator = new Navigator(getParentFragment());
 
-        mViewModel =
-                new ShoppingCartViewModel(adapter, dialogManager, navigator, mLoadCartListener);
+        mViewModel = new ShoppingCartViewModel(adapter, dialogManager, navigator, mLoadCartListener,
+                mLoadOrderHistoryListener);
 
         RealmApi realmApi = new RealmApi();
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
@@ -105,11 +107,11 @@ public class ShoppingCartFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try {
+        if (activity instanceof LoadCartListener) {
             mLoadCartListener = (LoadCartListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(
-                    activity.toString() + " must implement OnHeadlineSelectedListener");
+        }
+        if (activity instanceof LoadOrderHistoryListener) {
+            mLoadOrderHistoryListener = (LoadOrderHistoryListener) activity;
         }
     }
 }

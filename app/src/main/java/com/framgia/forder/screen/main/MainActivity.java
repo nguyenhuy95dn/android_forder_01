@@ -28,15 +28,19 @@ import com.framgia.forder.screen.BaseActivity;
  * Main Screen.
  */
 public class MainActivity extends BaseActivity
-        implements LoadCartListener, ChangeDomainListener, LoadNotificationListener {
+        implements LoadCartListener, ChangeDomainListener, LoadNotificationListener,
+        LoadOrderHistoryListener {
 
     private static final int DELAY_TIME_TWO_TAP_BACK_BUTTON = 2000;
+    private static final int TAB_PROFILE = 4;
+    private static final int TAB_HOME = 0;
 
     private MainContract.ViewModel mViewModel;
     private Handler mHandler;
     private Runnable mRunnable;
     private boolean mIsDoubleTapBack = false;
     private View mView;
+    private View mViewProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +71,8 @@ public class MainActivity extends BaseActivity
         binding.setViewModel((MainViewModel) mViewModel);
 
         LinearLayout view = (LinearLayout) findViewById(R.id.layout_contain_item);
-        mView = view.getChildAt(0);
+        mView = view.getChildAt(TAB_HOME);
+        mViewProfile = view.getChildAt(TAB_PROFILE);
 
         mHandler = new Handler();
         mRunnable = new Runnable() {
@@ -119,5 +124,10 @@ public class MainActivity extends BaseActivity
     @Override
     public void onReloadNotification() {
         mViewModel.onReloadNotification();
+    }
+
+    @Override
+    public void onLoadOrderHistoryPage() {
+        mViewModel.onLoadOrderHistoryPage(mViewProfile);
     }
 }
