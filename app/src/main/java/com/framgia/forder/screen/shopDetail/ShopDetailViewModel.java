@@ -2,6 +2,7 @@ package com.framgia.forder.screen.shopDetail;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.widget.RatingBar;
 import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
@@ -22,15 +23,17 @@ public class ShopDetailViewModel extends BaseObservable implements ShopDetailCon
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
 
     private static final String TAG = "ProductDetailFragment";
-
-    private ShopDetailContract.Presenter mPresenter;
+    private static final String STATUS_FOLLOW = "follow";
+    private static final String STATUS_UNFOLLOW = "unfollow";
     private final Shop mShop;
     private final ProductShopAdapter mProductShopAdapter;
     private final Navigator mNavigator;
+    private ShopDetailContract.Presenter mPresenter;
     private boolean mIsProgressBarListProductVisible;
     private int mButtonFollow;
     private int mTextFollow;
     private boolean mIsFollow;
+    private boolean mIsClickRating;
 
     ShopDetailViewModel(Shop shop, ProductShopAdapter productShopAdapter, Navigator navigator) {
         mShop = shop;
@@ -38,16 +41,14 @@ public class ShopDetailViewModel extends BaseObservable implements ShopDetailCon
         mNavigator = navigator;
         mProductShopAdapter.setItemClickListener(this);
         setProgressBarListProductVisible(false);
-        //Todo remove later when api update we no need this variable
-        mIsFollow = true;
-        setButtonFollow(R.drawable.border_button_follow);
-        setTextFollow(R.string.follow);
+        getDefaultButtonFollow();
     }
 
     @Override
     public void onStart() {
         mPresenter.onStart();
         mPresenter.getListAllProductShop(mShop.getId());
+        mPresenter.checkFollowShop(mShop.getId());
     }
 
     @Override
@@ -135,6 +136,22 @@ public class ShopDetailViewModel extends BaseObservable implements ShopDetailCon
     }
 
     @Override
+    public void onFollowShopSuccess() {
+    }
+
+    @Override
+    public void onRateShopSuccess() {
+    }
+
+    @Override
+    public void onCheckFollowSuccess(boolean follow) {
+        mIsFollow = follow;
+        setButtonFollow(
+                follow ? R.drawable.border_button_unfollow : R.drawable.border_button_follow);
+        setTextFollow(mIsFollow ? R.string.unfollow : R.string.follow);
+    }
+
+    @Override
     public void onItemRecyclerViewClick(Object item) {
         if (!(item instanceof Product)) {
             return;
@@ -184,10 +201,29 @@ public class ShopDetailViewModel extends BaseObservable implements ShopDetailCon
     }
 
     public void onClickFollow() {
-        //Todo call API in here!
         mIsFollow = !mIsFollow;
         setButtonFollow(
-                mIsFollow ? R.drawable.border_button_follow : R.drawable.border_button_unfollow);
-        setTextFollow(mIsFollow ? R.string.follow : R.string.unfollow);
+                mIsFollow ? R.drawable.border_button_unfollow : R.drawable.border_button_follow);
+        setTextFollow(mIsFollow ? R.string.unfollow : R.string.follow);
+        mPresenter.requestFollowShop(mShop.getId(), mIsFollow ? STATUS_FOLLOW : STATUS_UNFOLLOW);
+    }
+
+    public RatingBar.OnRatingBarChangeListener getChangeRatingBar() {
+        return new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                if (!mIsClickRating) {
+                    mIsClickRating = true;
+                    return;
+                }
+                mPresenter.requestRateShop(mShop.getId(), rating);
+            }
+        };
+    }
+
+    private void getDefaultButtonFollow() {
+        mIsFollow = true;
+        setButtonFollow(R.drawable.border_button_follow);
+        setTextFollow(R.string.follow);
     }
 }

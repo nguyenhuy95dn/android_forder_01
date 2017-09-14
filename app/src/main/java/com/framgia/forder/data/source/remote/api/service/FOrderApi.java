@@ -15,6 +15,7 @@ import com.framgia.forder.data.source.remote.api.request.UpdateShopRequest;
 import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import com.framgia.forder.data.source.remote.api.response.CategoryResponse;
 import com.framgia.forder.data.source.remote.api.response.ChangeRuleOfUserResponse;
+import com.framgia.forder.data.source.remote.api.response.CheckFollowShopResponse;
 import com.framgia.forder.data.source.remote.api.response.CloseOrderResponse;
 import com.framgia.forder.data.source.remote.api.response.CommentResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteDomainResponse;
@@ -260,6 +261,17 @@ public interface FOrderApi {
 
     @GET("v1/shop_domains/0")
     Observable<ShopRequestResponse> getListShopRequest(@Query("domain_id") int domainId);
+
+    @PUT("v1/follow_shops/{shop_id}")
+    Observable<BaseResponse> requestFollowShop(@Path("shop_id") int shopId,
+            @Query("type") String type);
+
+    @POST("v1/rates")
+    Observable<BaseResponse> requestRateShop(@Query("shop_id") int shopId,
+            @Query("rate_point") float ratePoint);
+
+    @GET("v1/follow_shops")
+    Observable<CheckFollowShopResponse> checkFollowShop(@Query("shop_id") int shopId);
 
     @PUT("v1/shop_domains/0")
     Observable<BaseResponse> requestToAcceptRejectShopToDomain(@Query("domain_id") int domainId,
