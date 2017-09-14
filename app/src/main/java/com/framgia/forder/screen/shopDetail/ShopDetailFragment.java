@@ -11,9 +11,11 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.data.source.ProductRepository;
+import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.local.ProductLocalDataSource;
 import com.framgia.forder.data.source.local.realm.RealmApi;
 import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
+import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentShopDetailBinding;
 import com.framgia.forder.screen.productdetail.adapter.ProductShopAdapter;
@@ -50,8 +52,10 @@ public class ShopDetailFragment extends Fragment {
         ProductRepository productRepository = new ProductRepository(
                 new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
                 new ProductLocalDataSource(realmApi));
+        ShopRepository shopRepository =
+                new ShopRepository(new ShopRemoteDataSource(FOrderServiceClient.getInstance()));
         ShopDetailContract.Presenter presenter =
-                new ShopDetailPresenter(mViewModel, productRepository);
+                new ShopDetailPresenter(mViewModel, productRepository, shopRepository);
 
         mViewModel.setPresenter(presenter);
         FragmentShopDetailBinding binding =

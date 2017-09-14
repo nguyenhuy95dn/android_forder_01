@@ -9,6 +9,7 @@ import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainReques
 import com.framgia.forder.data.source.remote.api.request.RegisterShopRequest;
 import com.framgia.forder.data.source.remote.api.request.UpdateShopRequest;
 import com.framgia.forder.data.source.remote.api.response.BaseResponse;
+import com.framgia.forder.data.source.remote.api.response.CheckFollowShopResponse;
 import com.framgia.forder.data.source.remote.api.response.DeleteShopInDomainResponse;
 import com.framgia.forder.data.source.remote.api.response.RegisterShopResponse;
 import com.framgia.forder.data.source.remote.api.response.ShopRequestResponse;
@@ -82,5 +83,17 @@ public class ShopRepository {
     public Observable<BaseResponse> requestToAcceptRejectShopToDomain(int domainId, int shopId,
             String status) {
         return mRemoteDataSource.requestToAcceptRejectShopToDomain(domainId, shopId, status);
+    }
+
+    public Observable<BaseResponse> requestFollowShop(int shopId, String type) {
+        return mRemoteDataSource.requestFollowShop(shopId, type);
+    }
+
+    public Observable<BaseResponse> requestRateShop(int shopId, float ratePoint) {
+        return mRemoteDataSource.requestRateShop(shopId, ratePoint);
+    }
+
+    public Observable<CheckFollowShopResponse> checkFollowShop(int shopId) {
+        return mRemoteDataSource.checkFollowShop(shopId);
     }
 }

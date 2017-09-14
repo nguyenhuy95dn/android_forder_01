@@ -22,6 +22,12 @@ interface ShopDetailContract {
         void onShowProgressBar();
 
         void onHideProgressBar();
+
+        void onFollowShopSuccess();
+
+        void onRateShopSuccess();
+
+        void onCheckFollowSuccess(boolean follow);
     }
 
     /**
@@ -30,5 +36,11 @@ interface ShopDetailContract {
     interface Presenter extends BasePresenter {
 
         void getListAllProductShop(int shopId);
+
+        void requestFollowShop(int shopId, String type);
+
+        void requestRateShop(int shopId, float ratePoint);
+
+        void checkFollowShop(int shopId);
     }
 }
