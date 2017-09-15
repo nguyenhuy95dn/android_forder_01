@@ -26,8 +26,8 @@
             app:recyclerAdapter="@{viewModel.listDomainManagement}"
             />
         <android.support.design.widget.FloatingActionButton
-            android:layout_width="@dimen/dp_70"
-            android:layout_height="@dimen/dp_70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -35,7 +35,7 @@
             android:layout_marginEnd="@dimen/dp_20"
             android:layout_marginRight="@dimen/dp_20"
             android:onClick="@{()-> viewModel.onClickAddDomain()}"
-            app:srcCompat="@drawable/ic_add"
+            app:srcCompat="@drawable/ic_add_white"
             />
         <ProgressBar
             android:layout_width="wrap_content"

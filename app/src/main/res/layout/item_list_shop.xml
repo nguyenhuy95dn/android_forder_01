@@ -56,27 +56,39 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     >
-
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@+id/image_status"
                         android:layout_toStartOf="@+id/image_status"
-                        android:drawableLeft="@drawable/ic_store_24dp"
-                        android:drawablePadding="@dimen/dp_5"
-                        android:drawableStart="@drawable/ic_store_24dp"
-                        android:ellipsize="marquee"
-                        android:gravity="center_vertical"
-                        android:maxLines="1"
-                        android:text="@{viewModel.shopName}"
-                        android:textColor="@color/color_gray_mos"
-                        android:textSize="@dimen/sp_18"
-                        android:textStyle="bold"
-                        />
+                        android:orientation="horizontal"
+                        >
+                        <ImageView
+                            android:layout_width="@dimen/dp_25"
+                            android:layout_height="@dimen/dp_25"
+                            android:ellipsize="marquee"
+                            android:gravity="center_vertical"
+                            app:srcCompat="@drawable/ic_store_24dp"
+                            tools:ignore="ContentDescription"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/dp_5"
+                            android:ellipsize="marquee"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:text="@{viewModel.shopName}"
+                            android:textColor="@color/color_gray_mos"
+                            android:textSize="@dimen/sp_18"
+                            android:textStyle="bold"
+                            />
+                    </LinearLayout>
                     <ImageView
                         android:id="@+id/image_status"
                         android:layout_width="@dimen/dp_35"
                         android:layout_height="@dimen/dp_35"
+                        android:scaleType="fitXY"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginLeft="@dimen/dp_3"
@@ -101,20 +113,31 @@
                     android:layout_marginTop="@dimen/dp_3"
                     android:background="@color/color_orange_light_white"
                     />
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_person_selected"
-                    android:drawablePadding="@dimen/dp_5"
-                    android:drawableStart="@drawable/ic_person_selected"
-                    android:ellipsize="marquee"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:maxLines="1"
-                    android:text="@{viewModel.ownerName}"
-                    android:textColor="@color/color_black"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    android:orientation="horizontal"
+                    tools:ignore="UseCompoundDrawables"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        app:srcCompat="@drawable/ic_person_selected"
+                        tools:ignore="ContentDescription"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:text="@{viewModel.ownerName}"
+                        android:textColor="@color/color_black"
+                        tools:ignore="UnusedAttribute"
+                        />
+                </LinearLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

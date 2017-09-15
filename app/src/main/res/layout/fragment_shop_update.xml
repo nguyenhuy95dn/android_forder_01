@@ -42,9 +42,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:drawableLeft="@drawable/ic_store_24dp"
+                    android:drawableLeft="@drawable/ic_store_orange"
                     android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@drawable/ic_store_24dp"
+                    android:drawableStart="@drawable/ic_store_orange"
                     android:text="@={viewModel.name}"
                     app:errorText="@{viewModel.nameError}"
                     tools:ignore="TextFields"
@@ -53,9 +53,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:drawableLeft="@drawable/ic_description_note"
+                    android:drawableLeft="@drawable/ic_description_orange_note_orange_mos"
                     android:drawablePadding="@dimen/dp_10"
-                    android:drawableStart="@drawable/ic_description_note"
+                    android:drawableStart="@drawable/ic_description_orange_note_orange_mos"
                     android:text="@={viewModel.description}"
                     app:errorText="@{viewModel.descriptionError}"
                     tools:ignore="TextFields"
@@ -75,8 +75,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:drawableLeft="@drawable/ic_time"
-                            android:drawableStart="@drawable/ic_time"
+                            android:drawableLeft="@drawable/ic_time_orange"
+                            android:drawableStart="@drawable/ic_time_orange"
                             android:gravity="center_vertical"
                             android:text="@string/open_time"
                             android:textColor="@color/black"
@@ -110,16 +110,25 @@
                         android:layout_marginTop="@dimen/dp_10"
                         android:orientation="horizontal"
                         >
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:drawableLeft="@drawable/ic_cart_shop"
-                            android:drawableStart="@drawable/ic_cart_shop"
-                            android:gravity="center_vertical"
-                            android:text="@string/open_daily"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            />
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/ic_cart_shop"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="@string/open_daily"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                />
+                        </LinearLayout>
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -132,8 +141,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_40"
-                        android:drawableLeft="@drawable/ic_time"
-                        android:drawableStart="@drawable/ic_time"
+                        android:drawableLeft="@drawable/ic_time_orange"
+                        android:drawableStart="@drawable/ic_time_orange"
                         android:gravity="center_vertical"
                         android:text="@string/time_automatically_refused_order"
                         android:textColor="@color/black"
@@ -179,21 +188,34 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     >
-                    <TextView
+                    <LinearLayout
                         android:id="@+id/text_avatar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_2"
                         android:layout_marginStart="@dimen/dp_2"
                         android:layout_marginTop="@dimen/dp_10"
-                        android:drawableLeft="@drawable/ic_image_photo"
-                        android:drawablePadding="@dimen/dp_10"
-                        android:drawableStart="@drawable/ic_image_photo"
-                        android:gravity="center_vertical"
-                        android:text="@string/avatar"
-                        android:textColor="@color/color_black"
-                        android:textStyle="bold"
-                        />
+                        tools:ignore="UseCompoundDrawables"
+                        >
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/dp_10"
+                            android:gravity="center_vertical"
+                            app:srcCompat="@drawable/ic_image_photo"
+                            tools:ignore="ContentDescription"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/dp_5"
+                            android:layout_marginStart="@dimen/dp_5"
+                            android:text="@string/avatar"
+                            android:textColor="@color/color_black"
+                            android:textStyle="bold"
+                            />
+                    </LinearLayout>
                     <ImageView
                         android:id="@+id/image_avatar"
                         android:layout_width="@dimen/dp_100"
@@ -211,12 +233,13 @@
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
+                        android:layout_alignTop="@+id/image_avatar"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/dp_20"
-                        android:layout_marginStart="@dimen/dp_20"
+                        android:layout_marginLeft="19dp"
+                        android:layout_marginStart="19dp"
                         android:layout_toEndOf="@+id/image_avatar"
                         android:layout_toRightOf="@+id/image_avatar"
+                        android:background="@color/transparent"
                         android:contentDescription="@string/avatar"
                         android:onClick="@{()-> viewModel.onClickChooseAvatar()}"
                         app:srcCompat="@drawable/ic_add_image"
@@ -228,21 +251,31 @@
                     android:layout_marginBottom="@dimen/dp_20"
                     android:gravity="center"
                     >
-                    <TextView
+                    <LinearLayout
                         android:id="@+id/text_image_cover"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_2"
                         android:layout_marginStart="@dimen/dp_2"
                         android:layout_marginTop="@dimen/dp_10"
-                        android:drawableLeft="@drawable/ic_image_photo"
-                        android:drawablePadding="@dimen/dp_10"
-                        android:drawableStart="@drawable/ic_image_photo"
-                        android:gravity="center_vertical"
-                        android:text="@string/cover_image"
-                        android:textColor="@color/color_black"
-                        android:textStyle="bold"
-                        />
+                        >
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/ic_image_photo"
+                            tools:ignore="ContentDescription"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/dp_5"
+                            android:layout_marginStart="@dimen/dp_5"
+                            android:text="@string/cover_image"
+                            android:textColor="@color/color_black"
+                            android:textStyle="bold"
+                            />
+                    </LinearLayout>
                     <ImageView
                         android:id="@+id/image_cover"
                         android:layout_width="@dimen/dp_250"
@@ -273,6 +306,7 @@
                         android:layout_marginStart="@dimen/dp_10"
                         android:layout_toEndOf="@+id/image_cover"
                         android:layout_toRightOf="@+id/image_cover"
+                        android:background="@color/transparent"
                         android:onClick="@{()-> viewModel.onClickChooseCoverImage()}"
                         app:srcCompat="@drawable/ic_add_image"
                         tools:ignore="ContentDescription,RelativeOverlap"

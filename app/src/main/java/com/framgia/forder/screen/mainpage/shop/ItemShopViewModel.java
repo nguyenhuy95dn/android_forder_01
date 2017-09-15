@@ -87,10 +87,10 @@ public class ItemShopViewModel extends BaseObservable {
     private void initValueImageStatus() {
         switch (mShop.getStatus()) {
             case STATUS_ACTIVE:
-                setStatusShop(R.drawable.ic_open_shop);
+                setStatusShop(R.drawable.ic_open_status);
                 break;
             case STATUS_INACTIVE:
-                setStatusShop(R.drawable.ic_close_shop);
+                setStatusShop(R.drawable.ic_close_status);
                 break;
             default:
                 break;

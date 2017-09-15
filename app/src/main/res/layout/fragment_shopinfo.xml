@@ -102,27 +102,38 @@
                             android:layout_alignParentBottom="true"
                             android:background="@color/color_white"
                             />
-
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/dp_50"
+                            android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
                             android:layout_toEndOf="@+id/image_shop"
                             android:layout_toRightOf="@+id/image_shop"
-                            android:drawableEnd="@drawable/ic_stars"
-                            android:drawablePadding="@dimen/dp_5"
-                            android:drawableRight="@drawable/ic_stars"
-                            android:gravity="center_vertical"
-                            android:paddingEnd="@dimen/dp_10"
-                            android:paddingLeft="@dimen/dp_10"
-                            android:paddingRight="@dimen/dp_10"
-                            android:paddingStart="@dimen/dp_10"
-                            android:text="@{viewModel.rating}"
-                            android:textColor="@color/color_red_mos"
-                            android:textSize="@dimen/sp_20"
+                            android:orientation="horizontal"
                             tools:ignore="RelativeOverlap"
-                            />
-
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/dp_50"
+                                android:gravity="center_vertical"
+                                android:paddingEnd="@dimen/dp_10"
+                                android:paddingLeft="@dimen/dp_10"
+                                android:paddingRight="@dimen/dp_10"
+                                android:paddingStart="@dimen/dp_10"
+                                android:text="@{viewModel.rating}"
+                                android:textColor="@color/color_red_mos"
+                                android:textSize="@dimen/sp_20"
+                                tools:ignore="RelativeOverlap"
+                                />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/dp_50"
+                                android:paddingEnd="@dimen/dp_10"
+                                android:paddingLeft="@dimen/dp_2"
+                                android:paddingRight="@dimen/dp_10"
+                                android:paddingStart="@dimen/dp_2"
+                                app:srcCompat="@drawable/ic_stars"
+                                />
+                        </LinearLayout>
                         <ImageView
                             android:id="@+id/image_shop"
                             android:layout_width="@dimen/dp_150"
@@ -150,7 +161,7 @@
                             android:background="@color/transparent"
                             android:contentDescription="@string/edit"
                             android:onClick="@{() -> viewModel.onClickEditShop()}"
-                            android:src="@drawable/ic_edits"
+                            app:srcCompat="@drawable/ic_edits"
                             tools:ignore="VectorDrawableCompat"
                             />
                     </RelativeLayout>
@@ -187,8 +198,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/border_button"
-                        android:backgroundTint="@color/color_red_mos"
+                        android:background="@drawable/border_button_red"
                         android:gravity="center"
                         android:onClick="@{() -> viewModel.onClickListOrderShop()}"
                         android:text="@string/list_order"
@@ -209,8 +219,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/border_button"
-                        android:backgroundTint="@color/color_blue_light"
+                        android:background="@drawable/border_button_blue_light"
                         android:gravity="center"
                         android:onClick="@{() -> viewModel.onClickOrderHistory()}"
                         android:text="@string/order_history"
@@ -242,7 +251,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_timer_off"
+                        android:drawableTop="@drawable/ic_timer_off_red_mos"
                         android:gravity="center"
                         android:text="@{viewModel.timeReject}"
                         android:textColor="@color/color_gray"
@@ -254,7 +263,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:drawableTop="@drawable/ic_store_24dp"
+                        android:drawableTop="@drawable/ic_store_orange"
                         android:gravity="center"
                         android:text="@{viewModel.shopName}"
                         android:textColor="@color/color_gray"
@@ -266,7 +275,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_time"
+                        android:drawableTop="@drawable/ic_time_orange"
                         android:gravity="center"
                         android:text="@{viewModel.timeOpenShop}"
                         android:textColor="@color/color_gray"
@@ -309,8 +318,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_public"
-                    android:drawableStart="@drawable/ic_public"
+                    android:drawableLeft="@drawable/ic_public_orange"
+                    android:drawableStart="@drawable/ic_public_orange"
                     android:gravity="center_vertical"
                     android:text="@string/list_domain"
                     android:textColor="@color/color_black"

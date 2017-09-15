@@ -289,9 +289,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_label"
+                        android:drawableLeft="@drawable/ic_label_orange"
                         android:drawablePadding="@dimen/dp_5"
-                        android:drawableStart="@drawable/ic_label"
+                        android:drawableStart="@drawable/ic_label_orange"
                         android:gravity="center_vertical"
                         android:text="@string/products_shop"
                         android:textColor="@color/dark_gray"

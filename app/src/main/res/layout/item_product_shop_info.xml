@@ -57,9 +57,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:drawableLeft="@drawable/ic_label"
+                        android:drawableLeft="@drawable/ic_label_orange"
                         android:drawablePadding="@dimen/dp_5"
-                        android:drawableStart="@drawable/ic_label"
+                        android:drawableStart="@drawable/ic_label_orange"
                         android:ellipsize="marquee"
                         android:gravity="center_vertical"
                         android:maxLines="1"
@@ -107,9 +107,9 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_weight="1"
-                            android:drawableLeft="@drawable/ic_time"
+                            android:drawableLeft="@drawable/ic_time_orange"
                             android:drawablePadding="@dimen/dp_2"
-                            android:drawableStart="@drawable/ic_time"
+                            android:drawableStart="@drawable/ic_time_orange"
                             android:ellipsize="marquee"
                             android:gravity="center_vertical"
                             android:maxLines="1"
@@ -127,12 +127,13 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="top"
-                    android:background="@drawable/ic_edits"
+                    android:background="@color/transparent"
+                    app:srcCompat="@drawable/ic_edits"
                     android:onClick="@{()-> viewModel.onClickUpdateProduct()}"
                     tools:ignore="ContentDescription"
                     />
 
-                <ImageButton
+                <ImageView
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
                     android:layout_alignParentBottom="true"
@@ -140,7 +141,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="bottom"
-                    android:background="@drawable/ic_reject"
+                    app:srcCompat="@drawable/ic_reject"
                     android:contentDescription="@string/mgs_delete_product"
                     android:onClick="@{()-> viewModel.onClickDeleteProduct()}"
                     />

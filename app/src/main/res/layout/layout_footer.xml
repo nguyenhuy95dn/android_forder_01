@@ -36,8 +36,7 @@
                 style="@style/StyleTabFooter"
                 >
                 <ImageView
-                    android:src="@drawable/selected_ic_home"
-                    app:srcCompat="@drawable/ic_home"
+                    app:srcCompat="@drawable/selected_ic_home"
                     tools:ignore="ContentDescription"
                     style="@style/StyleImageViewTabFooter"
                     />
@@ -53,8 +52,7 @@
                 style="@style/StyleTabFooter"
                 >
                 <ImageView
-                    android:src="@drawable/selected_ic_search"
-                    app:srcCompat="@drawable/ic_search"
+                    app:srcCompat="@drawable/selected_ic_search"
                     tools:ignore="ContentDescription"
                     style="@style/StyleImageViewTabFooter"
                     />
@@ -77,8 +75,7 @@
                     android:layout_height="wrap_content"
                     >
                     <ImageView
-                        android:src="@drawable/selected_ic_notifications"
-                        app:srcCompat="@drawable/ic_notifications"
+                        app:srcCompat="@drawable/selected_ic_notifications"
                         tools:ignore="ContentDescription"
                         style="@style/StyleImageViewTabFooter"
                         />
@@ -88,8 +85,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="end"
-                        android:background="@drawable/circle_number_of_product"
-                        android:backgroundTint="@color/color_red_mos"
+                        android:background="@drawable/circle_number_of_product_red"
                         android:ellipsize="marquee"
                         android:gravity="center"
                         android:maxLines="1"
@@ -113,8 +109,7 @@
                 style="@style/StyleTabFooter"
                 >
                 <ImageView
-                    android:src="@drawable/selected_ic_profile"
-                    app:srcCompat="@drawable/ic_person"
+                    app:srcCompat="@drawable/selected_ic_profile"
                     tools:ignore="ContentDescription"
                     style="@style/StyleImageViewTabFooter"
                     />
@@ -136,9 +131,9 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
                 android:background="@drawable/center_tab_footer"
-                android:scaleType="center"
-                android:src="@drawable/selected_ic_cart"
-                app:srcCompat="@drawable/ic_cart"
+                android:padding="@dimen/dp_10"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/selected_ic_cart"
                 tools:ignore="ContentDescription,ObsoleteLayoutParam"
                 />
             <TextView
@@ -151,8 +146,7 @@
                 android:layout_marginLeft="@dimen/dp_1"
                 android:layout_marginRight="@dimen/dp_1"
                 android:layout_marginStart="@dimen/dp_1"
-                android:background="@drawable/circle_number_of_product"
-                android:backgroundTint="@color/color_orange_mos"
+                android:background="@drawable/circle_number_of_product_orange"
                 android:ellipsize="marquee"
                 android:gravity="center"
                 android:maxLines="1"

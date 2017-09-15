@@ -58,7 +58,7 @@
                             android:layout_marginEnd="@dimen/dp_15"
                             android:layout_marginRight="@dimen/dp_15"
                             android:onClick="@{()-> viewModel.onClickBack()}"
-                            android:src="@drawable/nav_back"
+                            app:srcCompat="@drawable/nav_back"
                             tools:ignore="ContentDescription,VectorDrawableCompat"
                             />
                     </android.support.v7.widget.Toolbar>

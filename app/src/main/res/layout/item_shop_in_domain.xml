@@ -72,9 +72,8 @@
                                     android:id="@+id/image_shop"
                                     android:layout_width="@dimen/dp_25"
                                     android:layout_height="@dimen/dp_25"
-                                    android:background="@drawable/ic_store_red_500"
-                                    android:backgroundTint="@color/color_orange_mos"
                                     android:scaleType="center"
+                                    app:srcCompat="@drawable/ic_store_orange"
                                     tools:ignore="ContentDescription,UnusedAttribute"
                                     />
                                 <TextView
@@ -124,7 +123,7 @@
                                 <ImageView
                                     android:layout_width="@dimen/dp_25"
                                     android:layout_height="@dimen/dp_25"
-                                    android:background="@drawable/ic_local_dining_24dp"
+                                    app:srcCompat="@drawable/ic_local_dining_24dp"
                                     tools:ignore="ContentDescription"
                                     />
                                 <TextView
@@ -147,8 +146,7 @@
                                 <ImageView
                                     android:layout_width="@dimen/dp_25"
                                     android:layout_height="@dimen/dp_25"
-                                    android:background="@drawable/ic_person_red_500"
-                                    android:backgroundTint="@color/color_orange_mos"
+                                    android:background="@drawable/ic_person_selected_orange"
                                     tools:ignore="ContentDescription,UnusedAttribute"
                                     />
                                 <TextView
@@ -194,12 +192,13 @@
                             android:layout_height="@dimen/dp_30"
                             android:layout_gravity="center"
                             android:layout_margin="@dimen/dp_5"
-                            android:background="@drawable/ic_delete"
+                            android:background="@color/transparent"
                             android:onClick="@{() -> viewModel.onClickDeleteShop()}"
                             android:scaleType="centerCrop"
                             android:textColor="@color/color_white"
                             android:textSize="@dimen/sp_10"
                             android:visibility="@{viewModel.owner ? View.VISIBLE : View.GONE}"
+                            app:srcCompat="@drawable/ic_delete"
                             tools:ignore="ContentDescription,SpUsage"
                             />
                     </LinearLayout>

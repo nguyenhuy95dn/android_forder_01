@@ -31,8 +31,8 @@
             style="?android:attr/progressBarPadding"
             />
         <android.support.design.widget.FloatingActionButton
-            android:layout_width="@dimen/dp_70"
-            android:layout_height="@dimen/dp_70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -41,7 +41,7 @@
             android:layout_marginRight="@dimen/dp_20"
             android:onClick="@{() -> viewModel.onClickAddShopInDomain()}"
             android:visibility="@{viewModel.owner ? View.VISIBLE : View.GONE}"
-            app:srcCompat="@drawable/ic_add"
+            app:srcCompat="@drawable/ic_add_white"
             />
     </RelativeLayout>
 </layout>
