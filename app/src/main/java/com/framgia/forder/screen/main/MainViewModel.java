@@ -17,6 +17,7 @@ import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.Notification;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.mainpage.MainPageFragment;
+import com.framgia.forder.screen.orderhistory.OrderHistoryFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.ArrayList;
 import java.util.List;
@@ -279,6 +280,16 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     @Override
     public void readAllNotificationError(BaseException exception) {
         //TOdo show message
+    }
+
+    @Override
+    public void onLoadOrderHistoryPage(View viewProfile) {
+        setCurrentTab(Tab.TAB_PROFILE);
+        Navigator navigator = new Navigator(mViewPagerAdapter.getFragment(Tab.TAB_PROFILE));
+        navigator.goBackFragmentByTag("ProfilePageFragment", Tab.TAB_PROFILE);
+        navigator.goNextChildFragment(R.id.layout_content, OrderHistoryFragment.newInstance(), true,
+                Navigator.RIGHT_LEFT, TAG);
+        setTabSelected(viewProfile);
     }
 
     @IntDef({ Tab.TAB_HOME, Tab.TAB_SEARCH, Tab.TAB_CART, Tab.TAB_NOTIFICATION, Tab.TAB_PROFILE })

@@ -10,6 +10,7 @@ import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.main.LoadCartListener;
+import com.framgia.forder.screen.main.LoadOrderHistoryListener;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
@@ -33,14 +34,17 @@ public class ShoppingCartViewModel extends BaseObservable
     private List<Cart> mCartList;
     private Cart mCart;
     private LoadCartListener mLoadCartListener;
+    private LoadOrderHistoryListener mLoadOrderHistoryListener;
 
     ShoppingCartViewModel(ShoppingCartAdapter shoppingCartAdapter, DialogManager dialogManager,
-            Navigator navigator, LoadCartListener loadCartListener) {
+            Navigator navigator, LoadCartListener loadCartListener,
+            LoadOrderHistoryListener loadOrderHistoryListener) {
         mShoppingCartAdapter = shoppingCartAdapter;
         shoppingCartAdapter.setOrderItemListener(this);
         mDialogManager = dialogManager;
         mNavigator = navigator;
         mLoadCartListener = loadCartListener;
+        mLoadOrderHistoryListener = loadOrderHistoryListener;
     }
 
     @Override
@@ -214,6 +218,7 @@ public class ShoppingCartViewModel extends BaseObservable
     public void onRemoveShopSuccessful() {
         reloadData();
         mLoadCartListener.onReloadCart();
+        mLoadOrderHistoryListener.onLoadOrderHistoryPage();
     }
 
     @Override

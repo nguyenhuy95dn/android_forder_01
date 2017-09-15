@@ -42,6 +42,8 @@ interface MainContract {
         void readAllNotificationSuccess();
 
         void readAllNotificationError(BaseException exception);
+
+        void onLoadOrderHistoryPage(View viewProfile);
     }
 
     /**
