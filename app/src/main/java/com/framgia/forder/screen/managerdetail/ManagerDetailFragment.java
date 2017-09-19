@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
-import com.framgia.forder.data.model.User;
+import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
 import com.framgia.forder.databinding.FragmentManagerdetailBinding;
 import com.framgia.forder.utils.navigator.Navigator;
 
@@ -20,10 +20,10 @@ public class ManagerDetailFragment extends Fragment {
     private static final String EXTRA_MANAGER = "EXTRA_MANAGER";
     private ManagerDetailContract.ViewModel mViewModel;
 
-    public static ManagerDetailFragment newInstance(User user) {
+    public static ManagerDetailFragment newInstance(ManagerResponse.ManagerDetail managerDetail) {
         ManagerDetailFragment managerDetailFragment = new ManagerDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(EXTRA_MANAGER, user);
+        bundle.putParcelable(EXTRA_MANAGER, managerDetail);
         managerDetailFragment.setArguments(bundle);
         return managerDetailFragment;
     }
@@ -32,8 +32,9 @@ public class ManagerDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Navigator navigator = new Navigator(getParentFragment());
-        User user = (User) getArguments().get(EXTRA_MANAGER);
-        mViewModel = new ManagerDetailViewModel(navigator, user);
+        ManagerResponse.ManagerDetail managerDetail =
+                (ManagerResponse.ManagerDetail) getArguments().get(EXTRA_MANAGER);
+        mViewModel = new ManagerDetailViewModel(navigator, managerDetail);
 
         ManagerDetailContract.Presenter presenter = new ManagerDetailPresenter(mViewModel);
         mViewModel.setPresenter(presenter);

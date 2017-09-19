@@ -59,8 +59,8 @@
                         android:layout_width="@dimen/dp_30"
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center_horizontal"
-                        app:srcCompat="@drawable/ic_manager_in_domain"
                         android:visibility="@{viewModel.visibleRole ? View.VISIBLE : View.GONE}"
+                        app:srcCompat="@drawable/ic_manager_in_domain"
                         tools:ignore="ContentDescription,VectorDrawableCompat"
                         />
                     <TextView
@@ -239,6 +239,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@{viewModel.status}"
+                            android:textColor="@color/color_green"
+                            android:textStyle="bold"
                             />
                     </LinearLayout>
                 </LinearLayout>

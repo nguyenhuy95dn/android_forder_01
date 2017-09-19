@@ -1,7 +1,6 @@
 package com.framgia.forder.screen.shopinfo;
 
 import android.util.Log;
-import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
@@ -9,6 +8,7 @@ import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.response.BaseResponse;
 import com.framgia.forder.data.source.remote.api.response.DomainToRequestShopResponse;
+import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -63,10 +63,10 @@ final class ShopinfoPresenter implements ShopinfoContract.Presenter {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<List<User>>() {
+                .subscribe(new Action1<List<ManagerResponse.ManagerDetail>>() {
                     @Override
-                    public void call(List<User> users) {
-                        mViewModel.onGetListManagerOfShopSuccess(users);
+                    public void call(List<ManagerResponse.ManagerDetail> managerDetails) {
+                        mViewModel.onGetListManagerOfShopSuccess(managerDetails);
                     }
                 }, new SafetyError() {
                     @Override

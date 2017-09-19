@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.framgia.forder.R;
-import com.framgia.forder.data.model.User;
+import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
 import com.framgia.forder.databinding.ItemManagerBinding;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import java.util.ArrayList;
@@ -20,8 +20,8 @@ import java.util.List;
 public class ManagerShopInfoAdapter
         extends BaseRecyclerViewAdapter<ManagerShopInfoAdapter.ItemViewHolder> {
 
-    private final List<User> mUsers;
-    private OnRecyclerViewItemClickListener<User> mItemClickListener;
+    private final List<ManagerResponse.ManagerDetail> mUsers;
+    private OnRecyclerViewItemClickListener<ManagerResponse.ManagerDetail> mItemClickListener;
 
     ManagerShopInfoAdapter(@NonNull Context context) {
         super(context);
@@ -37,7 +37,8 @@ public class ManagerShopInfoAdapter
         return new ManagerShopInfoAdapter.ItemViewHolder(binding, mItemClickListener);
     }
 
-    public void setItemClickListener(OnRecyclerViewItemClickListener<User> itemClickListener) {
+    public void setItemClickListener(
+            OnRecyclerViewItemClickListener<ManagerResponse.ManagerDetail> itemClickListener) {
         mItemClickListener = itemClickListener;
     }
 
@@ -51,7 +52,7 @@ public class ManagerShopInfoAdapter
         return mUsers.size();
     }
 
-    public void updateData(List<User> users) {
+    public void updateData(List<ManagerResponse.ManagerDetail> users) {
         if (users == null) {
             return;
         }
@@ -63,17 +64,20 @@ public class ManagerShopInfoAdapter
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemManagerBinding mBinding;
-        private final OnRecyclerViewItemClickListener<User> mItemClickListener;
+        private final OnRecyclerViewItemClickListener<ManagerResponse.ManagerDetail>
+                mItemClickListener;
 
         ItemViewHolder(ItemManagerBinding binding,
-                BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<User> listener) {
+                BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<ManagerResponse
+                        .ManagerDetail> listener) {
             super(binding.getRoot());
             mBinding = binding;
             mItemClickListener = listener;
         }
 
-        void bind(User users) {
-            mBinding.setViewModel(new ItemManagerShopInfoViewModel(users, mItemClickListener));
+        void bind(ManagerResponse.ManagerDetail managerDetail) {
+            mBinding.setViewModel(
+                    new ItemManagerShopInfoViewModel(managerDetail, mItemClickListener));
             mBinding.executePendingBindings();
         }
     }
