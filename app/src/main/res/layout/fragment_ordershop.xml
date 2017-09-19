@@ -158,19 +158,30 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/dp_5"
                 >
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:drawableLeft="@drawable/ic_cart_selected_orange"
-                    android:drawableStart="@drawable/ic_cart_selected_orange"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content"
                     android:onClick="@{() -> viewModel.onClickCloseOrder()}"
-                    android:text="@string/close_order"
-                    android:textColor="@color/color_red_mos"
-                    android:textStyle="bold"
-                    tools:ignore="ContentDescription,UnusedAttribute"
-                    />
+                    tools:ignore="UseCompoundDrawables"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/ic_cart_selected_orange"
+                        tools:ignore="ContentDescription"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:text="@string/close_order"
+                        android:textColor="@color/color_red_mos"
+                        android:textSize="@dimen/sp_13"
+                        android:textStyle="bold"
+                        tools:ignore="ContentDescription,UnusedAttribute"
+                        />
+                </LinearLayout>
                 <TextView
                     android:id="@+id/text_reject"
                     android:layout_width="wrap_content"
@@ -180,7 +191,6 @@
                     android:layout_toLeftOf="@+id/text_accept"
                     android:layout_toStartOf="@+id/text_accept"
                     android:drawableLeft="@drawable/ic_cancel_red"
-                    android:drawablePadding="@dimen/dp_2"
                     android:drawableStart="@drawable/ic_cancel_red"
                     android:gravity="center_vertical"
                     android:onClick="@{() -> viewModel.onClickRejectAllOrder()}"
@@ -190,6 +200,7 @@
                     android:paddingStart="@dimen/dp_5"
                     android:text="@string/reject_all"
                     android:textColor="@color/color_red_mos"
+                    android:textSize="@dimen/sp_13"
                     android:textStyle="bold"
                     tools:ignore="RelativeOverlap"
                     />
@@ -209,6 +220,7 @@
                     android:paddingStart="@dimen/dp_5"
                     android:text="@string/accept_all"
                     android:textColor="@color/color_orange_mos"
+                    android:textSize="@dimen/sp_13"
                     android:textStyle="bold"
                     tools:ignore="RelativeOverlap"
                     />

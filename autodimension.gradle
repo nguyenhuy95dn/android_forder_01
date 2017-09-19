@@ -320,11 +320,11 @@ task createDimen(type: DimenFactory) {}
 
 createDimen {
   dimens = [320, 360, 384, 411, 480, 540, 600, 720, 800, 1024, 1080, 1280, 1440, 2560, 3840];
-  fromDimen = 360
+  fromDimen = 411
   positiveMaxDP = 200 //change to 600 or any other value if needed
   positiveMaxSP = 60 //change to 600 or any other value if needed
   negativeMaxDP = 60 //change to 600 or any other value if needed
   negativeMaxSP = 20 //change to 600 or any other value if needed
   type = DimenType.FROM_DIMEN_FILE
-  dimenFileName = 'values-sw360dp/auto_dimens.xml' // name of file, for type = DimenType.FROM_DIMEN_FILE only
+  dimenFileName = 'values-sw411dp/auto_dimens.xml' // name of file, for type = DimenType.FROM_DIMEN_FILE only
 }
