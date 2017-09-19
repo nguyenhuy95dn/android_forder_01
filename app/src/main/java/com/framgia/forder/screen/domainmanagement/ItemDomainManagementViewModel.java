@@ -39,13 +39,13 @@ public class ItemDomainManagementViewModel extends BaseObservable {
     private void initValueStatus() {
         switch (mDomainManagement.getStatus()) {
             case SECRET_STATUS:
-                mImageStatus = R.drawable.ic_lock;
+                mImageStatus = R.drawable.ic_lock_orange;
                 break;
             case PROFESSED_STATUS:
-                mImageStatus = R.drawable.ic_public;
+                mImageStatus = R.drawable.ic_public_orange;
                 break;
             case DEFAULT_STATUS:
-                mImageStatus = R.drawable.ic_lock;
+                mImageStatus = R.drawable.ic_lock_orange;
                 break;
             default:
                 break;

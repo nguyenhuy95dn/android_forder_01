@@ -113,7 +113,7 @@
                     android:layout_width="@dimen/dp_35"
                     android:layout_height="@dimen/dp_35"
                     android:layout_gravity="bottom"
-                    android:background="@drawable/ic_cart_shop"
+                    app:srcCompat="@drawable/ic_cart_shop"
                     android:gravity="center_horizontal"
                     tools:ignore="ContentDescription"
                     />
@@ -125,8 +125,7 @@
                     android:layout_marginLeft="@dimen/dp_1"
                     android:layout_marginRight="@dimen/dp_1"
                     android:layout_marginStart="@dimen/dp_1"
-                    android:background="@drawable/circle_number_of_product"
-                    android:backgroundTint="@color/color_gray_white"
+                    android:background="@drawable/circle_number_of_product_gray"
                     android:ellipsize="marquee"
                     android:gravity="center"
                     android:maxLines="1"

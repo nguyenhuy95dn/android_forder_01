@@ -61,12 +61,12 @@
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 >
-                <ImageButton
+                <ImageView
                     android:id="@+id/button_down_quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/ic_remove_black"
+                    app:srcCompat="@drawable/ic_remove_black"
                     android:onClick="@{()-> viewModel.downQuantity()}"
                     tools:ignore="ContentDescription,UnusedAttribute"
                     />
@@ -93,12 +93,12 @@
                     android:layout_margin="@dimen/dp_5"
                     android:background="@color/color_black"
                     />
-                <ImageButton
+                <ImageView
                     android:id="@+id/button_up_quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/ic_add_black"
+                    app:srcCompat="@drawable/ic_add_black"
                     android:onClick="@{()-> viewModel.upQuantity()}"
                     tools:ignore="ContentDescription,UnusedAttribute"
                     />

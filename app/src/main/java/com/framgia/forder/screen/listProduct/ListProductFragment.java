@@ -58,14 +58,18 @@ public class ListProductFragment extends Fragment {
         String[] sortByArray = getResources().getStringArray(R.array.sort_by);
         List<String> categories = new ArrayList<>();
         ArrayAdapter<String> adapterPrice =
-                new ArrayAdapter<>(getActivity(), android.R.layout.simple_selectable_list_item,
+                new ArrayAdapter<>(getActivity(), R.layout.spinner_item_text_color_default,
                         priceArray);
         ArrayAdapter<String> adapterCategory =
-                new ArrayAdapter<>(getActivity(), android.R.layout.simple_selectable_list_item,
+                new ArrayAdapter<>(getActivity(), R.layout.spinner_item_text_color_default,
                         categories);
         ArrayAdapter<String> adapterSort =
-                new ArrayAdapter<>(getActivity(), android.R.layout.simple_selectable_list_item,
+                new ArrayAdapter<>(getActivity(), R.layout.spinner_item_text_color_default,
                         sortByArray);
+
+        adapterPrice.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        adapterCategory.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        adapterSort.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
         mViewModel = new ListProductViewModel(productAdapter, navigator, dialogManager,
                 mLoadCartListener, adapterPrice, adapterCategory, adapterSort);

@@ -75,9 +75,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/dp_30"
                                 android:layout_marginRight="@dimen/dp_30"
-                                android:drawableLeft="@drawable/ic_store_24dp"
+                                android:drawableLeft="@drawable/ic_store_orange"
                                 android:drawablePadding="@dimen/dp_5"
-                                android:drawableStart="@drawable/ic_store_24dp"
+                                android:drawableStart="@drawable/ic_store_orange"
                                 android:fontFamily="@string/font_serif"
                                 android:gravity="center_vertical"
                                 android:padding="@dimen/dp_5"
@@ -88,17 +88,14 @@
                                 tools:ignore="UnusedAttribute"
                                 />
 
-                            <ImageButton
+                            <ImageView
                                 android:layout_width="@dimen/dp_35"
                                 android:layout_height="@dimen/dp_35"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:background="@color/transparent"
-                                android:drawableEnd="@drawable/ic_next_fragment"
-                                android:drawableRight="@drawable/ic_next_fragment"
                                 android:onClick="@{() -> viewModel.onSeeMoreShopClick()}"
-                                app:srcCompat="@drawable/ic_next_fragment"
+                                app:srcCompat="@drawable/ic_next_fragment_orange"
                                 tools:ignore="ContentDescription"
                                 />
                         </RelativeLayout>
@@ -156,9 +153,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/view_top"
                     android:background="@color/color_white"
-                    android:drawableLeft="@drawable/ic_label"
+                    android:drawableLeft="@drawable/ic_label_orange"
                     android:drawablePadding="@dimen/dp_5"
-                    android:drawableStart="@drawable/ic_label"
+                    android:drawableStart="@drawable/ic_label_orange"
                     android:fontFamily="@string/font_serif"
                     android:gravity="center_vertical"
                     android:padding="@dimen/dp_5"
@@ -233,9 +230,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/dp_30"
                             android:layout_marginRight="@dimen/dp_30"
-                            android:drawableLeft="@drawable/ic_local_dining_24dp"
+                            android:drawableLeft="@drawable/ic_local_dining_orange"
                             android:drawablePadding="@dimen/dp_5"
-                            android:drawableStart="@drawable/ic_local_dining_24dp"
+                            android:drawableStart="@drawable/ic_local_dining_orange"
                             android:fontFamily="@string/font_serif"
                             android:gravity="center_vertical"
                             android:padding="@dimen/dp_5"
@@ -246,18 +243,16 @@
                             tools:ignore="UnusedAttribute"
                             />
 
-                        <ImageButton
+                        <ImageView
                             android:layout_width="@dimen/dp_35"
                             android:layout_height="@dimen/dp_35"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
                             android:background="@color/transparent"
-                            android:drawableEnd="@drawable/ic_next_fragment"
-                            android:drawableRight="@drawable/ic_next_fragment"
                             android:onClick="@{() -> viewModel.onSeeMoreProductClick()}"
-                            app:srcCompat="@drawable/ic_next_fragment"
+                            app:srcCompat="@drawable/ic_next_fragment_orange"
                             tools:ignore="ContentDescription"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
                             />
 
                         <View

@@ -76,24 +76,24 @@
             android:layout_marginTop="@dimen/dp_10"
             android:visibility="@{viewModel.authority ? View.VISIBLE : View.GONE}"
             >
-            <ImageButton
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:background="@drawable/ic_three_dots"
                 android:scaleType="centerCrop"
                 android:visibility="@{viewModel.member ? View.VISIBLE : View.GONE}"
                 app:showPopupMenuRuleOfOwner="@{viewModel::onMenuItemClick}"
+                app:srcCompat="@drawable/ic_three_dots"
                 tools:ignore="ContentDescription"
                 />
-            <ImageButton
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:background="@drawable/ic_three_dots"
                 android:scaleType="centerCrop"
                 android:visibility="@{viewModel.manager ? View.VISIBLE : View.GONE}"
                 app:showPopupMenuCancelManager="@{viewModel::onMenuItemClickCancelManager}"
+                app:srcCompat="@drawable/ic_three_dots"
                 tools:ignore="ContentDescription"
                 />
         </FrameLayout>
@@ -106,8 +106,8 @@
             android:layout_marginBottom="@dimen/dp_20"
             android:layout_marginEnd="@dimen/dp_7"
             android:layout_marginRight="@dimen/dp_7"
-            android:background="@drawable/ic_manager_in_domain"
             android:visibility="@{viewModel.manager ? View.VISIBLE : View.GONE}"
+            app:srcCompat="@drawable/ic_manager_in_domain"
             />
     </RelativeLayout>
 </layout>

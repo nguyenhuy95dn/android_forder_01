@@ -50,7 +50,7 @@ public class OrderShopFragment extends Fragment {
         OrderShopAdapter adapter = new OrderShopAdapter(getActivity());
         List<String> domains = new ArrayList<>();
         ArrayAdapter<String> adapterDomain =
-                new ArrayAdapter<>(getActivity(), android.R.layout.simple_selectable_list_item,
+                new ArrayAdapter<>(getActivity(), R.layout.spinner_item_text_color_default,
                         domains);
         mViewModel =
                 new OrderShopViewModel(getContext().getApplicationContext(), navigator, adapter,

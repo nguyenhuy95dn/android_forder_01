@@ -35,7 +35,7 @@
                 android:layout_width="@dimen/dp_60"
                 android:layout_height="@dimen/dp_60"
                 android:layout_gravity="center"
-                android:background="@drawable/ic_circle_email"
+                app:srcCompat="@drawable/ic_circle_email"
                 app:imageUrl="@{viewModel.notificationImage}"
                 />
 

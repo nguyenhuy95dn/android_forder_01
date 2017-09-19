@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
 
@@ -42,7 +43,7 @@
                     android:layout_height="@dimen/dp_150"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/dp_20"
-                    android:background="@drawable/ic_users"
+                    app:srcCompat="@drawable/ic_users"
                     tools:ignore="ContentDescription,ContentDescription"
                     />
                 <LinearLayout
@@ -58,7 +59,7 @@
                         android:layout_width="@dimen/dp_30"
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_manager_in_domain"
+                        app:srcCompat="@drawable/ic_manager_in_domain"
                         android:visibility="@{viewModel.visibleRole ? View.VISIBLE : View.GONE}"
                         tools:ignore="ContentDescription,VectorDrawableCompat"
                         />
@@ -90,7 +91,7 @@
                         android:layout_width="@dimen/dp_30"
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
-                        android:background="@drawable/ic_circle_email"
+                        app:srcCompat="@drawable/ic_circle_email"
                         tools:ignore="ContentDescription"
                         />
                     <LinearLayout
@@ -133,7 +134,7 @@
                         android:layout_width="@dimen/dp_30"
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
-                        android:background="@drawable/ic_id_card"
+                        app:srcCompat="@drawable/ic_id_card"
                         tools:ignore="ContentDescription"
                         />
                     <LinearLayout
@@ -175,7 +176,7 @@
                         android:layout_width="@dimen/dp_30"
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
-                        android:background="@drawable/ic_date"
+                        app:srcCompat="@drawable/ic_date"
                         tools:ignore="ContentDescription"
                         />
                     <LinearLayout
@@ -217,7 +218,7 @@
                         android:layout_width="@dimen/dp_30"
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
-                        android:background="@drawable/ic_accept"
+                        app:srcCompat="@drawable/ic_accept"
                         tools:ignore="ContentDescription"
                         />
                     <LinearLayout
@@ -256,8 +257,7 @@
                         android:layout_width="@dimen/dp_30"
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
-                        android:background="@drawable/ic_descriptions"
-                        android:backgroundTint="@color/color_orange_mos"
+                        app:srcCompat="@drawable/ic_descriptions_orange"
                         tools:ignore="ContentDescription,UnusedAttribute"
                         />
                     <LinearLayout

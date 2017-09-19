@@ -50,11 +50,10 @@
                     android:layout_alignBottom="@+id/image_user_profile_photo"
                     android:layout_alignEnd="@+id/image_user_profile_photo"
                     android:layout_alignRight="@+id/image_user_profile_photo"
-                    android:background="@drawable/border_button"
-                    android:backgroundTint="@color/color_white_light"
+                    android:background="@drawable/border_button_white_light"
                     android:onClick="@{() -> viewModel.onClickChooseAvatar()}"
                     android:padding="@dimen/dp_5"
-                    android:src="@drawable/ic_camera_black"
+                    app:srcCompat="@drawable/ic_camera_black"
                     tools:ignore="ContentDescription,UnusedAttribute,VectorDrawableCompat"
                     />
                 <ImageView
@@ -94,8 +93,8 @@
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_marginStart="@dimen/dp_10"
                         android:adjustViewBounds="true"
-                        android:background="@drawable/ic_circle_email"
                         android:scaleType="fitXY"
+                        app:srcCompat="@drawable/ic_circle_email"
                         tools:ignore="ContentDescription,VectorDrawableCompat"
                         />
 
@@ -142,8 +141,8 @@
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_marginStart="@dimen/dp_10"
                         android:adjustViewBounds="true"
-                        android:background="@drawable/ic_user"
                         android:scaleType="fitXY"
+                        app:srcCompat="@drawable/ic_user"
                         tools:ignore="ContentDescription,VectorDrawableCompat"
                         />
 
@@ -189,8 +188,8 @@
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_marginStart="@dimen/dp_10"
                         android:adjustViewBounds="true"
-                        android:background="@drawable/ic_id_card"
                         android:scaleType="fitXY"
+                        app:srcCompat="@drawable/ic_id_card"
                         tools:ignore="ContentDescription,VectorDrawableCompat"
                         />
 
@@ -235,9 +234,8 @@
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_marginStart="@dimen/dp_10"
                         android:adjustViewBounds="true"
-                        android:background="@drawable/ic_descriptions"
-                        android:backgroundTint="@color/color_orange_mos"
                         android:scaleType="fitXY"
+                        app:srcCompat="@drawable/ic_descriptions_orange"
                         tools:ignore="ContentDescription,UnusedAttribute,VectorDrawableCompat"
                         />
 

@@ -81,7 +81,7 @@ public final class BindingUtils {
         Uri uri = Uri.parse(url);
         Glide.with(imageView.getContext())
                 .load(uri)
-                .placeholder(R.drawable.ic_users)
+                .placeholder(R.drawable.img_user)
                 .dontAnimate()
                 .into(imageView);
     }

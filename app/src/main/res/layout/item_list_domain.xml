@@ -42,7 +42,7 @@
                     android:id="@+id/image_location"
                     android:layout_width="@dimen/dp_40"
                     android:layout_height="@dimen/dp_40"
-                    android:background="@drawable/ic_location"
+                    android:background="@drawable/ic_location_orange"
                     tools:ignore="ContentDescription"
                     />
 
@@ -109,7 +109,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_people_24dp"
+                    android:drawableTop="@drawable/ic_people_orange"
                     android:gravity="center_horizontal"
                     android:text="@{viewModel.numberUser}"
                     android:textColor="@color/color_gray_mos"
@@ -117,10 +117,11 @@
                     />
 
                 <TextView
+                    android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_store_24dp"
+                    android:drawableTop="@drawable/ic_store_orange"
                     android:gravity="center_horizontal"
                     android:text="@{viewModel.numberShop}"
                     android:textColor="@color/color_gray_mos"
@@ -131,7 +132,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_local_dining_24dp"
+                    android:drawableTop="@drawable/ic_local_dining_orange"
                     android:gravity="center_horizontal"
                     android:text="@{viewModel.numberProduct}"
                     android:textColor="@color/color_gray_mos"

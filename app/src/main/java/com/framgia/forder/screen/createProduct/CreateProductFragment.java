@@ -84,7 +84,7 @@ public class CreateProductFragment extends Fragment {
         DialogManager dialogManager = new DialogManager(getActivity());
         List<String> mCategories = new ArrayList<>();
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(getActivity(), android.R.layout.simple_selectable_list_item,
+                new ArrayAdapter<>(getActivity(), R.layout.spinner_item_text_color_default,
                         mCategories);
         Navigator navigatorForStartGaller = new Navigator(this);
         Navigator navigator = new Navigator(getParentFragment());

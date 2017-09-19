@@ -58,8 +58,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_gravity="bottom"
                         android:layout_margin="@dimen/dp_5"
-                        android:background="@drawable/border_layout"
-                        android:backgroundTint="@color/color_white_transparent"
+                        android:background="@drawable/border_layout_transparent"
                         >
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -115,9 +114,9 @@
                             android:layout_height="@dimen/dp_34"
                             android:layout_alignParentBottom="true"
                             android:background="@color/color_white"
-                            android:drawableLeft="@drawable/ic_time"
+                            android:drawableLeft="@drawable/ic_time_orange"
                             android:drawablePadding="@dimen/dp_10"
-                            android:drawableStart="@drawable/ic_time"
+                            android:drawableStart="@drawable/ic_time_orange"
                             android:ellipsize="marquee"
                             android:gravity="center_vertical"
                             android:maxLines="1"
@@ -139,10 +138,9 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_margin="@dimen/dp_10"
-                            android:background="@drawable/border_button_next"
-                            android:backgroundTint="@color/color_orange_mos"
+                            android:background="@drawable/border_button_order_orange"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_add_product_cart"
+                            app:srcCompat="@drawable/ic_add_product_cart"
                             android:visibility="@{viewModel.productTimeOut ? View.GONE : View.VISIBLE}"
                             app:onClickShowPopupMenuOrder="@{viewModel::onMenuItemClick}"
                             tools:ignore="ContentDescription,UnusedAttribute,VectorDrawableCompat"
@@ -198,8 +196,6 @@
                         android:layout_width="@dimen/dp_70"
                         android:layout_height="@dimen/dp_70"
                         android:adjustViewBounds="true"
-                        android:background="@drawable/button_red"
-                        android:backgroundTint="@color/color_gray_white"
                         android:padding="@dimen/dp_3"
                         android:scaleType="fitXY"
                         app:imageUrl="@{viewModel.shopImage}"
@@ -219,9 +215,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_5"
-                            android:drawableLeft="@drawable/ic_store_24dp"
+                            android:drawableLeft="@drawable/ic_store_orange"
                             android:drawablePadding="@dimen/dp_5"
-                            android:drawableStart="@drawable/ic_store_24dp"
+                            android:drawableStart="@drawable/ic_store_orange"
                             android:ellipsize="marquee"
                             android:gravity="center_vertical"
                             android:maxLines="1"
@@ -236,19 +232,27 @@
                             android:layout_margin="@dimen/dp_3"
                             android:background="@color/color_gray_white"
                             />
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_3"
-                            android:layout_marginStart="@dimen/dp_3"
-                            android:drawableLeft="@drawable/ic_descriptions"
-                            android:drawablePadding="@dimen/dp_5"
-                            android:drawableStart="@drawable/ic_descriptions"
-                            android:gravity="center_vertical"
-                            android:text="@{viewModel.descriptionShop}"
-                            android:textColor="@color/color_gray"
-                            android:textSize="@dimen/sp_15"
-                            />
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:textSize="@dimen/sp_15"
+                                app:srcCompat="@drawable/ic_descriptions"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_5"
+                                android:layout_marginStart="@dimen/dp_5"
+                                android:text="@{viewModel.descriptionShop}"
+                                android:textColor="@color/color_gray"
+                                />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
                 <View
@@ -265,9 +269,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_label"
+                        android:drawableLeft="@drawable/ic_label_orange"
                         android:drawablePadding="@dimen/dp_5"
-                        android:drawableStart="@drawable/ic_label"
+                        android:drawableStart="@drawable/ic_label_orange"
                         android:gravity="center_vertical"
                         android:text="@string/products_shop"
                         android:textColor="@color/dark_gray"
@@ -318,17 +322,28 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:orientation="vertical"
                     >
-                    <TextView
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_comment"
-                        android:drawablePadding="@dimen/dp_5"
-                        android:drawableStart="@drawable/ic_comment"
-                        android:gravity="center_vertical"
-                        android:text="@string/comments"
-                        android:textSize="@dimen/sp_18"
-                        android:textStyle="bold"
-                        />
+                        android:orientation="horizontal"
+                        tools:ignore="UseCompoundDrawables"
+                        >
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/ic_comment"
+                            tools:ignore="ContentDescription"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/comments"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_marginStart="@dimen/dp_10"
+                            android:textSize="@dimen/sp_18"
+                            android:textStyle="bold"
+                            />
+                    </LinearLayout>
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -387,7 +402,7 @@
                 android:maxLength="300"
                 android:text="@={viewModel.comment}"
                 />
-            <ImageButton
+            <ImageView
                 android:id="@+id/button_send_comment"
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
@@ -398,7 +413,7 @@
                 android:layout_marginLeft="@dimen/dp_4"
                 android:layout_marginRight="@dimen/dp_10"
                 android:layout_marginStart="@dimen/dp_4"
-                android:background="@drawable/ic_send"
+                app:srcCompat="@drawable/ic_send"
                 android:onClick="@{() -> viewModel.onClickSendComment()}"
                 tools:ignore="ContentDescription,RtlHardcoded"
                 />
