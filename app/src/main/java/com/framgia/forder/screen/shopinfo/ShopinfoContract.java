@@ -4,6 +4,7 @@ import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.response.DomainToRequestShopResponse;
+import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
 import com.framgia.forder.screen.BasePresenter;
 import com.framgia.forder.screen.BaseViewModel;
 import java.util.List;
@@ -17,7 +18,7 @@ interface ShopinfoContract {
      */
     interface ViewModel extends BaseViewModel<Presenter> {
 
-        void onGetListManagerOfShopSuccess(List<User> users);
+        void onGetListManagerOfShopSuccess(List<ManagerResponse.ManagerDetail> users);
 
         void onGetListManagerOfShopError(BaseException exception);
 

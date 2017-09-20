@@ -5,10 +5,10 @@ import android.databinding.Bindable;
 import com.framgia.forder.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
-import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.ApplyShopToDomainRequest;
 import com.framgia.forder.data.source.remote.api.response.DomainToRequestShopResponse;
+import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.managerdetail.ManagerDetailFragment;
 import com.framgia.forder.screen.orderhistoryshop.OrderHistoryShopFragment;
@@ -26,7 +26,7 @@ import static com.framgia.forder.utils.Constant.DEFAULT_VALUE;
  */
 
 public class ShopinfoViewModel extends BaseObservable implements ShopinfoContract.ViewModel,
-        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<User>,
+        BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<ManagerResponse.ManagerDetail>,
         ListDomainAdapter.ShopDomainManagementListener {
 
     private static final String TAG = "ShopinfoFragment";
@@ -123,7 +123,7 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
     }
 
     @Override
-    public void onGetListManagerOfShopSuccess(List<User> users) {
+    public void onGetListManagerOfShopSuccess(List<ManagerResponse.ManagerDetail> users) {
         mAdapter.updateData(users);
     }
 
@@ -185,9 +185,9 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
     }
 
     @Override
-    public void onItemRecyclerViewClick(User user) {
-        mNavigator.goNextChildFragment(R.id.layout_content, ManagerDetailFragment.newInstance(user),
-                true, Navigator.BOTTOM_UP, TAG);
+    public void onItemRecyclerViewClick(ManagerResponse.ManagerDetail managerDetail) {
+        mNavigator.goNextChildFragment(R.id.layout_content,
+                ManagerDetailFragment.newInstance(managerDetail), true, Navigator.BOTTOM_UP, TAG);
     }
 
     public void onClickListOrderShop() {

@@ -107,17 +107,20 @@ public class ShopRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<List<User>> getListManagerOfShop(int shopId) {
+    public Observable<List<ManagerResponse.ManagerDetail>> getListManagerOfShop(int shopId) {
         return mFOrderApi.getListManagerOfShop(shopId)
-                .flatMap(new Func1<ManagerResponse, Observable<List<User>>>() {
-                    @Override
-                    public Observable<List<User>> call(ManagerResponse managerResponse) {
-                        if (managerResponse != null) {
-                            return Observable.just(managerResponse.getListUser());
-                        }
-                        return Observable.error(new NullPointerException());
-                    }
-                });
+                .flatMap(
+                        new Func1<ManagerResponse, Observable<List<ManagerResponse
+                                .ManagerDetail>>>() {
+                            @Override
+                            public Observable<List<ManagerResponse.ManagerDetail>> call(
+                                    ManagerResponse managerResponse) {
+                                if (managerResponse != null) {
+                                    return Observable.just(managerResponse.getManagerDetails());
+                                }
+                                return Observable.error(new NullPointerException());
+                            }
+                        });
     }
 
     @Override

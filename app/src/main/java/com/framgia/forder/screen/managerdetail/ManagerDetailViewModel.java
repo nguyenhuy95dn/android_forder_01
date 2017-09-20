@@ -2,7 +2,7 @@ package com.framgia.forder.screen.managerdetail;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import com.framgia.forder.data.model.User;
+import com.framgia.forder.data.source.remote.api.response.ManagerResponse;
 import com.framgia.forder.utils.navigator.Navigator;
 
 import static com.framgia.forder.utils.StatusCode.ROLE_OWNER;
@@ -16,12 +16,12 @@ public class ManagerDetailViewModel extends BaseObservable
 
     private ManagerDetailContract.Presenter mPresenter;
     private final Navigator mNavigator;
-    private final User mUser;
+    private final ManagerResponse.ManagerDetail mManagerDetail;
     private boolean mIsVisibleRole;
 
-    ManagerDetailViewModel(Navigator navigator, User user) {
+    ManagerDetailViewModel(Navigator navigator, ManagerResponse.ManagerDetail managerDetail) {
         mNavigator = navigator;
-        mUser = user;
+        mManagerDetail = managerDetail;
         setRoleManager();
     }
 
@@ -41,38 +41,57 @@ public class ManagerDetailViewModel extends BaseObservable
     }
 
     public String getUserName() {
-        return mUser.getName();
+        if (mManagerDetail.getUser() != null) {
+            return mManagerDetail.getUser().getName();
+        }
+        return "";
     }
 
     public String getEmail() {
-        return mUser.getEmail();
+        if (mManagerDetail.getUser() != null) {
+            return mManagerDetail.getUser().getEmail();
+        }
+        return "";
     }
 
     public String getChatWorkId() {
-        return mUser.getChatworkId();
+        if (mManagerDetail.getUser() != null) {
+            return mManagerDetail.getUser().getChatworkId();
+        }
+        return "";
     }
 
     public String getJoinDate() {
-        return mUser.getFormatDate();
+        if (mManagerDetail.getUser() != null) {
+            return mManagerDetail.getUser().getFormatDate();
+        }
+        return "";
     }
 
     public String getDescription() {
-        return mUser.getDescription();
+        if (mManagerDetail.getUser() != null) {
+            return mManagerDetail.getUser().getDescription();
+        }
+        return "";
     }
 
     public String getRole() {
-        return mUser.getRole();
+        return mManagerDetail.getRole();
     }
 
     public String getAvatar() {
-        if (mUser.getAvatar() != null && mUser.getAvatar().getImage() != null) {
-            return mUser.getAvatar().getImage().getUrl();
+        if (mManagerDetail.getUser() != null
+                && mManagerDetail.getUser().getAvatar() != null
+                && mManagerDetail.getUser().getAvatar().getImage() != null) {
+            return mManagerDetail.getUser().getAvatar().getImage().getUrl();
         }
         return "";
     }
 
     public String getStatus() {
-        //Todo edit later
+        if (mManagerDetail.getUser() != null) {
+            return mManagerDetail.getUser().getStatus();
+        }
         return "";
     }
 
@@ -86,8 +105,8 @@ public class ManagerDetailViewModel extends BaseObservable
     }
 
     private void setRoleManager() {
-        if (mUser != null) {
-            if (mUser.getRole().equals(ROLE_OWNER)) {
+        if (mManagerDetail != null) {
+            if (mManagerDetail.getRole().equals(ROLE_OWNER)) {
                 setVisibleRole(true);
             }
         } else {
