@@ -120,7 +120,7 @@ public class MainPageViewModel extends BaseOrderCartViewModel implements MainPag
 
     @Override
     public void onGetListProductError(BaseException exception) {
-        mNavigator.showToast(exception.getMessage());
+        Log.e(TAG, "onGetListShopError: ", exception);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class MainPageViewModel extends BaseOrderCartViewModel implements MainPag
 
     @Override
     public void onGetListShopError(BaseException exception) {
-        mNavigator.showToast(exception.getMessage());
+        Log.e(TAG, "onGetListShopError: ", exception);
     }
 
     @Override
@@ -140,7 +140,7 @@ public class MainPageViewModel extends BaseOrderCartViewModel implements MainPag
 
     @Override
     public void onAddToCartError(Throwable exception) {
-        mNavigator.showToastCustom(exception.getMessage());
+        Log.e(TAG, "onGetListShopError: ", exception);
     }
 
     @Override
@@ -157,7 +157,7 @@ public class MainPageViewModel extends BaseOrderCartViewModel implements MainPag
 
     @Override
     public void onGetListCategoryError(BaseException exception) {
-        mNavigator.showToast(exception.getMessage());
+        Log.e(TAG, "onGetListCartError: ", exception);
     }
 
     @Override
@@ -197,7 +197,7 @@ public class MainPageViewModel extends BaseOrderCartViewModel implements MainPag
 
     @Override
     public void onOrderProductError(BaseException error) {
-        mNavigator.showToastCustom(error.getMessage());
+        Log.e(TAG, "onGetListCartError: ", error);
     }
 
     @Override

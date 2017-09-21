@@ -2,6 +2,7 @@ package com.framgia.forder.screen.shopmanagement;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.util.Log;
 import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
@@ -62,7 +63,7 @@ public class ShopManagementViewModel extends BaseObservable
 
     @Override
     public void onShowMessageError(BaseException exception) {
-        mNavigator.showToast(exception.getMessage());
+        Log.e(TAG, "onShowMessageError: ", exception);
     }
 
     @Override

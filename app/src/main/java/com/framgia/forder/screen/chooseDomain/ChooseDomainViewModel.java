@@ -3,6 +3,7 @@ package com.framgia.forder.screen.chooseDomain;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
@@ -14,6 +15,7 @@ import com.framgia.forder.utils.navigator.Navigator;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.framgia.forder.screen.splash.SplashActivity.PARAMS;
 import static com.framgia.forder.utils.Constant.DEFAULT_VALUE;
 
 /**
@@ -30,12 +32,15 @@ public class ChooseDomainViewModel extends BaseObservable
     private int mSelectedTypePosition;
     private final Navigator mNavigator;
     private boolean mProgressBarVisible;
+    private String mParams;
 
-    ChooseDomainViewModel(Context context, ArrayAdapter<String> adapter, Navigator navigator) {
+    ChooseDomainViewModel(Context context, ArrayAdapter<String> adapter, Navigator navigator,
+            String params) {
         mContext = context;
         mAdapter = adapter;
         mNavigator = navigator;
         mDomains = new ArrayList<>();
+        mParams = params;
         setProgressBarVisible(false);
     }
 
@@ -110,7 +115,9 @@ public class ChooseDomainViewModel extends BaseObservable
             onShowProgressBar();
             Domain domain = mDomains.get(mSelectedTypePosition - 1);
             mPresenter.saveCurrentDomain(domain);
-            mNavigator.startActivity(MainActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(PARAMS, mParams);
+            mNavigator.startActivity(MainActivity.class, bundle);
             mNavigator.finishActivity();
             onHideProgressBar();
         }

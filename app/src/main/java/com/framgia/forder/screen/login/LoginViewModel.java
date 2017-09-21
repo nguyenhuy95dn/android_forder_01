@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Bundle;
 import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
@@ -12,6 +13,8 @@ import com.framgia.forder.screen.chooseDomain.ChooseDomainActivity;
 import com.framgia.forder.screen.forgotpassword.ForgotPasswordActivity;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
+
+import static com.framgia.forder.screen.splash.SplashActivity.PARAMS;
 
 /**
  * Exposes the data to be used in the Login screen.
@@ -28,13 +31,15 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     private String mUsername;
     private String mPassword;
     private final DialogManager mDialogManager;
+    private String mParams;
 
     LoginViewModel(Context context, Application application, Navigator navigator,
-            DialogManager dialogManager) {
+            DialogManager dialogManager, String params) {
         mContext = context;
         mApplication = application;
         mNavigator = navigator;
         mDialogManager = dialogManager;
+        mParams = params;
     }
 
     @Override
@@ -87,7 +92,9 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     @Override
     public void onLoginSuccess() {
-        mNavigator.startActivity(ChooseDomainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(PARAMS, mParams);
+        mNavigator.startActivity(ChooseDomainActivity.class, bundle);
         FOrderServiceClient.initialize(mApplication);
         mNavigator.finishActivity();
     }

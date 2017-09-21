@@ -3,6 +3,7 @@ package com.framgia.forder.screen.shopinfo.productshopinfo;
 import android.content.DialogInterface;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.util.Log;
 import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Product;
@@ -21,6 +22,7 @@ import java.util.List;
 
 public class ProductShopInfoViewModel extends BaseObservable
         implements ProductShopInfoContract.ViewModel, UpdateProductListener {
+    private static final String TAG = "ProductShopInfoViewMode";
 
     private final Navigator mNavigator;
     private final ProductShopInformationAdapter mAdapter;
@@ -58,7 +60,7 @@ public class ProductShopInfoViewModel extends BaseObservable
 
     @Override
     public void onErrorMessage(BaseException exception) {
-        mNavigator.showToast(exception.getMessage());
+        Log.e(TAG, "onErrorMessage: ", exception);
     }
 
     @Override

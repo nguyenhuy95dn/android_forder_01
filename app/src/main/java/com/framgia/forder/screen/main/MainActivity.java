@@ -11,6 +11,7 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.NotificationRepository;
 import com.framgia.forder.data.source.ProductRepository;
+import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.local.DomainLocalDataSource;
 import com.framgia.forder.data.source.local.ProductLocalDataSource;
 import com.framgia.forder.data.source.local.UserLocalDataSource;
@@ -20,9 +21,12 @@ import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
 import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
 import com.framgia.forder.data.source.remote.NotificationRemoteDataSource;
 import com.framgia.forder.data.source.remote.ProductRemoteDataSource;
+import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.ActivityMainBinding;
 import com.framgia.forder.screen.BaseActivity;
+
+import static com.framgia.forder.screen.splash.SplashActivity.PARAMS;
 
 /**
  * Main Screen.
@@ -30,6 +34,7 @@ import com.framgia.forder.screen.BaseActivity;
 public class MainActivity extends BaseActivity
         implements LoadCartListener, ChangeDomainListener, LoadNotificationListener,
         LoadOrderHistoryListener {
+    private static final String TAG = "MainActivity";
 
     private static final int DELAY_TIME_TWO_TAP_BACK_BUTTON = 2000;
     private static final int TAB_PROFILE = 4;
@@ -45,26 +50,32 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String params = getIntent().getExtras().getString(PARAMS);
 
         MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager());
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        mViewModel = new MainViewModel(adapter, alertDialog, this);
+        mViewModel = new MainViewModel(adapter, alertDialog, this, params);
 
         RealmApi realmApi = new RealmApi();
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getApplicationContext());
         DomainRepository domainRepository =
                 new DomainRepository(new DomainRemoteDataSource(FOrderServiceClient.getInstance()),
                         new DomainLocalDataSource(prefsApi, new UserLocalDataSource(prefsApi)));
-        int currentDomainId = domainRepository.getCurrentDomain().getId();
+        int currentDomainId = 0;
+        if (domainRepository.getUser() != null) {
+            currentDomainId = domainRepository.getCurrentDomain().getId();
+        }
         ProductRepository productRepository = new ProductRepository(
                 new ProductRemoteDataSource(FOrderServiceClient.getInstance()),
                 new ProductLocalDataSource(realmApi), currentDomainId);
         NotificationRepository notificationRepository = new NotificationRepository(
                 new NotificationRemoteDataSource(FOrderServiceClient.getInstance()));
+        ShopRepository shopRepository =
+                new ShopRepository(new ShopRemoteDataSource(FOrderServiceClient.getInstance()));
 
         MainContract.Presenter presenter =
                 new MainPresenter(mViewModel, domainRepository, productRepository,
-                        notificationRepository);
+                        notificationRepository, shopRepository);
         mViewModel.setPresenter(presenter);
 
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
