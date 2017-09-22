@@ -15,6 +15,8 @@ import com.framgia.forder.screen.BaseActivity;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 
+import static com.framgia.forder.screen.splash.SplashActivity.PARAMS;
+
 /**
  * Login Screen.
  */
@@ -25,12 +27,13 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String params = getIntent().getExtras().getString(PARAMS);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getApplicationContext());
         Navigator navigator = new Navigator(this);
         DialogManager dialogManager = new DialogManager(this);
         mViewModel = new LoginViewModel(getApplicationContext(), getApplication(), navigator,
-                dialogManager);
+                dialogManager, params);
         UserRepository userRepository =
                 new UserRepository(new UserRemoteDataSource(FOrderServiceClient.getInstance()),
                         new UserLocalDataSource(prefsApi));

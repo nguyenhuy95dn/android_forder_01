@@ -4,6 +4,7 @@ import android.view.View;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.Notification;
+import com.framgia.forder.data.model.ShopInDomain;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BasePresenter;
 import com.framgia.forder.screen.BaseViewModel;
@@ -44,6 +45,12 @@ interface MainContract {
         void readAllNotificationError(BaseException exception);
 
         void onLoadOrderHistoryPage(View viewProfile);
+
+        void onGotoListProductSuccess(int shopId);
+
+        void onGetListShopInDomainSuccess(List<ShopInDomain> shops);
+
+        void onGetListShopInDomainError(BaseException error);
     }
 
     /**
@@ -63,5 +70,9 @@ interface MainContract {
         void getListNotification();
 
         void readAllNotification();
+
+        void goToListProduct(int shopId);
+
+        void getListShopInDomain(int domainId);
     }
 }

@@ -19,36 +19,17 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
 
     public MainViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        mFragments = new ArrayList<>();
+        mFragments=new ArrayList<>();
+        for (int i = 0; i < TAB_NUMBER; i++) {
+            mFragments.add(null);
+        }
     }
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment;
-        switch (position) {
-            case MainViewModel.Tab.TAB_HOME:
-                fragment = MainContainerFragment.newInstance(position);
-                mFragments.add(MainViewModel.Tab.TAB_HOME, fragment);
-                return fragment;
-            case MainViewModel.Tab.TAB_SEARCH:
-                fragment = MainContainerFragment.newInstance(position);
-                mFragments.add(MainViewModel.Tab.TAB_SEARCH, fragment);
-                return fragment;
-            case MainViewModel.Tab.TAB_CART:
-                fragment = MainContainerFragment.newInstance(position);
-                mFragments.add(MainViewModel.Tab.TAB_CART, fragment);
-                return fragment;
-            case MainViewModel.Tab.TAB_NOTIFICATION:
-                fragment = MainContainerFragment.newInstance(position);
-                mFragments.add(MainViewModel.Tab.TAB_NOTIFICATION, fragment);
-                return fragment;
-            case MainViewModel.Tab.TAB_PROFILE:
-                fragment = MainContainerFragment.newInstance(position);
-                mFragments.add(MainViewModel.Tab.TAB_PROFILE, fragment);
-                return fragment;
-            default:
-                return null;
-        }
+        Fragment fragment = MainContainerFragment.newInstance(position);
+        mFragments.set(position, fragment);
+        return fragment;
     }
 
     @Override
@@ -67,6 +48,10 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public Fragment getFragment(@MainViewModel.Tab int position) {
-        return mFragments.get(position);
+        try {
+            return mFragments.get(position);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 }

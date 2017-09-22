@@ -3,9 +3,11 @@ package com.framgia.forder.screen.main;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.Notification;
+import com.framgia.forder.data.model.ShopInDomain;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.NotificationRepository;
 import com.framgia.forder.data.source.ProductRepository;
+import com.framgia.forder.data.source.ShopRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import com.framgia.forder.data.source.remote.api.response.BaseResponse;
@@ -27,14 +29,19 @@ final class MainPresenter implements MainContract.Presenter {
     private final ProductRepository mProductRepository;
     protected DomainRepository mDomainRepository;
     private final NotificationRepository mNotificationRepository;
+    private final ShopRepository mShopRepository;
+    private int mCurrenDomain;
 
     MainPresenter(MainContract.ViewModel viewModel, DomainRepository domainRepository,
-            ProductRepository productRepository, NotificationRepository notificationRepository) {
+            ProductRepository productRepository, NotificationRepository notificationRepository,
+            ShopRepository shopRepository) {
         mViewModel = viewModel;
         mDomainRepository = domainRepository;
         mProductRepository = productRepository;
         mNotificationRepository = notificationRepository;
+        mShopRepository = shopRepository;
         mCompositeSubscription = new CompositeSubscription();
+        mCurrenDomain = domainRepository.getCurrentDomain().getId();
     }
 
     @Override
@@ -42,6 +49,7 @@ final class MainPresenter implements MainContract.Presenter {
         mProductRepository.openTransaction();
         getListCart();
         getListNotification();
+        getListShopInDomain(mCurrenDomain);
     }
 
     @Override
@@ -142,6 +150,45 @@ final class MainPresenter implements MainContract.Presenter {
                     @Override
                     public void onSafetyError(BaseException error) {
                         mViewModel.readAllNotificationError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void goToListProduct(final int shopId) {
+        //Make this step to let the adapter complete the binding
+        Subscription subscription = mDomainRepository.getListDomain()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<List<Domain>>() {
+                    @Override
+                    public void call(List<Domain> domains) {
+                        mViewModel.onGotoListProductSuccess(shopId);
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onGetListDomainError(error);
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void getListShopInDomain(int domainId) {
+        Subscription subscription = mShopRepository.getListShopInDomain(domainId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<List<ShopInDomain>>() {
+                    @Override
+                    public void call(List<ShopInDomain> shops) {
+                        mViewModel.onGetListShopInDomainSuccess(shops);
+                    }
+                }, new SafetyError() {
+                    @Override
+                    public void onSafetyError(BaseException error) {
+                        mViewModel.onGetListShopInDomainError(error);
                     }
                 });
         mCompositeSubscription.add(subscription);

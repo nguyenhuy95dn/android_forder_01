@@ -2,6 +2,7 @@ package com.framgia.forder.screen.shopinfo;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.util.Log;
 import com.framgia.forder.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
@@ -129,7 +130,7 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
 
     @Override
     public void onGetListManagerOfShopError(BaseException exception) {
-        mNavigator.showToast(exception.getMessage());
+        Log.e(TAG, "onGetListManagerOfShopError: ", exception);
     }
 
     @Override
@@ -146,7 +147,7 @@ public class ShopinfoViewModel extends BaseObservable implements ShopinfoContrac
 
     @Override
     public void onApplyOrLeaveToDomainError(BaseException exception) {
-        mNavigator.showToast(exception.getMessage());
+        Log.e(TAG, "onGetListManagerOfShopError: ", exception);
     }
 
     @Override

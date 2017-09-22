@@ -49,6 +49,9 @@ public class ShopInDomain {
     @Expose
     @SerializedName("cover_image")
     private CollectionAvatar mCoverImage;
+    @Expose
+    @SerializedName("slug")
+    private String mSlug;
     private boolean mIsOwner;
 
     public int getId() {
@@ -163,6 +166,14 @@ public class ShopInDomain {
         mIsOwner = owner;
     }
 
+    public String getSlug() {
+        return mSlug;
+    }
+
+    public void setSlug(String slug) {
+        mSlug = slug;
+    }
+
     public int getStatusColor() {
         if (mStatus == StatusShop.Active) {
             return R.color.color_green;
@@ -173,10 +184,8 @@ public class ShopInDomain {
     }
 
     public enum StatusShop {
-        @Expose
-        @SerializedName("active")
-        Active("active"), @Expose
-        @SerializedName("pending")
+        @Expose @SerializedName("active")
+        Active("active"), @Expose @SerializedName("pending")
         Pending("pending");
 
         private final String mValue;

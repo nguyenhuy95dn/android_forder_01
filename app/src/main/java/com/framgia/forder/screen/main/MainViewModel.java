@@ -6,6 +6,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.annotation.IntDef;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -15,9 +16,11 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.Notification;
+import com.framgia.forder.data.model.ShopInDomain;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.mainpage.MainPageFragment;
 import com.framgia.forder.screen.orderhistory.OrderHistoryFragment;
+import com.framgia.forder.screen.productinshop.ProductInShopFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,17 +43,19 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     private List<Cart> mCarts;
     private List<Notification> mNotifications;
     private ChangeDomainListener mChangeDomainListener;
+    private String mParams;
 
     @Tab
     private int mCurrentTab;
 
     public MainViewModel(MainViewPagerAdapter mainViewPagerAdapter, AlertDialog.Builder alertDialog,
-            ChangeDomainListener changeDomainListener) {
+            ChangeDomainListener changeDomainListener, String params) {
         mViewPagerAdapter = mainViewPagerAdapter;
         mDialogChangeDomain = alertDialog;
         mChangeDomainListener = changeDomainListener;
         mCarts = new ArrayList<>();
         mNotifications = new ArrayList<>();
+        mParams = params;
     }
 
     @Override
@@ -178,7 +183,7 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
 
     @Override
     public void onGetListDomainError(BaseException e) {
-
+        Log.e(TAG, "onGetListDomainError: ", e);
     }
 
     @Override
@@ -290,6 +295,28 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
         navigator.goNextChildFragment(R.id.layout_content, OrderHistoryFragment.newInstance(), true,
                 Navigator.RIGHT_LEFT, TAG);
         setTabSelected(viewProfile);
+    }
+
+    @Override
+    public void onGotoListProductSuccess(int shopId) {
+        Navigator navigator = new Navigator(mViewPagerAdapter.getFragment(Tab.TAB_HOME));
+        navigator.goBackFragmentByTag(TAG, POP_BACK_STACK_CLEAR_TASK);
+        navigator.goNextChildFragment(R.id.layout_content,
+                ProductInShopFragment.newInstance(shopId), true, Navigator.RIGHT_LEFT, TAG);
+    }
+
+    @Override
+    public void onGetListShopInDomainSuccess(List<ShopInDomain> shops) {
+        for (ShopInDomain shop : shops) {
+            if (mParams.equals(shop.getSlug())) {
+                mPresenter.goToListProduct(shop.getId());
+            }
+        }
+    }
+
+    @Override
+    public void onGetListShopInDomainError(BaseException error) {
+        Log.e(TAG, "onGetListShopInDomainError: ", error);
     }
 
     @IntDef({ Tab.TAB_HOME, Tab.TAB_SEARCH, Tab.TAB_CART, Tab.TAB_NOTIFICATION, Tab.TAB_PROFILE })
