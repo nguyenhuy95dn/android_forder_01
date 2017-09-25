@@ -19,10 +19,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.arlib.floatingsearchview.FloatingSearchView;
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.bumptech.glide.Glide;
 import com.framgia.forder.R;
 import com.framgia.forder.screen.forgotpassword.ForgotPasswordViewModel;
 import com.framgia.forder.screen.mainpage.shop.ShopPageAdapter;
+import java.util.List;
 
 /**
  * Created by le.quang.dao on 20/03/2017.
@@ -198,6 +200,14 @@ public final class BindingUtils {
     public static void clearTextFloatingSearchView(FloatingSearchView floatingSearchView,
             boolean b) {
         floatingSearchView.clearQuery();
+    }
+
+    @BindingAdapter("suggests")
+    public static void setListSuggestFloatingSearchView(FloatingSearchView floatingSearchView,
+            List<SearchSuggestion> suggests) {
+        floatingSearchView.showProgress();
+        floatingSearchView.swapSuggestions(suggests);
+        floatingSearchView.hideProgress();
     }
 
     @BindingAdapter("errorTextInputLayout")

@@ -144,7 +144,7 @@ public class UserInDomainViewModel extends BaseObservable
         return mIsProgressBarListUserInDomain;
     }
 
-    public void setProgressBarListUserInDomain(boolean progressBarListUserInDomain) {
+    private void setProgressBarListUserInDomain(boolean progressBarListUserInDomain) {
         mIsProgressBarListUserInDomain = progressBarListUserInDomain;
         notifyPropertyChanged(BR.progressBarListUserInDomain);
     }
@@ -155,7 +155,7 @@ public class UserInDomainViewModel extends BaseObservable
                 TAG);
     }
 
-    public boolean isOwner() {
-        return mPresenter.getRule(mDomainManagement.getOwner());
+    public boolean isUser() {
+        return MEMBER.equals(mDomainManagement.getRoleOfCurrentUser());
     }
 }

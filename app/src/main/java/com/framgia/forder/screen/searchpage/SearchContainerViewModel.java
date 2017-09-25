@@ -8,10 +8,12 @@ import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.framgia.forder.BR;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.model.Shop;
+import com.framgia.forder.data.model.Suggestion;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.searchproduct.ProductSearchResultFragment;
 import com.framgia.forder.screen.searchshop.ShopSearchResultFragment;
 import com.framgia.forder.utils.navigator.Navigator;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,10 +26,13 @@ public class SearchContainerViewModel extends BaseObservable
     private SearchContainerContract.Presenter mPresenter;
     private final SearchContainerAdapter mAdapter;
     private final Navigator mNavigator;
+    private final List<SearchSuggestion> mSearchSuggestions;
+    private String mKeyWord;
 
     SearchContainerViewModel(SearchContainerAdapter adapter, Navigator navigator) {
         mAdapter = adapter;
         mNavigator = navigator;
+        mSearchSuggestions = new ArrayList<>();
         notifyPropertyChanged(BR.clear);
     }
 
@@ -77,12 +82,23 @@ public class SearchContainerViewModel extends BaseObservable
         return new FloatingSearchView.OnSearchListener() {
             @Override
             public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
-                //Todo dev later
+                onClickSearch(mKeyWord);
             }
 
             @Override
             public void onSearchAction(String keyWord) {
-                onClickSearch(keyWord);
+            }
+        };
+    }
+
+    public FloatingSearchView.OnQueryChangeListener getQueryChangeListener() {
+        return new FloatingSearchView.OnQueryChangeListener() {
+            @Override
+            public void onSearchTextChanged(String oldQuery, String newQuery) {
+                mKeyWord = newQuery;
+                mSearchSuggestions.clear();
+                mSearchSuggestions.add(new Suggestion(newQuery));
+                notifyPropertyChanged(BR.suggests);
             }
         };
     }
@@ -90,5 +106,10 @@ public class SearchContainerViewModel extends BaseObservable
     @Bindable
     public boolean isClear() {
         return true;
+    }
+
+    @Bindable
+    public List<SearchSuggestion> getSuggests() {
+        return mSearchSuggestions;
     }
 }
