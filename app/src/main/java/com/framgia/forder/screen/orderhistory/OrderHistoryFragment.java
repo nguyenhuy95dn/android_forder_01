@@ -10,7 +10,12 @@ import android.view.ViewGroup;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Order;
 import com.framgia.forder.data.source.OrderRepository;
+import com.framgia.forder.data.source.UserRepository;
+import com.framgia.forder.data.source.local.UserLocalDataSource;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
+import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
 import com.framgia.forder.data.source.remote.OrderRemoteDataSource;
+import com.framgia.forder.data.source.remote.UserRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentOrderHistoryBinding;
 import com.framgia.forder.utils.navigator.Navigator;
@@ -45,8 +50,13 @@ public class OrderHistoryFragment extends Fragment {
         mViewModel = new OrderHistoryViewModel(orderHistoryAdapter, navigator, dialogManager);
         OrderRepository orderRepository =
                 new OrderRepository(new OrderRemoteDataSource(FOrderServiceClient.getInstance()));
+
+        SharedPrefsApi prefsApi = new SharedPrefsImpl(getActivity());
+        UserRepository userRepository =
+                new UserRepository(new UserRemoteDataSource(FOrderServiceClient.getInstance()),
+                        new UserLocalDataSource(prefsApi));
         OrderHistoryContract.Presenter presenter =
-                new OrderHistoryPresenter(mViewModel, orderRepository);
+                new OrderHistoryPresenter(mViewModel, orderRepository, userRepository);
         mViewModel.setPresenter(presenter);
         binding.setViewModel((OrderHistoryViewModel) mViewModel);
         return binding.getRoot();

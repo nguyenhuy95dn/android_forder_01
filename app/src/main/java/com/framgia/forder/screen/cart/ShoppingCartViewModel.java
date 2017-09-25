@@ -33,8 +33,8 @@ public class ShoppingCartViewModel extends BaseObservable
     private double mTotalPrice;
     private List<Cart> mCartList;
     private Cart mCart;
-    private LoadCartListener mLoadCartListener;
-    private LoadOrderHistoryListener mLoadOrderHistoryListener;
+    private final LoadCartListener mLoadCartListener;
+    private final LoadOrderHistoryListener mLoadOrderHistoryListener;
 
     ShoppingCartViewModel(ShoppingCartAdapter shoppingCartAdapter, DialogManager dialogManager,
             Navigator navigator, LoadCartListener loadCartListener,
@@ -180,6 +180,9 @@ public class ShoppingCartViewModel extends BaseObservable
 
     @Override
     public void onOrderAllShop() {
+        if (mCartList.size() == 0) {
+            return;
+        }
         mDialogManager.dialogwithNoTitleTwoButton(R.string.mgs_order_all,
                 new DialogInterface.OnClickListener() {
                     @Override

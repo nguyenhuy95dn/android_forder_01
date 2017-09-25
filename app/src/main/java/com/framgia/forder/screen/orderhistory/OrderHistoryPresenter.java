@@ -1,9 +1,12 @@
 package com.framgia.forder.screen.orderhistory;
 
 import com.framgia.forder.data.model.Order;
+import com.framgia.forder.data.model.User;
 import com.framgia.forder.data.source.OrderRepository;
+import com.framgia.forder.data.source.UserRepository;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
+import java.util.ArrayList;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -20,12 +23,14 @@ public class OrderHistoryPresenter implements OrderHistoryContract.Presenter {
 
     private final OrderHistoryContract.ViewModel mViewModel;
     private final CompositeSubscription mCompositeSubscription;
-    private OrderRepository mOrderRepository;
+    private final OrderRepository mOrderRepository;
+    private final UserRepository mUserRepository;
 
-    OrderHistoryPresenter(OrderHistoryContract.ViewModel viewModel,
-            OrderRepository orderRepository) {
+    OrderHistoryPresenter(OrderHistoryContract.ViewModel viewModel, OrderRepository orderRepository,
+            UserRepository userRepository) {
         mViewModel = viewModel;
         mOrderRepository = orderRepository;
+        mUserRepository = userRepository;
         mCompositeSubscription = new CompositeSubscription();
         getListOrderHistory();
     }
@@ -66,7 +71,7 @@ public class OrderHistoryPresenter implements OrderHistoryContract.Presenter {
                 .subscribe(new Action1<List<Order>>() {
                     @Override
                     public void call(List<Order> orders) {
-                        mViewModel.onGetListAllOrderHistorySuccess(orders);
+                        mViewModel.onGetListAllOrderHistorySuccess(getOrders(orders));
                     }
                 }, new SafetyError() {
                     @Override
@@ -75,5 +80,16 @@ public class OrderHistoryPresenter implements OrderHistoryContract.Presenter {
                     }
                 });
         mCompositeSubscription.add(subscription);
+    }
+
+    private List<Order> getOrders(List<Order> orders) {
+        User user = mUserRepository.getUser();
+        List<Order> orderList = new ArrayList<>();
+        for (Order order : orders) {
+            if (user.getId() == order.getUserId()) {
+                orderList.add(order);
+            }
+        }
+        return orderList;
     }
 }

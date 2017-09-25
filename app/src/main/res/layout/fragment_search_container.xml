@@ -56,7 +56,7 @@
         </LinearLayout>
         <com.arlib.floatingsearchview.FloatingSearchView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_60"
+            android:layout_height="match_parent"
             app:clearText="@{viewModel.clear}"
             app:floatingSearch_close_search_on_keyboard_dismiss="true"
             app:floatingSearch_dimBackground="false"
@@ -67,6 +67,8 @@
             app:floatingSearch_searchHint="@string/search"
             app:floatingSearch_showSearchKey="false"
             app:floatingSearch_suggestionsListAnimDuration="250"
+            app:suggests="@{viewModel.suggests}"
+            bind:setOnQueryChangeListener="@{viewModel.queryChangeListener}"
             bind:setOnSearchListener="@{viewModel.queryTextListener}"
             />
     </RelativeLayout>

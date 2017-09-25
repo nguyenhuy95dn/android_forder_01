@@ -25,121 +25,101 @@
         <import type="android.support.v7.widget.LinearLayoutManager"/>
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_gray_white"
         >
-
-        <android.support.design.widget.AppBarLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             >
-
-            <android.support.design.widget.CollapsingToolbarLayout
+            <RelativeLayout
+                android:id="@+id/layout_top_shop"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/color_white"
-                app:contentScrim="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+                android:layout_height="wrap_content"
+                android:background="@color/color_gray_white"
                 >
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_gray_white"
+                    android:orientation="vertical"
                     >
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:background="@color/color_white"
                         >
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/color_white"
-                            >
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/dp_1"
-                                android:layout_alignParentTop="true"
-                                android:background="@color/color_orange_mos"
-                                />
-
-                            <TextView
-                                android:layout_width="@dimen/dp_250"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/dp_30"
-                                android:layout_marginRight="@dimen/dp_30"
-                                android:drawableLeft="@drawable/ic_store_orange"
-                                android:drawablePadding="@dimen/dp_5"
-                                android:drawableStart="@drawable/ic_store_orange"
-                                android:fontFamily="@string/font_serif"
-                                android:gravity="center_vertical"
-                                android:padding="@dimen/dp_5"
-                                android:text="@string/top_shop"
-                                android:textColor="@color/color_orange_mos"
-                                android:textSize="@dimen/sp_17"
-                                android:textStyle="bold"
-                                tools:ignore="UnusedAttribute"
-                                />
-
-                            <ImageView
-                                android:layout_width="@dimen/dp_35"
-                                android:layout_height="@dimen/dp_35"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:onClick="@{() -> viewModel.onSeeMoreShopClick()}"
-                                app:srcCompat="@drawable/ic_next_fragment_orange"
-                                tools:ignore="ContentDescription"
-                                />
-                        </RelativeLayout>
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_1"
+                            android:layout_alignParentTop="true"
                             android:background="@color/color_orange_mos"
                             />
 
-                        <android.support.v4.view.ViewPager
-                            android:id="@+id/viewpager_slide"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_270"
-                            android:background="@color/color_gray_white"
-                            app:offscreenPageLimit="@{viewModel.pageLimit}"
-                            bind:adapter="@{viewModel.shopPageAdapter}"
+                        <TextView
+                            android:layout_width="@dimen/dp_250"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dp_30"
+                            android:layout_marginRight="@dimen/dp_30"
+                            android:drawableLeft="@drawable/ic_store_orange"
+                            android:drawablePadding="@dimen/dp_5"
+                            android:drawableStart="@drawable/ic_store_orange"
+                            android:fontFamily="@string/font_serif"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/dp_5"
+                            android:text="@string/top_shop"
+                            android:textColor="@color/color_orange_mos"
+                            android:textSize="@dimen/sp_17"
+                            android:textStyle="bold"
+                            tools:ignore="UnusedAttribute"
                             />
-                    </LinearLayout>
 
-                    <ProgressBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:visibility="@{viewModel.progressBarVisibleShop? View.VISIBLE : View.GONE}"
-                        style="?android:attr/progressBarPadding"
+                        <ImageView
+                            android:layout_width="@dimen/dp_35"
+                            android:layout_height="@dimen/dp_35"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:onClick="@{() -> viewModel.onSeeMoreShopClick()}"
+                            app:srcCompat="@drawable/ic_next_fragment_orange"
+                            tools:ignore="ContentDescription"
+                            />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:background="@color/color_orange_mos"
                         />
-                </RelativeLayout>
 
-            </android.support.design.widget.CollapsingToolbarLayout>
-        </android.support.design.widget.AppBarLayout>
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/viewpager_slide"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_270"
+                        android:background="@color/color_gray_white"
+                        app:offscreenPageLimit="@{viewModel.pageLimit}"
+                        bind:adapter="@{viewModel.shopPageAdapter}"
+                        />
+                </LinearLayout>
 
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            >
-
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:visibility="@{viewModel.progressBarVisibleShop? View.VISIBLE : View.GONE}"
+                    style="?android:attr/progressBarPadding"
+                    />
+            </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/layout_top_shop"
                 >
-
                 <View
                     android:id="@+id/view_top"
                     android:layout_width="match_parent"
@@ -203,7 +183,6 @@
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
-                            android:layout_centerVertical="true"
                             android:layout_gravity="center_vertical"
                             android:orientation="horizontal"
                             android:padding="@dimen/dp_10"
@@ -246,13 +225,13 @@
                         <ImageView
                             android:layout_width="@dimen/dp_35"
                             android:layout_height="@dimen/dp_35"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
                             android:background="@color/transparent"
                             android:onClick="@{() -> viewModel.onSeeMoreProductClick()}"
                             app:srcCompat="@drawable/ic_next_fragment_orange"
                             tools:ignore="ContentDescription"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
                             />
 
                         <View
@@ -295,6 +274,6 @@
                     </RelativeLayout>
                 </LinearLayout>
             </RelativeLayout>
-        </android.support.v4.widget.NestedScrollView>
-    </android.support.design.widget.CoordinatorLayout>
+        </RelativeLayout>
+    </ScrollView>
 </layout>
