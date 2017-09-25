@@ -40,8 +40,9 @@ public class ItemRequestShopInDomain {
 
     public String getShopImage() {
         if (mShopContain.getShop() != null
-                && mShopContain.getShop().getCollectionAvatar() != null) {
-            return mShopContain.getShop().getCollectionAvatar().getUrl();
+                && mShopContain.getShop().getCollectionAvatar() != null
+                && mShopContain.getShop().getCollectionAvatar().getImage() != null) {
+            return mShopContain.getShop().getCollectionAvatar().getImage().getUrl();
         }
         return "";
     }

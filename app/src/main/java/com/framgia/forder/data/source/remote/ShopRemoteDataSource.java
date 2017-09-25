@@ -51,6 +51,20 @@ public class ShopRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
+    public Observable<List<Shop>> getListTopShop(int domainId, String topShops) {
+        return mFOrderApi.getListTopShop(domainId, topShops)
+                .flatMap(new Func1<ShopResponse, Observable<List<Shop>>>() {
+                    @Override
+                    public Observable<List<Shop>> call(ShopResponse shopResponse) {
+                        if (shopResponse != null) {
+                            return Observable.just(shopResponse.getListShop());
+                        }
+                        return Observable.error(new NullPointerException());
+                    }
+                });
+    }
+
+    @Override
     public Observable<List<Shop>> getRelativeShops(int domainId) {
         // todo edit later
         return mFOrderApi.getRelativeShops(domainId)

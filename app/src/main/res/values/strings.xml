@@ -238,4 +238,5 @@
     <string name="follow">Follow</string>
     <string name="paid">Paid</string>
     <string name="unfollow">Unfollow</string>
+    <string name="shop_is_time_out_would_you_like_delete_cart">Shop is time out, would you like delete cart?</string>
 </resources>

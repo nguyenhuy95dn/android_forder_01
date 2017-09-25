@@ -34,6 +34,7 @@ public class ShopPageAdapter extends FragmentStatePagerAdapter {
     }
 
     public void updateShop(List<Shop> shopList) {
+        mShopList.clear();
         mShopList.addAll(shopList);
         notifyDataSetChanged();
     }

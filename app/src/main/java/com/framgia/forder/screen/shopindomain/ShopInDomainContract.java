@@ -14,7 +14,7 @@ interface ShopInDomainContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
-        void onGetListShopInDomainSuccess(List<ShopInDomain> shops, int userId);
+        void onGetListShopInDomainSuccess(List<ShopInDomain> shops);
 
         void onGetListShopInDomainError(BaseException error);
 

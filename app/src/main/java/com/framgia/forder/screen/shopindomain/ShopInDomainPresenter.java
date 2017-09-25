@@ -47,7 +47,6 @@ final class ShopInDomainPresenter implements ShopInDomainContract.Presenter {
 
     @Override
     public void getListShopInDomain(int domainId) {
-        final User user = mUserRepository.getUser();
         Subscription subscription = mShopRepository.getListShopInDomain(domainId)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Action0() {
@@ -66,7 +65,7 @@ final class ShopInDomainPresenter implements ShopInDomainContract.Presenter {
                 .subscribe(new Action1<List<ShopInDomain>>() {
                     @Override
                     public void call(List<ShopInDomain> shops) {
-                        mViewModel.onGetListShopInDomainSuccess(shops, user.getId());
+                        mViewModel.onGetListShopInDomainSuccess(shops);
                     }
                 }, new SafetyError() {
                     @Override
