@@ -22,6 +22,7 @@ public class ShopInDomainViewModel extends BaseObservable
         implements ShopInDomainContract.ViewModel, ShopInDomainListener {
 
     private static final String TAG = "ManagerInShopFragment";
+    private static final String MEMBER = "member";
 
     private final ShopInDomainAdapter mAdapter;
     private final Navigator mNavigator;
@@ -132,7 +133,7 @@ public class ShopInDomainViewModel extends BaseObservable
                 Navigator.RIGHT_LEFT, "RequestShopInDomainFragment");
     }
 
-    public boolean isOwner() {
-        return mPresenter.checkOwner(mDomainManagement.getOwner());
+    public boolean isMember() {
+        return MEMBER.equals(mDomainManagement.getRoleOfCurrentUser());
     }
 }

@@ -6,5 +6,5 @@
     android:ellipsize="marquee"
     android:paddingLeft="@dimen/dp_10"
     android:paddingTop="@dimen/dp_7"
-    android:textSize="@dimen/sp_18"
+    android:textSize="@dimen/sp_17"
     />
