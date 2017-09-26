@@ -3,6 +3,7 @@ package com.framgia.forder.screen.shopindomain;
 import android.content.DialogInterface;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.util.Log;
 import com.framgia.forder.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.DomainManagement;
@@ -23,6 +24,7 @@ public class ShopInDomainViewModel extends BaseObservable
 
     private static final String TAG = "ManagerInShopFragment";
     private static final String MEMBER = "member";
+    private static final String OWNER = "owner";
 
     private final ShopInDomainAdapter mAdapter;
     private final Navigator mNavigator;
@@ -61,13 +63,13 @@ public class ShopInDomainViewModel extends BaseObservable
     }
 
     @Override
-    public void onGetListShopInDomainSuccess(List<ShopInDomain> shops, int userId) {
-        mAdapter.updateData(shops, mDomainManagement.getOwner() == userId);
+    public void onGetListShopInDomainSuccess(List<ShopInDomain> shops) {
+        mAdapter.updateData(shops, OWNER.equals(mDomainManagement.getRoleOfCurrentUser()));
     }
 
     @Override
     public void onGetListShopInDomainError(BaseException error) {
-        mNavigator.showToastCustom(error.getMessage());
+        Log.e(TAG, "onGetListShopInDomainError: ", error);
     }
 
     @Override
@@ -77,7 +79,7 @@ public class ShopInDomainViewModel extends BaseObservable
 
     @Override
     public void ondeleteShopInDomainError(BaseException error) {
-        mNavigator.showToastCustom(error.getMessage());
+        Log.e(TAG, "onGetListShopInDomainError: ", error);
     }
 
     @Override

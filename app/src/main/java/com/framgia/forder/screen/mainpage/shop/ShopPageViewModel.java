@@ -50,7 +50,6 @@ public class ShopPageViewModel extends BaseObservable implements ShopPageContrac
     }
 
     public void onClickShopItem() {
-        mNavigator.goNextChildFragment(R.id.layout_content, ShopDetailFragment.newInstance(mShop),
-                true, Navigator.RIGHT_LEFT, "ShopDetailFragment");
+        //Todo edit later
     }
 }

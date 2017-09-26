@@ -58,7 +58,7 @@ public class MainPageFragment extends Fragment {
         List<Category> categories = new ArrayList<>();
         CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), categories);
         Navigator navigator = new Navigator(getParentFragment());
-        ShopPageAdapter shopPageAdapter = new ShopPageAdapter(getFragmentManager());
+        ShopPageAdapter shopPageAdapter = new ShopPageAdapter(getChildFragmentManager());
         DialogManager dialogManager = new DialogManager(getActivity());
 
         mViewModel = new MainPageViewModel(getContext().getApplicationContext(), productAdapter,

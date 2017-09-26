@@ -11,6 +11,7 @@ import com.framgia.forder.data.model.CartItem;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.main.LoadCartListener;
 import com.framgia.forder.screen.main.LoadOrderHistoryListener;
+import com.framgia.forder.utils.Utils;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
@@ -78,6 +79,21 @@ public class ShoppingCartViewModel extends BaseObservable
         mCart = cart;
         final List<Cart> carts = new ArrayList<>();
         carts.add(cart);
+        for (CartItem cartItem : cart.getCartItemList()) {
+            if (Utils.DateTimeUntils.isProductTimeOut(cartItem.getStartHour(),
+                    cartItem.getEndHour())) {
+                mDialogManager.dialogwithNoTitleTwoButton(
+                        R.string.shop_is_time_out_would_you_like_delete_cart,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mPresenter.removeOneShop(cart);
+                            }
+                        });
+                mDialogManager.show();
+                return;
+            }
+        }
         mDialogManager.dialogwithNoTitleTwoButton(R.string.mgs_this_order,
                 new DialogInterface.OnClickListener() {
                     @Override

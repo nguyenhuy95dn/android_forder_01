@@ -32,7 +32,9 @@
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_marginStart="@dimen/dp_5"
             android:layout_toEndOf="@+id/image_avatar"
+            android:layout_toLeftOf="@+id/action_add"
             android:layout_toRightOf="@+id/image_avatar"
+            android:layout_toStartOf="@+id/action_add"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -71,15 +73,17 @@
             android:background="@color/color_gray_white"
             />
         <TextView
-            android:layout_width="@dimen/dp_50"
+            android:id="@+id/action_add"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_30"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:onClick="@{() -> viewModel.onClickAddUser()}"
             android:layout_marginEnd="@dimen/dp_5"
             android:layout_marginRight="@dimen/dp_5"
             android:gravity="center"
+            android:onClick="@{() -> viewModel.onClickAddUser()}"
+            android:padding="@dimen/dp_5"
             android:text="@string/add"
             android:textAllCaps="true"
             android:textColor="@color/color_orange_mos"

@@ -1,6 +1,7 @@
 package com.framgia.forder.screen.notification;
 
 import android.databinding.BaseObservable;
+import android.util.Log;
 import com.framgia.forder.data.model.Notification;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
@@ -14,6 +15,7 @@ import java.util.List;
 public class NotificationPageViewModel extends BaseObservable
         implements NotificationPageContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
+    private static final String TAG = "NotificationPageViewMod";
 
     private NotificationPageContract.Presenter mPresenter;
     private final NotificationPageAdapter mNotificationPageAdapter;
@@ -44,7 +46,7 @@ public class NotificationPageViewModel extends BaseObservable
 
     @Override
     public void onGetListAllNotificationError(BaseException e) {
-        mNavigator.showToast(e.getMessage());
+        Log.e(TAG, "onGetListAllNotificationError: ", e);
     }
 
     @Override

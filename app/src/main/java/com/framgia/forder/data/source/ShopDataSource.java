@@ -24,6 +24,8 @@ public interface ShopDataSource {
     interface RemoteDataSource {
         Observable<List<Shop>> getListShop(int domainId);
 
+        Observable<List<Shop>> getListTopShop(int domainId, String topShops);
+
         Observable<List<Shop>> getRelativeShops(int domainId);
 
         Observable<List<ShopManagement>> getListShopManagement(int userId);

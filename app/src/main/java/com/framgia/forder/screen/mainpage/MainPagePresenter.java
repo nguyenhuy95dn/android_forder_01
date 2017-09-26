@@ -110,7 +110,7 @@ final class MainPagePresenter implements MainPageContract.Presenter {
         if (domain == null) {
             return;
         }
-        Subscription subscription = mShopRepository.getListShop(domain.getId())
+        Subscription subscription = mShopRepository.getListTopShop(domain.getId(), "")
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Action0() {
                     @Override

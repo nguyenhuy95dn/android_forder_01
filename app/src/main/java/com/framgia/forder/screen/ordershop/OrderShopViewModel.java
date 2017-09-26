@@ -119,6 +119,7 @@ public class OrderShopViewModel extends BaseObservable
 
     @Override
     public void onGetListFilterSuccess(List<Order> orders, int idRadioButton) {
+        mOrders = orders;
         if (idRadioButton == R.id.rad_all) {
             mOrderShopAdapter.updateData(orders);
             return;
