@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.framgia.forder.R;
+import com.framgia.forder.data.event.NetWorkStateEvent;
 import com.framgia.forder.data.source.DomainRepository;
 import com.framgia.forder.data.source.NotificationRepository;
 import com.framgia.forder.data.source.ProductRepository;
@@ -25,6 +26,9 @@ import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.ActivityMainBinding;
 import com.framgia.forder.screen.BaseActivity;
+import com.framgia.forder.widgets.dialog.DialogManager;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import static com.framgia.forder.screen.splash.SplashActivity.PARAMS;
 
@@ -46,11 +50,13 @@ public class MainActivity extends BaseActivity
     private boolean mIsDoubleTapBack = false;
     private View mView;
     private View mViewProfile;
+    private DialogManager mDialogManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String params = getIntent().getExtras().getString(PARAMS);
+        mDialogManager = new DialogManager(this);
 
         MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager());
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -140,5 +146,16 @@ public class MainActivity extends BaseActivity
     @Override
     public void onLoadOrderHistoryPage() {
         mViewModel.onLoadOrderHistoryPage(mViewProfile);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(NetWorkStateEvent event) {
+        if (!event.isConnected()) {
+            mDialogManager.dialogWarning(R.string.sorry_not_connect_to_internet);
+            mDialogManager.show();
+        } else {
+            mViewModel.reloadData(mView);
+            mViewModel.onReloadDataMain();
+        }
     }
 }

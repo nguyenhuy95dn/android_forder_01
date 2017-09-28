@@ -193,4 +193,12 @@ final class MainPresenter implements MainContract.Presenter {
                 });
         mCompositeSubscription.add(subscription);
     }
+
+    @Override
+    public void reloadDataMain(){
+        getListCart();
+        getListNotification();
+        getListShopInDomain(mCurrenDomain);
+        getCurrentDomain();
+    }
 }

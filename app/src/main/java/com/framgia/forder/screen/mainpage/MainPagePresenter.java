@@ -14,6 +14,7 @@ import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.response.OrderCartResponse;
+import java.util.ArrayList;
 import java.util.List;
 import rx.Subscriber;
 import rx.Subscription;
@@ -74,7 +75,11 @@ final class MainPagePresenter implements MainPageContract.Presenter {
 
     @Override
     public void getListProduct() {
-        Subscription subscription = mProductRepository.getListProduct()
+        Domain domain = mDomainRepository.getCurrentDomain();
+        if (domain == null) {
+            return;
+        }
+        Subscription subscription = mProductRepository.getListProduct(domain.getId())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Action0() {
                     @Override
@@ -92,8 +97,12 @@ final class MainPagePresenter implements MainPageContract.Presenter {
                 .subscribe(new Action1<List<Product>>() {
                     @Override
                     public void call(List<Product> products) {
-                        mViewModel.onGetListProductSuccess(
-                                products.subList(START_SUB_LIST, END_SUB_LIST));
+                        if (products.size() >= END_SUB_LIST) {
+                            mViewModel.onGetListProductSuccess(
+                                    products.subList(START_SUB_LIST, END_SUB_LIST));
+                        } else {
+                            mViewModel.onGetListProductSuccess(products);
+                        }
                     }
                 }, new SafetyError() {
                     @Override
@@ -169,6 +178,8 @@ final class MainPagePresenter implements MainPageContract.Presenter {
                     @Override
                     public void onSafetyError(BaseException error) {
                         mViewModel.onGetListCategoryError(error);
+                        List<Category> categories = new ArrayList<>();
+                        mViewModel.onGetListCategorySuccess(categories);
                     }
                 });
         mCompositeSubscription.add(subscription);
