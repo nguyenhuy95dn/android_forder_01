@@ -29,9 +29,9 @@ import com.framgia.forder.data.source.remote.ShopRemoteDataSource;
 import com.framgia.forder.data.source.remote.UserRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentMainPageBinding;
+import com.framgia.forder.screen.listProduct.adapter.ListProductAdapter;
 import com.framgia.forder.screen.main.LoadCartListener;
 import com.framgia.forder.screen.mainpage.category.CategoryAdapter;
-import com.framgia.forder.screen.mainpage.product.ProductAdapter;
 import com.framgia.forder.screen.mainpage.shop.ShopPageAdapter;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
@@ -54,7 +54,7 @@ public class MainPageFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
 
         List<Product> products = new ArrayList<>();
-        ProductAdapter productAdapter = new ProductAdapter(getActivity(), products);
+        ListProductAdapter productAdapter = new ListProductAdapter(getActivity(), products);
         List<Category> categories = new ArrayList<>();
         CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), categories);
         Navigator navigator = new Navigator(getParentFragment());

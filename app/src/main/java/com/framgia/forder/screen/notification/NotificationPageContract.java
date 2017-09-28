@@ -18,6 +18,8 @@ public interface NotificationPageContract {
         void onGetListAllNotificationError(BaseException exception);
 
         void onGetListAllNotificationSuccess(List<Notification> notifications);
+
+        void reloadData();
     }
 
     /**

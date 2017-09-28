@@ -15,13 +15,13 @@ import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.listProduct.ListProductFragment;
+import com.framgia.forder.screen.listProduct.adapter.ListProductAdapter;
 import com.framgia.forder.screen.listproductbycategory.ListProductByCategoryFragment;
 import com.framgia.forder.screen.listshop.ListShopFragment;
 import com.framgia.forder.screen.main.LoadCartListener;
 import com.framgia.forder.screen.mainpage.category.CategoryAdapter;
 import com.framgia.forder.screen.mainpage.ordercart.BaseOrderCartViewModel;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
-import com.framgia.forder.screen.mainpage.product.ProductAdapter;
 import com.framgia.forder.screen.mainpage.shop.ShopPageAdapter;
 import com.framgia.forder.screen.productdetail.ProductDetailFragment;
 import com.framgia.forder.screen.quickorder.QuickOrderListener;
@@ -43,7 +43,7 @@ public class MainPageViewModel extends BaseOrderCartViewModel implements MainPag
     private final Context mContext;
     private final Navigator mNavigator;
     private MainPageContract.Presenter mPresenter;
-    private final ProductAdapter mProductAdapter;
+    private final ListProductAdapter mProductAdapter;
     private final CategoryAdapter mCategoryAdapter;
     private boolean mIsProgressBarVisibleShop;
     private boolean mIsProgressBarVisibleCategory;
@@ -53,8 +53,8 @@ public class MainPageViewModel extends BaseOrderCartViewModel implements MainPag
     private final int mPageLimit = 6;
     private final LoadCartListener mLoadCartListener;
 
-    MainPageViewModel(@NonNull Context context, ProductAdapter productAdapter, Navigator navigator,
-            CategoryAdapter categoryAdapter, ShopPageAdapter shopPageAdapter,
+    MainPageViewModel(@NonNull Context context, ListProductAdapter productAdapter,
+            Navigator navigator, CategoryAdapter categoryAdapter, ShopPageAdapter shopPageAdapter,
             DialogManager dialogManager, LoadCartListener loadCartListener) {
         this.mContext = context;
         mProductAdapter = productAdapter;
@@ -238,7 +238,7 @@ public class MainPageViewModel extends BaseOrderCartViewModel implements MainPag
                 Navigator.LEFT_RIGHT, TAG);
     }
 
-    public ProductAdapter getProductAdapter() {
+    public ListProductAdapter getProductAdapter() {
         return mProductAdapter;
     }
 

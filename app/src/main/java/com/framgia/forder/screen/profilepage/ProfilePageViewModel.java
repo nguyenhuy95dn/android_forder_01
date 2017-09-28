@@ -1,6 +1,5 @@
 package com.framgia.forder.screen.profilepage;
 
-import android.os.Bundle;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.User;
 import com.framgia.forder.screen.domainmanagement.DomainManagementFragment;
@@ -11,8 +10,6 @@ import com.framgia.forder.screen.ordermanagement.OrderManagementActivity;
 import com.framgia.forder.screen.profilepage.profiledetail.ProfileDetailFragment;
 import com.framgia.forder.screen.shopmanagement.ShopManagementFragment;
 import com.framgia.forder.utils.navigator.Navigator;
-
-import static com.framgia.forder.screen.splash.SplashActivity.PARAMS;
 
 /**
  * Exposes the data to be used in the ProfileFragment screen.
@@ -93,9 +90,7 @@ public class ProfilePageViewModel implements ProfilePageContract.ViewModel {
 
     public void onLogoutClicked() {
         mPresenter.clearData();
-        Bundle bundle = new Bundle();
-        bundle.putString(PARAMS, "");
-        mNavigator.startActivity(LoginActivity.class, bundle);
+        mNavigator.startActivity(LoginActivity.class);
         mNavigator.finishActivity();
     }
 

@@ -48,19 +48,8 @@ public class SplashActivity extends BaseActivity {
         checkConnection();
     }
 
-    public void chooseDomainPage(Uri data) {
-        if (data == null) {
-            mIntent = new Intent(SplashActivity.this, ChooseDomainActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString(PARAMS, "");
-            mIntent.putExtras(bundle);
-        } else {
-            mIntent = new Intent(SplashActivity.this, LoginActivity.class);
-            List<String> params = data.getPathSegments();
-            Bundle bundle = new Bundle();
-            bundle.putString(PARAMS, params.get(1));
-            mIntent.putExtras(bundle);
-        }
+    public void chooseDomainPage() {
+        mIntent = new Intent(SplashActivity.this, ChooseDomainActivity.class);
     }
 
     public void mainPage(Uri data) {
@@ -78,19 +67,8 @@ public class SplashActivity extends BaseActivity {
         }
     }
 
-    public void loginPage(Uri data) {
-        if (data == null) {
-            mIntent = new Intent(SplashActivity.this, LoginActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString(PARAMS, "");
-            mIntent.putExtras(bundle);
-        } else {
-            mIntent = new Intent(SplashActivity.this, LoginActivity.class);
-            List<String> params = data.getPathSegments();
-            Bundle bundle = new Bundle();
-            bundle.putString(PARAMS, params.get(1));
-            mIntent.putExtras(bundle);
-        }
+    public void loginPage() {
+        mIntent = new Intent(SplashActivity.this, LoginActivity.class);
     }
 
     @Override
@@ -108,9 +86,9 @@ public class SplashActivity extends BaseActivity {
                 public void run() {
 
                     if (userRepository.getUser() == null) {
-                        loginPage(data);
+                        loginPage();
                     } else if (domainRepository.getCurrentDomain() == null) {
-                        chooseDomainPage(data);
+                        chooseDomainPage();
                     } else {
                         mainPage(data);
                     }
@@ -120,8 +98,8 @@ public class SplashActivity extends BaseActivity {
             };
             mHandler.postDelayed(mRunnable, SECOND_DELAYED);
         } else {
-            mDialogManager.dialogwithNoTitleOneButton(R.string.sorry_not_connect_to_internet, new
-                    DialogInterface.OnClickListener() {
+            mDialogManager.dialogwithNoTitleOneButton(R.string.sorry_not_connect_to_internet,
+                    new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             checkConnection();

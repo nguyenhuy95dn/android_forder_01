@@ -1,9 +1,7 @@
 package com.framgia.forder.screen.mainpage.shop;
 
 import android.databinding.BaseObservable;
-import com.framgia.forder.R;
 import com.framgia.forder.data.model.Shop;
-import com.framgia.forder.screen.shopDetail.ShopDetailFragment;
 import com.framgia.forder.utils.navigator.Navigator;
 
 /**
@@ -43,8 +41,8 @@ public class ShopPageViewModel extends BaseObservable implements ShopPageContrac
     }
 
     public String getShopImage() {
-        if (mShop.getCollectionAvatar() != null && mShop.getCollectionAvatar().getImage() != null) {
-            return mShop.getCollectionAvatar().getImage().getUrl();
+        if (mShop.getCollectionAvatar() != null) {
+            return mShop.getCollectionAvatar().getUrl();
         }
         return "";
     }

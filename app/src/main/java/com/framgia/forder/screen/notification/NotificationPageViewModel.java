@@ -55,6 +55,11 @@ public class NotificationPageViewModel extends BaseObservable
     }
 
     @Override
+    public void reloadData() {
+        mPresenter.getListNotification();
+    }
+
+    @Override
     public void onItemRecyclerViewClick(Object item) {
 
     }
