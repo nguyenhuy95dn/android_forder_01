@@ -319,6 +319,11 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
         Log.e(TAG, "onGetListShopInDomainError: ", error);
     }
 
+    @Override
+    public void onReloadDataMain(){
+        mPresenter.reloadDataMain();
+    }
+
     @IntDef({ Tab.TAB_HOME, Tab.TAB_SEARCH, Tab.TAB_CART, Tab.TAB_NOTIFICATION, Tab.TAB_PROFILE })
     public @interface Tab {
         int TAB_HOME = 0;

@@ -2,6 +2,7 @@ package com.framgia.forder.screen.listProduct;
 
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.Category;
+import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.Product;
 import com.framgia.forder.data.source.CategoryRepository;
 import com.framgia.forder.data.source.DomainRepository;
@@ -11,6 +12,7 @@ import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.response.OrderCartResponse;
+import java.util.ArrayList;
 import java.util.List;
 import rx.Subscriber;
 import rx.Subscription;
@@ -84,7 +86,11 @@ final class ListProductPresenter implements ListProductContract.Presenter {
 
     @Override
     public void getListAllProduct() {
-        Subscription subscription = mProductRepository.getListProduct()
+        Domain domain = mDomainRepository.getCurrentDomain();
+        if (domain == null) {
+            return;
+        }
+        Subscription subscription = mProductRepository.getListProduct(domain.getId())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Action0() {
                     @Override

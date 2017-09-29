@@ -34,8 +34,8 @@ public class ProductRepository {
         mLocalProductDataSource = productLocalDataSource;
     }
 
-    public Observable<List<Product>> getListProduct() {
-        return mRemoteDataSource.getListProduct(mCurrentDomainId);
+    public Observable<List<Product>> getListProduct(int domainId) {
+        return mRemoteDataSource.getListProduct(domainId);
     }
 
     public Observable<List<Product>> getListProductByCategory(int categoryId) {

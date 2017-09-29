@@ -51,6 +51,8 @@ interface MainContract {
         void onGetListShopInDomainSuccess(List<ShopInDomain> shops);
 
         void onGetListShopInDomainError(BaseException error);
+
+        void onReloadDataMain();
     }
 
     /**
@@ -74,5 +76,7 @@ interface MainContract {
         void goToListProduct(int shopId);
 
         void getListShopInDomain(int domainId);
+
+        void reloadDataMain();
     }
 }

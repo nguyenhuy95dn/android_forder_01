@@ -108,6 +108,7 @@ dependencies {
   compile dependencies.floatingsearchview
   compile dependencies.expandablerecyclerview
   compile dependencies.firebaseMessage
+  compile dependencies.eventBus
 
   testCompile dependencies.junit
   testCompile dependencies.mockito
