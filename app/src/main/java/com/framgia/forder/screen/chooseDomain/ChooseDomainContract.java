@@ -22,12 +22,16 @@ interface ChooseDomainContract {
         void onShowProgressBar();
 
         void onHideProgressBar();
+
+        void onReloadData();
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
+
+        void getListDomain();
 
         void saveCurrentDomain(Domain domain);
     }

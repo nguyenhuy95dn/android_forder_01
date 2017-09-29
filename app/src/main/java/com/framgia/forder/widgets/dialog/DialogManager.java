@@ -41,6 +41,16 @@ public class DialogManager implements DialogInterfaceImp {
         return this;
     }
 
+    public DialogManager dialogwithNoTitleOneButton(int message,
+            DialogInterface.OnClickListener positiveButtonListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton(R.string.refresh, positiveButtonListener);
+        mDialog = builder.create();
+        return this;
+    }
+
     public DialogManager dialogDatePicker(DatePickerDialog.OnDateSetListener onDateSetListener) {
         mDatePickerDialog =
                 new DatePickerDialog(mContext, onDateSetListener, mCalendar.get(Calendar.YEAR),

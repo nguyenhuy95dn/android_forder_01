@@ -130,4 +130,9 @@ public class ChooseDomainViewModel extends BaseObservable
     public void setSelectedTypePosition(Integer selectedTypePosition) {
         this.mSelectedTypePosition = selectedTypePosition;
     }
+
+    @Override
+    public void onReloadData() {
+        mPresenter.getListDomain();
+    }
 }
