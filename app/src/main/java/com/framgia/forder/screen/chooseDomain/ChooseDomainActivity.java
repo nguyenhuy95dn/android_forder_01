@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.chooseDomain;
 
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -12,6 +13,7 @@ import com.framgia.forder.data.source.local.UserLocalDataSource;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
 import com.framgia.forder.data.source.remote.DomainRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.ConnectivityReceiver;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.ActivityChooseDomainBinding;
 import com.framgia.forder.screen.BaseActivity;
@@ -31,6 +33,7 @@ public class ChooseDomainActivity extends BaseActivity {
 
     private ChooseDomainContract.ViewModel mViewModel;
     private DialogManager mDialogManager;
+    private boolean mIsConnected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +78,36 @@ public class ChooseDomainActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(NetWorkStateEvent event) {
-        if (!event.isConnected()) {
-            mDialogManager.dialogWarning(R.string.sorry_not_connect_to_internet);
+        checkConnection(event.isConnected());
+    }
+
+    private void checkConnection(boolean isConnected) {
+        if (!isConnected) {
+            mDialogManager.dialogwithNoTitleOneButton(R.string.sorry_not_connect_to_internet,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            refreshConnection();
+                        }
+                    });
             mDialogManager.show();
+        }
+    }
+
+    private void refreshConnection() {
+        mIsConnected = ConnectivityReceiver.isConnected(this);
+        if (!mIsConnected) {
+            mDialogManager.dialogwithNoTitleOneButton(R.string.sorry_not_connect_to_internet,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            refreshConnection();
+                        }
+                    });
+            mDialogManager.show();
+        } else {
+            mDialogManager.dismiss();
+            mViewModel.onReloadData();
         }
     }
 }

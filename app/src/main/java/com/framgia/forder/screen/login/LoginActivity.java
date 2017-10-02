@@ -1,10 +1,9 @@
 package com.framgia.forder.screen.login;
 
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.Log;
-import android.widget.Toast;
 import com.framgia.forder.R;
 import com.framgia.forder.data.event.NetWorkStateEvent;
 import com.framgia.forder.data.source.UserRepository;
@@ -12,6 +11,7 @@ import com.framgia.forder.data.source.local.UserLocalDataSource;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsApi;
 import com.framgia.forder.data.source.local.sharedprf.SharedPrefsImpl;
 import com.framgia.forder.data.source.remote.UserRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.ConnectivityReceiver;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.ActivityLoginBinding;
 import com.framgia.forder.screen.BaseActivity;
@@ -29,11 +29,12 @@ public class LoginActivity extends BaseActivity {
 
     private LoginContract.ViewModel mViewModel;
     private DialogManager mDialogManager;
+    private boolean mIsConnected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDialogManager=new DialogManager(this);
+        mDialogManager = new DialogManager(this);
         String params = getIntent().getExtras().getString(PARAMS);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getApplicationContext());
@@ -65,9 +66,35 @@ public class LoginActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(NetWorkStateEvent event) {
-        if (!event.isConnected()) {
-            mDialogManager.dialogWarning(R.string.sorry_not_connect_to_internet);
+        checkConnection(event.isConnected());
+    }
+
+    private void checkConnection(boolean isConnected) {
+        if (!isConnected) {
+            mDialogManager.dialogwithNoTitleOneButton(R.string.sorry_not_connect_to_internet,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            refreshConnection();
+                        }
+                    });
             mDialogManager.show();
+        }
+    }
+
+    private void refreshConnection() {
+        mIsConnected = ConnectivityReceiver.isConnected(this);
+        if (!mIsConnected) {
+            mDialogManager.dialogwithNoTitleOneButton(R.string.sorry_not_connect_to_internet,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            refreshConnection();
+                        }
+                    });
+            mDialogManager.show();
+        } else {
+            mDialogManager.dismiss();
         }
     }
 }

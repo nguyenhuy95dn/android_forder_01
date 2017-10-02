@@ -1,5 +1,6 @@
 package com.framgia.forder.screen.splash;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -119,7 +120,13 @@ public class SplashActivity extends BaseActivity {
             };
             mHandler.postDelayed(mRunnable, SECOND_DELAYED);
         } else {
-            mDialogManager.dialogWarning(R.string.sorry_not_connect_to_internet);
+            mDialogManager.dialogwithNoTitleOneButton(R.string.sorry_not_connect_to_internet, new
+                    DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            checkConnection();
+                        }
+                    });
             mDialogManager.show();
         }
     }

@@ -1,11 +1,13 @@
 package com.framgia.forder.screen.forgotpassword;
 
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import com.framgia.forder.R;
 import com.framgia.forder.data.event.NetWorkStateEvent;
 import com.framgia.forder.data.source.ForgotPasswordRepository;
 import com.framgia.forder.data.source.remote.ForgotPasswordRemoteDataSource;
+import com.framgia.forder.data.source.remote.api.ConnectivityReceiver;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.ActivityForgotPasswordBinding;
 import com.framgia.forder.screen.BaseActivity;
@@ -21,6 +23,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 
     private ForgotPasswordContract.ViewModel mViewModel;
     private DialogManager mDialogManager;
+    private boolean mIsConnected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +58,35 @@ public class ForgotPasswordActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(NetWorkStateEvent event) {
-        if (!event.isConnected()) {
-            mDialogManager.dialogWarning(R.string.sorry_not_connect_to_internet);
+        checkConnection();
+    }
+
+    private void checkConnection() {
+        if (!mIsConnected) {
+            mDialogManager.dialogwithNoTitleOneButton(R.string.sorry_not_connect_to_internet,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            refreshConnection();
+                        }
+                    });
             mDialogManager.show();
+        }
+    }
+
+    private void refreshConnection() {
+        mIsConnected = ConnectivityReceiver.isConnected(this);
+        if (!mIsConnected) {
+            mDialogManager.dialogwithNoTitleOneButton(R.string.sorry_not_connect_to_internet,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            refreshConnection();
+                        }
+                    });
+            mDialogManager.show();
+        } else {
+            mDialogManager.dismiss();
         }
     }
 }

@@ -40,7 +40,8 @@ final class ChooseDomainPresenter implements ChooseDomainContract.Presenter {
         mCompositeSubscription.clear();
     }
 
-    private void getListDomain() {
+    @Override
+    public void getListDomain() {
         Subscription subscription = mDomainRepository.getListDomain()
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Action0() {
