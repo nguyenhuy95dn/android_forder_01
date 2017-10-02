@@ -24,8 +24,6 @@ import java.util.List;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import static com.framgia.forder.screen.splash.SplashActivity.PARAMS;
-
 /**
  * ChooseDomain Screen.
  */
@@ -38,7 +36,6 @@ public class ChooseDomainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String params = getIntent().getExtras().getString(PARAMS);
         mDialogManager = new DialogManager(this);
 
         List<String> mDomains = new ArrayList<>();
@@ -46,8 +43,7 @@ public class ChooseDomainActivity extends BaseActivity {
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
         mViewModel =
-                new ChooseDomainViewModel(getApplicationContext(), adapter, new Navigator(this),
-                        params);
+                new ChooseDomainViewModel(getApplicationContext(), adapter, new Navigator(this));
 
         SharedPrefsApi prefsApi = new SharedPrefsImpl(getApplicationContext());
         UserDataSource.LocalDataSource userLocalDataSource = new UserLocalDataSource(prefsApi);

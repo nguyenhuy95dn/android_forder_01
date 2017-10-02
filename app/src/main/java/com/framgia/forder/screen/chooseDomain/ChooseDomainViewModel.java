@@ -32,15 +32,12 @@ public class ChooseDomainViewModel extends BaseObservable
     private int mSelectedTypePosition;
     private final Navigator mNavigator;
     private boolean mProgressBarVisible;
-    private String mParams;
 
-    ChooseDomainViewModel(Context context, ArrayAdapter<String> adapter, Navigator navigator,
-            String params) {
+    ChooseDomainViewModel(Context context, ArrayAdapter<String> adapter, Navigator navigator) {
         mContext = context;
         mAdapter = adapter;
         mNavigator = navigator;
         mDomains = new ArrayList<>();
-        mParams = params;
         setProgressBarVisible(false);
     }
 
@@ -116,7 +113,7 @@ public class ChooseDomainViewModel extends BaseObservable
             Domain domain = mDomains.get(mSelectedTypePosition - 1);
             mPresenter.saveCurrentDomain(domain);
             Bundle bundle = new Bundle();
-            bundle.putString(PARAMS, mParams);
+            bundle.putString(PARAMS, "");
             mNavigator.startActivity(MainActivity.class, bundle);
             mNavigator.finishActivity();
             onHideProgressBar();
@@ -125,6 +122,7 @@ public class ChooseDomainViewModel extends BaseObservable
 
     public void onCLickLogout() {
         mNavigator.startActivity(LoginActivity.class);
+        mNavigator.finishActivity();
     }
 
     public void setSelectedTypePosition(Integer selectedTypePosition) {

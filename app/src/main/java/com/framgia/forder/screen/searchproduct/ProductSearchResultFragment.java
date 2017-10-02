@@ -25,6 +25,7 @@ import com.framgia.forder.data.source.remote.UserRemoteDataSource;
 import com.framgia.forder.data.source.remote.api.service.FOrderServiceClient;
 import com.framgia.forder.databinding.FragmentProductSearchResultBinding;
 import com.framgia.forder.screen.main.LoadCartListener;
+import com.framgia.forder.screen.mainpage.product.ProductAdapter;
 import com.framgia.forder.utils.navigator.Navigator;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class ProductSearchResultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         List<Product> products = new ArrayList<>();
-        ProductSearchResultAdapter adapter = new ProductSearchResultAdapter(getContext(), products);
+        ProductAdapter adapter = new ProductAdapter(getContext(), products);
         Navigator navigator = new Navigator(getParentFragment().getParentFragment());
         mViewModel = new ProductSearchResultViewModel(adapter, navigator, mLoadCartListener);
 

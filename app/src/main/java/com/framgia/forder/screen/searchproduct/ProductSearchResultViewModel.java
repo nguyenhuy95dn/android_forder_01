@@ -11,6 +11,7 @@ import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.main.LoadCartListener;
 import com.framgia.forder.screen.mainpage.ordercart.BaseOrderCartViewModel;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
+import com.framgia.forder.screen.mainpage.product.ProductAdapter;
 import com.framgia.forder.screen.productdetail.ProductDetailFragment;
 import com.framgia.forder.screen.quickorder.QuickOrderListener;
 import com.framgia.forder.utils.navigator.Navigator;
@@ -29,11 +30,11 @@ public class ProductSearchResultViewModel extends BaseOrderCartViewModel
     private static final String TAG = "ProductSearchResult";
 
     private ProductSearchResultContract.Presenter mPresenter;
-    private final ProductSearchResultAdapter mAdapter;
+    private final ProductAdapter mAdapter;
     private final Navigator mNavigator;
     private final LoadCartListener mLoadCartListener;
 
-    ProductSearchResultViewModel(ProductSearchResultAdapter adapter, Navigator navigator,
+    ProductSearchResultViewModel(ProductAdapter adapter, Navigator navigator,
             LoadCartListener loadCartListener) {
         mAdapter = adapter;
         mNavigator = navigator;
@@ -57,7 +58,7 @@ public class ProductSearchResultViewModel extends BaseOrderCartViewModel
         mPresenter = presenter;
     }
 
-    public ProductSearchResultAdapter getAdapter() {
+    public ProductAdapter getAdapter() {
         return mAdapter;
     }
 

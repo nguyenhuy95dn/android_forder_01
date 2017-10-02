@@ -269,8 +269,10 @@
                             android:layout_marginTop="@dimen/dp_5"
                             android:background="@color/color_gray_white"
                             android:orientation="vertical"
-                            app:layoutManager="LinearLayoutManager"
+                            app:layoutManager="GridLayoutManager"
                             app:recyclerAdapter="@{viewModel.productAdapter}"
+                            app:reverseLayout="false"
+                            app:spanCount="2"
                             />
                     </RelativeLayout>
                 </LinearLayout>

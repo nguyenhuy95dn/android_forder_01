@@ -87,7 +87,7 @@ public class OrderShopViewModel extends BaseObservable
 
     @Override
     public void onGetListOrderManagementShopError(BaseException exception) {
-        Log.e(TAG, "onGetListOrderManagementShopError: ", exception);
+        mNavigator.showToastCustom(exception.getMessage());
     }
 
     @Override
