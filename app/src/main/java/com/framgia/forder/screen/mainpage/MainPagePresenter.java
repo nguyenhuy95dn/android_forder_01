@@ -84,18 +84,6 @@ final class MainPagePresenter implements MainPageContract.Presenter {
         }
         Subscription subscription = mProductRepository.getListProduct(domain.getId())
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onShowProgressbarProduct();
-                    }
-                })
-                .doAfterTerminate(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onHideProgressbarProduct();
-                    }
-                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Product>>() {
                     @Override
@@ -124,18 +112,6 @@ final class MainPagePresenter implements MainPageContract.Presenter {
         }
         Subscription subscription = mShopRepository.getListTopShop(domain.getId(), "")
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onShowProgressbarShop();
-                    }
-                })
-                .doAfterTerminate(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onHideProgressbarShop();
-                    }
-                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Shop>>() {
                     @Override
@@ -159,18 +135,6 @@ final class MainPagePresenter implements MainPageContract.Presenter {
         }
         Subscription subscription = mCategoryRepository.getListCategory(domain.getId())
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onShowProgressbarCategory();
-                    }
-                })
-                .doAfterTerminate(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onHideProgressbarCategory();
-                    }
-                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Category>>() {
                     @Override

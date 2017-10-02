@@ -82,18 +82,6 @@ final class ListProductByCategoryPresenter implements ListProductByCategoryContr
     public void getListProductByCategory(int categoryId) {
         Subscription subscription = mProductRepository.getListProductByCategory(categoryId)
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onShowProgressBar();
-                    }
-                })
-                .doAfterTerminate(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onHideProgressBar();
-                    }
-                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Product>>() {
                     @Override

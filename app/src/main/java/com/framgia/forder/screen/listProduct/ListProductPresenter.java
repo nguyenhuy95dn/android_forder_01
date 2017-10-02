@@ -92,18 +92,6 @@ final class ListProductPresenter implements ListProductContract.Presenter {
         }
         Subscription subscription = mProductRepository.getListProduct(domain.getId())
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onShowProgressBar();
-                    }
-                })
-                .doAfterTerminate(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onHideProgressBar();
-                    }
-                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Product>>() {
                     @Override
@@ -175,18 +163,6 @@ final class ListProductPresenter implements ListProductContract.Presenter {
     public void getListCategory() {
         Subscription subscription = mCategoryRepository.getListAllCategory()
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onShowProgressDialog();
-                    }
-                })
-                .doAfterTerminate(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onHideProgressDialog();
-                    }
-                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Category>>() {
                     @Override

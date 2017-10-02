@@ -55,18 +55,6 @@ final class DomainManagementPresenter implements DomainManagementContract.Presen
         final User user = mUserRepository.getUser();
         Subscription subscription = mDomainRepository.getListDomainManagement()
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onShowProgressBar();
-                    }
-                })
-                .doAfterTerminate(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onHideProgressBar();
-                    }
-                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<DomainManagement>>() {
                     @Override

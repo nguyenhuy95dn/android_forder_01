@@ -9,7 +9,6 @@ import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -51,20 +50,7 @@ final class ListShopPresenter implements ListShopContract.Presenter {
         }
         Subscription subscription = mShopRepository.getListShop(domain.getId())
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onShowProgressBar();
-                    }
-                })
-                .doAfterTerminate(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onHideProgressBar();
-                    }
-                })
                 .observeOn(AndroidSchedulers.mainThread())
-
                 .subscribe(new Action1<List<Shop>>() {
                     @Override
                     public void call(List<Shop> shops) {
