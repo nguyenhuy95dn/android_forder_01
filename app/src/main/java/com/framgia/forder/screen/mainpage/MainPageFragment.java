@@ -45,14 +45,15 @@ import java.util.List;
 public class MainPageFragment extends Fragment {
     private MainPageContract.ViewModel mViewModel;
     private LoadCartListener mLoadCartListener;
+    private boolean mIsFirstTime;
 
     public static MainPageFragment newInstance() {
         return new MainPageFragment();
     }
 
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         List<Product> products = new ArrayList<>();
         ListProductAdapter productAdapter = new ListProductAdapter(getActivity(), products);
         List<Category> categories = new ArrayList<>();
@@ -85,6 +86,11 @@ public class MainPageFragment extends Fragment {
                 new MainPagePresenter(mViewModel, productRepository, domainRepository,
                         shopRepository, categoryRepository, userRepository);
         mViewModel.setPresenter(presenter);
+        mIsFirstTime = true;
+    }
+
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
 
         FragmentMainPageBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_main_page, container, false);
@@ -116,6 +122,25 @@ public class MainPageFragment extends Fragment {
     }
 
     public void reloadData() {
+        mViewModel.reloadData();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!isVisibleToUser) {
+            return;
+        }
+        mViewModel.reloadData();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mIsFirstTime) {
+            mIsFirstTime = false;
+            return;
+        }
         mViewModel.reloadData();
     }
 }

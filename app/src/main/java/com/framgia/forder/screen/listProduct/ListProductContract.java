@@ -44,6 +44,8 @@ interface ListProductContract {
         void onGetCategoriesSuccess(List<Category> categories);
 
         void onGetCategoriesError(BaseException error);
+
+        void reloadData();
     }
 
     /**
@@ -57,6 +59,8 @@ interface ListProductContract {
         void orderProduct(OrderRequest orderRequest);
 
         void getListCart(Product product);
+
+        void getListCategory();
 
         void getListProductByFillter(int categoryId, String priceSort, int priceFrom, int priceTo);
 

@@ -121,77 +121,64 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/layout_top_shop"
                 >
-                <View
-                    android:id="@+id/view_top"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:background="@color/color_orange_mos"
-                    />
-
-                <TextView
-                    android:id="@+id/text_categories"
-                    android:layout_width="match_parent"
+                <RelativeLayout
+                    android:id="@+id/view_category"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/view_top"
-                    android:background="@color/color_white"
-                    android:drawableLeft="@drawable/ic_label_orange"
-                    android:drawablePadding="@dimen/dp_5"
-                    android:drawableStart="@drawable/ic_label_orange"
-                    android:fontFamily="@string/font_serif"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/dp_5"
-                    android:text="@string/categories"
-                    android:textColor="@color/color_orange_mos"
-                    android:textSize="@dimen/sp_17"
-                    android:textStyle="bold"
-                    tools:ignore="UnusedAttribute"
-                    />
+                    android:visibility="@{viewModel.haveCategory? View.VISIBLE : View.GONE}"
+                    >
+                    <View
+                        android:id="@+id/view_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:background="@color/color_orange_mos"
+                        />
 
-                <View
-                    android:id="@+id/view_bottom"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:layout_below="@+id/text_categories"
-                    android:background="@color/color_orange_mos"
-                    />
+                    <TextView
+                        android:id="@+id/text_categories"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/view_top"
+                        android:background="@color/color_white"
+                        android:drawableLeft="@drawable/ic_label_orange"
+                        android:drawablePadding="@dimen/dp_5"
+                        android:drawableStart="@drawable/ic_label_orange"
+                        android:fontFamily="@string/font_serif"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_5"
+                        android:text="@string/categories"
+                        android:textColor="@color/color_orange_mos"
+                        android:textSize="@dimen/sp_17"
+                        android:textStyle="bold"
+                        tools:ignore="UnusedAttribute"
+                        />
 
+                    <View
+                        android:id="@+id/view_bottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:layout_below="@+id/text_categories"
+                        android:background="@color/color_orange_mos"
+                        />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_80"
+                        android:layout_below="@+id/view_bottom"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/dp_10"
+                        app:layoutManager="LinearLayoutManager"
+                        app:recyclerAdapter="@{viewModel.categoryAdapter}"
+                        />
+                </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/view_bottom"
+                    android:layout_below="@+id/view_category"
                     android:layout_marginBottom="@dimen/dp_5"
                     android:orientation="vertical"
                     >
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/color_gray_white"
-                        >
-
-                        <ProgressBar
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:visibility="@{viewModel.progressBarVisibleCategory? View.VISIBLE : View.GONE}"
-                            style="?android:attr/progressBarStyleSmall"
-                            />
-
-                        <android.support.v7.widget.RecyclerView
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_80"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:padding="@dimen/dp_10"
-                            app:layoutManager="LinearLayoutManager"
-                            app:recyclerAdapter="@{viewModel.categoryAdapter}"
-                            />
-                    </RelativeLayout>
-
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

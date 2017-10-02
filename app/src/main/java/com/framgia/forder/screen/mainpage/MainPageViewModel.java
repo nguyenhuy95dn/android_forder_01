@@ -52,6 +52,7 @@ public class MainPageViewModel extends BaseOrderCartViewModel implements MainPag
     private final DialogManager mDialogManager;
     private final int mPageLimit = 6;
     private final LoadCartListener mLoadCartListener;
+    private boolean mIsHaveCategory;
 
     MainPageViewModel(@NonNull Context context, ListProductAdapter productAdapter,
             Navigator navigator, CategoryAdapter categoryAdapter, ShopPageAdapter shopPageAdapter,
@@ -69,14 +70,12 @@ public class MainPageViewModel extends BaseOrderCartViewModel implements MainPag
         setProgressBarVisibleCategory(false);
         setProgressBarVisibleProduct(false);
         mShopPageAdapter = shopPageAdapter;
+        setHaveCategory(true);
     }
 
     @Override
     public void onStart() {
         mPresenter.onStart();
-        mPresenter.getListShop();
-        mPresenter.getListCategory();
-        mPresenter.getListProduct();
     }
 
     @Override
@@ -152,12 +151,17 @@ public class MainPageViewModel extends BaseOrderCartViewModel implements MainPag
 
     @Override
     public void onGetListCategorySuccess(List<Category> categories) {
+        if (categories.size() == 0) {
+            setHaveCategory(false);
+            return;
+        }
         mCategoryAdapter.updateData(categories);
     }
 
     @Override
     public void onGetListCategoryError(BaseException exception) {
         Log.e(TAG, "onGetListCartError: ", exception);
+        setHaveCategory(false);
     }
 
     @Override
@@ -308,5 +312,15 @@ public class MainPageViewModel extends BaseOrderCartViewModel implements MainPag
         request.setCartList(carts);
 
         mPresenter.orderProduct(request);
+    }
+
+    @Bindable
+    public boolean isHaveCategory() {
+        return mIsHaveCategory;
+    }
+
+    public void setHaveCategory(boolean haveCategory) {
+        mIsHaveCategory = haveCategory;
+        notifyPropertyChanged(BR.haveCategory);
     }
 }

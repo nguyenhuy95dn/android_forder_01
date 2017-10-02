@@ -41,13 +41,14 @@ public class ListProductFragment extends Fragment {
 
     private ListProductContract.ViewModel mViewModel;
     private LoadCartListener mLoadCartListener;
+    private boolean mIsFirstTime;
 
     public static ListProductFragment newInstance() {
         return new ListProductFragment();
     }
 
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         List<Product> products = new ArrayList<>();
         ListProductAdapter productAdapter = new ListProductAdapter(getActivity(), products);
@@ -94,6 +95,12 @@ public class ListProductFragment extends Fragment {
                 new ListProductPresenter(mViewModel, productRepository, userRepository,
                         domainRepository, categoryRepository);
         mViewModel.setPresenter(presenter);
+        mIsFirstTime = true;
+    }
+
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         FragmentListproductBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_listproduct, container, false);
@@ -121,5 +128,24 @@ public class ListProductFragment extends Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement LoadCartListener");
         }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!isVisibleToUser) {
+            return;
+        }
+        mViewModel.reloadData();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mIsFirstTime) {
+            mIsFirstTime = false;
+            return;
+        }
+        mViewModel.reloadData();
     }
 }

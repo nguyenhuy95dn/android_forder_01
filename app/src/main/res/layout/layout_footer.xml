@@ -13,151 +13,156 @@
     </data>
 
     <RelativeLayout
-        android:id="@+id/layout_footer"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_65"
-        android:layout_alignParentBottom="true"
-        android:background="@android:color/transparent"
-        tools:ignore="ObsoleteLayoutParam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:color="@android:color/transparent"
         >
-        <LinearLayout
-            android:id="@+id/layout_contain_item"
+        <RelativeLayout
+            android:id="@+id/layout_footer"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_48"
+            android:layout_height="@dimen/dp_65"
             android:layout_alignParentBottom="true"
-            android:background="@color/color_gray_white"
-            android:orientation="horizontal"
+            android:background="@android:color/transparent"
+            tools:ignore="ObsoleteLayoutParam"
             >
             <LinearLayout
-                android:id="@+id/layout_home"
-                android:onClick="@{viewModel::onFooterClicked}"
-                app:selected="@{true}"
-                tools:ignore="UseCompoundDrawables"
-                style="@style/StyleTabFooter"
+                android:id="@+id/layout_contain_item"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_48"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_gray_white"
+                android:orientation="horizontal"
                 >
-                <ImageView
-                    app:srcCompat="@drawable/selected_ic_home"
-                    tools:ignore="ContentDescription"
-                    style="@style/StyleImageViewTabFooter"
-                    />
-                <TextView
-                    android:text="@string/title_tab_home"
-                    style="@style/StyleTitleTabFooter"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/layout_seach"
-                android:onClick="@{viewModel::onFooterClicked}"
-                tools:ignore="UseCompoundDrawables"
-                style="@style/StyleTabFooter"
-                >
-                <ImageView
-                    app:srcCompat="@drawable/selected_ic_search"
-                    tools:ignore="ContentDescription"
-                    style="@style/StyleImageViewTabFooter"
-                    />
-                <TextView
-                    android:text="@string/title_tab_search"
-                    style="@style/StyleTitleTabFooter"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                style="@style/StyleTabFooter"
-                />
-            <LinearLayout
-                android:id="@+id/layout_notify"
-                android:onClick="@{viewModel::onFooterClicked}"
-                tools:ignore="UseCompoundDrawables"
-                style="@style/StyleTabFooter"
-                >
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:id="@+id/layout_home"
+                    android:onClick="@{viewModel::onFooterClicked}"
+                    app:selected="@{true}"
+                    tools:ignore="UseCompoundDrawables"
+                    style="@style/StyleTabFooter"
                     >
                     <ImageView
-                        app:srcCompat="@drawable/selected_ic_notifications"
+                        app:srcCompat="@drawable/selected_ic_home"
                         tools:ignore="ContentDescription"
                         style="@style/StyleImageViewTabFooter"
                         />
                     <TextView
+                        android:text="@string/title_tab_home"
+                        style="@style/StyleTitleTabFooter"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layout_seach"
+                    android:onClick="@{viewModel::onFooterClicked}"
+                    tools:ignore="UseCompoundDrawables"
+                    style="@style/StyleTabFooter"
+                    >
+                    <ImageView
+                        app:srcCompat="@drawable/selected_ic_search"
+                        tools:ignore="ContentDescription"
+                        style="@style/StyleImageViewTabFooter"
+                        />
+                    <TextView
+                        android:text="@string/title_tab_search"
+                        style="@style/StyleTitleTabFooter"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/StyleTabFooter"
+                    />
+                <LinearLayout
+                    android:id="@+id/layout_notify"
+                    android:onClick="@{viewModel::onFooterClicked}"
+                    tools:ignore="UseCompoundDrawables"
+                    style="@style/StyleTabFooter"
+                    >
+                    <FrameLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_gravity="end"
-                        android:background="@drawable/circle_number_of_product_red"
-                        android:ellipsize="marquee"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:text="@{viewModel.numberNotification}"
-                        android:textColor="@color/color_white"
-                        android:textSize="@dimen/sp_12"
-                        android:textStyle="bold"
-                        android:visibility="@{viewModel.notification ? View.GONE : View.VISIBLE}"
-                        tools:ignore="ObsoleteLayoutParam,UnusedAttribute"
+                        >
+                        <ImageView
+                            app:srcCompat="@drawable/selected_ic_notifications"
+                            tools:ignore="ContentDescription"
+                            style="@style/StyleImageViewTabFooter"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="end"
+                            android:background="@drawable/circle_number_of_product_red"
+                            android:ellipsize="marquee"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="@{viewModel.numberNotification}"
+                            android:textColor="@color/color_white"
+                            android:textSize="@dimen/sp_12"
+                            android:textStyle="bold"
+                            android:visibility="@{viewModel.notification ? View.GONE : View.VISIBLE}"
+                            tools:ignore="ObsoleteLayoutParam,UnusedAttribute"
+                            />
+                    </FrameLayout>
+                    <TextView
+                        android:text="@string/title_tab_nitofy"
+                        style="@style/StyleTitleTabFooter"
                         />
-                </FrameLayout>
-                <TextView
-                    android:text="@string/title_tab_nitofy"
-                    style="@style/StyleTitleTabFooter"
-                    />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layout_profile"
+                    android:onClick="@{viewModel::onFooterClicked}"
+                    tools:ignore="UseCompoundDrawables"
+                    style="@style/StyleTabFooter"
+                    >
+                    <ImageView
+                        app:srcCompat="@drawable/selected_ic_profile"
+                        tools:ignore="ContentDescription"
+                        style="@style/StyleImageViewTabFooter"
+                        />
+                    <TextView
+                        android:text="@string/title_tab_profile"
+                        style="@style/StyleTitleTabFooter"
+                        />
+                </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/layout_profile"
+            <FrameLayout
+                android:id="@+id/img_top"
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_60"
+                android:layout_centerInParent="true"
                 android:onClick="@{viewModel::onFooterClicked}"
-                tools:ignore="UseCompoundDrawables"
-                style="@style/StyleTabFooter"
                 >
                 <ImageView
-                    app:srcCompat="@drawable/selected_ic_profile"
-                    tools:ignore="ContentDescription"
-                    style="@style/StyleImageViewTabFooter"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/center_tab_footer"
+                    android:padding="@dimen/dp_10"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/selected_ic_cart"
+                    tools:ignore="ContentDescription,ObsoleteLayoutParam"
                     />
                 <TextView
-                    android:text="@string/title_tab_profile"
-                    style="@style/StyleTitleTabFooter"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/dp_1"
+                    android:layout_marginLeft="@dimen/dp_1"
+                    android:layout_marginRight="@dimen/dp_1"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:background="@drawable/circle_number_of_product_orange"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@{viewModel.numberOfCart}"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/sp_12"
+                    android:textStyle="bold"
+                    android:visibility="@{viewModel.noCart ? View.GONE : View.VISIBLE}"
+                    tools:ignore="ObsoleteLayoutParam,UnusedAttribute"
                     />
-            </LinearLayout>
-        </LinearLayout>
-        <FrameLayout
-            android:id="@+id/img_top"
-            android:layout_width="@dimen/dp_60"
-            android:layout_height="@dimen/dp_60"
-            android:layout_centerInParent="true"
-            android:onClick="@{viewModel::onFooterClicked}"
-            >
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/center_tab_footer"
-                android:padding="@dimen/dp_10"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/selected_ic_cart"
-                tools:ignore="ContentDescription,ObsoleteLayoutParam"
-                />
-            <TextView
-                android:layout_width="@dimen/dp_20"
-                android:layout_height="@dimen/dp_20"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="end"
-                android:layout_marginEnd="@dimen/dp_1"
-                android:layout_marginLeft="@dimen/dp_1"
-                android:layout_marginRight="@dimen/dp_1"
-                android:layout_marginStart="@dimen/dp_1"
-                android:background="@drawable/circle_number_of_product_orange"
-                android:ellipsize="marquee"
-                android:gravity="center"
-                android:maxLines="1"
-                android:text="@{viewModel.numberOfCart}"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/sp_12"
-                android:textStyle="bold"
-                android:visibility="@{viewModel.noCart ? View.GONE : View.VISIBLE}"
-                tools:ignore="ObsoleteLayoutParam,UnusedAttribute"
-                />
-        </FrameLayout>
+            </FrameLayout>
+        </RelativeLayout>
     </RelativeLayout>
-
 </layout>
