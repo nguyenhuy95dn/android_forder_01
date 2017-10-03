@@ -59,10 +59,6 @@ public class ItemNotificationViewModel extends BaseObservable {
         }
     }
 
-    public String getNotificationImage() {
-        return "";
-    }
-
     public String getNotificationTitle() {
         return mNotification.getMessage();
     }

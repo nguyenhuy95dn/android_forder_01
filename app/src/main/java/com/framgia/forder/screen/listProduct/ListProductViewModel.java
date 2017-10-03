@@ -21,6 +21,8 @@ import com.framgia.forder.screen.quickorder.QuickOrderListener;
 import com.framgia.forder.utils.navigator.Navigator;
 import com.framgia.forder.widgets.dialog.DialogManager;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -59,6 +61,7 @@ public class ListProductViewModel extends BaseOrderCartViewModel
     private int mSelectedPositionPriceSort;
     private int mPositionPriceTo;
     private final String[] mPrices;
+    private List<Product> mProducts;
 
     ListProductViewModel(ListProductAdapter listProductAdapter, Navigator navigator,
             DialogManager dialogManager, LoadCartListener loadCartListener,
@@ -77,6 +80,7 @@ public class ListProductViewModel extends BaseOrderCartViewModel
         mCategories = new ArrayList<>();
         setPositionPriceTo(POSITION_PRICE_100000);
         mPrices = mListProductAdapter.getContext().getResources().getStringArray(R.array.price);
+        mProducts = new ArrayList<>();
     }
 
     @Override
@@ -101,6 +105,7 @@ public class ListProductViewModel extends BaseOrderCartViewModel
 
     @Override
     public void onGetListAllProductSuccess(List<Product> products) {
+        mProducts = products;
         mListProductAdapter.updateData(products);
     }
 
@@ -315,12 +320,7 @@ public class ListProductViewModel extends BaseOrderCartViewModel
             setPositionPriceTo(POSITION_PRICE_100000);
             return;
         }
-        if (mSelectedPositionCategory == 0) {
-            mPresenter.getListAllProductByFillter(getPriceSort(), getPriceFrom(), getPriceTo());
-            return;
-        }
-        mPresenter.getListProductByFillter(getCategory().getId(), getPriceSort(), getPriceFrom(),
-                getPriceTo());
+        mListProductAdapter.updateData(filterListProduct());
     }
 
     private int getPriceFrom() {
@@ -370,5 +370,46 @@ public class ListProductViewModel extends BaseOrderCartViewModel
 
     private Category getCategory() {
         return mCategories.get(mSelectedPositionCategory - 1);
+    }
+
+    private List<Product> filterListProduct() {
+        List<Product> products =
+                sortBy(filterProductByCategory(getListProductFromTo(getPriceFrom(), getPriceTo())),
+                        getPriceSort());
+        return products;
+    }
+
+    private List<Product> sortBy(List<Product> products, final String sortBy) {
+        Collections.sort(products, new Comparator<Product>() {
+            @Override
+            public int compare(Product o1, Product o2) {
+                return sortBy.equals(DECREASES) ? (int) (o2.getPrice() - o1.getPrice())
+                        : (int) (o1.getPrice() - o2.getPrice());
+            }
+        });
+        return products;
+    }
+
+    private List<Product> getListProductFromTo(int priceFrom, int priceTo) {
+        List<Product> productsFromTo = new ArrayList<>();
+        for (Product product : mProducts) {
+            if (product.getPrice() >= priceFrom && product.getPrice() <= priceTo) {
+                productsFromTo.add(product);
+            }
+        }
+        return productsFromTo;
+    }
+
+    private List<Product> filterProductByCategory(List<Product> listProductFromTo) {
+        if (mSelectedPositionCategory == 0) {
+            return listProductFromTo;
+        }
+        List<Product> products = new ArrayList<>();
+        for (Product product : listProductFromTo) {
+            if (getCategory().getId() == product.getCategoryId()) {
+                products.add(product);
+            }
+        }
+        return products;
     }
 }
