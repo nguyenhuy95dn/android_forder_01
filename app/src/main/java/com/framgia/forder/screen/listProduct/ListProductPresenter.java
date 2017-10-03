@@ -12,7 +12,6 @@ import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.data.source.remote.api.error.SafetyError;
 import com.framgia.forder.data.source.remote.api.request.OrderRequest;
 import com.framgia.forder.data.source.remote.api.response.OrderCartResponse;
-import java.util.ArrayList;
 import java.util.List;
 import rx.Subscriber;
 import rx.Subscription;
@@ -45,12 +44,13 @@ final class ListProductPresenter implements ListProductContract.Presenter {
         mDomainRepository = domainRepository;
         mCategoryRepository = categoryRepository;
         mCompositeSubscription = new CompositeSubscription();
+        getListCategory();
+        getListAllProduct();
     }
 
     @Override
     public void onStart() {
         mProductRepository.openTransaction();
-        getListCategory();
     }
 
     @Override
@@ -171,7 +171,8 @@ final class ListProductPresenter implements ListProductContract.Presenter {
         mCompositeSubscription.add(subscriptions);
     }
 
-    private void getListCategory() {
+    @Override
+    public void getListCategory() {
         Subscription subscription = mCategoryRepository.getListAllCategory()
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Action0() {

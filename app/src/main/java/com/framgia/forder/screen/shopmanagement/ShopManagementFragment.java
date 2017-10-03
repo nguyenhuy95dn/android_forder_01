@@ -25,17 +25,15 @@ import com.framgia.forder.widgets.dialog.DialogManager;
 public class ShopManagementFragment extends Fragment {
 
     private ShopManagementContract.ViewModel mViewModel;
+    private boolean mIsFirstTime;
 
     public static ShopManagementFragment newInstance() {
         return new ShopManagementFragment();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Navigator navigator = new Navigator(getParentFragment());
         DialogManager dialogManager = new DialogManager(getActivity());
         ListShopManagementAdapter listShopManagementAdapter =
@@ -50,6 +48,14 @@ public class ShopManagementFragment extends Fragment {
         ShopManagementContract.Presenter presenter =
                 new ShopManagementPresenter(mViewModel, userRepository, shopRepository);
         mViewModel.setPresenter(presenter);
+        mIsFirstTime = true;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         FragmentShopmanagementBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_shopmanagement, container,
                         false);
@@ -73,6 +79,16 @@ public class ShopManagementFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (!isAdded() || !isVisibleToUser) {
+            return;
+        }
+        mViewModel.onReLoadData();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mIsFirstTime) {
+            mIsFirstTime = false;
             return;
         }
         mViewModel.onReLoadData();

@@ -88,14 +88,6 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
         switch (view.getId()) {
             case R.id.layout_home:
                 setCurrentTab(Tab.TAB_HOME);
-                Navigator navigator = new Navigator(mViewPagerAdapter.getFragment(Tab.TAB_HOME));
-                navigator.goBackFragmentByTag(TAG, POP_BACK_STACK_CLEAR_TASK);
-                MainPageFragment fragment =
-                        (MainPageFragment) mViewPagerAdapter.getFragment(Tab.TAB_HOME)
-                                .getChildFragmentManager()
-                                .getFragments()
-                                .get(Tab.TAB_HOME);
-                fragment.reloadData();
                 break;
             case R.id.layout_seach:
                 setCurrentTab(Tab.TAB_SEARCH);

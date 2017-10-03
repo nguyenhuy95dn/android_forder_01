@@ -82,7 +82,6 @@ public class ListProductViewModel extends BaseOrderCartViewModel
     @Override
     public void onStart() {
         mPresenter.onStart();
-        mPresenter.getListAllProduct();
     }
 
     @Override
@@ -176,6 +175,12 @@ public class ListProductViewModel extends BaseOrderCartViewModel
     @Override
     public void onGetCategoriesError(BaseException error) {
         Log.e(TAG, "onGetCategoriesError: ", error);
+    }
+
+    @Override
+    public void reloadData() {
+        mPresenter.getListCategory();
+        mPresenter.getListAllProduct();
     }
 
     @Override

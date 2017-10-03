@@ -46,6 +46,9 @@ final class MainPagePresenter implements MainPageContract.Presenter {
         mShopRepository = shopRepository;
         mCategoryRepository = categoryRepository;
         mUserRepository = userRepository;
+        getListShop();
+        getListCategory();
+        getListProduct();
     }
 
     @Override
