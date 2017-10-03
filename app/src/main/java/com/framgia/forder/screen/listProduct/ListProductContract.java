@@ -61,9 +61,5 @@ interface ListProductContract {
         void getListCart(Product product);
 
         void getListCategory();
-
-        void getListProductByFillter(int categoryId, String priceSort, int priceFrom, int priceTo);
-
-        void getListAllProductByFillter(String priceSort, int priceFrom, int priceTo);
     }
 }

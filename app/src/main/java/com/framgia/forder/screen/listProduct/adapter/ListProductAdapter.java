@@ -12,7 +12,6 @@ import com.framgia.forder.databinding.ItemListProductBinding;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
 import com.framgia.forder.screen.mainpage.product.ItemProductViewModel;
 import com.framgia.forder.screen.mainpage.product.OrderListener;
-import com.framgia.forder.widgets.animation.AnimationManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +24,6 @@ public class ListProductAdapter extends BaseRecyclerViewAdapter<ListProductAdapt
     private final List<Product> mProducts;
     private OnRecyclerViewItemClickListener<Object> mItemClickListener;
     private OrderListener mOrderListener;
-    private AnimationManager mAnimationManager;
 
     public ListProductAdapter(@NonNull Context context, List<Product> products) {
         super(context);
@@ -34,7 +32,6 @@ public class ListProductAdapter extends BaseRecyclerViewAdapter<ListProductAdapt
             return;
         }
         mProducts.addAll(products);
-        mAnimationManager = new AnimationManager(context);
     }
 
     @Override
@@ -48,7 +45,6 @@ public class ListProductAdapter extends BaseRecyclerViewAdapter<ListProductAdapt
     @Override
     public void onBindViewHolder(final ListProductAdapter.ItemViewHolder holder, int position) {
         holder.bind(mProducts.get(position));
-        mAnimationManager.animationSlideInLeft(holder.itemView, position);
     }
 
     @Override

@@ -5,7 +5,7 @@ package com.framgia.forder.utils;
  */
 
 public final class Constant {
-    public static final String END_POINT_URL = "http://172.16.13.25:3000/";
+    public static final String END_POINT_URL = "http://172.16.12.98:3000/";
     // For bundle
     public static final String ARGUMENT_LIST_USER = "ARGUMENT_LIST_USER";
     public static final String BREAK_LINE = "\n";
