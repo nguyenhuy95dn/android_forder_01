@@ -30,6 +30,7 @@ public class ProductShopInfoViewModel extends BaseObservable
     private final DialogManager mDialogManager;
     private boolean mIsProgressBarListProductVisible;
     private ProductShopInfoContract.Presenter mPresenter;
+    private boolean mIsHaveData;
 
     ProductShopInfoViewModel(Navigator navigator, ProductShopInformationAdapter adapter,
             ShopManagement shopManagement, DialogManager dialogManager) {
@@ -39,6 +40,7 @@ public class ProductShopInfoViewModel extends BaseObservable
         mDialogManager = dialogManager;
         mAdapter.setUpdateProductListener(this);
         setProgressBarListProductVisible(false);
+        setHaveData(true);
     }
 
     @Override
@@ -65,6 +67,11 @@ public class ProductShopInfoViewModel extends BaseObservable
 
     @Override
     public void onGetListAllProductShopInformationSuccess(List<Product> products) {
+        if (products.size() == 0) {
+            setHaveData(false);
+            return;
+        }
+        setHaveData(true);
         mAdapter.updateData(products);
     }
 
@@ -138,5 +145,15 @@ public class ProductShopInfoViewModel extends BaseObservable
     public void setProgressBarListProductVisible(boolean progressBarListProductVisible) {
         mIsProgressBarListProductVisible = progressBarListProductVisible;
         notifyPropertyChanged(BR.progressBarListProductVisible);
+    }
+
+    @Bindable
+    public boolean isHaveData() {
+        return mIsHaveData;
+    }
+
+    public void setHaveData(boolean haveData) {
+        mIsHaveData = haveData;
+        notifyPropertyChanged(BR.haveData);
     }
 }

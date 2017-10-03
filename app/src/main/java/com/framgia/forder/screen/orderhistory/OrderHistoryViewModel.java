@@ -31,6 +31,7 @@ public class OrderHistoryViewModel extends BaseObservable
     private String mEndDate;
     private boolean mIsHidden;
     private int mFlag;
+    private boolean mIsHaveData;
 
     OrderHistoryViewModel(OrderHistoryAdapter orderHistoryAdapter, Navigator navigator,
             DialogManager dialogManager) {
@@ -58,11 +59,16 @@ public class OrderHistoryViewModel extends BaseObservable
 
     @Override
     public void onGetListAllOrderHistoryError(BaseException e) {
-        mNavigator.showToast(e.getMessage());
+        setHaveData(false);
     }
 
     @Override
     public void onGetListAllOrderHistorySuccess(List<Order> orderHistories) {
+        if (orderHistories.size() == 0) {
+            setHaveData(false);
+            return;
+        }
+        setHaveData(true);
         mOrderHistoryAdapter.updateData(orderHistories);
     }
 
@@ -139,5 +145,15 @@ public class OrderHistoryViewModel extends BaseObservable
             mEndDate = Utils.DateTimeUntils.convertDateToStringOther(mCalendar.getTime());
             notifyPropertyChanged(BR.endDate);
         }
+    }
+
+    @Bindable
+    public boolean isHaveData() {
+        return mIsHaveData;
+    }
+
+    public void setHaveData(boolean haveData) {
+        mIsHaveData = haveData;
+        notifyPropertyChanged(BR.haveData);
     }
 }

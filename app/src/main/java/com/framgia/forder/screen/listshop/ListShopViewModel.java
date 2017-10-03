@@ -24,12 +24,14 @@ public class ListShopViewModel extends BaseObservable implements ListShopContrac
     private final ListShopAdapter mAdapter;
     private final Navigator mNavigator;
     private boolean mIsProgressbarVisibleListAllShop;
+    private boolean mIsHaveData;
 
     ListShopViewModel(Navigator navigator, ListShopAdapter adapter) {
         mNavigator = navigator;
         mAdapter = adapter;
         mAdapter.setItemClickListener(this);
         setProgressbarVisibleListAllShop(false);
+        setHaveData(true);
     }
 
     @Override
@@ -50,10 +52,16 @@ public class ListShopViewModel extends BaseObservable implements ListShopContrac
     @Override
     public void onGetListAllShopError(BaseException e) {
         mNavigator.showToast(e.getMessage());
+        setHaveData(false);
     }
 
     @Override
     public void onGetListAllShopSuccess(List<Shop> shops) {
+        if (shops.size() == 0) {
+            setHaveData(false);
+            return;
+        }
+        setHaveData(true);
         mAdapter.updateData(shops);
     }
 
@@ -89,5 +97,15 @@ public class ListShopViewModel extends BaseObservable implements ListShopContrac
     public void setProgressbarVisibleListAllShop(boolean progressbarVisibleListAllShop) {
         mIsProgressbarVisibleListAllShop = progressbarVisibleListAllShop;
         notifyPropertyChanged(BR.progressbarVisibleListAllShop);
+    }
+
+    @Bindable
+    public boolean isHaveData() {
+        return mIsHaveData;
+    }
+
+    public void setHaveData(boolean haveData) {
+        mIsHaveData = haveData;
+        notifyPropertyChanged(BR.haveData);
     }
 }

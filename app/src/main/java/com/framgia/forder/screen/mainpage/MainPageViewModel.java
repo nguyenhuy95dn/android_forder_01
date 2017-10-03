@@ -155,6 +155,7 @@ public class MainPageViewModel extends BaseOrderCartViewModel implements MainPag
             setHaveCategory(false);
             return;
         }
+        setHaveCategory(true);
         mCategoryAdapter.updateData(categories);
     }
 

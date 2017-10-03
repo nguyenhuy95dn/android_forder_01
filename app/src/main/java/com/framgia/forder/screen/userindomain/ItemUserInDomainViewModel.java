@@ -33,7 +33,7 @@ public class ItemUserInDomainViewModel extends BaseObservable {
 
     private void checkRole() {
         if (isCheckOwner()) {
-            mIsAuthority = false;
+            mIsMember = false;
         }
         if (isCheckManager()) {
             mIsMember = false;
@@ -43,25 +43,16 @@ public class ItemUserInDomainViewModel extends BaseObservable {
         }
     }
 
-    public boolean isCheckMember() {
-        if (mIsAuthority && mUser.getRoleOfMember() == 2) {
-            return true;
-        }
-        return false;
+    private boolean isCheckMember() {
+        return mUser.getRoleOfMember() == 2;
     }
 
-    public boolean isCheckManager() {
-        if (mIsAuthority && mUser.getRoleOfMember() == 1) {
-            return true;
-        }
-        return false;
+    private boolean isCheckManager() {
+        return mUser.getRoleOfMember() == 1;
     }
 
-    public boolean isCheckOwner() {
-        if (mIsAuthority && mUser.getRoleOfMember() == 0) {
-            return true;
-        }
-        return false;
+    private boolean isCheckOwner() {
+        return mUser.getRoleOfMember() == 0;
     }
 
     public String getName() {

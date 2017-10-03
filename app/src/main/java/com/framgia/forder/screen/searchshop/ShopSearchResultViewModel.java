@@ -1,5 +1,8 @@
 package com.framgia.forder.screen.searchshop;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Shop;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
@@ -11,17 +14,20 @@ import java.util.List;
  * Exposes the data to be used in the Searchshop screen.
  */
 
-public class ShopSearchResultViewModel implements ShopSearchResultContract.ViewModel,
+public class ShopSearchResultViewModel extends BaseObservable
+        implements ShopSearchResultContract.ViewModel,
         BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Object> {
 
     private ShopSearchResultContract.Presenter mPresenter;
     private ShopSearchResultAdapter mAdapter;
     private Navigator mNavigator;
+    private boolean mIsHaveData;
 
-    public ShopSearchResultViewModel(ShopSearchResultAdapter adapter, Navigator navigator) {
+    ShopSearchResultViewModel(ShopSearchResultAdapter adapter, Navigator navigator) {
         mAdapter = adapter;
         mNavigator = navigator;
         mAdapter.setItemClickListener(this);
+        setHaveData(true);
     }
 
     @Override
@@ -45,6 +51,11 @@ public class ShopSearchResultViewModel implements ShopSearchResultContract.ViewM
 
     @Override
     public void onSearchSuccess(List<Shop> shops) {
+        if (shops.size() == 0) {
+            setHaveData(false);
+            return;
+        }
+        setHaveData(true);
         mAdapter.updateData(shops);
     }
 
@@ -56,5 +67,15 @@ public class ShopSearchResultViewModel implements ShopSearchResultContract.ViewM
         Shop shop = (Shop) item;
         mNavigator.goNextChildFragment(R.id.layout_content, ShopDetailFragment.newInstance(shop),
                 true, Navigator.RIGHT_LEFT, "ShopDetailFragment");
+    }
+
+    @Bindable
+    public boolean isHaveData() {
+        return mIsHaveData;
+    }
+
+    public void setHaveData(boolean haveData) {
+        mIsHaveData = haveData;
+        notifyPropertyChanged(BR.haveData);
     }
 }
