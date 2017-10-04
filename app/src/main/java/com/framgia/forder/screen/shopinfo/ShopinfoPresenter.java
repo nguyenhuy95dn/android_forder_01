@@ -50,18 +50,6 @@ final class ShopinfoPresenter implements ShopinfoContract.Presenter {
     public void getListManagerOfShop(int shopId) {
         Subscription subscription = mShopRepository.getListManagerOfShop(shopId)
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onShowProgressBarListManager();
-                    }
-                })
-                .doAfterTerminate(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onHideProgressBarListManager();
-                    }
-                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<ManagerResponse.ManagerDetail>>() {
                     @Override

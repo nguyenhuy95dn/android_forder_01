@@ -49,18 +49,6 @@ final class ShopInDomainPresenter implements ShopInDomainContract.Presenter {
     public void getListShopInDomain(int domainId) {
         Subscription subscription = mShopRepository.getListShopInDomain(domainId)
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onShowProgressBar();
-                    }
-                })
-                .doAfterTerminate(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.onHideProgressBar();
-                    }
-                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<ShopInDomain>>() {
                     @Override

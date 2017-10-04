@@ -198,6 +198,9 @@ public class OrderShopViewModel extends BaseObservable
     }
 
     public void onClickCloseOrder() {
+        if (getListAcceptOrder().size() == 0) {
+            return;
+        }
         mNavigator.goNextChildFragment(R.id.layout_content,
                 ListAcceptOrderFragment.newInstance(getListAcceptOrder(), mShopId), true,
                 Navigator.RIGHT_LEFT, "ListAcceptOrderFragment");

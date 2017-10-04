@@ -117,7 +117,7 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
         } else if (view instanceof FrameLayout && !view.isSelected()) {
             view.setSelected(!view.isSelected());
             viewGroup = (ViewGroup) ((ViewGroup) view.getParent()).getChildAt(0);
-        } else if (!(view instanceof ImageView)) {
+        } else if (!(view instanceof ImageView) && !view.isSelected()) {
             viewGroup = (ViewGroup) view.getParent();
             ((ViewGroup) viewGroup.getParent()).getChildAt(1).setSelected(false);
         }
@@ -312,7 +312,7 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     }
 
     @Override
-    public void onReloadDataMain(){
+    public void onReloadDataMain() {
         mPresenter.reloadDataMain();
     }
 
