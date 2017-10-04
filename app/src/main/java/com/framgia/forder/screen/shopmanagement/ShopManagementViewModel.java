@@ -30,6 +30,7 @@ public class ShopManagementViewModel extends BaseObservable
     private ShopManagementContract.Presenter mPresenter;
     private boolean mIsProgressbarVisibleShopManagement;
     private final DialogManager mDialogManager;
+    private boolean mIsHaveData;
 
     ShopManagementViewModel(Navigator navigator, ListShopManagementAdapter adapter,
             DialogManager dialogManager) {
@@ -39,6 +40,7 @@ public class ShopManagementViewModel extends BaseObservable
         mListShopManagementAdapter.setItemClickListener(this);
         mListShopManagementAdapter.setChangeStatusShopManagement(this);
         setProgressbarVisibleShopManagement(false);
+        setHaveData(true);
     }
 
     @Override
@@ -64,11 +66,17 @@ public class ShopManagementViewModel extends BaseObservable
     @Override
     public void onShowMessageError(BaseException exception) {
         Log.e(TAG, "onShowMessageError: ", exception);
+        setHaveData(false);
     }
 
     @Override
     public void onGetListShopManagementSuccess(List<ShopManagement> shopManagements) {
+        if (shopManagements.size() == 0) {
+            setHaveData(false);
+            return;
+        }
         mListShopManagementAdapter.updateData(shopManagements);
+        setHaveData(true);
     }
 
     @Override
@@ -128,5 +136,15 @@ public class ShopManagementViewModel extends BaseObservable
     @Override
     public void onChangeStatusShop(int shopId, String status) {
         mPresenter.requestChangeStatusShop(shopId, status);
+    }
+
+    @Bindable
+    public boolean isHaveData() {
+        return mIsHaveData;
+    }
+
+    public void setHaveData(boolean haveData) {
+        mIsHaveData = haveData;
+        notifyPropertyChanged(BR.haveData);
     }
 }

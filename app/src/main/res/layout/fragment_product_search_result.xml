@@ -2,6 +2,7 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     >
 
     <data>
@@ -10,13 +11,45 @@
             name="viewModel"
             type="com.framgia.forder.screen.searchproduct.ProductSearchResultViewModel"
             />
+        <import type="android.view.View"/>
 
     </data>
 
-    <android.support.v7.widget.RecyclerView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"
-        app:recyclerAdapter="@{viewModel.adapter}"
-        />
+        >
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.haveData ? View.VISIBLE : View.GONE}"
+            app:layoutManager="LinearLayoutManager"
+            app:recyclerAdapter="@{viewModel.adapter}"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.haveData ? View.GONE : View.VISIBLE}"
+            >
+            <ImageView
+                android:id="@+id/img_no_data"
+                android:layout_width="@dimen/dp_120"
+                android:layout_height="@dimen/dp_120"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_no_data"
+                tools:ignore="ContentDescription"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_no_data"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="@string/no_data"
+                android:textColor="@color/color_gray"
+                android:textSize="@dimen/sp_24"
+                />
+        </RelativeLayout>
+    </FrameLayout>
 </layout>

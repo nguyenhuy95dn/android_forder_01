@@ -241,4 +241,5 @@
     <string name="shop_is_time_out_would_you_like_delete_cart">Shop is time out, would you like delete cart?</string>
     <string name="sorry_not_connect_to_internet">Sorry! Not connected to internet</string>
     <string name="refresh">Refresh</string>
+    <string name="no_data">No data</string>
 </resources>

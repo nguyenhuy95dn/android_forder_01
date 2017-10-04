@@ -73,13 +73,4 @@ public class OrderHistoryFragment extends Fragment {
         mViewModel.onStop();
         super.onStop();
     }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (!isAdded() || !isVisibleToUser) {
-            return;
-        }
-        mViewModel.onReLoadData();
-    }
 }

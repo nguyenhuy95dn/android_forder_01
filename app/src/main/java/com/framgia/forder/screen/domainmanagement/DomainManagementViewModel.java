@@ -33,6 +33,7 @@ public class DomainManagementViewModel extends BaseObservable
     private final Navigator mNavigator;
     private final DialogManager mDialogManager;
     private boolean mIsProgressBarVisible;
+    private boolean mIsHaveData;
 
     DomainManagementViewModel(DomainManagementAdapter domainManagementAdapter, Navigator navigator,
             AddDomainFragment addDomainFragment, EditdomainFragment editdomainFragment,
@@ -43,6 +44,7 @@ public class DomainManagementViewModel extends BaseObservable
         mDialogManager = dialogManager;
         addDomainFragment.setAddDomainListener(this);
         editdomainFragment.setEditDomainListener(this);
+        setHaveData(true);
     }
 
     @Override
@@ -67,6 +69,11 @@ public class DomainManagementViewModel extends BaseObservable
     @Override
     public void onGetListDomainManagementSuccess(int userId,
             List<DomainManagement> domainManagementList) {
+        if (domainManagementList.size() == 0) {
+            setHaveData(false);
+            return;
+        }
+        setHaveData(true);
         for (DomainManagement domainManagement : domainManagementList) {
             if (userId == domainManagement.getOwner()) {
                 domainManagement.setOwner(true);
@@ -78,6 +85,7 @@ public class DomainManagementViewModel extends BaseObservable
     @Override
     public void onShowMessageError(BaseException error) {
         mNavigator.showToastCustom(error.getMessage());
+        setHaveData(false);
     }
 
     @Override
@@ -196,5 +204,15 @@ public class DomainManagementViewModel extends BaseObservable
     public void setProgressBarVisible(boolean progressBarVisible) {
         mIsProgressBarVisible = progressBarVisible;
         notifyPropertyChanged(BR.progressBarVisible);
+    }
+
+    @Bindable
+    public boolean isHaveData() {
+        return mIsHaveData;
+    }
+
+    public void setHaveData(boolean haveData) {
+        mIsHaveData = haveData;
+        notifyPropertyChanged(BR.haveData);
     }
 }

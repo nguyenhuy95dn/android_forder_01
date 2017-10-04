@@ -1,6 +1,8 @@
 package com.framgia.forder.screen.searchproduct;
 
+import android.databinding.Bindable;
 import android.util.Log;
+import com.framgia.forder.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Cart;
 import com.framgia.forder.data.model.CartItem;
@@ -33,6 +35,7 @@ public class ProductSearchResultViewModel extends BaseOrderCartViewModel
     private final ProductAdapter mAdapter;
     private final Navigator mNavigator;
     private final LoadCartListener mLoadCartListener;
+    private boolean mIsHaveData;
 
     ProductSearchResultViewModel(ProductAdapter adapter, Navigator navigator,
             LoadCartListener loadCartListener) {
@@ -41,6 +44,7 @@ public class ProductSearchResultViewModel extends BaseOrderCartViewModel
         mLoadCartListener = loadCartListener;
         mAdapter.setOrderListener(this);
         mAdapter.setItemClickListener(this);
+        setHaveData(true);
     }
 
     @Override
@@ -64,6 +68,11 @@ public class ProductSearchResultViewModel extends BaseOrderCartViewModel
 
     @Override
     public void onSearchSuccess(List<Product> products) {
+        if (products.size() == 0) {
+            setHaveData(false);
+            return;
+        }
+        setHaveData(true);
         mAdapter.updateData(products);
     }
 
@@ -147,5 +156,15 @@ public class ProductSearchResultViewModel extends BaseOrderCartViewModel
         request.setCartList(carts);
 
         mPresenter.orderProduct(request);
+    }
+
+    @Bindable
+    public boolean isHaveData() {
+        return mIsHaveData;
+    }
+
+    public void setHaveData(boolean haveData) {
+        mIsHaveData = haveData;
+        notifyPropertyChanged(BR.haveData);
     }
 }

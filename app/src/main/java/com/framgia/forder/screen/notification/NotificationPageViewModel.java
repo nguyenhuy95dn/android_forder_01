@@ -1,7 +1,9 @@
 package com.framgia.forder.screen.notification;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.util.Log;
+import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.data.model.Notification;
 import com.framgia.forder.data.source.remote.api.error.BaseException;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
@@ -20,6 +22,7 @@ public class NotificationPageViewModel extends BaseObservable
     private NotificationPageContract.Presenter mPresenter;
     private final NotificationPageAdapter mNotificationPageAdapter;
     private final Navigator mNavigator;
+    private boolean mIsHaveData;
 
     NotificationPageViewModel(NotificationPageAdapter notificationPageAdapter,
             Navigator navigator) {
@@ -47,10 +50,16 @@ public class NotificationPageViewModel extends BaseObservable
     @Override
     public void onGetListAllNotificationError(BaseException e) {
         Log.e(TAG, "onGetListAllNotificationError: ", e);
+        setHaveData(false);
     }
 
     @Override
     public void onGetListAllNotificationSuccess(List<Notification> notifications) {
+        if (notifications.size() == 0) {
+            setHaveData(false);
+            return;
+        }
+        setHaveData(true);
         mNotificationPageAdapter.updateData(notifications);
     }
 
@@ -66,5 +75,15 @@ public class NotificationPageViewModel extends BaseObservable
 
     public NotificationPageAdapter getNotificationPageAdapter() {
         return mNotificationPageAdapter;
+    }
+
+    @Bindable
+    public boolean isHaveData() {
+        return mIsHaveData;
+    }
+
+    public void setHaveData(boolean haveData) {
+        mIsHaveData = haveData;
+        notifyPropertyChanged(BR.haveData);
     }
 }

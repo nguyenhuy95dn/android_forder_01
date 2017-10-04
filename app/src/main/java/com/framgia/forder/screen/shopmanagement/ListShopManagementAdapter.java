@@ -10,7 +10,6 @@ import com.framgia.forder.R;
 import com.framgia.forder.data.model.ShopManagement;
 import com.framgia.forder.databinding.ItemShopManagementBinding;
 import com.framgia.forder.screen.BaseRecyclerViewAdapter;
-import com.framgia.forder.widgets.animation.AnimationManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,13 +22,11 @@ public class ListShopManagementAdapter
 
     private final List<ShopManagement> mShopManagements;
     private OnRecyclerViewItemClickListener<Object> mItemClickListener;
-    private final AnimationManager mAnimationManager;
     private ChangeStatusShopManagement mChangeStatusShopManagement;
 
     ListShopManagementAdapter(@NonNull Context context) {
         super(context);
         mShopManagements = new ArrayList<>();
-        mAnimationManager = new AnimationManager(context);
     }
 
     @Override
@@ -45,7 +42,6 @@ public class ListShopManagementAdapter
     @Override
     public void onBindViewHolder(ListShopManagementAdapter.ItemViewHolder holder, int position) {
         holder.bind(mShopManagements.get(position));
-        mAnimationManager.animationSlideInLeft(holder.itemView, position);
     }
 
     @Override

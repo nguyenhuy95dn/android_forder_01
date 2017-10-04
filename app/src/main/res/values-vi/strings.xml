@@ -240,4 +240,5 @@
     <string name="unfollow">Hủy theo dõi</string>
     <string name="shop_is_time_out_would_you_like_delete_cart">Shop đã hết giờ đặt hàng, bạn có muốn xóa giỏ hàng?</string>
     <string name="sorry_not_connect_to_internet">Không có kết nối mạng!</string>
+    <string name="no_data">Không có dữ liệu</string>
 </resources>
