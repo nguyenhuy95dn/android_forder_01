@@ -28,6 +28,10 @@ public class ShopPageAdapter extends FragmentStatePagerAdapter {
         return ShopPageFragment.newInstance(mShopList.get(position));
     }
 
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
     @Override
     public int getCount() {
         return mShopList.size();

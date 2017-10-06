@@ -89,7 +89,7 @@ final class MainPresenter implements MainContract.Presenter {
             return 0;
         }
         for (int i = 0; i < domains.size(); i++) {
-            if (domain.getId() == domains.get(i).getId()) {
+            if (domain.getId().equals(domains.get(i).getId())) {
                 return i;
             }
         }
@@ -195,7 +195,7 @@ final class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void reloadDataMain(){
+    public void reloadDataMain() {
         getListCart();
         getListNotification();
         getListShopInDomain(mCurrenDomain);

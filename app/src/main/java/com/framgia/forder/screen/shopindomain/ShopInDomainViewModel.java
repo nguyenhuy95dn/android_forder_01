@@ -32,6 +32,7 @@ public class ShopInDomainViewModel extends BaseObservable
     private final DialogManager mDialogManager;
     private ShopInDomainContract.Presenter mPresenter;
     private boolean mIsProgressBarListShopInDomain;
+    private boolean mIsHaveData;
 
     ShopInDomainViewModel(ShopInDomainAdapter shopInDomainAdapter, Navigator navigator,
             DomainManagement domainManagement, DialogManager dialogManager) {
@@ -64,11 +65,17 @@ public class ShopInDomainViewModel extends BaseObservable
 
     @Override
     public void onGetListShopInDomainSuccess(List<ShopInDomain> shops) {
+        if (shops.size() == 0) {
+            setHaveData(false);
+            return;
+        }
+        setHaveData(true);
         mAdapter.updateData(shops, OWNER.equals(mDomainManagement.getRoleOfCurrentUser()));
     }
 
     @Override
     public void onGetListShopInDomainError(BaseException error) {
+        setHaveData(false);
         Log.e(TAG, "onGetListShopInDomainError: ", error);
     }
 
@@ -137,5 +144,15 @@ public class ShopInDomainViewModel extends BaseObservable
 
     public boolean isMember() {
         return MEMBER.equals(mDomainManagement.getRoleOfCurrentUser());
+    }
+
+    @Bindable
+    public boolean isHaveData() {
+        return mIsHaveData;
+    }
+
+    public void setHaveData(boolean haveData) {
+        mIsHaveData = haveData;
+        notifyPropertyChanged(BR.haveData);
     }
 }

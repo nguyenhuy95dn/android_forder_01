@@ -2,12 +2,14 @@ package com.framgia.forder.screen.ordershop;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.databinding.ObservableField;
 import android.support.annotation.IdRes;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.RadioGroup;
+import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.forder.R;
 import com.framgia.forder.data.model.Domain;
 import com.framgia.forder.data.model.Order;
@@ -47,6 +49,7 @@ public class OrderShopViewModel extends BaseObservable
     private int mSelectedPositionDomain;
     private final List<Domain> mDomains;
     private int mRadioButtonChecked;
+    private boolean mIsHaveData;
 
     OrderShopViewModel(Context context, Navigator navigator, OrderShopAdapter orderShopAdapter,
             ShopManagement shopManagement, ArrayAdapter<String> adapterDomain) {
@@ -81,6 +84,11 @@ public class OrderShopViewModel extends BaseObservable
 
     @Override
     public void onGetListOrderManagementShopSuccess(List<Order> orders) {
+        if (orders.size() == 0) {
+            setHaveData(false);
+            return;
+        }
+        setHaveData(true);
         mOrders = orders;
         mOrderShopAdapter.updateData(orders);
     }
@@ -88,6 +96,7 @@ public class OrderShopViewModel extends BaseObservable
     @Override
     public void onGetListOrderManagementShopError(BaseException exception) {
         mNavigator.showToastCustom(exception.getMessage());
+        setHaveData(false);
     }
 
     @Override
@@ -389,5 +398,15 @@ public class OrderShopViewModel extends BaseObservable
 
     public Domain getDomain() {
         return mDomains.get(mSelectedPositionDomain - 1);
+    }
+
+    @Bindable
+    public boolean isHaveData() {
+        return mIsHaveData;
+    }
+
+    public void setHaveData(boolean haveData) {
+        mIsHaveData = haveData;
+        notifyPropertyChanged(BR.haveData);
     }
 }

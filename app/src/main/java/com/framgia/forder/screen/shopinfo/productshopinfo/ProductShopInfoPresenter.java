@@ -68,7 +68,7 @@ final class ProductShopInfoPresenter implements ProductShopInfoContract.Presente
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
-                        mViewModel.onErrorMessage(error);
+                        mViewModel.onGetListAllProductShopInformationError(error);
                     }
                 });
         mCompositeSubscription.add(subscription);

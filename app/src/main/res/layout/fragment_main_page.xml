@@ -25,15 +25,16 @@
         <import type="android.support.v7.widget.LinearLayoutManager"/>
     </data>
 
-
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_gray_white"
+        android:fillViewport="true"
         >
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
             >
             <RelativeLayout
                 android:id="@+id/layout_top_shop"
@@ -64,8 +65,9 @@
                         <TextView
                             android:layout_width="@dimen/dp_250"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/dp_30"
-                            android:layout_marginRight="@dimen/dp_30"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
                             android:drawableLeft="@drawable/ic_store_orange"
                             android:drawablePadding="@dimen/dp_5"
                             android:drawableStart="@drawable/ic_store_orange"
@@ -97,14 +99,44 @@
                         android:background="@color/color_orange_mos"
                         />
 
-                    <android.support.v4.view.ViewPager
-                        android:id="@+id/viewpager_slide"
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_270"
-                        android:background="@color/color_gray_white"
-                        app:offscreenPageLimit="@{viewModel.pageLimit}"
-                        bind:adapter="@{viewModel.shopPageAdapter}"
-                        />
+                        android:layout_height="match_parent"
+                        >
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/viewpager_slide"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_270"
+                            android:background="@color/color_gray_white"
+                            android:visibility="@{viewModel.haveDataShop ? View.VISIBLE : View.GONE}"
+                            app:offscreenPageLimit="@{viewModel.pageLimit}"
+                            bind:adapter="@{viewModel.shopPageAdapter}"
+                            />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_270"
+                            android:visibility="@{viewModel.haveDataShop ? View.GONE : View.VISIBLE}"
+                            >
+                            <ImageView
+                                android:id="@+id/img_no_data_shop"
+                                android:layout_width="@dimen/dp_80"
+                                android:layout_height="@dimen/dp_80"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_no_data"
+                                tools:ignore="ContentDescription"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/img_no_data_shop"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/no_data"
+                                android:textColor="@color/color_gray"
+                                android:textSize="@dimen/sp_20"
+                                />
+                        </RelativeLayout>
+                    </FrameLayout>
                 </LinearLayout>
 
                 <ProgressBar
@@ -166,6 +198,7 @@
                         android:layout_height="@dimen/dp_80"
                         android:layout_below="@+id/view_bottom"
                         android:layout_gravity="center_vertical"
+                        android:background="@color/color_gray_white"
                         android:orientation="horizontal"
                         android:padding="@dimen/dp_10"
                         app:layoutManager="LinearLayoutManager"
@@ -181,7 +214,7 @@
                     >
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
                         android:background="@color/color_white"
                         >
 
@@ -230,21 +263,11 @@
                             />
                     </RelativeLayout>
 
-                    <RelativeLayout
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/color_gray_white"
                         >
-
-                        <ProgressBar
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:visibility="@{viewModel.progressBarVisibleProduct? View.VISIBLE : View.GONE}"
-                            style="?android:attr/progressBarStyleSmall"
-                            />
-
                         <android.support.v7.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -256,14 +279,39 @@
                             android:layout_marginTop="@dimen/dp_5"
                             android:background="@color/color_gray_white"
                             android:orientation="vertical"
+                            android:visibility="@{viewModel.haveDataProduct ? View.VISIBLE : View.GONE}"
                             app:layoutManager="GridLayoutManager"
                             app:recyclerAdapter="@{viewModel.productAdapter}"
                             app:reverseLayout="false"
                             app:spanCount="2"
                             />
-                    </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="@{viewModel.haveDataProduct ? View.GONE : View.VISIBLE}"
+                            >
+                            <ImageView
+                                android:id="@+id/img_no_data"
+                                android:layout_width="@dimen/dp_80"
+                                android:layout_height="@dimen/dp_80"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_no_data"
+                                tools:ignore="ContentDescription"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/img_no_data"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/no_data"
+                                android:textColor="@color/color_gray"
+                                android:textSize="@dimen/sp_20"
+                                />
+                        </RelativeLayout>
+                    </FrameLayout>
                 </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </layout>

@@ -54,7 +54,7 @@ final class RequestShopInDomainPresenter implements RequestShopInDomainContract.
                 }, new SafetyError() {
                     @Override
                     public void onSafetyError(BaseException error) {
-                        mViewModel.onGetMessageError(error);
+                        mViewModel.onGetListRequestShopError(error);
                     }
                 });
         mCompositeSubscription.add(subscription);
