@@ -28,6 +28,8 @@ interface ProductShopInfoContract {
         void onShowProgressBar();
 
         void onHideProgressBar();
+
+        void onGetListAllProductShopInformationError(BaseException error);
     }
 
     /**

@@ -27,7 +27,6 @@ public class ShopSearchResultViewModel extends BaseObservable
         mAdapter = adapter;
         mNavigator = navigator;
         mAdapter.setItemClickListener(this);
-        setHaveData(true);
     }
 
     @Override

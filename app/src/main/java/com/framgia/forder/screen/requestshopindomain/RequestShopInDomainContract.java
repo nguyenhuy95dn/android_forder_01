@@ -23,6 +23,8 @@ interface RequestShopInDomainContract {
         void showProgressBarDialog();
 
         void hideProgressBarDialog();
+
+        void onGetListRequestShopError(BaseException error);
     }
 
     /**

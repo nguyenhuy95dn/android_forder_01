@@ -44,7 +44,6 @@ public class ProductSearchResultViewModel extends BaseOrderCartViewModel
         mLoadCartListener = loadCartListener;
         mAdapter.setOrderListener(this);
         mAdapter.setItemClickListener(this);
-        setHaveData(true);
     }
 
     @Override

@@ -53,6 +53,8 @@ public class MainPageViewModel extends BaseOrderCartViewModel implements MainPag
     private final int mPageLimit = 6;
     private final LoadCartListener mLoadCartListener;
     private boolean mIsHaveCategory;
+    private boolean mIsHaveDataProduct;
+    private boolean mIsHaveDataShop;
 
     MainPageViewModel(@NonNull Context context, ListProductAdapter productAdapter,
             Navigator navigator, CategoryAdapter categoryAdapter, ShopPageAdapter shopPageAdapter,
@@ -120,20 +122,32 @@ public class MainPageViewModel extends BaseOrderCartViewModel implements MainPag
     @Override
     public void onGetListProductError(BaseException exception) {
         Log.e(TAG, "onGetListShopError: ", exception);
+        setHaveDataProduct(false);
     }
 
     @Override
     public void onGetListProductSuccess(List<Product> products) {
+        if (products.size() == 0) {
+            setHaveDataProduct(false);
+            return;
+        }
+        setHaveDataProduct(true);
         mProductAdapter.updateData(products);
     }
 
     @Override
     public void onGetListShopError(BaseException exception) {
+        setHaveDataShop(false);
         Log.e(TAG, "onGetListShopError: ", exception);
     }
 
     @Override
     public void onGetListShopSuccess(List<Shop> shops) {
+        if (shops.size() == 0) {
+            setHaveDataShop(false);
+            return;
+        }
+        setHaveDataShop(true);
         mShopPageAdapter.updateShop(shops);
     }
 
@@ -323,5 +337,25 @@ public class MainPageViewModel extends BaseOrderCartViewModel implements MainPag
     public void setHaveCategory(boolean haveCategory) {
         mIsHaveCategory = haveCategory;
         notifyPropertyChanged(BR.haveCategory);
+    }
+
+    @Bindable
+    public boolean isHaveDataProduct() {
+        return mIsHaveDataProduct;
+    }
+
+    public void setHaveDataProduct(boolean haveDataProduct) {
+        mIsHaveDataProduct = haveDataProduct;
+        notifyPropertyChanged(BR.haveDataProduct);
+    }
+
+    @Bindable
+    public boolean isHaveDataShop() {
+        return mIsHaveDataShop;
+    }
+
+    public void setHaveDataShop(boolean haveDataShop) {
+        mIsHaveDataShop = haveDataShop;
+        notifyPropertyChanged(BR.haveDataShop);
     }
 }

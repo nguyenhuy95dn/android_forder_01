@@ -62,6 +62,7 @@ public class ListProductViewModel extends BaseOrderCartViewModel
     private int mPositionPriceTo;
     private final String[] mPrices;
     private List<Product> mProducts;
+    private boolean mIsHaveData;
 
     ListProductViewModel(ListProductAdapter listProductAdapter, Navigator navigator,
             DialogManager dialogManager, LoadCartListener loadCartListener,
@@ -101,10 +102,16 @@ public class ListProductViewModel extends BaseOrderCartViewModel
     @Override
     public void onGetListAllProductError(BaseException exception) {
         mNavigator.showToast(exception.getMessage());
+        setHaveData(false);
     }
 
     @Override
     public void onGetListAllProductSuccess(List<Product> products) {
+        if (products.size() == 0) {
+            setHaveData(false);
+            return;
+        }
+        setHaveData(true);
         mProducts = products;
         mListProductAdapter.updateData(products);
     }
@@ -320,6 +327,11 @@ public class ListProductViewModel extends BaseOrderCartViewModel
             setPositionPriceTo(POSITION_PRICE_100000);
             return;
         }
+        if (filterListProduct().size() == 0) {
+            setHaveData(false);
+            return;
+        }
+        setHaveData(true);
         mListProductAdapter.updateData(filterListProduct());
     }
 
@@ -411,5 +423,15 @@ public class ListProductViewModel extends BaseOrderCartViewModel
             }
         }
         return products;
+    }
+
+    @Bindable
+    public boolean isHaveData() {
+        return mIsHaveData;
+    }
+
+    public void setHaveData(boolean haveData) {
+        mIsHaveData = haveData;
+        notifyPropertyChanged(BR.haveData);
     }
 }

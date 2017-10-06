@@ -133,25 +133,56 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="@dimen/dp_5"
                     android:layout_marginRight="@dimen/dp_5"
-                    app:srcCompat="@drawable/ic_search"
                     android:onClick="@{()-> viewModel.onClickFillter()}"
                     android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_search"
                     tools:ignore="ContentDescription"
                     />
             </LinearLayout>
         </LinearLayout>
-        <android.support.v7.widget.RecyclerView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/fillter_product"
-            android:background="@color/color_white"
-            android:foregroundGravity="center_horizontal"
-            android:orientation="vertical"
-            app:layoutManager="GridLayoutManager"
-            app:recyclerAdapter="@{viewModel.listProductAdapter}"
-            app:reverseLayout="false"
-            app:spanCount="2"
-            />
+            >
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_white"
+                android:foregroundGravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="@{viewModel.haveData ? View.VISIBLE : View.GONE}"
+                app:layoutManager="GridLayoutManager"
+                app:recyclerAdapter="@{viewModel.listProductAdapter}"
+                app:reverseLayout="false"
+                app:spanCount="2"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{viewModel.haveData ? View.GONE : View.VISIBLE}"
+                >
+                <ImageView
+                    android:id="@+id/img_no_data"
+                    android:layout_width="@dimen/dp_120"
+                    android:layout_height="@dimen/dp_120"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/ic_no_data"
+                    tools:ignore="ContentDescription"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_no_data"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:text="@string/no_data"
+                    android:textColor="@color/color_gray"
+                    android:textSize="@dimen/sp_24"
+                    />
+            </RelativeLayout>
+        </FrameLayout>
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

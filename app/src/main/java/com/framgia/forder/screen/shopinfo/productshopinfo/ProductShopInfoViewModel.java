@@ -102,6 +102,12 @@ public class ProductShopInfoViewModel extends BaseObservable
     }
 
     @Override
+    public void onGetListAllProductShopInformationError(BaseException error) {
+        Log.e(TAG, "onErrorMessage: ", error);
+        setHaveData(false);
+    }
+
+    @Override
     public void onUpdateProduct(Product product) {
         mNavigator.goNextChildFragment(R.id.layout_content,
                 UpdateProductFragment.newInstance(product), true, Navigator.RIGHT_LEFT,
